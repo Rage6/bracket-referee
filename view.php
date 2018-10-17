@@ -53,7 +53,9 @@
       </tr>
     </table>
     <form method='POST'>
-      <input type='submit' name='logout' value="LOGOUT"/>
+      <input type='submit' name='logout' value='LOGOUT'/>
+      <input type='submit' name='edit' value='EDIT'/>
+      <input type='submit' name='delete' value='DELETE'/>
     </form>
   </body>
 </html>
