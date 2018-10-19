@@ -1,7 +1,7 @@
 $(()=>{
 
   // Starting variables
-  
+
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -14,4 +14,14 @@ $(()=>{
     $('#signForm').toggle();
   });
 
+  // Toggle the box for changing the password with title
+  $('#changePs').hide();
+  $('#change-Pw-Btn').click(()=>{
+    $('#changePs').toggle();
+  });
+
+  // Close the box for changing the password with 'CANCEL' button
+  $('#change-Pw-cancel').click(()=>{
+    $('#changePs').hide();
+  });
 })
