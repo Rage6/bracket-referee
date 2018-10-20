@@ -23,7 +23,7 @@
         if (password_verify($_POST['password'],$list['pswd'])) {
           $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b>";
           $_SESSION['player_id'] = $list['player_id'];
-          header('Location: view.php');
+          header('Location: player.php');
           return true;
         } else {
           $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
@@ -59,8 +59,8 @@
             ));
             $newID = $findID->fetch(PDO::FETCH_ASSOC);
             $_SESSION['player_id'] = $newID['player_id'];
-            $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_SESSION['userName']."!</b>";
-            header('Location: view.php');
+            $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
+            header('Location: player.php');
             return true;
           } else {
             $_SESSION['message'] = "<b style='color:red'>Password must be greater than 7 and less than 26 characters</b>";

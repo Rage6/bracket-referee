@@ -15,10 +15,11 @@
   ));
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
 
-  // Returns the user to the view.php file
+  // Returns the user to the player.php file
   if (isset($_POST['cancel'])) {
     $_SESSION['message'] = "<b style='color:blue'>Changes canceled</b>";
-    header('Location: view.php');
+    header('Location: player.php');
+    return true;
   };
 
   // Submits the edited values
@@ -34,7 +35,7 @@
           ':id'=>$_SESSION['player_id']
         ));
         $_SESSION['message'] = "<b style='color:green'>Update successful</b>";
-        header('Location: view.php');
+        header('Location: player.php');
         return true;
       } else {
         $_SESSION['message'] = "<b style='color:red'>Invalid email address</b>";
@@ -66,7 +67,7 @@
               ':id'=>$_SESSION['player_id']
             ));
             $_SESSION['message'] = "<b style='color:blue'>Password change successful</b>";
-            header('Location: view.php');
+            header('Location: player.php');
             return true;
           } else {
             $_SESSION['message'] = "<b style='color:red'>New passwords were not equal</b>";
