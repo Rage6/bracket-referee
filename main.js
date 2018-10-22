@@ -24,8 +24,22 @@ $(()=>{
     $('#changePs').hide();
   });
 
+  // findGroup
+  $("#findGroupBox").hide();
+  $('#findGroup').click(()=>{
+    $("#findGroupBox").toggle();
+  });
   $('#cancelGroup').click(()=>{
-    console.log("Make this toggle later");
+    $("#addGroupBox").hide();
+  });
+
+  // Toggle the box for adding a new group
+  $("#addGroupBox").hide();
+  $('#showAddBox').click(()=>{
+    $("#addGroupBox").toggle();
+  });
+  $('#cancelGroup').click(()=>{
+    $("#addGroupBox").hide();
   });
 
   // Toggle the box for deleting account in player.php

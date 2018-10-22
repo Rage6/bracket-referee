@@ -25,6 +25,19 @@
     return true;
   };
 
+  // User can search for a group by their names
+  if (isset($_POST['findGroup'])) {
+    if (strlen($_POST['name']) > 0) {
+      $_SESSION['test'] = $_POST['name'];
+      header('Location: player.php');
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Empty value</b>";
+      header('Location: player.php');
+      return false;
+    }
+  };
+
   // Start a new Group
   if (isset($_POST['new_group'])) {
     if (strlen($_POST['group_name']) > 0) {
@@ -33,13 +46,20 @@
         ':pid'=>$_SESSION['player_id'],
         ':gnm'=>htmlentities($_POST['group_name'])
       ));
+      $getIdStmt = $pdo->query("SELECT LAST_INSERT_ID()");
+      $groupId = $getIdStmt->fetchColumn();
+      $grpPlyStmt = $pdo->prepare('INSERT INTO Groups_Players(group_id,player_id) VALUES (:gr,:pl)');
+      $grpPlyStmt->execute(array(
+        ':gr'=>$groupId,
+        ':pl'=>$_SESSION['player_id']
+      ));
       $_SESSION['message'] = "<b style='color:green'>New group created!</b>";
       header('Location: player.php');
       return true;
     } else {
       $_SESSION['message'] = "<b style='color:red'>Group name is required</b>";
       header('Location: player.php');
-      return true;
+      return false;
     };
   };
 
@@ -73,6 +93,12 @@
     <script src="main.js"></script>
   </head>
   <body>
+    <?php
+    if (isset($_SESSION['test'])) {
+      echo($_SESSION['test']);
+      unset($_SESSION['test']);
+    };
+    ?>
     <h1>Bracket HQ</h1>
     <?php
     if (isset($_SESSION['message'])) {
@@ -118,17 +144,26 @@
       </table>
     </div>
     <div id="groupBox">
-      <h3 id="showGroupBox">Referee A New Group?</h3>
-      <form method="POST">
-        <table>
-          <tr>
-            <td>Group name:</td>
-            <td><input type='text' name='group_name'></td>
-          </tr>
-        </table>
-        <input type="submit" name="new_group" value="START">
-      </form>
-      <button id="cancelGroup">CANCEL</button>
+      <h3 id="findGroup">Find An Existing Group?</h3>
+      <div id="findGroupBox">
+        <form method="POST">
+          <input type="text" name="name"/>
+          <input type="submit" name="findGroup" value="SEARCH" />
+        </form>
+      </div>
+      <h3 id="showAddBox">Create A New Group?</h3>
+      <div id="addGroupBox">
+        <form method="POST">
+          <table>
+            <tr>
+              <td>Group name:</td>
+              <td><input type='text' name='group_name'></td>
+            </tr>
+          </table>
+          <input type="submit" name="new_group" value="START">
+        </form>
+        <button id="cancelGroup">CANCEL</button>
+      </div>
     </div>
     <h3 id="showDeleteBox">Delete your account?</h3>
     <div id="deleteBox">
