@@ -1,7 +1,6 @@
 <?php
   session_start();
   require_once("pdo.php");
-
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
