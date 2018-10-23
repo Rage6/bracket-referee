@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("test successful");
+  console.log("new test successful");
   // Starting variables
 
 
@@ -25,17 +25,15 @@ $(()=>{
   });
 
   // findGroup
-  $("#findGroupBox").hide();
+  // $("#findGroupBox").hide();
   $('#findGroup').click(()=>{
     $("#findGroupBox").toggle();
-  });
-  $('#cancelGroup').click(()=>{
-    $("#addGroupBox").hide();
   });
 
   // Toggle the box for adding a new group
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
+    $("#findGroupBox").hide();
     $("#addGroupBox").toggle();
   });
   $('#cancelGroup').click(()=>{
@@ -46,6 +44,7 @@ $(()=>{
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
     $('#deleteBox').toggle();
+    $("#findGroupBox").hide();
   });
   // Close the account deletion account
   $('#cancelDelete').click(()=>{
