@@ -33,7 +33,4 @@
   <li>
     <b>Hacker Prevention</b>: In order to prevent SQL injection, <i>htmlentities()</i> is used whenever a user submits any 'text' data. If not, SQL could be maliciously used to see or modify the database.
   </li>
-  <li>
-    <b>Database Security</b>: You may have noticed that this database's password is displayed on the PDO. DON'T WORRY! As soon as I complete this and deploy it to the public, I plan on changing the displayed password and ensure that its new password is not displayed on GitHub. I would hide it sooner, but I cannot seem to find a way to hide a certain line of code, only entire files.
-  </li>
 </ol>
