@@ -25,6 +25,22 @@
     return true;
   };
 
+  // User can search for a group by their names
+  if (isset($_POST['findGroup'])) {
+    if (strlen($_POST['name']) > 0) {
+
+      $findStmt = $pdo->prepare('SELECT group_name FROM Groups');
+      $findList = $findStmt->execute();
+      $_SESSION['search'] = htmlentities($_POST['name']);
+      header('Location: player.php');
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Empty value</b>";
+      header('Location: player.php');
+      return false;
+    }
+  };
+
   // Start a new Group
   if (isset($_POST['new_group'])) {
     if (strlen($_POST['group_name']) > 0) {
@@ -33,13 +49,20 @@
         ':pid'=>$_SESSION['player_id'],
         ':gnm'=>htmlentities($_POST['group_name'])
       ));
+      $getIdStmt = $pdo->query("SELECT LAST_INSERT_ID()");
+      $groupId = $getIdStmt->fetchColumn();
+      $grpPlyStmt = $pdo->prepare('INSERT INTO Groups_Players(group_id,player_id) VALUES (:gr,:pl)');
+      $grpPlyStmt->execute(array(
+        ':gr'=>$groupId,
+        ':pl'=>$_SESSION['player_id']
+      ));
       $_SESSION['message'] = "<b style='color:green'>New group created!</b>";
       header('Location: player.php');
       return true;
     } else {
       $_SESSION['message'] = "<b style='color:red'>Group name is required</b>";
       header('Location: player.php');
-      return true;
+      return false;
     };
   };
 
@@ -73,6 +96,12 @@
     <script src="main.js"></script>
   </head>
   <body>
+    <?php
+    if (isset($_SESSION['test'])) {
+      var_dump($_SESSION['test']);
+      unset($_SESSION['test']);
+    };
+    ?>
     <h1>Bracket HQ</h1>
     <?php
     if (isset($_SESSION['message'])) {
@@ -118,17 +147,55 @@
       </table>
     </div>
     <div id="groupBox">
-      <h3 id="showGroupBox">Referee A New Group?</h3>
-      <form method="POST">
-        <table>
-          <tr>
-            <td>Group name:</td>
-            <td><input type='text' name='group_name'></td>
-          </tr>
-        </table>
-        <input type="submit" name="new_group" value="START">
-      </form>
-      <button id="cancelGroup">CANCEL</button>
+      <h3 id="findGroup">Find An Existing Group?</h3>
+      <div id="findGroupBox">
+        <form method="POST">
+          <input type="text" name="name"/>
+          <input type="submit" name="findGroup" value="SEARCH" />
+        </form>
+        <?php
+          $nameList = null;
+          if (isset($_SESSION['search'])) {
+            $findList = $pdo->prepare('SELECT group_name,admin_id FROM Groups WHERE group_name LIKE :nm');
+            $findList->execute(array(
+              ':nm'=>$_SESSION['search']."%"
+            ));
+            while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
+              $nameList[] = ($row['group_name']);
+              if ($row['admin_id'] == $_SESSION['player_id']) {
+                $idList[] = "<b>EDIT</b>";
+              } else {
+                $idList[] = "---";
+              };
+            };
+            unset($_SESSION['search']);
+          };
+        ?>
+      </div>
+      <?php
+        if ($nameList != null) {
+          echo("<table>");
+          for ($i = 0; $i < count($nameList); $i++) {
+            echo("<tr><td>".$nameList[$i]."</td>");
+            echo("<td>".$idList[$i]."</td></tr>");
+          };
+          echo("</table>");
+          echo("Total Found: ".$i);
+        };
+      ?>
+      <h3 id="showAddBox">Create A New Group?</h3>
+      <div id="addGroupBox">
+        <form method="POST">
+          <table>
+            <tr>
+              <td>Group name:</td>
+              <td><input type='text' name='group_name'></td>
+            </tr>
+          </table>
+          <input type="submit" name="new_group" value="START">
+        </form>
+        <button id="cancelGroup">CANCEL</button>
+      </div>
     </div>
     <h3 id="showDeleteBox">Delete your account?</h3>
     <div id="deleteBox">
