@@ -28,7 +28,10 @@
   // User can search for a group by their names
   if (isset($_POST['findGroup'])) {
     if (strlen($_POST['name']) > 0) {
-      $_SESSION['test'] = $_POST['name'];
+
+      $findStmt = $pdo->prepare('SELECT group_name FROM Groups');
+      $findList = $findStmt->execute();
+      $_SESSION['search'] = htmlentities($_POST['name']);
       header('Location: player.php');
       return true;
     } else {
@@ -95,7 +98,7 @@
   <body>
     <?php
     if (isset($_SESSION['test'])) {
-      echo($_SESSION['test']);
+      var_dump($_SESSION['test']);
       unset($_SESSION['test']);
     };
     ?>
@@ -150,7 +153,36 @@
           <input type="text" name="name"/>
           <input type="submit" name="findGroup" value="SEARCH" />
         </form>
+        <?php
+          $nameList = null;
+          if (isset($_SESSION['search'])) {
+            $findList = $pdo->prepare('SELECT group_name,admin_id FROM Groups WHERE group_name LIKE :nm');
+            $findList->execute(array(
+              ':nm'=>$_SESSION['search']."%"
+            ));
+            while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
+              $nameList[] = ($row['group_name']);
+              if ($row['admin_id'] == $_SESSION['player_id']) {
+                $idList[] = "<b>EDIT</b>";
+              } else {
+                $idList[] = "---";
+              };
+            };
+            unset($_SESSION['search']);
+          };
+        ?>
       </div>
+      <?php
+        if ($nameList != null) {
+          echo("<table>");
+          for ($i = 0; $i < count($nameList); $i++) {
+            echo("<tr><td>".$nameList[$i]."</td>");
+            echo("<td>".$idList[$i]."</td></tr>");
+          };
+          echo("</table>");
+          echo("Total Found: ".$i);
+        };
+      ?>
       <h3 id="showAddBox">Create A New Group?</h3>
       <div id="addGroupBox">
         <form method="POST">
