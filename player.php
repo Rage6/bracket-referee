@@ -9,6 +9,9 @@
   ));
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
 
+  $groupLink = "http://localhost:8888/bracket-referee/group.php?player_id=".$_SESSION['player_id'];
+  echo($groupLink);
+
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
     $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to view your profile.</b>";
@@ -16,7 +19,6 @@
     header('Location: index.php');
     return false;
   };
-
   // Allows user to log out
   if (isset($_POST['logout'])) {
     $_SESSION['message'] = "<b style='color:green'>Log out successful</b>";
@@ -96,12 +98,6 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <?php
-    if (isset($_SESSION['test'])) {
-      var_dump($_SESSION['test']);
-      unset($_SESSION['test']);
-    };
-    ?>
     <h1>Bracket HQ</h1>
     <?php
     if (isset($_SESSION['message'])) {
@@ -141,7 +137,7 @@
             ':id'=>$_SESSION['player_id']
           ));
           while ($row = $groupList->fetch(PDO::FETCH_ASSOC)) {
-            echo("<tr><td>".$row['group_name']."</td></tr>");
+            echo("<tr><td><a href=".$groupLink.">".$row['group_name']."</td></tr>");
           };
         ?>
       </table>

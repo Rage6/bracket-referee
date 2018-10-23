@@ -1,5 +1,10 @@
 <?php
-
+  // Prevents entering this page w/o logging in
+  echo($_SESSION['player_id']);
+  $_SESSION['message'] = "A player_id is there.";
+  if (!isset($_SESSION['player_id'])) {
+    $_SESSION['message'] = "A player_id is NOT there.";
+  };
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -13,6 +18,11 @@
     <script src="main.js"></script>
   </head>
   <body>
-    This is a tests
+    <?php
+      if (isset($_SESSION['message'])) {
+        echo($_SESSION['message']);
+        unset($_SESSION['message']);
+      };
+    ?>
   </body>
 </html>
