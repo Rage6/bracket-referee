@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("test successful");
+  console.log("'master' test successful");
   // Starting variables
 
 
