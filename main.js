@@ -1,7 +1,5 @@
 $(()=>{
   console.log("new test successful");
-  // Starting variables
-
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -25,7 +23,7 @@ $(()=>{
   });
 
   // findGroup
-  // $("#findGroupBox").hide();
+  $("#findGroupBox").hide();
   $('#findGroup').click(()=>{
     $("#findGroupBox").toggle();
   });
