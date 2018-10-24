@@ -9,8 +9,8 @@
   ));
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
 
-  $groupLink = "http://localhost:8888/bracket-referee/group.php?player_id=".$_SESSION['player_id'];
-  echo($groupLink);
+  // This is the prefix for all of the href that take a user to a givien group in the search list
+  $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -132,12 +132,12 @@
           </th>
         </tr>
         <?php
-          $groupList = $pdo->prepare('SELECT Groups.group_name FROM Groups JOIN Groups_Players ON Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id=:id');
+          $groupList = $pdo->prepare('SELECT Groups.group_id,Groups.group_name FROM Groups JOIN Groups_Players ON Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id=:id');
           $groupList->execute(array(
             ':id'=>$_SESSION['player_id']
           ));
           while ($row = $groupList->fetch(PDO::FETCH_ASSOC)) {
-            echo("<tr><td><a href=".$groupLink.">".$row['group_name']."</td></tr>");
+            echo("<tr><td><a href=".$groupLink.$row['group_id'].">".$row['group_name']."</td></tr>");
           };
         ?>
       </table>

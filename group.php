@@ -1,10 +1,42 @@
 <?php
+  session_start();
+  require_once("pdo.php");
+
   // Prevents entering this page w/o logging in
-  echo($_SESSION['player_id']);
-  $_SESSION['message'] = "A player_id is there.";
   if (!isset($_SESSION['player_id'])) {
-    $_SESSION['message'] = "A player_id is NOT there.";
+    $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to join a group.</b>";
+    header('Location: index.php');
+    return false;
   };
+
+  // Sends the user back to the Player file
+  if (isset($_POST['returnPlayer'])) {
+    header('Location: player.php');
+    return true;
+  };
+
+  // Recalls the current group's name
+  $grpNameStmt = $pdo->prepare('SELECT group_name,admin_id FROM Groups WHERE group_id=:gid');
+  $grpNameStmt->execute(array(
+    ':gid'=>htmlentities($_GET['group_id'])
+  ));
+  $grpNameResult = $grpNameStmt->fetch(PDO::FETCH_ASSOC);
+
+  // Recalls the administrator's username
+  $grpUserResult = $grpNameResult['admin_id'];
+  $adminStmt = $pdo->prepare('SELECT userName FROM Players WHERE player_id=:aid');
+  $adminStmt->execute(array(
+    ':aid'=>$grpUserResult
+  ));
+  $adminResult = $adminStmt->fetch(PDO::FETCH_ASSOC);
+
+  // Recalls all of the players in this group
+  $grpAllStmt = $pdo->prepare('SELECT userName FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
+  $grpAllStmt->execute(array(
+    ':gid'=>$_GET['group_id']
+  ));
+
+  // If the user wants to see a single group
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -18,11 +50,32 @@
     <script src="main.js"></script>
   </head>
   <body>
+    <h1>Group: <?php echo($grpNameResult['group_name']) ?></h1>
+    <h2>Director: <?php echo($adminResult['userName']) ?></h2>
+    <?php
+      if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
+        echo("<p><u>EDIT</u></p>");
+      };
+    ?>
+    <h2>Players:</h2>
+    <table>
+      <tr>
+        <th>Username</th>
+      </tr>
+      <?php
+        while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+          echo("<tr><td>".$playerRow['userName']."</td></tr>");
+        };
+      ?>
+    </table>
     <?php
       if (isset($_SESSION['message'])) {
         echo($_SESSION['message']);
         unset($_SESSION['message']);
       };
     ?>
+    <form method="POST">
+      <input type="submit" name="returnPlayer" value="<- BACK" />
+    </form>
   </body>
 </html>
