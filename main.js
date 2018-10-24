@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("new test successful");
+  console.log("old test successful");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -22,18 +22,9 @@ $(()=>{
     $('#changePs').hide();
   });
 
-  // findGroup
-  $("#findGroupBox").hide();
-  $('#findGroup').click(()=>{
-    $("#addGroupBox").hide();
-    $('#deleteBox').hide();
-    $("#findGroupBox").toggle();
-  });
-
   // Toggle the box for adding a new group
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
-    $("#findGroupBox").hide();
     $('#deleteBox').hide();
     $("#addGroupBox").toggle();
   });
@@ -44,7 +35,6 @@ $(()=>{
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
-    $("#findGroupBox").hide();
     $("#addGroupBox").hide();
     $('#deleteBox').toggle();
   });

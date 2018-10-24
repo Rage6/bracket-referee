@@ -85,6 +85,16 @@
     header('Location: player_edit.php');
     return true;
   };
+
+  // echo("Session:</br>");
+  // print_r($_SESSION);
+  // echo("</br>");
+  // echo("Post:</br>");
+  // print_r($_POST);
+  // echo("</br>");
+  // echo("Get:</br>");
+  // print_r($_GET);
+  // echo("</br>");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -152,17 +162,15 @@
         <?php
           $nameList = null;
           if (isset($_SESSION['search'])) {
-            $findList = $pdo->prepare('SELECT group_name,admin_id FROM Groups WHERE group_name LIKE :nm');
+            $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE group_name LIKE :nm');
             $findList->execute(array(
               ':nm'=>$_SESSION['search']."%"
             ));
+            $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
             while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
-              $nameList[] = ($row['group_name']);
-              if ($row['admin_id'] == $_SESSION['player_id']) {
-                $idList[] = "<b>EDIT</b>";
-              } else {
-                $idList[] = "---";
-              };
+              $nameList[] = $row['group_name'];
+              $startList[] = "<a href='".$url.$row['group_id']."'>";
+              $stopList[] = "</a>";
             };
             unset($_SESSION['search']);
           };
@@ -172,8 +180,7 @@
         if ($nameList != null) {
           echo("<table>");
           for ($i = 0; $i < count($nameList); $i++) {
-            echo("<tr><td>".$nameList[$i]."</td>");
-            echo("<td>".$idList[$i]."</td></tr>");
+            echo("<tr><td>".$startList[$i].$nameList[$i].$stopList[$i]."</td></tr>");
           };
           echo("</table>");
           echo("Total Found: ".$i);

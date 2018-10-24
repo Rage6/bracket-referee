@@ -36,13 +36,21 @@
     ':gid'=>$_GET['group_id']
   ));
 
-  // If the user wants to see a single group
+  // echo("Session:</br>");
+  // print_r($_SESSION);
+  // echo("</br>");
+  // echo("Post:</br>");
+  // print_r($_POST);
+  // echo("</br>");
+  // echo("Get:</br>");
+  // print_r($_GET);
+  // echo("</br>");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Groups | Bracket Referee</title>
+    <title><?php echo($grpNameResult['group_name']) ?> | Bracket Referee</title>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -51,10 +59,12 @@
   </head>
   <body>
     <h1>Group: <?php echo($grpNameResult['group_name']) ?></h1>
-    <h2>Director: <?php echo($adminResult['userName']) ?></h2>
+    <span>Director: <?php echo($adminResult['userName']) ?></span>
     <?php
       if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-        echo("<p><u>EDIT</u></p>");
+        $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+        $urlId = $_GET['group_id'];
+        echo(" <span><u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u></span>");
       };
     ?>
     <h2>Players:</h2>
