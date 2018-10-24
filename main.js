@@ -1,7 +1,5 @@
 $(()=>{
-  console.log("test successful");
-  // Starting variables
-
+  console.log("new test successful");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -27,15 +25,16 @@ $(()=>{
   // findGroup
   $("#findGroupBox").hide();
   $('#findGroup').click(()=>{
-    $("#findGroupBox").toggle();
-  });
-  $('#cancelGroup').click(()=>{
     $("#addGroupBox").hide();
+    $('#deleteBox').hide();
+    $("#findGroupBox").toggle();
   });
 
   // Toggle the box for adding a new group
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
+    $("#findGroupBox").hide();
+    $('#deleteBox').hide();
     $("#addGroupBox").toggle();
   });
   $('#cancelGroup').click(()=>{
@@ -45,6 +44,8 @@ $(()=>{
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
+    $("#findGroupBox").hide();
+    $("#addGroupBox").hide();
     $('#deleteBox').toggle();
   });
   // Close the account deletion account
