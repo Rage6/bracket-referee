@@ -22,18 +22,9 @@ $(()=>{
     $('#changePs').hide();
   });
 
-  // findGroup
-  $("#findGroupBox").hide();
-  $('#findGroup').click(()=>{
-    $("#addGroupBox").hide();
-    $('#deleteBox').hide();
-    $("#findGroupBox").toggle();
-  });
-
   // Toggle the box for adding a new group
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
-    $("#findGroupBox").hide();
     $('#deleteBox').hide();
     $("#addGroupBox").toggle();
   });
@@ -44,12 +35,21 @@ $(()=>{
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
-    $("#findGroupBox").hide();
     $("#addGroupBox").hide();
     $('#deleteBox').toggle();
   });
   // Close the account deletion account
   $('#cancelDelete').click(()=>{
     $('#deleteBox').hide();
+  });
+
+  // Toggle the box for deleting groups in player_edit.php
+  $("#delGrpBox").hide();
+  $("#delGrpButton").click(()=>{
+    $("#delGrpBox").toggle();
+  });
+  // Cancel this and close that box
+  $("#cancelDelGrp").click(()=>{
+    $("#delGrpBox").hide();
   });
 })

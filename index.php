@@ -82,6 +82,11 @@
       return false;
     }
   };
+
+  print_r($_SESSION);
+  echo("</br>");
+  print_r($_GET);
+  echo("</br>");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
