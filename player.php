@@ -199,7 +199,7 @@
           </table>
           <input type="submit" name="new_group" value="START">
         </form>
-        <button id="cancelGroup">CANCEL</button>
+        <span id="cancelGroup">CANCEL</span>
       </div>
     </div>
     <h3 id="showDeleteBox">Delete your account?</h3>
@@ -208,7 +208,7 @@
       <form method="POST">
         <input type="submit" name="deleteAcct" value="YES, delete my account"/>
       </form>
-      <button id="cancelDelete">NO, keep my account</button>
+      <span id="cancelDelete">NO, keep my account</span>
     </div>
   </body>
 </html>
