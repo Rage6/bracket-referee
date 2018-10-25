@@ -178,9 +178,11 @@
       </div>
       <?php
         if ($nameList != null) {
-          echo("<table>");
+          echo("<table style='border:1px solid black'>");
           for ($i = 0; $i < count($nameList); $i++) {
-            echo("<tr><td>".$startList[$i].$nameList[$i].$stopList[$i]."</td></tr>");
+            echo("<tr>");
+            echo("<td>".$startList[$i].$nameList[$i].$stopList[$i]."</td>");
+            echo("</tr>");
           };
           echo("</table>");
           echo("Total Found: ".$i);
@@ -197,7 +199,7 @@
           </table>
           <input type="submit" name="new_group" value="START">
         </form>
-        <button id="cancelGroup">CANCEL</button>
+        <span id="cancelGroup">CANCEL</span>
       </div>
     </div>
     <h3 id="showDeleteBox">Delete your account?</h3>
@@ -206,7 +208,7 @@
       <form method="POST">
         <input type="submit" name="deleteAcct" value="YES, delete my account"/>
       </form>
-      <button id="cancelDelete">NO, keep my account</button>
+      <span id="cancelDelete">NO, keep my account</span>
     </div>
   </body>
 </html>

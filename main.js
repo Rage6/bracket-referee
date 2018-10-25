@@ -52,4 +52,14 @@ $(()=>{
   $("#cancelDelGrp").click(()=>{
     $("#delGrpBox").hide();
   });
+
+  // Toggles the box for leaving a group
+  $("#leaveGrpBox").hide();
+  $("#leaveGrpButton").click(()=>{
+    $("#leaveGrpBox").toggle();
+  });
+  // Cancel this and close that box
+  $("#cancelLeave").click(()=>{
+    $("#leaveGrpBox").hide();
+  });
 })

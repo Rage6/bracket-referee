@@ -33,8 +33,39 @@
   // Recalls all of the players in this group
   $grpAllStmt = $pdo->prepare('SELECT userName FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
-    ':gid'=>$_GET['group_id']
+    ':gid'=>htmlentities($_GET['group_id'])
   ));
+
+  // Checks to see if the current player is already in this group
+  $canJoinStmt = $pdo->prepare('SELECT COUNT(main_id) FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
+  $canJoinStmt->execute(array(
+    ':gid'=>htmlentities($_GET['group_id']),
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $canJoinResult = $canJoinStmt->fetch(PDO::FETCH_ASSOC);
+
+  // Adds the current player to this group
+  if (isset($_POST['joinGroup'])) {
+    $newJoinStmt = $pdo->prepare('INSERT INTO Groups_Players(group_id,player_id) VALUES (:gid,:pid)');
+    $newJoinStmt->execute(array(
+      ':gid'=>htmlentities($_GET['group_id']),
+      ':pid'=>$_SESSION['player_id']
+    ));
+    $_SESSION['message'] = "<b style='color:green'>New player added</b>";
+    header('Location: player.php');
+    return true;
+  };
+
+  // Remove current player from this group
+  if (isset($_POST['leaveGroup'])) {
+    $leaveGrpStmt = $pdo->prepare('DELETE FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
+    $leaveGrpStmt->execute(array(
+      ':gid'=>htmlentities($_GET['group_id']),
+      ':pid'=>$_SESSION['player_id']
+    ));
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return true;
+  };
 
   // echo("Session:</br>");
   // print_r($_SESSION);
@@ -85,7 +116,20 @@
       };
     ?>
     <form method="POST">
-      <input type="submit" name="returnPlayer" value="<- BACK" />
+      <input type="submit" name="returnPlayer" value="<-- BACK " />
+      <?php
+        if ($canJoinResult['COUNT(main_id)'] == 0) {
+          echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
+        };
+        if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
+          echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
+          echo("<div id='leaveGrpBox'>
+            <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
+            <input type='submit' name='leaveGroup' value='[X] LEAVE '>
+            <span id='cancelLeave'> CANCEL </span>
+            </div>");
+        };
+      ?>
     </form>
   </body>
 </html>
