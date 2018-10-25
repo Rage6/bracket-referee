@@ -56,6 +56,17 @@
     return true;
   };
 
+  // Remove current player from this group
+  if (isset($_POST['leaveGroup'])) {
+    $leaveGrpStmt = $pdo->prepare('DELETE FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
+    $leaveGrpStmt->execute(array(
+      ':gid'=>htmlentities($_GET['group_id']),
+      ':pid'=>$_SESSION['player_id']
+    ));
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return true;
+  };
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -107,9 +118,16 @@
     <form method="POST">
       <input type="submit" name="returnPlayer" value="<-- BACK " />
       <?php
-        // print_r($joinResult['COUNT(main_id)']);
         if ($canJoinResult['COUNT(main_id)'] == 0) {
           echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
+        };
+        if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
+          echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
+          echo("<div id='leaveGrpBox'>
+            <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
+            <input type='submit' name='leaveGroup' value='[X] LEAVE '>
+            <span id='cancelLeave'> CANCEL </span>
+            </div>");
         };
       ?>
     </form>
