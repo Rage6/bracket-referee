@@ -1,7 +1,5 @@
 $(()=>{
-  console.log("test successful");
-  // Starting variables
-
+  console.log("new test successful");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -24,17 +22,34 @@ $(()=>{
     $('#changePs').hide();
   });
 
+  // Toggle the box for adding a new group
+  $("#addGroupBox").hide();
+  $('#showAddBox').click(()=>{
+    $('#deleteBox').hide();
+    $("#addGroupBox").toggle();
+  });
   $('#cancelGroup').click(()=>{
-    console.log("Make this toggle later");
+    $("#addGroupBox").hide();
   });
 
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
+    $("#addGroupBox").hide();
     $('#deleteBox').toggle();
   });
   // Close the account deletion account
   $('#cancelDelete').click(()=>{
     $('#deleteBox').hide();
+  });
+
+  // Toggle the box for deleting groups in player_edit.php
+  $("#delGrpBox").hide();
+  $("#delGrpButton").click(()=>{
+    $("#delGrpBox").toggle();
+  });
+  // Cancel this and close that box
+  $("#cancelDelGrp").click(()=>{
+    $("#delGrpBox").hide();
   });
 })
