@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("old test successful");
+  console.log("new test successful");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -41,5 +41,15 @@ $(()=>{
   // Close the account deletion account
   $('#cancelDelete').click(()=>{
     $('#deleteBox').hide();
+  });
+
+  // Toggle the box for deleting groups in player_edit.php
+  $("#delGrpBox").hide();
+  $("#delGrpButton").click(()=>{
+    $("#delGrpBox").toggle();
+  });
+  // Cancel this and close that box
+  $("#cancelDelGrp").click(()=>{
+    $("#delGrpBox").hide();
   });
 })

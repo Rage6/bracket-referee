@@ -60,15 +60,15 @@
     header('Location: group.php?group_id='.$urlId);
     return true;
   };
-  echo("Session:</br>");
-  print_r($_SESSION);
-  echo("</br>");
-  echo("Post:</br>");
-  print_r($_POST);
-  echo("</br>");
-  echo("Get:</br>");
-  print_r($_GET);
-  echo("</br>");
+  // echo("Session:</br>");
+  // print_r($_SESSION);
+  // echo("</br>");
+  // echo("Post:</br>");
+  // print_r($_POST);
+  // echo("</br>");
+  // echo("Get:</br>");
+  // print_r($_GET);
+  // echo("</br>");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -95,7 +95,15 @@
         <input type="submit" name="submitEdit" value="ENTER" />
         <input type="submit" name="cancelEdit" value="CANCEL" />
       </span>
-      <input type="submit" name="submitDelete" value="DELETE" />
+      <h3 id="delGrpButton">Delete this Group?</h3>
+      <div id="delGrpBox" style="border: 1px solid red">
+        <b style='color:red'>WARNING</b></br>
+        <p>
+          Are you sure you want to delete this group? All of the results and brackets will be permanently deleted!
+        </p>
+        <input type="submit" name="submitDelete" value="DELETE" />
+        <button id="cancelDelGrp">CANCEL</button>
+      </div>
     </form>
     <?php
       if (isset($_SESSION['message'])) {
