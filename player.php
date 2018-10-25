@@ -178,9 +178,11 @@
       </div>
       <?php
         if ($nameList != null) {
-          echo("<table>");
+          echo("<table style='border:1px solid black'>");
           for ($i = 0; $i < count($nameList); $i++) {
-            echo("<tr><td>".$startList[$i].$nameList[$i].$stopList[$i]."</td></tr>");
+            echo("<tr>");
+            echo("<td>".$startList[$i].$nameList[$i].$stopList[$i]."</td>");
+            echo("</tr>");
           };
           echo("</table>");
           echo("Total Found: ".$i);

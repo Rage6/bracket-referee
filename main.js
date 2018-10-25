@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("new test successful");
+  console.log("new test successful"); 
 
   $('#logForm').hide();
   $('#signForm').hide();

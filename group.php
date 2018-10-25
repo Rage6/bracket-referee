@@ -33,8 +33,28 @@
   // Recalls all of the players in this group
   $grpAllStmt = $pdo->prepare('SELECT userName FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
-    ':gid'=>$_GET['group_id']
+    ':gid'=>htmlentities($_GET['group_id'])
   ));
+
+  // Checks to see if the current player is already in this group
+  $canJoinStmt = $pdo->prepare('SELECT COUNT(main_id) FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
+  $canJoinStmt->execute(array(
+    ':gid'=>htmlentities($_GET['group_id']),
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $canJoinResult = $canJoinStmt->fetch(PDO::FETCH_ASSOC);
+
+  // Adds the current player to this group
+  if (isset($_POST['joinGroup'])) {
+    $newJoinStmt = $pdo->prepare('INSERT INTO Groups_Players(group_id,player_id) VALUES (:gid,:pid)');
+    $newJoinStmt->execute(array(
+      ':gid'=>htmlentities($_GET['group_id']),
+      ':pid'=>$_SESSION['player_id']
+    ));
+    $_SESSION['message'] = "<b style='color:green'>New player added</b>";
+    header('Location: player.php');
+    return true;
+  };
 
   // echo("Session:</br>");
   // print_r($_SESSION);
@@ -85,7 +105,13 @@
       };
     ?>
     <form method="POST">
-      <input type="submit" name="returnPlayer" value="<- BACK" />
+      <input type="submit" name="returnPlayer" value="<-- BACK " />
+      <?php
+        // print_r($joinResult['COUNT(main_id)']);
+        if ($canJoinResult['COUNT(main_id)'] == 0) {
+          echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
+        };
+      ?>
     </form>
   </body>
 </html>
