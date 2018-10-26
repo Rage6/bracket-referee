@@ -170,7 +170,7 @@
               ':nm'=>$_SESSION['search']."%"
             ));
             // $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-            $url = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=";
+            $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
             while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
               $nameList[] = $row['group_name'];
               $startList[] = "<a href='".$url.$row['group_id']."'>";
