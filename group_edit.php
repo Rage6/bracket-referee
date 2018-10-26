@@ -102,7 +102,11 @@
           Are you sure you want to delete this group? All of the results and brackets will be permanently deleted!
         </p>
         <input type="submit" name="submitDelete" value="DELETE" />
+<<<<<<< HEAD
         <button id="cancelDelGrp">CANCEL</button>
+=======
+        <span id="cancelDelGrp">CANCEL</span>
+>>>>>>> 1d0419f87c6bd16b76d5321a20ec4ed4763c3a67
       </div>
     </form>
     <?php
