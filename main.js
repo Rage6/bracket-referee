@@ -1,11 +1,5 @@
 $(()=>{
-<<<<<<< HEAD
-  console.log("'master' test successful");
-  // Starting variables
-
-=======
   console.log("new test successful");
->>>>>>> 1d0419f87c6bd16b76d5321a20ec4ed4763c3a67
 
   $('#logForm').hide();
   $('#signForm').hide();
