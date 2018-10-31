@@ -36,6 +36,13 @@
     ':gid'=>htmlentities($_GET['group_id'])
   ));
 
+  // Recalls the tournament's info for this group
+  $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date FROM Groups JOIN Tournaments WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
+  $tournStmt->execute(array(
+    ':gid'=>htmlentities($_GET['group_id'])
+  ));
+  $tournArray = $tournStmt->fetch(PDO::FETCH_ASSOC);
+
   // Checks to see if the current player is already in this group
   $canJoinStmt = $pdo->prepare('SELECT COUNT(main_id) FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
   $canJoinStmt->execute(array(
@@ -93,8 +100,8 @@
     <span>Director: <?php echo($adminResult['userName']) ?></span>
     <?php
       if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-        // $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-        $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
+        $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+        // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
         $urlId = $_GET['group_id'];
         echo(" <span><u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u></span>");
       };
@@ -110,6 +117,64 @@
         };
       ?>
     </table>
+    <h2>Tournament:</h2>
+    <table>
+      <tr>
+        <td>Name</td>
+        <td><?php echo($tournArray['tourn_name']) ?></td>
+      </tr>
+      <tr>
+        <td># of Rounds</td>
+        <td><?php echo($tournArray['level_total']) ?></td>
+      </tr>
+      <tr>
+        <td>Start Date</td>
+        <td><?php echo($tournArray['start_date']) ?></td>
+      </tr>
+    </table>
+    </br>
+    <h3>Current Results</h3>
+    <?php
+      $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id');
+      $gameListStmt->execute(array(
+        ':gid'=>htmlentities($_GET['group_id'])
+      ));
+      $currentLayer = "0";
+      while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
+        // var_dump($oneGame);
+        $newLayer = $oneGame['layer'];
+        // print_r($newLayer);
+        // print_r($currentLayer);
+        if ($currentLayer == $newLayer) {
+          $roundTitle = "</br>";
+        } else {
+          $roundTitle = $newLayer['level_name'];
+          echo($roundTitle);
+          $currentLayer = $newLayer;
+        };
+        $team_a = $oneGame['team_a'];
+        $getTeamA = $pdo->prepare('SELECT team_name FROM Teams WHERE :aid=team_id');
+        $getTeamA->execute(array(
+          ':aid'=>$team_a
+        ));
+        $team_b = $oneGame['team_b'];
+        $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+        $getTeamB->execute(array(
+          ':bid'=>$team_b
+        ));
+        $winnerTeam = $oneGame['winner_id'];
+        $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
+        $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
+        if ($team_a == $winnerTeam) {
+          $a_name = "<span style='color:white;background-color:green'>".$a_name['team_name']."</span>";
+          $b_name = "<span>".$b_name['team_name']."</span></br>";
+        } else {
+          $a_name = "<span>".$a_name['team_name']."</span>";
+          $b_name = "<span style='color:white;background-color:green'>".$b_name['team_name']."</span></br>";
+        };
+        echo($a_name."<span> vs. </span>".$b_name);
+      };
+    ?>
     <?php
       if (isset($_SESSION['message'])) {
         echo($_SESSION['message']);
