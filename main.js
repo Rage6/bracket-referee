@@ -62,4 +62,13 @@ $(()=>{
   $("#cancelLeave").click(()=>{
     $("#leaveGrpBox").hide();
   });
+
+  // Toggle the box to cancel a new bracket and return to the group page
+  $("#leaveBracketBox").hide();
+  $("#leaveBracketButton").click(()=>{
+    $("#leaveBracketBox").toggle();
+  });
+  // Remove the box and go back to the bracket page
+
+
 })

@@ -43,6 +43,12 @@
   ));
   $tournArray = $tournStmt->fetch(PDO::FETCH_ASSOC);
 
+  // Create a bracket with the current group by going to 'bracket_make.php'
+  if (isset($_POST['make_bracket'])) {
+    header('Location: bracket_make.php?group_id='.$_GET['group_id']);
+    return true;
+  };
+
   // Checks to see if the current player is already in this group
   $canJoinStmt = $pdo->prepare('SELECT COUNT(main_id) FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
   $canJoinStmt->execute(array(
@@ -133,7 +139,11 @@
       </tr>
     </table>
     </br>
-    <h3>Current Results</h3>
+    <form method='POST'>
+      <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+    </form>
+    </br>
+    <h3>Tournament Results</h3>
     <?php
       $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id');
       $gameListStmt->execute(array(
@@ -164,7 +174,7 @@
         $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
         $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
         if ($team_a == $winnerTeam) {
-          $a_name = "<tr><td> style='color:white;background-color:green'>".$a_name['team_name']."</td>";
+          $a_name = "<tr><td style='color:white;background-color:green'>".$a_name['team_name']."</td>";
           $b_name = "<td>".$b_name['team_name']."</td></tr>";
         } elseif ($team_b == $winnerTeam) {
           $a_name = "<tr><td>".$a_name['team_name']."</td>";
