@@ -141,15 +141,13 @@
       ));
       $currentLayer = "0";
       while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
-        // var_dump($oneGame);
         $newLayer = $oneGame['layer'];
-        // print_r($newLayer);
-        // print_r($currentLayer);
-        if ($currentLayer == $newLayer) {
-          $roundTitle = "</br>";
-        } else {
-          $roundTitle = $newLayer['level_name'];
-          echo($roundTitle);
+        if ($currentLayer != $newLayer) {
+          $roundTitle = $oneGame['level_name'];
+          if ($currentLayer != "0") {
+            echo("</table></br>");
+          };
+          echo("<table border=1><tr><th colspan='2'>".$roundTitle."</th></tr>");
           $currentLayer = $newLayer;
         };
         $team_a = $oneGame['team_a'];
@@ -166,14 +164,20 @@
         $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
         $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
         if ($team_a == $winnerTeam) {
-          $a_name = "<span style='color:white;background-color:green'>".$a_name['team_name']."</span>";
-          $b_name = "<span>".$b_name['team_name']."</span></br>";
+          $a_name = "<tr><td> style='color:white;background-color:green'>".$a_name['team_name']."</td>";
+          $b_name = "<td>".$b_name['team_name']."</td></tr>";
+        } elseif ($team_b == $winnerTeam) {
+          $a_name = "<tr><td>".$a_name['team_name']."</td>";
+          $b_name = "<td style='color:white;background-color:green'>".$b_name['team_name']."</td></tr>";
         } else {
-          $a_name = "<span>".$a_name['team_name']."</span>";
-          $b_name = "<span style='color:white;background-color:green'>".$b_name['team_name']."</span></br>";
+          $a_name = "<tr><td>".$a_name['team_name']."</td></tr>";
+          $b_name = "<tr><tr>".$b_name['team_name']."</td></tr>";
         };
-        echo($a_name."<span> vs. </span>".$b_name);
+        echo($a_name);
+        echo($b_name);
+        // print_r($a_name.$b_name).echo;
       };
+      echo("</table></br>")
     ?>
     <?php
       if (isset($_SESSION['message'])) {

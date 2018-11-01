@@ -8,6 +8,7 @@
     ':id'=>$_SESSION['player_id']
   ));
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
+  print_r($playerData);
 
   // This is the prefix for all of the href that take a user to a givien group in the search list
   // Local host
@@ -111,6 +112,7 @@
     <script src="main.js"></script>
   </head>
   <body>
+
     <h1>Bracket HQ</h1>
     <?php
     if (isset($_SESSION['message'])) {
@@ -199,6 +201,27 @@
             <tr>
               <td>Group name:</td>
               <td><input type='text' name='group_name'></td>
+            </tr>
+            <tr>
+              <td>Tournament:</td>
+              <td>
+                <select name="tourn_id">
+                <?php
+                  $tournStmt = $pdo->prepare('SELECT tourn_id FROM Tournaments');
+                  $tournStmt->execute();
+                  $tournList = $tournStmt->fetch(PDO::FETCH_ASSOC);
+                  for ($tournNum = 0; $tournNum < count($tournList); $tournNum++) {
+                    $nameStmt = $pdo->prepare('SELECT tourn_name FROM Tournaments WHERE tourn_id=:tid');
+                    $nameStmt->execute(array(
+                      ':tid'=>$tournList['tourn_id']
+                    ));
+                    $nameList = $nameStmt->fetch(PDO::FETCH_ASSOC);
+                    $name = $nameList['tourn_name'];
+                    echo("<option value='".$tournList['tourn_id']."'>".$name."</option>");
+                  };
+                ?>
+                </select>
+              </td>
             </tr>
           </table>
           <input type="submit" name="new_group" value="START">
