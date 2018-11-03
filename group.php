@@ -47,7 +47,8 @@
   if (isset($_POST['make_bracket'])) {
     $isMember = false;
     while ($onePlayer = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
-      if ($onePlayer['Groups_Players.player_id'] == $_SESSION['player_id']) {
+      $onePlayerId = (int)$onePlayer['player_id'];
+      if ($onePlayerId == $_SESSION['player_id']) {
         $isMember = true;
       };
     };
@@ -55,7 +56,7 @@
       header('Location: bracket_make.php?group_id='.$_GET['group_id']);
       return true;
     } else {
-      $_SESSION['message'] = "<b style='color:red'>Join this group before making your bracket</b>";
+      $_SESSION['message'] = "<b style='color:red'>You must join this group before making your bracket</b>";
       header('Location: group.php?group_id='.$_GET['group_id']);
       return false;
     };
@@ -91,7 +92,6 @@
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
   };
-
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
