@@ -78,7 +78,7 @@
         echo("<div id='layer_".$oneLevel['layer']."'>
                 <h3><u>".$oneLevel['level_name']."</u></h3>");
                 $currentLevel = $oneLevel['level_id'];
-                $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE level_id=:lid');
+                $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id FROM Games WHERE level_id=:lid AND first_round=1');
                 $gameStmt->execute(array(
                   ':lid'=>$currentLevel
                 ));
