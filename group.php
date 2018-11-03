@@ -92,6 +92,7 @@
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
   };
+  
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -101,6 +102,7 @@
   // echo("Get:</br>");
   // print_r($_GET);
   // echo("</br>");
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

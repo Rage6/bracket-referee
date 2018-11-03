@@ -44,15 +44,15 @@
     return true;
   };
 
-  echo("Session:</br>");
-  print_r($_SESSION);
-  echo("</br>");
-  echo("Post:</br>");
-  print_r($_POST);
-  echo("</br>");
-  echo("Get:</br>");
-  print_r($_GET);
-  echo("</br>");
+  // echo("Session:</br>");
+  // print_r($_SESSION);
+  // echo("</br>");
+  // echo("Post:</br>");
+  // print_r($_POST);
+  // echo("</br>");
+  // echo("Get:</br>");
+  // print_r($_GET);
+  // echo("</br>");
 
 ?>
 <!DOCTYPE html>
@@ -69,13 +69,23 @@
   <body>
     <h1>Make Your Bracket</h1>
     <?php
-      $levelStmt = $pdo->prepare('SELECT layer,level_name FROM Levels WHERE tourn_id=:tid');
+      $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name FROM Levels WHERE tourn_id=:tid');
       $levelStmt->execute(array(
         ':tid'=>$tournId
       ));
-      while ($levelRow = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
-        echo("<div>
-                <h3><u>".$levelRow['level_name']."</u></h3></div>");
+      // print_r($levelStmt->fetch(PDO::FETCH_ASSOC));
+      while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
+        echo("<div id='layer_".$oneLevel['layer']."'>
+                <h3><u>".$oneLevel['level_name']."</u></h3>");
+                $currentLevel = $oneLevel['level_id'];
+                $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE level_id=:lid');
+                $gameStmt->execute(array(
+                  ':lid'=>$currentLevel
+                ));
+                while ($oneGame = $gameStmt->fetch(PDO::FETCH_ASSOC)) {
+                  echo("<p>".$oneGame['team_a']." vs. ".$oneGame['team_b']."</p></br>");
+                };
+        echo("</div>");
       };
     ?>
     <form method="POST">
