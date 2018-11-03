@@ -21,16 +21,38 @@
     return true;
   };
 
-  // echo("Session:</br>");
-  // print_r($_SESSION);
-  // echo("</br>");
-  // echo("Post:</br>");
-  // print_r($_POST);
-  // echo("</br>");
-  // echo("Get:</br>");
-  // print_r($_GET);
-  // echo("</br>");
+  // Gets the tournament for this group
+  $grpStmt = $pdo->prepare('SELECT fk_tourn_id FROM Groups WHERE group_id=:gid');
+  $grpStmt->execute(array(
+    ':gid'=>htmlentities($_GET['group_id'])
+  ));
+  $grpArray = $grpStmt->fetch(PDO::FETCH_ASSOC);
+  $tournId = $grpArray['fk_tourn_id'];
 
+  // Gets the number of levels for this tournament
+  $tournStmt = $pdo->prepare('SELECT level_total FROM Tournaments WHERE tourn_id=:tid');
+  $tournStmt->execute(array(
+    ':tid'=>$tournId
+  ));
+  $tournArray = $tournStmt->fetch(PDO::FETCH_ASSOC);
+  $tournLevel = $tournArray['level_total'];
+
+  // Checks and submits the new bracket
+  if (isset($_POST['enterBracket'])) {
+    $_SESSION['message'] = "<b style='color:green'>Bracket entered</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return true;
+  };
+
+  echo("Session:</br>");
+  print_r($_SESSION);
+  echo("</br>");
+  echo("Post:</br>");
+  print_r($_POST);
+  echo("</br>");
+  echo("Get:</br>");
+  print_r($_GET);
+  echo("</br>");
 
 ?>
 <!DOCTYPE html>
@@ -45,14 +67,25 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <span id='leaveBracketButton'> CANCEL </span>
-    </br>
-    <div style='display:inline-block;border:1px solid black' id='leaveBracketBox'>
-      <p>Are you sure? Your progress on the bracket will be deleted.</p>
-      <form method='POST'>
-        <input type="submit" name="cancelBracket" value="YES, trash this bracket">
-      </form>
-      <div>NO, keep working on this bracket</div>
-    </div>
+    <h1>Make Your Bracket</h1>
+    <?php
+      $levelStmt = $pdo->prepare('SELECT layer,level_name FROM Levels WHERE tourn_id=:tid');
+      $levelStmt->execute(array(
+        ':tid'=>$tournId
+      ));
+      while ($levelRow = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
+        echo("<div>
+                <h3><u>".$levelRow['level_name']."</u></h3></div>");
+      };
+    ?>
+    <form method="POST">
+      <input type="submit" name="enterBracket" value="SUBMIT" />
+      <span id="leaveBrktButton"> CANCEL </span></br>
+      <div style="padding: 10px;border: 1px solid black;display: inline-block" id="leaveBrktBox">
+        <p>Are you sure? Your progress on the bracket will be deleted.</p>
+        <input type="submit" name="cancelBracket" value="YES, trash this bracket" />
+        <div id="hideBrktBttn">NO, keep working on this bracket</div>
+      </div>
+    </form>
   </body>
 </html>

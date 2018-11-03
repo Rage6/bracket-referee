@@ -31,7 +31,7 @@
   $adminResult = $adminStmt->fetch(PDO::FETCH_ASSOC);
 
   // Recalls all of the players in this group
-  $grpAllStmt = $pdo->prepare('SELECT userName FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
+  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -45,8 +45,20 @@
 
   // Create a bracket with the current group by going to 'bracket_make.php'
   if (isset($_POST['make_bracket'])) {
-    header('Location: bracket_make.php?group_id='.$_GET['group_id']);
-    return true;
+    $isMember = false;
+    while ($onePlayer = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+      if ($onePlayer['Groups_Players.player_id'] == $_SESSION['player_id']) {
+        $isMember = true;
+      };
+    };
+    if ($isMember == true) {
+      header('Location: bracket_make.php?group_id='.$_GET['group_id']);
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Join this group before making your bracket</b>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+      return false;
+    };
   };
 
   // Checks to see if the current player is already in this group
@@ -113,13 +125,17 @@
       };
     ?>
     <h2>Players:</h2>
-    <table>
+    <table border="1px solid black">
       <tr>
         <th>Username</th>
+        <th>Bracket?</th>
+        <th>Score</th>
       </tr>
       <?php
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
-          echo("<tr><td>".$playerRow['userName']."</td></tr>");
+          echo("<tr><td>".$playerRow['userName']."</td>
+          <td>check1</td>
+          <td>check2</td></tr>");
         };
       ?>
     </table>

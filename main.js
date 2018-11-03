@@ -64,11 +64,13 @@ $(()=>{
   });
 
   // Toggle the box to cancel a new bracket and return to the group page
-  $("#leaveBracketBox").hide();
-  $("#leaveBracketButton").click(()=>{
-    $("#leaveBracketBox").toggle();
+  $("#leaveBrktBox").hide();
+  $("#leaveBrktButton").click(()=>{
+    $("#leaveBrktBox").toggle();
   });
-  // Remove the box and go back to the bracket page
-
+  // Remove the cancelation box
+  $("#hideBrktBttn").click(()=>{
+    $("#leaveBrktBox").hide();
+  });
 
 })
