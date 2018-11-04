@@ -65,6 +65,7 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="main.js"></script>
+    <script src="bracket.js"></script>
   </head>
   <body>
     <h1>Make Your Bracket</h1>
