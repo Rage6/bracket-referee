@@ -1,6 +1,7 @@
 <?php
   session_start();
   require_once("pdo.php");
+  // require_once("json_tournament.php?group_id=1");
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -65,7 +66,6 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="main.js"></script>
-    <script src="bracket.js"></script>
   </head>
   <body>
     <h1>Make Your Bracket</h1>
@@ -74,18 +74,33 @@
       $levelStmt->execute(array(
         ':tid'=>$tournId
       ));
-      // print_r($levelStmt->fetch(PDO::FETCH_ASSOC));
       while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
         echo("<div id='layer_".$oneLevel['layer']."'>
-                <h3><u>".$oneLevel['level_name']."</u></h3>");
-                $currentLevel = $oneLevel['level_id'];
-                $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id FROM Games WHERE level_id=:lid AND first_round=1');
-                $gameStmt->execute(array(
-                  ':lid'=>$currentLevel
-                ));
-                while ($oneGame = $gameStmt->fetch(PDO::FETCH_ASSOC)) {
-                  echo("<p>".$oneGame['team_a']." vs. ".$oneGame['team_b']."</p></br>");
-                };
+                <h3 id='layerTitle'>
+                  <u>".$oneLevel['level_name']."</u>
+                </h3>");
+                // $currentLevel = $oneLevel['level_id'];
+                // $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id FROM Games WHERE level_id=:lid AND first_round=1');
+                // $gameStmt->execute(array(
+                //   ':lid'=>$currentLevel
+                // ));
+                // while ($oneGame = $gameStmt->fetch(PDO::FETCH_ASSOC)) {
+                //   // var_dump($oneGame);)
+                //   $aTeamStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:tid');
+                //   $aTeamStmt->execute(array(
+                //     ':tid'=>$oneGame['team_a']
+                //   ));
+                //   $aTeamName = $aTeamStmt->fetch(PDO::FETCH_ASSOC)['team_name'];
+                //   $bTeamStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:tid');
+                //   $bTeamStmt->execute(array(
+                //     ':tid'=>$oneGame['team_b']
+                //   ));
+                //   $bTeamName = $bTeamStmt->fetch(PDO::FETCH_ASSOC)['team_name'];
+                //   echo("<span id='game_".$oneGame['game_id']."'>
+                //     <span id='team_".$oneGame['team_a']."'>".$aTeamName."</span> vs.
+                //     <span id='team_".$oneGame['team_b']."'>".$bTeamName." --> </span>
+                //   </span></br>");
+                // };
         echo("</div>");
       };
     ?>
@@ -99,4 +114,20 @@
       </div>
     </form>
   </body>
+  <script>
+    var groupId = <?php echo($_GET['group_id']) ?>;
+    console.log("Group ID: " + groupId);
+    $(document).ready(()=>{
+      // console.log("'document' is active...");
+      var url = 'json_tournament.php?group_id=' + groupId;
+      // console.log(url);
+      $.getJSON(url,(data)=>{
+        // console.log(".getJSON is active...");
+        console.log(data);
+        for (var i = 0; i < data.length; i = i + 2) {
+          $("<p style=''>" + data[i].team_name + " vs. " + data[i+1].team_name + "<p>").insertAfter('#layerTitle');
+        };
+      })
+    });
+  </script>
 </html>

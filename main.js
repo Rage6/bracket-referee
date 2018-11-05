@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("new test successful");
+  console.log("main.js is active...");
 
   $('#logForm').hide();
   $('#signForm').hide();
