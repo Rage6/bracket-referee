@@ -116,7 +116,8 @@
   </body>
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
-    console.log("Group ID: " + groupId);
+    // console.log("Group ID: " + groupId);
+    // console.log("test: " + test);
     $(document).ready(()=>{
       // console.log("'document' is active...");
       var url = 'json_tournament.php?group_id=' + groupId;
@@ -124,8 +125,18 @@
       $.getJSON(url,(data)=>{
         // console.log(".getJSON is active...");
         console.log(data);
-        for (var i = 0; i < data.length; i = i + 2) {
-          $("<p style=''>" + data[i].team_name + " vs. " + data[i+1].team_name + "<p>").insertAfter('#layerTitle');
+        for (var a = 0; a < data.length; a++) {
+          var teamA = data[a];
+          for (var b = a + 1; b < data.length; b++) {
+            var teamB = data[b];
+            if (teamA['game_id'] == teamB['game_id']) {
+              $("<p>\
+                  <span data-team-id='"+teamA['team_id']+"'>"+teamA['team_name']+"</span>\
+                  VS\
+                  <span data-team-id='"+teamB['team_id']+"'>"+teamB['team_name']+"</span>\
+                </p>").insertAfter("#layerTitle");
+            };
+          };
         };
       })
     });
