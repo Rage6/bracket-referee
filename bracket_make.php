@@ -76,7 +76,7 @@
       ));
       while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
         echo("<div id='layer_".$oneLevel['layer']."'>
-                <h3 id='layerTitle'>
+                <h3 id='layerTitle_".$oneLevel['layer']."'>
                   <u>".$oneLevel['level_name']."</u>
                 </h3>");
                 // $currentLevel = $oneLevel['level_id'];
@@ -116,28 +116,65 @@
   </body>
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
-    // console.log("Group ID: " + groupId);
-    // console.log("test: " + test);
     $(document).ready(()=>{
-      // console.log("'document' is active...");
       var url = 'json_tournament.php?group_id=' + groupId;
-      // console.log(url);
       $.getJSON(url,(data)=>{
-        // console.log(".getJSON is active...");
         console.log(data);
-        for (var a = 0; a < data.length; a++) {
-          var teamA = data[a];
-          for (var b = a + 1; b < data.length; b++) {
-            var teamB = data[b];
-            if (teamA['game_id'] == teamB['game_id']) {
-              $("<p>\
-                  <span data-team-id='"+teamA['team_id']+"'>"+teamA['team_name']+"</span>\
-                  VS\
-                  <span data-team-id='"+teamB['team_id']+"'>"+teamB['team_name']+"</span>\
-                </p>").insertAfter("#layerTitle");
+        var layerCount = 2;
+        var tableId = 3;
+        var pickNum = 0;
+        for (var c = 0; c < layerCount; c++) {
+          $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
+          if (c == 0) {
+            console.log(tableId);
+            for (var a = 0; a < data.length; a++) {
+              var teamA = data[a];
+              for (var b = a + 1; b < data.length; b++) {
+                var teamB = data[b];
+                if (teamA['game_id'] == teamB['game_id']) {
+                  var pickIdA = "pickId_" + pickNum + "_" + teamA['team_id'];
+                  var pickIdB = "pickId_" + pickNum + "_" + teamB['team_id'];
+                  $("#table_" + tableId).append(
+                    "<tr>\
+                      <td id='" + pickIdA + "' data-team-id='"+teamA['team_id']+"'>"+teamA['team_name']+"</td>\
+                      <td> VS </td>\
+                      <td id='" + pickIdB + "' data-team-id='"+teamB['team_id']+"'>"+teamB['team_name']+"</td>\
+                    </tr>");
+                    // console.log(pickIdA);
+                    // console.log(pickIdB);
+                  $("#"+pickIdA).click((pickIdA)=>{
+                    console.log("It worked for A!");
+                    console.log(pickIdA.target.id);
+                    $("#"+pickIdA).change((pickIdB)=>{
+                      console.log(pickIdB.target.id);
+                      // $("#"+pickIdA.target.id).data('winner','true');
+                      // $("#"+pickIdB.target.id).data('winner','false');
+                    });
+                  });
+                  $("#"+pickIdB).click((pickIdB)=>{
+                    console.log("It worked for B!");
+                    console.log(pickIdB.target.id);
+                    $("#"+pickIdB.target.id).data('winner','true');
+                    $("#"+pickIdA.target.id).data('winner','false');
+                  });
+                  pickNum++;
+                };
+              };
             };
+          } else {
+            console.log(tableId);
+            $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
+            pickNum++;
           };
+          tableId++;
+          pickNum++;
         };
+        $("h1").click(()=>{
+          console.log("Minnesota: " + $("#pickId_0_5").data('winner'));
+          console.log("OSU: " + $("#pickId_0_6").data('winner'));
+          console.log("Michigan: " + $("#pickId_1_7").data('winner'));
+          console.log("Notre Dame: " + $("#pickId_1_8").data('winner'));
+        });
       })
     });
   </script>
