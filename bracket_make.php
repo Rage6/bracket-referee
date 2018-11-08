@@ -121,8 +121,8 @@
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
         // console.log(data);
-        var layerCount = 2;
-        var tableId = 3;
+        var firstTable = 3;
+        var lastTable = 4;
         var pickNum = 0;
         var totalGames = null;
         // This accounts for tournaments where two teams have don't play in the first round
@@ -131,24 +131,40 @@
         } else {
           totalGames = (data.length / 2) + 1;
         }
-        for (var c = 0; c < layerCount; c++) {
+        for (var c = firstTable; c <= lastTable; c++) {
+          var tableId = c;
           $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
-          if (c == 0) {
+          if (c == firstTable) {
             // console.log(tableId);
             var bothTeamIds = [];
+            var gameNum = 0;
             for (var a = 0; a < data.length; a++) {
               var teamA = data[a];
               for (var b = a + 1; b < data.length; b++) {
                 var teamB = data[b];
                 if (teamA['game_id'] == teamB['game_id']) {
-                  var pickIdA = "pickId_" + pickNum + "_top";
-                  var pickIdB = "pickId_" + pickNum + "_bottom";
+                  // var pickIdA = "pickId_"+pickNum+"_top";
+                  // var pickIdB = "pickId_"+pickNum+"_bottom";
+                  var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
+                  var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                   bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
                   $("#table_" + tableId).append(
                     "<tr>\
-                      <td id='" + pickIdA + "' data-team-id='"+teamA['team_id']+"' data-layer='"+c+"' data-pick='"+pickNum+"'>"+teamA['team_name']+"</td>\
+                      <td \
+                        id='" + pickIdA + "'\
+                        data-team_id='"+teamA['team_id']+"'\
+                        data-team_name='"+teamA['team_name']+"'\
+                        data-layer='"+tableId+"'\
+                        data-game='" + gameNum + "'\
+                        data-pick='"+pickNum+"'\
+                        data-winner='null'>"+teamA['team_name']+"</td>\
                       <td> VS </td>\
-                      <td id='" + pickIdB + "' data-team-id='"+teamB['team_id']+"' data-layer='"+c+"' data-pick='"+pickNum+"'>"+teamB['team_name']+"</td>\
+                      <td id='" + pickIdB + "'\
+                        data-team_id='"+teamB['team_id']+"'\
+                        data-team_name='"+teamB['team_name']+"'\
+                        data-layer='"+tableId+"'\
+                        data-game='" + gameNum + "' data-pick='"+pickNum+"'\
+                        data-winner='winner'>"+teamB['team_name']+"</td>\
                     </tr>");
                   $("#"+pickIdA).click((pickIdA)=>{
                     // console.log("It worked for A!");
@@ -177,29 +193,45 @@
                     $(pickIdA).data('winner','false').css('background-color','white').css('color','black');
                   });
                   pickNum++;
+                  gameNum++;
                 };
               };
             };
           } else {
             var totalGames = totalGames / 2;
             for (var gameNum = 0; gameNum < totalGames; gameNum++) {
-              $("#table_"+tableId).append("<tr><td id='pickId_"+pickNum+"_top' data-team-name='waiting on A...' data-layer='"+c+"' data-pick='"+pickNum+"'></td>\
-              <td>VS</td>\
-              <td id='pickId_"+pickNum+"_bottom' data-team-name='waiting on B...' data-layer='"+c+"' data-pick='"+pickNum+"'></td></tr>");
-              $("#pickId_"+pickNum+"_top").text($("#pickId_"+pickNum+"_top").data('team-name'));
-              $("#pickId_"+pickNum+"_bottom").text($("#pickId_"+pickNum+"_bottom").data('team-name'));
+              $("#table_"+tableId).append("\
+              <tr>\
+                <td id='pickId_"+tableId+"_"+gameNum+"_top'\
+                  data-team_id='null'\
+                  data-team_name='waiting on A...'\
+                  data-layer='"+tableId+"'\
+                  data-game='"+gameNum+"'\
+                  data-pick='"+pickNum+"'\
+                  data-winner='null'></td>\
+                <td>VS</td>\
+                <td id='pickId_"+tableId+"_"+gameNum+"_bottom'\
+                  data-team_id='null'\
+                  data-team_name='waiting on B...'\
+                  data-layer='"+tableId+"'\
+                  data-game='"+gameNum+"'\
+                  data-pick='"+pickNum+"'\
+                  data-winner='null'></td>\
+              </tr>");
+              $("#pickId_"+tableId+"_"+gameNum+"_top").text($("#pickId_"+tableId+"_"+gameNum+"_top").data('team_name'));
+              $("#pickId_"+tableId+"_"+gameNum+"_bottom").text($("#pickId_"+tableId+"_"+gameNum+"_bottom").data('team_name'));
             };
             pickNum++;
           };
-          tableId++;
+          // tableId++;
           // pickNum++;
         };
         console.log(bothTeamIds);
         $("h1").click(()=>{
-          console.log("Minnesota: " + $("#pickId_0_top").data('winner'));
-          console.log("OSU: " + $("#pickId_0_bottom").data('winner'));
-          console.log("Michigan: " + $("#pickId_1_top").data('winner'));
-          console.log("Notre Dame: " + $("#pickId_1_bottom").data('winner'));
+          console.log("Minnesota: " + $("#pickId_3_0_top").data('winner'));
+          console.log("OSU: " + $("#pickId_3_0_bottom").data('winner'));
+          console.log("Michigan: " + $("#pickId_3_1_top").data('winner'));
+          console.log("Notre Dame: " + $("#pickId_3_1_bottom").data('winner'));
         });
       })
     });
