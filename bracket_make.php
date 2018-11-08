@@ -141,8 +141,8 @@
               for (var b = a + 1; b < data.length; b++) {
                 var teamB = data[b];
                 if (teamA['game_id'] == teamB['game_id']) {
-                  var pickIdA = "pickId_" + pickNum + "_" + teamA['team_id'];
-                  var pickIdB = "pickId_" + pickNum + "_" + teamB['team_id'];
+                  var pickIdA = "pickId_" + pickNum + "_top";
+                  var pickIdB = "pickId_" + pickNum + "_bottom";
                   bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
                   $("#table_" + tableId).append(
                     "<tr>\
@@ -194,11 +194,12 @@
           tableId++;
           // pickNum++;
         };
+        console.log(bothTeamIds);
         $("h1").click(()=>{
-          console.log("Minnesota: " + $("#pickId_0_5").data('winner'));
-          console.log("OSU: " + $("#pickId_0_6").data('winner'));
-          console.log("Michigan: " + $("#pickId_1_7").data('winner'));
-          console.log("Notre Dame: " + $("#pickId_1_8").data('winner'));
+          console.log("Minnesota: " + $("#pickId_0_top").data('winner'));
+          console.log("OSU: " + $("#pickId_0_bottom").data('winner'));
+          console.log("Michigan: " + $("#pickId_1_top").data('winner'));
+          console.log("Notre Dame: " + $("#pickId_1_bottom").data('winner'));
         });
       })
     });
