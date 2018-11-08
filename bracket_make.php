@@ -183,7 +183,11 @@
           } else {
             var totalGames = totalGames / 2;
             for (var gameNum = 0; gameNum < totalGames; gameNum++) {
-              $("#table_"+tableId).append("<tr><td data-layer='"+c+"' data-pick='"+pickNum+"'>Waiting</td><td>VS</td><td data-layer='"+c+"' data-pick='"+pickNum+"'>Waiting</td></tr>");
+              $("#table_"+tableId).append("<tr><td id='pickId_"+pickNum+"_top' data-team-name='waiting on A...' data-layer='"+c+"' data-pick='"+pickNum+"'></td>\
+              <td>VS</td>\
+              <td id='pickId_"+pickNum+"_bottom' data-team-name='waiting on B...' data-layer='"+c+"' data-pick='"+pickNum+"'></td></tr>");
+              $("#pickId_"+pickNum+"_top").text($("#pickId_"+pickNum+"_top").data('team-name'));
+              $("#pickId_"+pickNum+"_bottom").text($("#pickId_"+pickNum+"_bottom").data('team-name'));
             };
             pickNum++;
           };
