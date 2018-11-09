@@ -4,4 +4,5 @@ $pdo = new PDO('mysql:host=localhost;port=8888;dbname=Bracket_Referee','Nick','I
 // For ClearDB with Heroku...
 // $pdo = new PDO('mysql:host=us-cdbr-iron-east-01.cleardb.net;port=3306;dbname=heroku_09cdd5d6c600012','bff92f85b9436f','a8af7f0f094a0d3');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//check
 ?>
