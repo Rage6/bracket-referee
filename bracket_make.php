@@ -271,28 +271,49 @@
                   data-pick='"+pickNum+"'\
                   data-winner='null'></td>\
               </tr>");
-              $("#pickId_"+tableId+"_"+gameNum+"_top").text($("#pickId_"+tableId+"_"+gameNum+"_top").data('team_name'));
-              $("#pickId_"+tableId+"_"+gameNum+"_bottom").text($("#pickId_"+tableId+"_"+gameNum+"_bottom").data('team_name'));
+              $("#pickId_"+tableId+"_"+gameNum+"_top")
+                .text($("#pickId_"+tableId+"_"+gameNum+"_top").data('team_name'));
+              $("#pickId_"+tableId+"_"+gameNum+"_bottom")
+                .text($("#pickId_"+tableId+"_"+gameNum+"_bottom").data('team_name'));
               var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
+              var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
               $("#"+pickIdA).click((pickIdA)=>{
                 var nextLayer = $("#"+pickIdA.target.id).data('layer') + 1;
                 var nextGame = findNextGame($("#"+pickIdA.target.id).data('game'));
                 var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                console.log(nextElement);
-                // console.log("button A worked");
-                // console.log("Next Layer: " + nextLayer);
-                // console.log("Current Game: " + $("#"+pickIdA.target.id).data('game'));
-                // console.log("Next Game: " + nextGame);
+                var newId = $("#"+pickIdA.target.id).data('team_id');
+                var newName = $("#"+pickIdA.target.id).data('team_name');
+                $(nextElement)
+                  .data('team_id',newId)
+                  .data('team_name',newName)
+                  .text($("#"+pickIdA.target.id));
+                $("#"+pickIdA.target.id)
+                  .data('winner','true')
+                  .css('background-color','green')
+                  .css('color','white');
+                $("#"+pickIdB)
+                  .data('winner','false')
+                  .css('background-color','white')
+                  .css('color','black');
               });
-              var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
               $("#"+pickIdB).click((pickIdB)=>{
                 var nextLayer = $("#"+pickIdB.target.id).data('layer') + 1;
                 var nextGame = findNextGame($("#"+pickIdB.target.id).data('game'));
                 var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                console.log(nextElement);
-                // console.log("button B worked");
-                // console.log("Next Layer: " + nextLayer);
-                // console.log("Next Game: " + nextGame);
+                var newId = $("#"+pickIdB.target.id).data('team_id');
+                var newName = $("#"+pickIdB.target.id).data('team_name');
+                $(nextElement)
+                  .data('team_id',newId)
+                  .data('team_name',newName)
+                  .text($("#"+pickIdB.target.id));
+                $("#"+pickIdB.target.id)
+                  .data('winner','true')
+                  .css('background-color','green')
+                  .css('color','white');
+                $("#"+pickIdA)
+                  .data('winner','false')
+                  .css('background-color','white')
+                  .css('color','black');
               });
             };
             pickNum++;
