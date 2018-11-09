@@ -12,3 +12,16 @@ Bracket Referee:
 Username: bff92f85b9436f
 Password: a8af7f0f094a0d3
 Hostname: us-cdbr-iron-east-01.cleardb.net
+
+WHEN UPDATING THE ClearDB DATABASE:
+- Go to the PHPMyAdmin
+- Click on the Bracket-Referee database (and NOT just one of its tables!)
+- Click on the 'Export' tab
+- Click on 'Custom' button
+- Scroll down to the 'Output' tab, and find it's button to "Save output to a file"
+- Scroll down to the 'Object creation options' box.
+- Click the button to "Add DROP TABLE / VIEW / PROCEDURE / FUNCTION / EVENT / TRIGGER statement"
+- Scroll down to the bottom and click 'GO'
+- The .sql file should appear in the 'Downloads' file
+- Go onto the ClearDB database with the 'Sequal Pro' program
+- Import the most recent .sql file in the 'Downloads' folder

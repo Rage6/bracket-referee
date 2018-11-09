@@ -11,9 +11,9 @@
 
   // This is the prefix for all of the href that take a user to a givien group in the search list
   // Local host
-  // $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
+  $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
   // ClearDB host
-  $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+  // $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -48,11 +48,12 @@
 
   // Start a new Group
   if (isset($_POST['new_group'])) {
-    if (strlen($_POST['group_name']) > 0) {
-      $groupStmt = $pdo->prepare('INSERT INTO Groups(admin_id,group_name) VALUES (:pid,:gnm)');
+    if (strlen($_POST['group_name']) > 0 && $_POST['tourn_id'] != 'null') {
+      $groupStmt = $pdo->prepare('INSERT INTO Groups(admin_id,group_name,fk_tourn_id) VALUES (:pid,:gnm,:tid)');
       $groupStmt->execute(array(
         ':pid'=>$_SESSION['player_id'],
-        ':gnm'=>htmlentities($_POST['group_name'])
+        ':gnm'=>htmlentities($_POST['group_name']),
+        ':tid'=>htmlentities($_POST['fk_tourn_id'])
       ));
       $getIdStmt = $pdo->query("SELECT LAST_INSERT_ID()");
       $groupId = $getIdStmt->fetchColumn();
@@ -65,7 +66,7 @@
       header('Location: player.php');
       return true;
     } else {
-      $_SESSION['message'] = "<b style='color:red'>Group name is required</b>";
+      $_SESSION['message'] = "<b style='color:red'>Group names and tournaments are required</b>";
       header('Location: player.php');
       return false;
     };
@@ -111,6 +112,7 @@
     <script src="main.js"></script>
   </head>
   <body>
+
     <h1>Bracket HQ</h1>
     <?php
     if (isset($_SESSION['message'])) {
@@ -167,10 +169,10 @@
           if (isset($_SESSION['search'])) {
             $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE group_name LIKE :nm');
             $findList->execute(array(
-              ':nm'=>$_SESSION['search']."%"
+              ':nm'=>"%".$_SESSION['search']."%"
             ));
-            // $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-            $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+            $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
             while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
               $nameList[] = $row['group_name'];
               $startList[] = "<a href='".$url.$row['group_id']."'>";
@@ -199,6 +201,21 @@
             <tr>
               <td>Group name:</td>
               <td><input type='text' name='group_name'></td>
+            </tr>
+            <tr>
+              <td>Tournament:</td>
+              <td>
+                <select name="tourn_id">
+                  <option value='null'>Choose from...</option>
+                  <?php
+                    $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name FROM Tournaments');
+                    $tournStmt->execute();
+                    while ($tournRow = $tournStmt->fetch(PDO::FETCH_ASSOC)) {
+                      echo("<option value='".$tournRow['tourn_id']."'>".$tournRow['tourn_name']."</option>");
+                    };
+                  ?>
+                </select>
+              </td>
             </tr>
           </table>
           <input type="submit" name="new_group" value="START">

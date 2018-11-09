@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("new test successful");
+  console.log("main.js is active...");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -62,4 +62,15 @@ $(()=>{
   $("#cancelLeave").click(()=>{
     $("#leaveGrpBox").hide();
   });
+
+  // Toggle the box to cancel a new bracket and return to the group page
+  $("#leaveBrktBox").hide();
+  $("#leaveBrktButton").click(()=>{
+    $("#leaveBrktBox").toggle();
+  });
+  // Remove the cancelation box
+  $("#hideBrktBttn").click(()=>{
+    $("#leaveBrktBox").hide();
+  });
+
 })
