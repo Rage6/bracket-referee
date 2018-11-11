@@ -92,7 +92,7 @@
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
   };
-  
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -163,7 +163,7 @@
     </br>
     <h3>Tournament Results</h3>
     <?php
-      $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id');
+      $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
       $gameListStmt->execute(array(
         ':gid'=>htmlentities($_GET['group_id'])
       ));
