@@ -82,6 +82,16 @@
       return false;
     }
   };
+
+  // echo("Session:</br>");
+  // print_r($_SESSION);
+  // echo("</br>");
+  // echo("Post:</br>");
+  // print_r($_POST);
+  // echo("</br>");
+  // echo("Get:</br>");
+  // print_r($_GET);
+  // echo("</br>");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
