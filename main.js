@@ -1,11 +1,5 @@
 $(()=>{
-<<<<<<< HEAD
-  console.log("User test successful");
-  // Starting variables
-
-=======
   console.log("main.js is active...");
->>>>>>> 51ecb194f147a00887b8984101bba7520ed00302
 
   $('#logForm').hide();
   $('#signForm').hide();

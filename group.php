@@ -31,7 +31,7 @@
   $adminResult = $adminStmt->fetch(PDO::FETCH_ASSOC);
 
   // Recalls all of the players in this group
-  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id,total_score FROM Players JOIN Groups_Players JOIN Brackets WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid AND Groups_Players.player_id=Brackets.player_id AND Groups_Players.group_id=Brackets.group_id');
+  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -135,11 +135,26 @@
       </tr>
       <?php
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+          $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
+          $bracketStmt->execute(array(
+            ':pid'=>$_SESSION['player_id'],
+            ':gid'=>htmlentities($_GET['group_id'])
+          ));
+          $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
+          // print_r(count($bracketArray));
+          if (is_array($bracketArray)==false || count($bracketArray) <= 0) {
+            $bracketStatus = "NO";
+            $bracketTotal = "---";
+          } else {
+            $bracketStatus = "YES";
+            $bracketID = $bracketArray['bracket_id'];
+            $bracketTotal = $bracketArray['total_score'];
+          };
           echo("
           <tr>
             <td>".$playerRow['userName']."</td>
-            <td>".$playerRow['total_score']."</td>
-            <td>check2</td>
+            <td><a href=localhost:8888/bracket-referee/bracket_view.php?bracket_id=".$bracketID.">".$bracketStatus."</a></td>
+            <td>".$bracketTotal."</td>
           </tr>");
         };
       ?>
