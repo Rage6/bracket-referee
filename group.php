@@ -31,13 +31,13 @@
   $adminResult = $adminStmt->fetch(PDO::FETCH_ASSOC);
 
   // Recalls all of the players in this group
-  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
+  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id,total_score FROM Players JOIN Groups_Players JOIN Brackets WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid AND Groups_Players.player_id=Brackets.player_id AND Groups_Players.group_id=Brackets.group_id');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
 
   // Recalls the tournament's info for this group
-  $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date FROM Groups JOIN Tournaments WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
+  $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date,bracket_id FROM Groups JOIN Tournaments JOIN Brackets WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
   $tournStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -135,9 +135,12 @@
       </tr>
       <?php
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
-          echo("<tr><td>".$playerRow['userName']."</td>
-          <td>check1</td>
-          <td>check2</td></tr>");
+          echo("
+          <tr>
+            <td>".$playerRow['userName']."</td>
+            <td>".$playerRow['total_score']."</td>
+            <td>check2</td>
+          </tr>");
         };
       ?>
     </table>
