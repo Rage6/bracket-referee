@@ -153,7 +153,7 @@
           echo("
           <tr>
             <td>".$playerRow['userName']."</td>
-            <td><a href=localhost:8888/bracket-referee/bracket_view.php?bracket_id=".$bracketID.">".$bracketStatus."</a></td>
+            <td><a href=bracket_view.php?bracket_id=".$bracketID.">".$bracketStatus."</a></td>
             <td>".$bracketTotal."</td>
           </tr>");
         };
