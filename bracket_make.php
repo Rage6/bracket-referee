@@ -40,6 +40,7 @@
 
   // Checks and submits the new bracket
   if (isset($_POST['enterBracket'])) {
+
     $_SESSION['message'] = "<b style='color:green'>Bracket entered</b>";
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
@@ -78,30 +79,8 @@
         echo("<div id='layer_".$oneLevel['layer']."'>
                 <h3 id='layerTitle_".$oneLevel['layer']."'>
                   <u>".$oneLevel['level_name']."</u>
-                </h3>");
-                // $currentLevel = $oneLevel['level_id'];
-                // $gameStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id FROM Games WHERE level_id=:lid AND first_round=1');
-                // $gameStmt->execute(array(
-                //   ':lid'=>$currentLevel
-                // ));
-                // while ($oneGame = $gameStmt->fetch(PDO::FETCH_ASSOC)) {
-                //   // var_dump($oneGame);)
-                //   $aTeamStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:tid');
-                //   $aTeamStmt->execute(array(
-                //     ':tid'=>$oneGame['team_a']
-                //   ));
-                //   $aTeamName = $aTeamStmt->fetch(PDO::FETCH_ASSOC)['team_name'];
-                //   $bTeamStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:tid');
-                //   $bTeamStmt->execute(array(
-                //     ':tid'=>$oneGame['team_b']
-                //   ));
-                //   $bTeamName = $bTeamStmt->fetch(PDO::FETCH_ASSOC)['team_name'];
-                //   echo("<span id='game_".$oneGame['game_id']."'>
-                //     <span id='team_".$oneGame['team_a']."'>".$aTeamName."</span> vs.
-                //     <span id='team_".$oneGame['team_b']."'>".$bTeamName." --> </span>
-                //   </span></br>");
-                // };
-        echo("</div>");
+                </h3>
+              </div>");
       };
     ?>
     </br>
@@ -178,13 +157,14 @@
                         data-team_name='"+teamB['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "' data-pick='"+pickNum+"'\
-                        data-winner='winner'>"+teamB['team_name']+"</td>\
+                        data-winner='null'>"+teamB['team_name']+"</td>\
                     </tr>");
                   // When clicking on the A team in the first round...
                   $("#"+pickIdA).click((pickIdA)=>{
                     var nextLayer = $("#"+pickIdA.target.id).data('layer') + 1;
                     var nextGame = findNextGame($("#"+pickIdA.target.id).data('game'));
                     var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                    console.log(nextElement);
                     var pickIdB = null;
                     for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                       if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {

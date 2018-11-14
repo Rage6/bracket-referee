@@ -32,6 +32,7 @@
 
   // Recalls all of the players in this group
   $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
+  // $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -134,11 +135,12 @@
         <th>Score</th>
       </tr>
       <?php
+        $hasBracket = false;
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
           // Detects if the user has a bracket
           $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
           $bracketStmt->execute(array(
-            ':pid'=>$_SESSION['player_id'],
+            ':pid'=>$playerRow['player_id'],
             ':gid'=>htmlentities($_GET['group_id'])
           ));
           $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
@@ -148,12 +150,13 @@
           } else {
             $bracketID = $bracketArray['bracket_id'];
             $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
-            $bracketTotal = $bracketArray['total_score'];
+            $bracketTotal = 0;
+            if ($playerRow['player_id'] == $_SESSION['player_id']) {
+              $hasBracket = true;
+            };
           };
           // Detects the user's score IF they have a bracket
           if ($bracketStatus != "NO") {
-            // echo("bracket_id: ".$bracketID);
-            // var_dump((int)$bracketID);
             $findPointsStmt = $pdo->prepare('SELECT player_pick,winner_id,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Levels.level_id=Games.level_id');
             $findPointsStmt->execute(array(
               ':bid'=>$bracketID
@@ -189,9 +192,13 @@
       </tr>
     </table>
     </br>
-    <form method='POST'>
-      <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-    </form>
+    <?php
+      if ($hasBracket == false) {
+        echo("<form method='POST'>
+          <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+        </form>");
+      };
+    ?>
     </br>
     <h3>Tournament Results</h3>
     <?php
