@@ -17,6 +17,12 @@
   ));
   $usrNmeArray = $usrNmeStmt->fetch(PDO::FETCH_ASSOC);
 
+  // Returns the user to the group that this bracket is in
+  if (isset($_POST['returnGroup'])) {
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return true;
+  };
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -79,5 +85,8 @@
     <h3>
       <u>Total Score:</u> <?php echo($totalScore) ?>
     </h3>
+    <form method="POST">
+      <input type="submit" name="returnGroup" value="<-- BACK" />
+    </form>
   </body>
 </html>

@@ -135,25 +135,39 @@
       </tr>
       <?php
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+          // Detects if the user has a bracket
           $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
           $bracketStmt->execute(array(
             ':pid'=>$_SESSION['player_id'],
             ':gid'=>htmlentities($_GET['group_id'])
           ));
           $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
-          // print_r(count($bracketArray));
           if (is_array($bracketArray)==false || count($bracketArray) <= 0) {
             $bracketStatus = "NO";
             $bracketTotal = "---";
           } else {
-            $bracketStatus = "YES";
             $bracketID = $bracketArray['bracket_id'];
+            $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
             $bracketTotal = $bracketArray['total_score'];
+          };
+          // Detects the user's score IF they have a bracket
+          if ($bracketStatus != "NO") {
+            // echo("bracket_id: ".$bracketID);
+            // var_dump((int)$bracketID);
+            $findPointsStmt = $pdo->prepare('SELECT player_pick,winner_id,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Levels.level_id=Games.level_id');
+            $findPointsStmt->execute(array(
+              ':bid'=>$bracketID
+            ));
+            while ($onePick = $findPointsStmt->fetch(PDO::FETCH_ASSOC)) {
+              if ($onePick['player_pick'] == $onePick['winner_id']) {
+                $bracketTotal += $onePick['points'];
+              };
+            };
           };
           echo("
           <tr>
             <td>".$playerRow['userName']."</td>
-            <td><a href=bracket_view.php?bracket_id=".$bracketID.">".$bracketStatus."</a></td>
+            <td>".$bracketStatus."</td>
             <td>".$bracketTotal."</td>
           </tr>");
         };
