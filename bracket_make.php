@@ -172,17 +172,19 @@
                       };
                     };
                     var newId = $("#"+pickIdA.target.id).data('team_id');
+                    console.log("newId: "+newId);
                     var newName = $("#"+pickIdA.target.id).data('team_name');
+                    console.log("newName: "+newName);
                     $(nextElement)
-                      .data('team_id',newId)
-                      .data('team_name',newName)
-                      .text($(nextElement).data('team_name'));
+                      .attr('data-team_id',newId)
+                      .attr('data-team_name',newName)
+                      .text($(nextElement).attr('data-team_name'));
                     $("#"+pickIdA.target.id)
-                      .data('winner','true')
+                      .attr('data-winner','true')
                       .css('background-color','green')
                       .css('color','white');
                     $(pickIdB)
-                      .data('winner','false')
+                      .attr('data-winner','false')
                       .css('background-color','white')
                       .css('color','black');
                   });
@@ -200,15 +202,15 @@
                     var newId = $("#"+pickIdB.target.id).data('team_id');
                     var newName = $("#"+pickIdB.target.id).data('team_name');
                     $(nextElement)
-                      .data('team_id',newId)
-                      .data('team_name',newName)
-                      .text($(nextElement).data('team_name'));
+                      .attr('data-team_id',newId)
+                      .attr('data-team_name',newName)
+                      .text($(nextElement).attr('data-team_name'));
                     $("#"+pickIdB.target.id)
-                      .data('winner','true')
+                      .attr('data-winner','true')
                       .css('background-color','green')
                       .css('color','white');
                     $(pickIdA)
-                      .data('winner','false')
+                      .attr('data-winner','false')
                       .css('background-color','white')
                       .css('color','black');
                   });
@@ -260,16 +262,16 @@
                 var newId = $("#"+pickIdA.target.id).data('team_id');
                 var newName = $("#"+pickIdA.target.id).data('team_name');
                 $(nextElement)
-                  .data('team_id',newId)
-                  .data('team_name',newName)
-                  .text($("#"+pickIdA.target.id).data('team_name'));
+                  .attr('data-team_id',newId)
+                  .attr('data-team_name',newName)
+                  .text($("#"+pickIdA.target.id).attr('data-team_name'));
                 $("#"+pickIdA.target.id)
-                  .data('winner','true')
+                  .attr('data-winner','true')
                   .css('background-color','green')
                   .css('color','white');
                 // console.log("#"+pickIdB);
                 $(pickIdB)
-                  .data('winner','false')
+                  .attr('data-winner','false')
                   .css('background-color','white')
                   .css('color','black');
               });
@@ -286,15 +288,15 @@
                 var newId = $("#"+pickIdB.target.id).data('team_id');
                 var newName = $("#"+pickIdB.target.id).data('team_name');
                 $(nextElement)
-                  .data('team_id',newId)
-                  .data('team_name',newName)
-                  .text($("#"+pickIdB.target.id).data('team_name'));
+                  .attr('data-team_id',newId)
+                  .attr('data-team_name',newName)
+                  .text($("#"+pickIdB.target.id).attr('data-team_name'));
                 $("#"+pickIdB.target.id)
-                  .data('winner','true')
+                  .attr('data-winner','true')
                   .css('background-color','green')
                   .css('color','white');
                 $(pickIdA)
-                  .data('winner','false')
+                  .attr('data-winner','false')
                   .css('background-color','white')
                   .css('color','black');
               });
