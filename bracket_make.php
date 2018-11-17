@@ -149,6 +149,7 @@
                         data-team_name='"+teamA['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "'\
+                        data-next_game='" + teamA['next_game'] + "'\
                         data-pick='"+pickNum+"'\
                         data-winner='null'>"+teamA['team_name']+"</td>\
                       <td> VS </td>\
@@ -156,7 +157,9 @@
                         data-team_id='"+teamB['team_id']+"'\
                         data-team_name='"+teamB['team_name']+"'\
                         data-layer='"+tableId+"'\
-                        data-game='" + gameNum + "' data-pick='"+pickNum+"'\
+                        data-game='" + gameNum + "'\
+                        data-next_game='" + teamB['next_game'] + "'\
+                        data-pick='"+pickNum+"'\
                         data-winner='null'>"+teamB['team_name']+"</td>\
                     </tr>");
                   // When clicking on the A team in the first round...
