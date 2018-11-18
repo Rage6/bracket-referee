@@ -84,7 +84,7 @@
       };
     ?>
     </br>
-    <form method="POST">
+    <!-- <form method="POST">
       <input type="submit" name="enterBracket" value="SUBMIT" />
       <span id="leaveBrktButton"> CANCEL </span></br>
       <div style="padding: 10px;border: 1px solid black;display: inline-block" id="leaveBrktBox">
@@ -92,7 +92,8 @@
         <input type="submit" name="cancelBracket" value="YES, trash this bracket" />
         <div id="hideBrktBttn">NO, keep working on this bracket</div>
       </div>
-    </form>
+    </form> -->
+    <button id="submitBracket">SUBMIT</button>
   </body>
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
@@ -100,13 +101,26 @@
       var gameUrl = 'json_games.php?group_id=' + groupId;
       gameIdList = [];
       $.getJSON(gameUrl,(gameData)=>{
-        console.log(gameData)
         // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
           var oneList = [gameData[i]['game_id'],gameData[i]['next_game']];
           gameIdList.push(oneList);
         };
-        // console.log(gameIdList);
+        console.log(gameIdList);
+        $("#submitBracket").click(()=>{
+          var pickList = [];
+          for (var k = 0; k < gameIdList.length; k++) {
+            var oneGameId = gameIdList[k][0];
+            // console.log(oneGameId);
+            var onePick = $('[data-game_id='+oneGameId+'][data-winner="true"]').data('team_id');
+            var oneObject = {
+              gameId: parseInt(oneGameId),
+              pickId: onePick
+            };
+            pickList.push(oneObject);
+          };
+          console.log(pickList);
+        });
       });
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
@@ -116,13 +130,12 @@
         var pickNum = 0;
         var totalGames = null;
         bothTeamIds = [];
-        // Below is for tournaments in which two teams do not have to play in the first round
+        // Below is because some tournaments start with two teams not playing in the first round
         if ((data.length / 2) % 2 == 0) {
           totalGames = data.length / 2;
         } else {
           totalGames = (data.length / 2) + 1;
         };
-
         for (var c = firstTable; c <= lastTable; c++) {
           var tableId = c;
           $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
@@ -344,8 +357,8 @@
             pickNum++;
           };
         };
-        console.log(bothTeamIds);
-      })
+        // console.log(bothTeamIds);
+      });
     });
   </script>
 </html>
