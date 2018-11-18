@@ -97,6 +97,17 @@
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
     $(document).ready(()=>{
+      var gameUrl = 'json_games.php?group_id=' + groupId;
+      gameIdList = [];
+      $.getJSON(gameUrl,(gameData)=>{
+        console.log(gameData)
+        // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
+        for (var i = 0; i < gameData.length; i++) {
+          var oneList = [gameData[i]['game_id'],gameData[i]['next_game']];
+          gameIdList.push(oneList);
+        };
+        // console.log(gameIdList);
+      });
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
         // console.log(data);
@@ -149,7 +160,8 @@
                         data-team_name='"+teamA['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "'\
-                        data-next_game='" + teamA['next_game'] + "'\
+                        data-game_id='" + teamA['game_id'] + "'\
+                        data-next_game_id='" + teamA['next_game'] + "'\
                         data-pick='"+pickNum+"'\
                         data-winner='null'>"+teamA['team_name']+"</td>\
                       <td> VS </td>\
@@ -158,7 +170,8 @@
                         data-team_name='"+teamB['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "'\
-                        data-next_game='" + teamB['next_game'] + "'\
+                        data-game_id='" + teamB['game_id'] + "'\
+                        data-next_game_id='" + teamB['next_game'] + "'\
                         data-pick='"+pickNum+"'\
                         data-winner='null'>"+teamB['team_name']+"</td>\
                     </tr>");
@@ -224,9 +237,29 @@
             };
           // ... and this is where it all happens in the following rounds.
           } else {
-            // bothTeamIds = [];
             var totalGames = totalGames / 2;
             for (var gameNum = 0; gameNum < totalGames; gameNum++) {
+              // var check = $('*[data-game_id="9"]').data('team_name');
+              // NOTICE: the next_game_id is found on the past game element with the smallest gameNum. The other element could be used instead, though, since both of them would produce the same next_game_id.
+              var pastGameA = null;
+              if (gameNum == 0) {
+                pastGameA = 0;
+              } else {
+                pastGameA = gameNum * 2;
+              };
+              var pastTable = tableId - 1;
+              var pastElementA = "#pickId_" + pastTable + "_" + pastGameA + "_top";
+              // finds the upcoming, new game's id number (based on the previous element's next_game_id)
+              var currentGameIdA = $(pastElementA).attr('data-next_game_id');
+              var nextGameId = null;
+              for (var j = 0; j < gameIdList.length; j++) {
+                var curJ = gameIdList[j][0];
+                var nexJ = gameIdList[j][1];
+                if (curJ == currentGameIdA) {
+                  nextGameId = nexJ;
+                };
+              };
+              // console.log("returns next_game_id: "+nextGameId);
               $("#table_"+tableId).append("\
               <tr>\
                 <td id='pickId_"+tableId+"_"+gameNum+"_top'\
@@ -234,6 +267,8 @@
                   data-team_name='waiting on A...'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
+                  data-game_id='"+currentGameIdA+"'\
+                  data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
                   data-winner='null'></td>\
                 <td>VS</td>\
@@ -242,6 +277,8 @@
                   data-team_name='waiting on B...'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
+                  data-game_id='"+currentGameIdA+"'\
+                  data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
                   data-winner='null'></td>\
               </tr>");
