@@ -10,12 +10,29 @@
     return false;
   };
 
+  // To find this bracket's player idea
+  $brkPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE :bid=bracket_id');
+  $brkPlyStmt->execute(array(
+    ':bid'=>htmlentities($_GET['bracket_id'])
+  ));
+  $brkPlyId = $brkPlyStmt->fetch(PDO::FETCH_ASSOC);
+
   // To get this player's name for the title
   $usrNmeStmt = $pdo->prepare('SELECT userName FROM Players WHERE player_id=:pid');
   $usrNmeStmt->execute(array(
-    ':pid'=>$_SESSION['player_id']
+    ':pid'=>$brkPlyId['player_id']
   ));
   $usrNmeArray = $usrNmeStmt->fetch(PDO::FETCH_ASSOC);
+
+  // To delete this bracket
+  if (isset($_POST['deleteBracket'])) {
+    $deleteStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bid');
+    $deleteStmt->execute(array(
+      ':bid'=>htmlentities($_GET['bracket_id'])
+    ));
+    $_SESSION['message'] = "<b style='color:green'>Bracket successfully deleted</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+  };
 
   // Returns the user to the group that this bracket is in
   if (isset($_POST['returnGroup'])) {
@@ -29,10 +46,29 @@
   <head>
     <meta charset="utf-8">
     <title>Review | Bracket Referee</title>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="main.js"></script>
   </head>
   <body>
     <h1>Bracket Review</h1>
     <h2>Player: <?php echo($usrNmeArray['userName']) ?></h2>
+    <?php
+      if ($brkPlyId['player_id'] == $_SESSION['player_id']) {
+        echo("<p id='showDelBox'><u>Delete Bracket?</u></p>");
+      };
+    ?>
+    <div id="delBox">
+      <p>
+        <i>Are you sure?</i> This bracket and its results will be permanently deleted.
+      </p>
+      <form method='POST'>
+        <input type='submit' name='deleteBracket' value='DELETE'/>
+      </form>
+      <span id="hideDelBox">CANCEL</span>
+    </div>
     <?php
       $pickListStmt = $pdo->prepare('SELECT pick_id,player_pick,layer,level_name,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Games.level_id=Levels.level_id ORDER BY Levels.layer ASC');
       $pickListStmt->execute(array(

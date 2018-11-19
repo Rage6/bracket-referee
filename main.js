@@ -73,4 +73,14 @@ $(()=>{
     $("#leaveBrktBox").hide();
   });
 
+  // Toggle the box to deleting an existing bracket in bracket_view page
+  $("#delBox").hide();
+  $("#showDelBox").click(()=>{
+    $("#delBox").toggle();
+  });
+  // Remove the cancelation box
+  $("#hideDelBox").click(()=>{
+    $("#delBox").hide();
+  });
+
 })

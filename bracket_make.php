@@ -71,6 +71,10 @@
   <body>
     <h1>Make Your Bracket</h1>
     <?php
+      if (isset($_SESSION['message'])) {
+        echo($_SESSION['message']);
+        unset($_SESSION['message']);
+      };
       $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name FROM Levels WHERE tourn_id=:tid');
       $levelStmt->execute(array(
         ':tid'=>$tournId
@@ -84,15 +88,6 @@
       };
     ?>
     </br>
-    <!-- <form method="POST">
-      <input type="submit" name="enterBracket" value="SUBMIT" />
-      <span id="leaveBrktButton"> CANCEL </span></br>
-      <div style="padding: 10px;border: 1px solid black;display: inline-block" id="leaveBrktBox">
-        <p>Are you sure? Your progress on the bracket will be deleted.</p>
-        <input type="submit" name="cancelBracket" value="YES, trash this bracket" />
-        <div id="hideBrktBttn">NO, keep working on this bracket</div>
-      </div>
-    </form> -->
     <button id="submitBracket">SUBMIT</button>
   </body>
   <script>
