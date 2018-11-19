@@ -11,10 +11,10 @@
   };
 
   // Sends the user back to the Player file
-  if (isset($_POST['returnPlayer'])) {
-    header('Location: player.php');
-    return true;
-  };
+  // if (isset($_POST['returnPlayer'])) {
+  //   header('Location: player.php');
+  //   return true;
+  // };
 
   // Discontinue this bracket and return to group.php
   if (isset($_POST['cancelBracket'])) {
@@ -40,7 +40,6 @@
 
   // Checks and submits the new bracket
   if (isset($_POST['enterBracket'])) {
-
     $_SESSION['message'] = "<b style='color:green'>Bracket entered</b>";
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
@@ -88,6 +87,9 @@
       };
     ?>
     </br>
+    <form method="POST">
+      <input type='submit' name='cancelBracket' value='CANCEL'/>
+    </form>
     <button id="submitBracket">SUBMIT</button>
   </body>
   <script>
