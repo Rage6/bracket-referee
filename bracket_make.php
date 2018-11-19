@@ -112,14 +112,19 @@
           for (var k = 0; k < gameIdList.length; k++) {
             var oneGameId = gameIdList[k][0];
             // console.log(oneGameId);
-            var onePick = $('[data-game_id='+oneGameId+'][data-winner="true"]').data('team_id');
+            var onePick = $('[data-game_id='+oneGameId+'][data-winner="true"]').attr('data-team_id');
             var oneObject = {
               gameId: parseInt(oneGameId),
-              pickId: onePick
+              pickId: parseInt(onePick)
             };
             pickList.push(oneObject);
           };
-          console.log(pickList);
+          var urlHead = "bracket_confirm.php?group_id=4&gameTotal="+pickList.length+"&player_id="+<?php echo($_SESSION['player_id']); ?>;
+          for (var m = 0; m < pickList.length; m++) {
+            var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
+            urlHead += "&" + urlTag;
+          };
+          window.location = urlHead;
         });
       });
       var url = 'json_tournament.php?group_id=' + groupId;
