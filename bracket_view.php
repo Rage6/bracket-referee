@@ -66,8 +66,9 @@
       </p>
       <form method='POST'>
         <input type='submit' name='deleteBracket' value='DELETE'/>
+        <span id="hideDelBox">CANCEL</span>
       </form>
-      <span id="hideDelBox">CANCEL</span>
+      </br>
     </div>
     <?php
       $pickListStmt = $pdo->prepare('SELECT pick_id,player_pick,layer,level_name,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Games.level_id=Levels.level_id ORDER BY Levels.layer ASC');

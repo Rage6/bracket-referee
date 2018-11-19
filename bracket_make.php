@@ -88,9 +88,9 @@
     ?>
     </br>
     <form method="POST">
+      <span id="submitBracket">SUBMIT</span>
       <input type='submit' name='cancelBracket' value='CANCEL'/>
     </form>
-    <button id="submitBracket">SUBMIT</button>
   </body>
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
