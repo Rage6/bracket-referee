@@ -114,7 +114,7 @@
       Welcome! The Bracket Referee is a free center where you and your friend's can make private brackets and compete against one another!
     </h2>
     <p>If you want to step on the court, simply...</p>
-    <div id="logBox">
+    <div id="logBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
       <div id="logButton"><b>ACCOUNT LOGIN</b></div>
       <div id="logForm">
         <form method="POST">
@@ -133,7 +133,7 @@
       </div>
     </div>
     </br>
-    <div id="signBox">
+    <div id="signBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
       <div id="signButton"><b>CREATE ACCOUNT</b></div>
       <div id="signForm">
         <form method='POST'>

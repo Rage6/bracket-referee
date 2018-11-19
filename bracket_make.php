@@ -127,8 +127,8 @@
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
         // console.log(data);
-        var firstTable = 2;
-        var lastTable = 4;
+        var firstTable = 1;
+        var lastTable = <?php echo($tournLevel) ?> ;
         var pickNum = 0;
         var totalGames = null;
         bothTeamIds = [];
@@ -263,14 +263,14 @@
                 pastGameA = gameNum * 2;
               };
               var pastTable = tableId - 1;
-              var pastElementA = "#pickId_" + pastTable + "_" + pastGameA + "_top";
+              var pastElement = "#pickId_" + pastTable + "_" + pastGameA + "_top";
               // finds the upcoming, new game's id number (based on the previous element's next_game_id)
-              var currentGameIdA = $(pastElementA).attr('data-next_game_id');
+              var currentGameId = $(pastElement).attr('data-next_game_id');
               var nextGameId = null;
               for (var j = 0; j < gameIdList.length; j++) {
                 var curJ = gameIdList[j][0];
                 var nexJ = gameIdList[j][1];
-                if (curJ == currentGameIdA) {
+                if (curJ == currentGameId) {
                   nextGameId = nexJ;
                 };
               };
@@ -282,7 +282,7 @@
                   data-team_name='waiting on A...'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
-                  data-game_id='"+currentGameIdA+"'\
+                  data-game_id='"+currentGameId+"'\
                   data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
                   data-winner='null'></td>\
@@ -292,15 +292,19 @@
                   data-team_name='waiting on B...'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
-                  data-game_id='"+currentGameIdA+"'\
+                  data-game_id='"+currentGameId+"'\
                   data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
                   data-winner='null'></td>\
               </tr>");
               $("#pickId_"+tableId+"_"+gameNum+"_top")
-                .text($("#pickId_"+tableId+"_"+gameNum+"_top").data('team_name'));
+                .text($("#pickId_"+tableId+"_"+gameNum+"_top")
+                // .data('team_name'));
+                .attr('data-team_name'));
               $("#pickId_"+tableId+"_"+gameNum+"_bottom")
-                .text($("#pickId_"+tableId+"_"+gameNum+"_bottom").data('team_name'));
+                .text($("#pickId_"+tableId+"_"+gameNum+"_bottom")
+                // .data('team_name'));
+                .attr('data-team_name'));
               var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
               var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
               bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
