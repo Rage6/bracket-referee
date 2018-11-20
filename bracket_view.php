@@ -113,12 +113,10 @@
                 <td>".$pointsEarned."</td>
               </tr>");
             };
-            // echo("</table>");
           };
           echo("</table></br>");
           $lastLayer = $layer['layer'];
         };
-        // echo("</table>");
       };
     ?>
     <h3>
