@@ -155,6 +155,7 @@
           // This is how the first round is set up and clicked on...
           if (c == firstTable) {
             // console.log(tableId);
+            console.log(data);
             // var bothTeamIds = [];
             var gameNum = 0;
             for (var a = 0; a < data.length; a++) {
@@ -171,7 +172,7 @@
                     "<tr>\
                       <td \
                         id='" + pickIdA + "'\
-                        data-team_id='"+teamA['team_id']+"'\
+                        data-team_id="+teamA['team_id']+"\
                         data-team_name='"+teamA['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "'\
@@ -181,7 +182,7 @@
                         data-winner='null'>"+teamA['team_name']+"</td>\
                       <td> VS </td>\
                       <td id='" + pickIdB + "'\
-                        data-team_id='"+teamB['team_id']+"'\
+                        data-team_id="+teamB['team_id']+"\
                         data-team_name='"+teamB['team_name']+"'\
                         data-layer='"+tableId+"'\
                         data-game='" + gameNum + "'\
@@ -192,8 +193,8 @@
                     </tr>");
                   // When clicking on the A team in the first round...
                   $("#"+pickIdA).click((pickIdA)=>{
-                    var nextLayer = $("#"+pickIdA.target.id).data('layer') + 1;
-                    var nextGame = findNextGame($("#"+pickIdA.target.id).data('game'));
+                    var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
+                    var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
                     var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
                     console.log(nextElement);
                     var pickIdB = null;
@@ -202,9 +203,9 @@
                         pickIdB = bothTeamIds[bothNum][1][0];
                       };
                     };
-                    var newId = $("#"+pickIdA.target.id).data('team_id');
+                    var newId = $("#"+pickIdA.target.id).attr('data-team_id');
                     console.log("newId: "+newId);
-                    var newName = $("#"+pickIdA.target.id).data('team_name');
+                    var newName = $("#"+pickIdA.target.id).attr('data-team_name');
                     console.log("newName: "+newName);
                     $(nextElement)
                       .attr('data-team_id',newId)
@@ -221,17 +222,18 @@
                   });
                   // ... and when clicking on the B team in the first round.
                   $("#"+pickIdB).click((pickIdB)=>{
-                    var nextLayer = $("#"+pickIdB.target.id).data('layer') + 1;
-                    var nextGame = findNextGame($("#"+pickIdB.target.id).data('game'));
+                    var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
+                    var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
                     var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                    console.log(nextElement);
                     var pickIdA = null;
                     for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                       if (bothTeamIds[bothNum][1][0] == "#"+pickIdB.target.id) {
                         pickIdA = bothTeamIds[bothNum][0][0];
                       };
                     };
-                    var newId = $("#"+pickIdB.target.id).data('team_id');
-                    var newName = $("#"+pickIdB.target.id).data('team_name');
+                    var newId = $("#"+pickIdB.target.id).attr('data-team_id');
+                    var newName = $("#"+pickIdB.target.id).attr('data-team_name');
                     $(nextElement)
                       .attr('data-team_id',newId)
                       .attr('data-team_name',newName)
@@ -309,8 +311,9 @@
               var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
               bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
               $("#"+pickIdA).click((pickIdA)=>{
-                var nextLayer = $("#"+pickIdA.target.id).data('layer') + 1;
-                var nextGame = findNextGame($("#"+pickIdA.target.id).data('game'));
+                var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
+                console.log(nextElement);
+                var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
                 var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
                 var pickIdB = null;
                 for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
@@ -318,8 +321,8 @@
                     pickIdB = bothTeamIds[bothNum][1][0];
                   };
                 };
-                var newId = $("#"+pickIdA.target.id).data('team_id');
-                var newName = $("#"+pickIdA.target.id).data('team_name');
+                var newId = $("#"+pickIdA.target.id).attr('data-team_id');
+                var newName = $("#"+pickIdA.target.id).attr('data-team_name');
                 $(nextElement)
                   .attr('data-team_id',newId)
                   .attr('data-team_name',newName)
@@ -335,8 +338,9 @@
                   .css('color','black');
               });
               $("#"+pickIdB).click((pickIdB)=>{
-                var nextLayer = $("#"+pickIdB.target.id).data('layer') + 1;
-                var nextGame = findNextGame($("#"+pickIdB.target.id).data('game'));
+                var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
+                console.log(nextElement);
+                var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
                 var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
                 var pickIdA = null;
                 for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
@@ -344,8 +348,8 @@
                     pickIdA = bothTeamIds[bothNum][0][0];
                   };
                 };
-                var newId = $("#"+pickIdB.target.id).data('team_id');
-                var newName = $("#"+pickIdB.target.id).data('team_name');
+                var newId = $("#"+pickIdB.target.id).attr('data-team_id');
+                var newName = $("#"+pickIdB.target.id).attr('data-team_name');
                 $(nextElement)
                   .attr('data-team_id',newId)
                   .attr('data-team_name',newName)
