@@ -88,7 +88,7 @@
     ?>
     </br>
     <form method="POST">
-      <span id="submitBracket">SUBMIT</span>
+      <span id="submitBracket" style="background-color:blue;font-size:20px;color:white;padding: 0 20px;border-radius:10px">SUBMIT</span>
       <input type='submit' name='cancelBracket' value='CANCEL'/>
     </form>
   </body>

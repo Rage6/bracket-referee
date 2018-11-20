@@ -53,7 +53,7 @@
       $groupStmt->execute(array(
         ':pid'=>$_SESSION['player_id'],
         ':gnm'=>htmlentities($_POST['group_name']),
-        ':tid'=>htmlentities($_POST['fk_tourn_id'])
+        ':tid'=>htmlentities($_POST['tourn_id'])
       ));
       $getIdStmt = $pdo->query("SELECT LAST_INSERT_ID()");
       $groupId = $getIdStmt->fetchColumn();
