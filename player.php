@@ -11,9 +11,9 @@
 
   // This is the prefix for all of the href that take a user to a givien group in the search list
   // Local host
-  $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
+  // $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
   // ClearDB host
-  // $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+  $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -171,8 +171,8 @@
             $findList->execute(array(
               ':nm'=>"%".$_SESSION['search']."%"
             ));
-            $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-            // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+            // $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
             while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
               $nameList[] = $row['group_name'];
               $startList[] = "<a href='".$url.$row['group_id']."'>";
