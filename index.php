@@ -1,6 +1,9 @@
 <?php
   session_start();
   require_once("pdo.php");
+
+  // var_dump(bin2hex(random_bytes(21)));
+
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
@@ -20,8 +23,15 @@
         return false;
       } else {
         if (password_verify($_POST['password'],$list['pswd'])) {
-          $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b>";
+          $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b> ";
           $_SESSION['player_id'] = $list['player_id'];
+          $token = bin2hex(random_bytes(21));
+          // $give_token = $pdo->prepare('INSERT INTO Players(current_token) VALUES (:tk) WHERE player_id=:pid');
+          // $give_token->execute(array(
+          //   ':tk'=>$token,
+          //   ':pid'=>$_SESSION['player_id']
+          // ));
+          // $_SESSION['current_token'] = $token;
           header('Location: player.php');
           return true;
         } else {
