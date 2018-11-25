@@ -38,7 +38,7 @@
         <i>htmlentities()</i> is used to block SQL injection. If not, SQL could be maliciously used to see or modify the database.
       </li>
       <li>
-        By using the <i>token-based authentication</i> method, I wrote in a system to confirm that the current user is who they say they are during each and every request. Written on the server-side of the PHP, a new token is randomly generated using <i>random_bytes()</i>
+        By using the <i>token-based authentication</i> method, I wrote in a system to confirm that the current user is who they say they are during each and every request. Each token is randomly generated using PHP's <i>random_bytes()</i>
       </li>
      </ul>
   </li>
