@@ -32,6 +32,14 @@
     <b>Password Encryption</b>: Upon doing research, I used PHP's more recent tool for encrypting the user's password: <i>password_hash()</i>. My previous training had only explained how to manually insert a "salt" before using the more basic <i>hash()</i> and a chosen algorithm, like MD5. The <i>password_hash()</i> seems to do it easier and more affectively.
   </li>
   <li>
-    <b>Hacker Prevention</b>: In order to prevent SQL injection, <i>htmlentities()</i> is used whenever a user submits any data. If not, SQL could be maliciously used to see or modify the database.
+    <b>Hacker Prevention</b>: Several measures have been taken in order to prevent hacking attacks. They include: 
+    <ul>
+      <li>
+        <i>htmlentities()</i> is used to block SQL injection. If not, SQL could be maliciously used to see or modify the database.
+      </li>
+      <li>
+        By using the <i>token-based authentication</i> method, I wrote in a system to confirm that the current user is who they say they are during each and every request. Written on the server-side of the PHP, a new token is randomly generated using <i>random_bytes()</i>
+      </li>
+     </ul>
   </li>
 </ol>
