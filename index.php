@@ -52,13 +52,15 @@
         if ($_POST['newPass'] === $_POST['newConf']) {
           if (strlen($_POST['newPass']) >= 8 && strlen($_POST['newPass']) <= 25) {
             $hash = password_hash($_POST['newPass'],PASSWORD_DEFAULT);
-            $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd) VALUES (:em,:un,:ft,:lt,:ps)');
+            $token = bin2hex(random_bytes(21));
+            $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
             $addStmt->execute(array(
               ':em'=>htmlentities($_POST['newEmail']),
               ':un'=>htmlentities($_POST['newUser']),
               ':ft'=>htmlentities($_POST['newFirst']),
               ':lt'=>htmlentities($_POST['newLast']),
-              ':ps'=>htmlentities($hash)
+              ':ps'=>htmlentities($hash),
+              ':tk'=>$token
             ));
             $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
             $findID->execute(array(
@@ -66,6 +68,7 @@
             ));
             $newID = $findID->fetch(PDO::FETCH_ASSOC);
             $_SESSION['player_id'] = $newID['player_id'];
+            $_SESSION['token'] = $token;
             $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
             header('Location: player.php');
             return true;
