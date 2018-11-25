@@ -2,15 +2,13 @@
   session_start();
   require_once("pdo.php");
 
-  // var_dump(bin2hex(random_bytes(21)));
-
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
-      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd FROM Players WHERE (userName=:ue) OR (email=:ue)");
+      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token FROM Players WHERE (userName=:ue) OR (email=:ue)");
       $stmt->execute(array(
-        ':ue'=>htmlentities($_POST['userEmail']),
-        ':em'=>htmlentities($_POST['email'])
+        ':ue'=>htmlentities($_POST['userEmail'])
+        // ':em'=>htmlentities($_POST['email'])
       ));
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
@@ -24,14 +22,14 @@
       } else {
         if (password_verify($_POST['password'],$list['pswd'])) {
           $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b> ";
-          $_SESSION['player_id'] = $list['player_id'];
           $token = bin2hex(random_bytes(21));
-          // $give_token = $pdo->prepare('INSERT INTO Players(current_token) VALUES (:tk) WHERE player_id=:pid');
-          // $give_token->execute(array(
-          //   ':tk'=>$token,
-          //   ':pid'=>$_SESSION['player_id']
-          // ));
-          // $_SESSION['current_token'] = $token;
+          $new_token = $pdo->prepare('UPDATE Players SET token=:tk WHERE player_id=:pid');
+          $new_token->execute(array(
+            ':tk'=>$token,
+            ':pid'=>$list['player_id']
+          ));
+          $_SESSION['token'] = $token;
+          $_SESSION['player_id'] = $list['player_id'];
           header('Location: player.php');
           return true;
         } else {

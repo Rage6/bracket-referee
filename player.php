@@ -11,21 +11,40 @@
 
   // This is the prefix for all of the href that take a user to a givien group in the search list
   // Local host
-  // $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
+  $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
   // ClearDB host
-  $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+  // $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
     $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to view your profile.</b>";
     unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    unset($_SESSION['playerToken']);
     header('Location: index.php');
     return false;
   };
+
+  // Prevents someone from manually switching players after logging in
+  $findToken = $pdo->prepare('SELECT token FROM Players WHERE player_id=:pid');
+  $findToken->execute(array(
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $playerToken = $findToken->fetch(PDO::FETCH_ASSOC);
+  if ($_SESSION['token'] != $playerToken['token']) {
+    $_SESSION['message'] = "<b style='color:red'>Your current token does not coincide with your account's token. Reassign a new token by logging back in.</b>";
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    header('Location: index.php');
+    return false;
+  };
+
   // Allows user to log out
   if (isset($_POST['logout'])) {
     $_SESSION['message'] = "<b style='color:green'>Log out successful</b>";
     unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    unset($_SESSION['playerToken']);
     header('Location: index.php');
     return true;
   };
@@ -171,8 +190,8 @@
             $findList->execute(array(
               ':nm'=>"%".$_SESSION['search']."%"
             ));
-            // $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-            $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+            $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
             while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
               $nameList[] = $row['group_name'];
               $startList[] = "<a href='".$url.$row['group_id']."'>";

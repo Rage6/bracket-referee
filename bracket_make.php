@@ -10,11 +10,19 @@
     return false;
   };
 
-  // Sends the user back to the Player file
-  // if (isset($_POST['returnPlayer'])) {
-  //   header('Location: player.php');
-  //   return true;
-  // };
+  // Prevents someone from manually switching players after logging in
+  $findToken = $pdo->prepare('SELECT token FROM Players WHERE player_id=:pid');
+  $findToken->execute(array(
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $playerToken = $findToken->fetch(PDO::FETCH_ASSOC);
+  if ($_SESSION['token'] != $playerToken['token']) {
+    $_SESSION['message'] = "<b style='color:red'>Your current token does not coincide with your account's token. Reassign a new token by logging back in.</b>";
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    header('Location: index.php');
+    return false;
+  };
 
   // Discontinue this bracket and return to group.php
   if (isset($_POST['cancelBracket'])) {
