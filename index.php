@@ -52,26 +52,42 @@
         if ($_POST['newPass'] === $_POST['newConf']) {
           if (strlen($_POST['newPass']) >= 8 && strlen($_POST['newPass']) <= 25) {
             $hash = password_hash($_POST['newPass'],PASSWORD_DEFAULT);
-            $token = bin2hex(random_bytes(21));
-            $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
-            $addStmt->execute(array(
+            // This compares the email, username, and password to the ones that already exist
+            $compareExst = $pdo->prepare('SELECT player_id FROM Players WHERE email=:em OR userName =:un OR pswd=:pw');
+            $compareExst->execute(array(
               ':em'=>htmlentities($_POST['newEmail']),
               ':un'=>htmlentities($_POST['newUser']),
-              ':ft'=>htmlentities($_POST['newFirst']),
-              ':lt'=>htmlentities($_POST['newLast']),
-              ':ps'=>htmlentities($hash),
-              ':tk'=>$token
+              ':pw'=>htmlentities($hash)
             ));
-            $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
-            $findID->execute(array(
-              ':ps'=>htmlentities($hash)
-            ));
-            $newID = $findID->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['player_id'] = $newID['player_id'];
-            $_SESSION['token'] = $token;
-            $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-            header('Location: player.php');
-            return true;
+            $exstList = $compareExst->fetch(PDO::FETCH_ASSOC);
+            if (count($exstList['player_id']) == 0) {
+              $token = bin2hex(random_bytes(21));
+              $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
+              $addStmt->execute(array(
+                ':em'=>htmlentities($_POST['newEmail']),
+                ':un'=>htmlentities($_POST['newUser']),
+                ':ft'=>htmlentities($_POST['newFirst']),
+                ':lt'=>htmlentities($_POST['newLast']),
+                ':ps'=>htmlentities($hash),
+                ':tk'=>$token
+              ));
+              $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
+              $findID->execute(array(
+                ':ps'=>htmlentities($hash)
+              ));
+              $newID = $findID->fetch(PDO::FETCH_ASSOC);
+              $_SESSION['player_id'] = $newID['player_id'];
+              $_SESSION['token'] = $token;
+              $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
+              // var_dump($exstList);
+              header('Location: player.php');
+              return true;
+            } else {
+              $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
+              // var_dump($exstList);
+              header('Location: index.php');
+              return false;
+            };
           } else {
             $_SESSION['message'] = "<b style='color:red'>Password must be greater than 7 and less than 26 characters</b>";
             header('Location: index.php');
@@ -181,6 +197,7 @@
     <?php
       if (isset($_SESSION['message'])) {
         echo($_SESSION['message']);
+        // var_dump($_SESSION['message']);
         unset($_SESSION['message']);
       };
     ?>
