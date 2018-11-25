@@ -1,13 +1,14 @@
 <?php
   session_start();
   require_once("pdo.php");
+
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
-      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd FROM Players WHERE (userName=:ue) OR (email=:ue)");
+      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token FROM Players WHERE (userName=:ue) OR (email=:ue)");
       $stmt->execute(array(
-        ':ue'=>htmlentities($_POST['userEmail']),
-        ':em'=>htmlentities($_POST['email'])
+        ':ue'=>htmlentities($_POST['userEmail'])
+        // ':em'=>htmlentities($_POST['email'])
       ));
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
@@ -20,7 +21,14 @@
         return false;
       } else {
         if (password_verify($_POST['password'],$list['pswd'])) {
-          $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b>";
+          $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b> ";
+          $token = bin2hex(random_bytes(21));
+          $new_token = $pdo->prepare('UPDATE Players SET token=:tk WHERE player_id=:pid');
+          $new_token->execute(array(
+            ':tk'=>$token,
+            ':pid'=>$list['player_id']
+          ));
+          $_SESSION['token'] = $token;
           $_SESSION['player_id'] = $list['player_id'];
           header('Location: player.php');
           return true;
@@ -44,13 +52,15 @@
         if ($_POST['newPass'] === $_POST['newConf']) {
           if (strlen($_POST['newPass']) >= 8 && strlen($_POST['newPass']) <= 25) {
             $hash = password_hash($_POST['newPass'],PASSWORD_DEFAULT);
-            $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd) VALUES (:em,:un,:ft,:lt,:ps)');
+            $token = bin2hex(random_bytes(21));
+            $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
             $addStmt->execute(array(
               ':em'=>htmlentities($_POST['newEmail']),
               ':un'=>htmlentities($_POST['newUser']),
               ':ft'=>htmlentities($_POST['newFirst']),
               ':lt'=>htmlentities($_POST['newLast']),
-              ':ps'=>htmlentities($hash)
+              ':ps'=>htmlentities($hash),
+              ':tk'=>$token
             ));
             $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
             $findID->execute(array(
@@ -58,6 +68,7 @@
             ));
             $newID = $findID->fetch(PDO::FETCH_ASSOC);
             $_SESSION['player_id'] = $newID['player_id'];
+            $_SESSION['token'] = $token;
             $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
             header('Location: player.php');
             return true;
@@ -114,7 +125,7 @@
       Welcome! The Bracket Referee is a free center where you and your friend's can make private brackets and compete against one another!
     </h2>
     <p>If you want to step on the court, simply...</p>
-    <div id="logBox">
+    <div id="logBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
       <div id="logButton"><b>ACCOUNT LOGIN</b></div>
       <div id="logForm">
         <form method="POST">
@@ -133,7 +144,7 @@
       </div>
     </div>
     </br>
-    <div id="signBox">
+    <div id="signBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
       <div id="signButton"><b>CREATE ACCOUNT</b></div>
       <div id="signForm">
         <form method='POST'>

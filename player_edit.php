@@ -9,11 +9,20 @@
   };
 
   // Uses the $_SESSION['player_id'] from logging in to find the rest of the player's data
-  $recall = $pdo->prepare('SELECT email,userName,firstName,lastName FROM Players WHERE (player_id=:id)');
+  $recall = $pdo->prepare('SELECT email,userName,firstName,lastName,token FROM Players WHERE (player_id=:id)');
   $recall->execute(array(
     ':id'=>$_SESSION['player_id']
   ));
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
+
+  // Prevents different users from entering this page with a different player_id
+  if ($_SESSION['token'] != $playerData['token']) {
+    $_SESSION['message'] = "<b style='color:red'>Your current token does not coincide with your account's token. Reassign a new token by logging back in.</b>";
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    header('Location: index.php');
+    return false;
+  };
 
   // Returns the user to the player.php file
   if (isset($_POST['cancel'])) {

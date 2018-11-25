@@ -9,6 +9,20 @@
     return false;
   };
 
+  // Prevents someone from manually switching players after logging in
+  $findToken = $pdo->prepare('SELECT token FROM Players WHERE player_id=:pid');
+  $findToken->execute(array(
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $playerToken = $findToken->fetch(PDO::FETCH_ASSOC);
+  if ($_SESSION['token'] != $playerToken['token']) {
+    $_SESSION['message'] = "<b style='color:red'>Your current token does not coincide with your account's token. Reassign a new token by logging back in.</b>";
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    header('Location: index.php');
+    return false;
+  };
+
   // Sends the user back to the Player file
   if (isset($_POST['returnPlayer'])) {
     header('Location: player.php');
@@ -31,7 +45,8 @@
   $adminResult = $adminStmt->fetch(PDO::FETCH_ASSOC);
 
   // Recalls all of the players in this group
-  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id,total_score FROM Players JOIN Groups_Players JOIN Brackets WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid AND Groups_Players.player_id=Brackets.player_id AND Groups_Players.group_id=Brackets.group_id');
+  $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
+  // $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -134,12 +149,43 @@
         <th>Score</th>
       </tr>
       <?php
+        $hasBracket = false;
         while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+          // Detects if the user has a bracket
+          $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
+          $bracketStmt->execute(array(
+            ':pid'=>$playerRow['player_id'],
+            ':gid'=>htmlentities($_GET['group_id'])
+          ));
+          $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
+          if (is_array($bracketArray)==false || count($bracketArray) <= 0) {
+            $bracketStatus = "NO";
+            $bracketTotal = "---";
+          } else {
+            $bracketID = $bracketArray['bracket_id'];
+            $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
+            $bracketTotal = 0;
+            if ($playerRow['player_id'] == $_SESSION['player_id']) {
+              $hasBracket = true;
+            };
+          };
+          // Detects the user's score IF they have a bracket
+          if ($bracketStatus != "NO") {
+            $findPointsStmt = $pdo->prepare('SELECT player_pick,winner_id,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Levels.level_id=Games.level_id');
+            $findPointsStmt->execute(array(
+              ':bid'=>$bracketID
+            ));
+            while ($onePick = $findPointsStmt->fetch(PDO::FETCH_ASSOC)) {
+              if ($onePick['player_pick'] == $onePick['winner_id']) {
+                $bracketTotal += $onePick['points'];
+              };
+            };
+          };
           echo("
           <tr>
             <td>".$playerRow['userName']."</td>
-            <td>".$playerRow['total_score']."</td>
-            <td>check2</td>
+            <td>".$bracketStatus."</td>
+            <td>".$bracketTotal."</td>
           </tr>");
         };
       ?>
@@ -160,9 +206,13 @@
       </tr>
     </table>
     </br>
-    <form method='POST'>
-      <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-    </form>
+    <?php
+      if ($hasBracket == false) {
+        echo("<form method='POST'>
+          <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+        </form>");
+      };
+    ?>
     </br>
     <h3>Tournament Results</h3>
     <?php

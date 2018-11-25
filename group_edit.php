@@ -9,6 +9,20 @@
     return false;
   };
 
+  // Prevents someone from manually switching players after logging in
+  $findToken = $pdo->prepare('SELECT token FROM Players WHERE player_id=:pid');
+  $findToken->execute(array(
+    ':pid'=>$_SESSION['player_id']
+  ));
+  $playerToken = $findToken->fetch(PDO::FETCH_ASSOC);
+  if ($_SESSION['token'] != $playerToken['token']) {
+    $_SESSION['message'] = "<b style='color:red'>Your current token does not coincide with your account's token. Reassign a new token by logging back in.</b>";
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
+    header('Location: index.php');
+    return false;
+  };
+
   // Makes sure the administrator for this group is the current user
   $checkStmt = $pdo->prepare('SELECT admin_id,group_name FROM Groups WHERE group_id=:gid');
   $checkStmt->execute(array(
@@ -60,6 +74,7 @@
     header('Location: group.php?group_id='.$urlId);
     return true;
   };
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");

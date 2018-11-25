@@ -1,11 +1,5 @@
 $(()=>{
-<<<<<<< HEAD
-  console.log("User test successful");
-  // Starting variables
-
-=======
   console.log("main.js is active...");
->>>>>>> 51ecb194f147a00887b8984101bba7520ed00302
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -77,6 +71,16 @@ $(()=>{
   // Remove the cancelation box
   $("#hideBrktBttn").click(()=>{
     $("#leaveBrktBox").hide();
+  });
+
+  // Toggle the box to deleting an existing bracket in bracket_view page
+  $("#delBox").hide();
+  $("#showDelBox").click(()=>{
+    $("#delBox").toggle();
+  });
+  // Remove the cancelation box
+  $("#hideDelBox").click(()=>{
+    $("#delBox").hide();
   });
 
 })
