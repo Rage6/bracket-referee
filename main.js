@@ -1,15 +1,17 @@
 $(()=>{
-  console.log("main.js is active...");
+  console.log("main.js is STILL active...");
 
   $('#logForm').hide();
   $('#signForm').hide();
   // Toggles the "Login" box
   $('#logButton').click(()=>{
     $('#logForm').toggle();
+    $('#signForm').hide();
   });
   // Toggles the "Login" box
   $('#signButton').click(()=>{
     $('#signForm').toggle();
+    $('#logForm').hide();
   });
 
   // Toggle the box for changing the password with title
