@@ -150,7 +150,7 @@
             </tr>
             <tr>
               <td>Password </td>
-              <td><input type="text" name="password"></td>
+              <td><input type="password" name="password"></td>
             </tr>
           </table>
           <input type="submit" name="confirmOld" value="ENTER">
@@ -181,11 +181,11 @@
             </tr>
             <tr>
               <td>Password</td>
-              <td><input type='text' name='newPass' placeholder='8 - 25 characters'/s></td>
+              <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
             </tr>
             <tr>
               <td>Confirm Password</td>
-              <td><input type='text' name='newConf' placeholder='8 - 25 characters'/></td>
+              <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
             </tr>
           </table>
           <input type='submit' name='makeNew' value='ENTER'/>
@@ -195,7 +195,6 @@
     <?php
       if (isset($_SESSION['message'])) {
         echo($_SESSION['message']);
-        // var_dump($_SESSION['message']);
         unset($_SESSION['message']);
       };
     ?>
