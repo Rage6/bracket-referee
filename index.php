@@ -79,12 +79,10 @@
               $_SESSION['player_id'] = $newID['player_id'];
               $_SESSION['token'] = $token;
               $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-              // var_dump($exstList);
               header('Location: player.php');
               return true;
             } else {
               $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
-              // var_dump($exstList);
               header('Location: index.php');
               return false;
             };
