@@ -10,7 +10,7 @@
     return false;
   };
 
-  // Prevents someone from manually switching players after logging in
+  // Prevents hacker from manually switching players after logging in
   $findToken = $pdo->prepare('SELECT token FROM Players WHERE player_id=:pid');
   $findToken->execute(array(
     ':pid'=>$_SESSION['player_id']
@@ -21,6 +21,19 @@
     unset($_SESSION['player_id']);
     unset($_SESSION['token']);
     header('Location: index.php');
+    return false;
+  };
+
+  // Prevents non-group members from getting into bracket_make.php manually
+  $findGrpPlyr = $pdo->prepare('SELECT main_id FROM Groups_Players WHERE player_id=:pid AND group_id=:gid');
+  $findGrpPlyr->execute(array(
+    ':pid'=>$_SESSION['player_id'],
+    ':gid'=>$_GET['group_id']
+  ));
+  $grpPlyrId = $findGrpPlyr->fetch(PDO::FETCH_ASSOC);
+  if ($grpPlyrId == false) {
+    $_SESSION['message'] = "<b style='color:red'>You can only submit a bracket AFTER you've joined this group.</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
     return false;
   };
 
@@ -124,7 +137,7 @@
             };
             pickList.push(oneObject);
           };
-          var urlHead = "bracket_confirm.php?group_id=4&gameTotal="+pickList.length+"&player_id="+<?php echo($_SESSION['player_id']); ?>;
+          var urlHead = "bracket_confirm.php?group_id=" + <?php echo($_GET['group_id']) ?> + "&gameTotal="+pickList.length + "&player_id=" + <?php echo($_SESSION['player_id']); ?>;
           for (var m = 0; m < pickList.length; m++) {
             var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
             urlHead += "&" + urlTag;
@@ -319,57 +332,61 @@
               var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
               bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
               $("#"+pickIdA).click((pickIdA)=>{
-                var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
-                console.log(nextElement);
-                var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
-                var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                var pickIdB = null;
-                for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
-                  if ("#"+pickIdA.target.id == bothTeamIds[bothNum][0][0]) {
-                    pickIdB = bothTeamIds[bothNum][1][0];
+                if ($("#"+pickIdA.target.id).attr('data-team_id') != "null") {
+                  var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
+                  console.log(nextElement);
+                  var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
+                  var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                  var pickIdB = null;
+                  for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
+                    if ("#"+pickIdA.target.id == bothTeamIds[bothNum][0][0]) {
+                      pickIdB = bothTeamIds[bothNum][1][0];
+                    };
                   };
+                  var newId = $("#"+pickIdA.target.id).attr('data-team_id');
+                  var newName = $("#"+pickIdA.target.id).attr('data-team_name');
+                  $(nextElement)
+                    .attr('data-team_id',newId)
+                    .attr('data-team_name',newName)
+                    .text($("#"+pickIdA.target.id).attr('data-team_name'));
+                  $("#"+pickIdA.target.id)
+                    .attr('data-winner','true')
+                    .css('background-color','green')
+                    .css('color','white');
+                  // console.log("#"+pickIdB);
+                  $(pickIdB)
+                    .attr('data-winner','false')
+                    .css('background-color','white')
+                    .css('color','black');
                 };
-                var newId = $("#"+pickIdA.target.id).attr('data-team_id');
-                var newName = $("#"+pickIdA.target.id).attr('data-team_name');
-                $(nextElement)
-                  .attr('data-team_id',newId)
-                  .attr('data-team_name',newName)
-                  .text($("#"+pickIdA.target.id).attr('data-team_name'));
-                $("#"+pickIdA.target.id)
-                  .attr('data-winner','true')
-                  .css('background-color','green')
-                  .css('color','white');
-                // console.log("#"+pickIdB);
-                $(pickIdB)
-                  .attr('data-winner','false')
-                  .css('background-color','white')
-                  .css('color','black');
               });
               $("#"+pickIdB).click((pickIdB)=>{
-                var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
-                console.log(nextElement);
-                var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
-                var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                var pickIdA = null;
-                for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
-                  if ("#"+pickIdB.target.id == bothTeamIds[bothNum][1][0]) {
-                    pickIdA = bothTeamIds[bothNum][0][0];
+                if ($("#"+pickIdB.target.id).attr('data-team_id') != "null") {
+                  var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
+                  console.log(nextElement);
+                  var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
+                  var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                  var pickIdA = null;
+                  for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
+                    if ("#"+pickIdB.target.id == bothTeamIds[bothNum][1][0]) {
+                      pickIdA = bothTeamIds[bothNum][0][0];
+                    };
                   };
+                  var newId = $("#"+pickIdB.target.id).attr('data-team_id');
+                  var newName = $("#"+pickIdB.target.id).attr('data-team_name');
+                  $(nextElement)
+                    .attr('data-team_id',newId)
+                    .attr('data-team_name',newName)
+                    .text($("#"+pickIdB.target.id).attr('data-team_name'));
+                  $("#"+pickIdB.target.id)
+                    .attr('data-winner','true')
+                    .css('background-color','green')
+                    .css('color','white');
+                  $(pickIdA)
+                    .attr('data-winner','false')
+                    .css('background-color','white')
+                    .css('color','black');
                 };
-                var newId = $("#"+pickIdB.target.id).attr('data-team_id');
-                var newName = $("#"+pickIdB.target.id).attr('data-team_name');
-                $(nextElement)
-                  .attr('data-team_id',newId)
-                  .attr('data-team_name',newName)
-                  .text($("#"+pickIdB.target.id).attr('data-team_name'));
-                $("#"+pickIdB.target.id)
-                  .attr('data-winner','true')
-                  .css('background-color','green')
-                  .css('color','white');
-                $(pickIdA)
-                  .attr('data-winner','false')
-                  .css('background-color','white')
-                  .css('color','black');
               });
             };
             pickNum++;
