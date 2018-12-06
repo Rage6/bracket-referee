@@ -135,8 +135,8 @@
     <span>Director: <?php echo($adminResult['userName']) ?></span>
     <?php
       if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-        // $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-        $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
+        $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+        // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
         $urlId = $_GET['group_id'];
         echo(" <span><u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u></span>");
       };
@@ -227,7 +227,7 @@
       $gameListStmt->execute(array(
         ':gid'=>htmlentities($_GET['group_id'])
       ));
-      $currentLayer = "0";
+      $currentLayer = "-1";
       while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
         $newLayer = $oneGame['layer'];
         if ($currentLayer != $newLayer) {
