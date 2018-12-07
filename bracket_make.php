@@ -52,12 +52,13 @@
   $tournId = $grpArray['fk_tourn_id'];
 
   // Gets the number of levels for this tournament
-  $tournStmt = $pdo->prepare('SELECT level_total FROM Tournaments WHERE tourn_id=:tid');
+  $tournStmt = $pdo->prepare('SELECT level_total,wildcard FROM Tournaments WHERE tourn_id=:tid');
   $tournStmt->execute(array(
     ':tid'=>$tournId
   ));
   $tournArray = $tournStmt->fetch(PDO::FETCH_ASSOC);
   $tournLevel = $tournArray['level_total'];
+  $tournWildcard = $tournArray['wildcard'];
 
   // Checks and submits the new bracket
   if (isset($_POST['enterBracket'])) {
@@ -95,16 +96,31 @@
         echo($_SESSION['message']);
         unset($_SESSION['message']);
       };
-      $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name FROM Levels WHERE tourn_id=:tid');
+      $wildStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
+      $wildStmt->execute(array(
+        ':tid'=>$tournId
+      ));
+      while ($oneWild = $wildStmt->fetch(PDO::FETCH_ASSOC)) {
+        if ($oneWild['is_wildcard'] == 1) {
+          echo("<div id='layer_wild'>
+                  <h3>
+                    <u>".$oneWild['level_name']."</u>
+                  </h3>
+                </div>");
+        };
+      };
+      $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
       $levelStmt->execute(array(
         ':tid'=>$tournId
       ));
       while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
-        echo("<div id='layer_".$oneLevel['layer']."'>
-                <h3 id='layerTitle_".$oneLevel['layer']."'>
-                  <u>".$oneLevel['level_name']."</u>
-                </h3>
-              </div>");
+        if ($oneLevel['is_wildcard'] != 1) {
+          echo("<div id='layer_".$oneLevel['layer']."'>
+                  <h3 id='layerTitle_".$oneLevel['layer']."'>
+                    <u>".$oneLevel['level_name']."</u>
+                  </h3>
+                </div>");
+        };
       };
     ?>
     </br>
@@ -123,10 +139,10 @@
       $.getJSON(gameUrl,(gameData)=>{
         // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
-          var oneList = [gameData[i]['game_id'],gameData[i]['next_game'],gameData[i]['get_wildcard']];
+          var oneList = [gameData[i]['game_id'],gameData[i]['next_game'],gameData[i]['get_wildcard'],gameData[i]['team_a'],gameData[i]['team_b']];
           gameIdList.push(oneList);
           if (oneList[2] == "1") {
-            wildcardList.push([oneList[0],oneList[1]]);
+            wildcardList.push([oneList[0],oneList[1],oneList[3],oneList[4]]);
           };
         };
         $("#submitBracket").click(()=>{
@@ -159,22 +175,48 @@
         var lastTable = <?php echo($tournLevel) ?> ;
         var pickNum = 0;
         var totalGames = null;
-
-        var hasWildcard = false;
-        if (wildcardList.length > 0) {
-          hasWildcard = true;
-        };
-
-        bothTeamIds = [];
+        var bothTeamIds = [];
         // Below is because some tournaments start with two teams not playing in the first round
         if ((data.length / 2) % 2 == 0) {
           totalGames = data.length / 2;
         } else {
           totalGames = (data.length / 2) + 1;
         };
-        if (hasWildcard == true) {
-          
+        // If there are wildcards, this installs them before the first actual round
+        if (wildcardList.length > 0) {
+          $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
+          for (var d = 0; d < wildcardList.length; d++) {
+            var wild_team_a = wildcardList[d][2];
+            var wild_team_b = wildcardList[d][3];
+            var wild_game_id = wildcardList[d][0];
+            var wild_next_game = wildcardList[d][1];
+            for (var getName = 0; getName < data.length; getName++) {
+              if (data[getName]['game_id'] == wild_game_id && data[getName]['team_a'] == data[getName]['team_id']) {
+                console.log(data[getName]['team_name']);
+              };
+            };
+            // console.log(data[getName]['team_name']);
+            $("#table_wild").append(
+              "<tr>\
+                <td\
+                  id='pickId_wild_"+d+"_top'\
+                  data-team_id="+wild_team_a+"\
+                  data-team_name='test A'\
+                  data-game_id="+wild_game_id+"\
+                  data-next_game="+wild_next_game+"\
+                </td>\
+                <td>VS</td>\
+                <td\
+                  id='pickId_wild_"+d+"_bottom'\
+                  data-team_id="+wild_team_b+"\
+                  data-team_name='test B'\
+                  data-game_id="+wild_game_id+"\
+                  data-next_game="+wild_next_game+"\
+                </td>\
+              </tr>");
+          };
         };
+        // Now the regular games begin...
         for (var c = firstTable; c <= lastTable; c++) {
           var tableId = c;
           $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
@@ -404,6 +446,7 @@
             pickNum++;
           };
         };
+        // console.log("testing bothTeamIds");
         // console.log(bothTeamIds);
       });
     });
