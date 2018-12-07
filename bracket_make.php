@@ -116,15 +116,19 @@
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
     $(document).ready(()=>{
+
       var gameUrl = 'json_games.php?group_id=' + groupId;
-      gameIdList = [];
+      var gameIdList = [];
+      var wildcardList = [];
       $.getJSON(gameUrl,(gameData)=>{
         // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
-          var oneList = [gameData[i]['game_id'],gameData[i]['next_game']];
+          var oneList = [gameData[i]['game_id'],gameData[i]['next_game'],gameData[i]['get_wildcard']];
           gameIdList.push(oneList);
+          if (oneList[2] == "1") {
+            wildcardList.push([oneList[0],oneList[1]]);
+          };
         };
-        console.log(gameIdList);
         $("#submitBracket").click(()=>{
           var pickList = [];
           for (var k = 0; k < gameIdList.length; k++) {
@@ -145,6 +149,9 @@
           window.location = urlHead;
         });
       });
+      console.log(gameIdList);
+      console.log(wildcardList);
+
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
         // console.log(data);
@@ -152,12 +159,21 @@
         var lastTable = <?php echo($tournLevel) ?> ;
         var pickNum = 0;
         var totalGames = null;
+
+        var hasWildcard = false;
+        if (wildcardList.length > 0) {
+          hasWildcard = true;
+        };
+
         bothTeamIds = [];
         // Below is because some tournaments start with two teams not playing in the first round
         if ((data.length / 2) % 2 == 0) {
           totalGames = data.length / 2;
         } else {
           totalGames = (data.length / 2) + 1;
+        };
+        if (hasWildcard == true) {
+          
         };
         for (var c = firstTable; c <= lastTable; c++) {
           var tableId = c;
@@ -175,17 +191,13 @@
           };
           // This is how the first round is set up and clicked on...
           if (c == firstTable) {
-            // console.log(tableId);
             console.log(data);
-            // var bothTeamIds = [];
             var gameNum = 0;
             for (var a = 0; a < data.length; a++) {
               var teamA = data[a];
               for (var b = a + 1; b < data.length; b++) {
                 var teamB = data[b];
                 if (teamA['game_id'] == teamB['game_id']) {
-                  // var pickIdA = "pickId_"+pickNum+"_top";
-                  // var pickIdB = "pickId_"+pickNum+"_bottom";
                   var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
                   var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                   bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);

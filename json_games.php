@@ -8,7 +8,7 @@
     die("<h3><u>ERROR:</u> Your group's game roster cannot be viewed unless your group's id number is included</h3>");
   };
 
-  $teamStmt = $pdo->prepare('SELECT Games.game_id,Games.next_game FROM Games JOIN Groups WHERE Games.tourn_id=Groups.fk_tourn_id AND Groups.group_id=:gid');
+  $teamStmt = $pdo->prepare('SELECT Games.game_id,Games.next_game,Games.get_wildcard FROM Games JOIN Groups WHERE Games.tourn_id=Groups.fk_tourn_id AND Groups.group_id=:gid');
   $teamStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
