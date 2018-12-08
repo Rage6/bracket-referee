@@ -139,10 +139,10 @@
       $.getJSON(gameUrl,(gameData)=>{
         // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
-          var oneList = [gameData[i]['game_id'],gameData[i]['next_game'],gameData[i]['get_wildcard'],gameData[i]['team_a'],gameData[i]['team_b']];
+          var oneList = [gameData[i]['game_id'],gameData[i]['next_game'],gameData[i]['get_wildcard'],gameData[i]['team_a'],gameData[i]['team_b'],gameData[i]['is_wildcard']];
           gameIdList.push(oneList);
-          if (oneList[2] == "1") {
-            wildcardList.push([oneList[0],oneList[1],oneList[3],oneList[4]]);
+          if (oneList[5] == "1") {
+            wildcardList.push([oneList[0],oneList[1],oneList[3],oneList[4],oneList[5]]);
           };
         };
         $("#submitBracket").click(()=>{
@@ -170,7 +170,6 @@
 
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
-        // console.log(data);
         var firstTable = 1;
         var lastTable = <?php echo($tournLevel) ?> ;
         var pickNum = 0;
@@ -190,30 +189,67 @@
             var wild_team_b = wildcardList[d][3];
             var wild_game_id = wildcardList[d][0];
             var wild_next_game = wildcardList[d][1];
+            var wild_name_a = "none A";
+            var wild_name_b = "none B";
             for (var getName = 0; getName < data.length; getName++) {
               if (data[getName]['game_id'] == wild_game_id && data[getName]['team_a'] == data[getName]['team_id']) {
-                console.log(data[getName]['team_name']);
+                wild_name_a = data[getName]['team_name'];
+              } else if (data[getName]['game_id'] == wild_game_id && data[getName]['team_b'] == data[getName]['team_id']) {
+                wild_name_b = data[getName]['team_name'];
               };
             };
-            // console.log(data[getName]['team_name']);
             $("#table_wild").append(
               "<tr>\
                 <td\
                   id='pickId_wild_"+d+"_top'\
                   data-team_id="+wild_team_a+"\
-                  data-team_name='test A'\
+                  data-team_name="+wild_name_a+"\
                   data-game_id="+wild_game_id+"\
-                  data-next_game="+wild_next_game+"\
-                </td>\
+                  data-next_game="+wild_next_game+">"+wild_name_a+"</td>\
                 <td>VS</td>\
                 <td\
                   id='pickId_wild_"+d+"_bottom'\
                   data-team_id="+wild_team_b+"\
-                  data-team_name='test B'\
+                  data-team_name="+wild_name_b+"\
                   data-game_id="+wild_game_id+"\
-                  data-next_game="+wild_next_game+"\
-                </td>\
+                  data-next_game="+wild_next_game+">"+wild_name_b+"</td>\
               </tr>");
+
+              // THIS WHOLE THING HAS TO MOVE BELOW THE 'FIRST ROUND' THING BECAUSE IT NEEDS TO DRAW THE NEXT GAME'S ID NUMBER AFTER IT IS CREATED
+              // When clicking on the A team in the wildcard...
+              console.log(wild_next_game);
+              // var idAfterWild = $("td[data-game_id='47']");
+              var idAfterWild = $("*[data-game_id='80']");
+              console.log(idAfterWild);
+              var pickWildA = "pickId_wild_"+d+"_top";
+              // $("#"+pickWildA).click((buttonWildA)=>{
+              //   var nextElement = "#pickId_1_"+nextGame[0]+"_"+nextGame[1];
+              //   console.log(nextElement);
+              //   var pickIdB = null;
+              //   for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
+              //     if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {
+              //       pickIdB = bothTeamIds[bothNum][1][0];
+              //     };
+              //   };
+              //   var newId = $("#"+pickIdA.target.id).attr('data-team_id');
+              //   console.log("newId: "+newId);
+              //   var newName = $("#"+pickIdA.target.id).attr('data-team_name');
+              //   console.log("newName: "+newName);
+              //   $(nextElement)
+              //     .attr('data-team_id',newId)
+              //     .attr('data-team_name',newName)
+              //     .text($(nextElement).attr('data-team_name'));
+              //   $("#"+pickIdA.target.id)
+              //     .attr('data-winner','true')
+              //     .css('background-color','green')
+              //     .css('color','white');
+              //   $(pickIdB)
+              //     .attr('data-winner','false')
+              //     .css('background-color','white')
+              //     .css('color','black');
+              // });
+              // end of button
+
           };
         };
         // Now the regular games begin...
@@ -233,7 +269,6 @@
           };
           // This is how the first round is set up and clicked on...
           if (c == firstTable) {
-            console.log(data);
             var gameNum = 0;
             for (var a = 0; a < data.length; a++) {
               var teamA = data[a];
