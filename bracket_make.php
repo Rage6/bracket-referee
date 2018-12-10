@@ -235,11 +235,10 @@
           if (c == firstTable) {
             var gameNum = 0;
             for (var a = 0; a < data.length; a++) {
-              var gotWildcard = false;
               var teamA = data[a];
               for (var b = a + 1; b < data.length; b++) {
                 var teamB = data[b];
-                if (teamA['game_id'] == teamB['game_id'] || (gotWildcard == false && teamA['get_wildcard']=="1" && b + 1 == data.length)) {
+                if (teamA['game_id'] == teamB['game_id'] || (teamA['get_wildcard']=="1" && b + 1 == data.length)) {
                   // This prevent wildcard games from appearing in the first round
                   var isWildcard = false;
                   for (var g = 0; g < wildcardList.length; g++) {
@@ -253,20 +252,19 @@
                     var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
                     var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                     bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
+                    // This fills in the blank spots that happen when a wildcard team hasn't been selected yet for certain Round 1 games
                     if (teamA['get_wildcard'] == "1") {
-                      // console.log("wildcard used");
                       var bTeamData = {
                         id: "null",
                         name: "waiting on B..."
                       };
-                      gotWildcard = true;
                     } else {
-                      // console.log("NOT USED");
                       var bTeamData = {
-                        id: teamA['team_id'],
-                        name: teamA['team_name']
+                        id: teamB['team_id'],
+                        name: teamB['team_name']
                       };
                     };
+                    //
                     $("#table_" + tableId).append(
                       "<tr>\
                         <td \
@@ -288,7 +286,7 @@
                           data-game_id='" + teamB['game_id'] + "'\
                           data-next_game_id='" + teamB['next_game'] + "'\
                           data-pick='"+pickNum+"'\
-                          data-winner='null'>"+teamB['team_name']+"</td>\
+                          data-winner='null'>"+bTeamData.name+"</td>\
                       </tr>");
                     // When clicking on the A team in the first round...
                     $("#"+pickIdA).click((pickIdA)=>{
