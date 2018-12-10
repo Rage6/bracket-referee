@@ -243,7 +243,6 @@
                   var isWildcard = false;
                   for (var g = 0; g < wildcardList.length; g++) {
                     if (wildcardList[g][0] == teamA['game_id']) {
-                      console.log("passed isWildcard");
                       isWildcard = true;
                     };
                   };
@@ -256,12 +255,16 @@
                     if (teamA['get_wildcard'] == "1") {
                       var bTeamData = {
                         id: "null",
-                        name: "waiting on B..."
+                        name: "waiting on B...",
+                        gameId: teamA['game_id'],
+                        nextGame: teamA['next_game']
                       };
                     } else {
                       var bTeamData = {
                         id: teamB['team_id'],
-                        name: teamB['team_name']
+                        name: teamB['team_name'],
+                        gameId: teamB['game_id'],
+                        nextGame: teamB['next_game']
                       };
                     };
                     //
@@ -283,8 +286,8 @@
                           data-team_name='"+bTeamData.name+"'\
                           data-layer='"+tableId+"'\
                           data-game='" + gameNum + "'\
-                          data-game_id='" + teamB['game_id'] + "'\
-                          data-next_game_id='" + teamB['next_game'] + "'\
+                          data-game_id='" + bTeamData.gameId + "'\
+                          data-next_game_id='" + bTeamData.nextGame + "'\
                           data-pick='"+pickNum+"'\
                           data-winner='null'>"+bTeamData.name+"</td>\
                       </tr>");
@@ -346,7 +349,6 @@
                     });
                     pickNum++;
                     gameNum++;
-                    console.log(gameNum + ", " + teamA['game_id']);
                   };
                 };
                 if (b + 1 == data.length) {
@@ -479,7 +481,7 @@
         console.log(wildcardList);
         if (wildcardList.length > 0) {
           for (var e = 0; e < wildcardList.length; e++) {
-            var idAfterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1]");
+            var idAfterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1][data-team_id='null']");
             console.log(idAfterWild);
           };
         // var pickWildA = "pickId_wild_"+d+"_top";
