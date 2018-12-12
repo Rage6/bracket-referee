@@ -162,11 +162,12 @@
             var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
             urlHead += "&" + urlTag;
           };
+          // console.log(urlHead);
           window.location = urlHead;
         });
       });
-      console.log(gameIdList);
-      console.log(wildcardList);
+      // console.log(gameIdList);
+      // console.log(wildcardList);
 
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
@@ -175,12 +176,14 @@
         var pickNum = 0;
         var totalGames = null;
         var bothTeamIds = [];
+
         // Below is because some tournaments start with two teams not playing in the first round
-        if ((data.length / 2) % 2 == 0) {
-          totalGames = data.length / 2;
+        if (((data.length - wildcardList.length) / 2) % 2 == 0) {
+          totalGames = (data.length - wildcardList.length) / 2;
         } else {
-          totalGames = (data.length / 2) + 1;
+          totalGames = ((data.length - wildcardList.length) / 2) + 1;
         };
+
         // If there are wildcards, this installs them before the first actual round
         if (wildcardList.length > 0) {
           $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
