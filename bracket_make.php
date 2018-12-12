@@ -204,6 +204,7 @@
                   id='pickId_wild_"+d+"_top'\
                   data-team_id="+wild_team_a+"\
                   data-team_name="+wild_name_a+"\
+                  data-game="+d+"\
                   data-game_id="+wild_game_id+"\
                   data-next_game="+wild_next_game+">"+wild_name_a+"</td>\
                 <td>VS</td>\
@@ -211,6 +212,7 @@
                   id='pickId_wild_"+d+"_bottom'\
                   data-team_id="+wild_team_b+"\
                   data-team_name="+wild_name_b+"\
+                  data-game="+d+"\
                   data-game_id="+wild_game_id+"\
                   data-next_game="+wild_next_game+">"+wild_name_b+"</td>\
               </tr>");
@@ -476,20 +478,28 @@
           };
         };
 
-        // Here is where the wildcard buttons are attached to their designated 'next_game'
-        console.log("wildcard buttons start here...");
-        // console.log(wildcardList);
+        // This is where the wildcard buttons starts...");
         if (wildcardList.length > 0) {
           for (var e = 0; e < wildcardList.length; e++) {
             var pickWildA = "#pickId_wild_"+e+"_top";
             var pickWildB = "#pickId_wild_"+e+"_bottom";
             // var afterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1][data-team_id='null']");
             // var idAfterWild = "#" + $(afterWild).attr('id');
-            $(pickWildA).click(()=>{
-              pickWildA = "#pickId_wild_"+e+"_top";
-              pickWildB = "#pickId_wild_"+e+"_bottom";
-              var afterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1][data-team_id='null']");
+            $(pickWildA).click((event)=>{
+              console.log("This is A...");
+              pickWildA = "#" + event.target.id;
+              var thisGame = $(pickWildA).attr('data-game');
+              pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+              if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                console.log("if");
+                var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+              } else {
+                console.log("else");
+                var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+              };
               var idAfterWild = "#" + $(afterWild).attr('id');
+              console.log(idAfterWild);
               $(idAfterWild)
                 .attr('data-team_id',$(pickWildA).attr('data-team_id'))
                 .attr('data-team_name',$(pickWildA).attr('data-team_name'))
@@ -503,11 +513,23 @@
                 .css('background-color','white')
                 .css('color','black');
             });
-            $(pickWildB).click(()=>{
-              pickWildA = "#pickId_wild_"+e+"_top";
-              pickWildB = "#pickId_wild_"+e+"_bottom";
-              var afterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1][data-team_id='null']");
+            $(pickWildB).click((event)=>{
+              console.log("This is B...");
+              pickWildB = "#" + event.target.id;
+              var thisGame = $(pickWildB).attr('data-game');
+              pickWildA = "#pickId_wild_"+thisGame+"_top";
+
+              if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                console.log("if");
+                var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+              } else {
+                console.log("else");
+                var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+              };
+
               var idAfterWild = "#" + $(afterWild).attr('id');
+              console.log(idAfterWild);
               $(idAfterWild)
                 .attr('data-team_id',$(pickWildB).attr('data-team_id'))
                 .attr('data-team_name',$(pickWildB).attr('data-team_name'))
@@ -522,32 +544,6 @@
                 .css('color','black');
             });
           };
-        // $("#"+pickWildA).click((buttonWildA)=>{
-        //   var nextElement = "#pickId_1_"+nextGame[0]+"_"+nextGame[1];
-        //   console.log(nextElement);
-        //   var pickIdB = null;
-        //   for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
-        //     if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {
-        //       pickIdB = bothTeamIds[bothNum][1][0];
-        //     };
-        //   };
-        //   var newId = $("#"+pickIdA.target.id).attr('data-team_id');
-        //   console.log("newId: "+newId);
-        //   var newName = $("#"+pickIdA.target.id).attr('data-team_name');
-        //   console.log("newName: "+newName);
-        //   $(nextElement)
-        //     .attr('data-team_id',newId)
-        //     .attr('data-team_name',newName)
-        //     .text($(nextElement).attr('data-team_name'));
-        //   $("#"+pickIdA.target.id)
-        //     .attr('data-winner','true')
-        //     .css('background-color','green')
-        //     .css('color','white');
-        //   $(pickIdB)
-        //     .attr('data-winner','false')
-        //     .css('background-color','white')
-        //     .css('color','black');
-        // });
         // end of button
 
         // console.log("testing bothTeamIds");
