@@ -227,7 +227,7 @@
       $gameListStmt->execute(array(
         ':gid'=>htmlentities($_GET['group_id'])
       ));
-      $currentLayer = "0";
+      $currentLayer = "-1";
       while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
         $newLayer = $oneGame['layer'];
         if ($currentLayer != $newLayer) {
