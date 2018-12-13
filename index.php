@@ -123,7 +123,7 @@
   <head>
     <meta charset="utf-8">
     <title>
-      Welcome | The Bracket Referee
+      Welcome | Bracket Referee
     </title>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -132,9 +132,14 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>
-      The Bracket Referee
-    </h1>
+    <div>
+      <h1>
+        Bracket
+      </h1>
+      <h1>
+        Referee
+      </h1>
+    </div>
     <h2>
       Welcome! The Bracket Referee is a free center where you and your friend's can make private brackets and compete against one another!
     </h2>
