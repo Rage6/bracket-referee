@@ -149,6 +149,12 @@
         <b>CREATE</b>
       </div>
     </div>
+    <?php
+      if (isset($_SESSION['message'])) {
+        echo("<div style='margin-bottom:20px;text-align:center'>".$_SESSION['message']."</div>");
+        unset($_SESSION['message']);
+      };
+    ?>
     <div class="acctForms" id="logForm">
       <form method="POST">
         <table>
@@ -195,11 +201,42 @@
         <input type='submit' name='makeNew' value='ENTER'/>
       </form>
     </div>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
-        unset($_SESSION['message']);
-      };
-    ?>
+    <div id="indexMain">
+      <div id="motto">
+        <p>Public Tournaments.</p>
+        <p>Personal Groups.</p>
+        <p>Precious Glory.</p>
+      </div>
+      <div id="indexIntro">
+        <b>Welcom to Bracket Referee!</b>
+        <p>
+          Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
+        </p>
+        <b><i>What is Bracket Referee for?</i></b>
+        <p>
+          sdsdfsdfsdf
+        </p>
+        <b><i>How does it work?</i></b>
+        <p>
+          First, press the "LOGIN" button and enter your email address/username and password. If you haven't already created an account, do so by clicking on "CREATE" above and fill out the basic information. Doing either will allow you into your profile, <u>Bracket HQ</u>.
+        </p>
+        <p>
+          This page is the center of all of your information and possibilities. From here, you can:
+        </p>
+        <ul>
+          <li>See the groups that you compete within</li>
+          <li>Search for a specific group</li>
+          <li>Create a new group</li>
+          <li>Edit or delete your account</li>
+        </ul>
+        <p>
+          Upon entering a new group, you can officially join it by the single click. A joined member can then enter their own bracket and see their fellow member's usernames, scores, and brackets.
+        </p>
+        <b><i>Who Made This?</i></b>
+        <p style="margin-bottom:0px;padding-bottom:100px">
+          The creator and director of "Bracket Referee" is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio or the code for this website, please click below.
+        </p>
+      </div>
+    </div>
   </body>
 </html>

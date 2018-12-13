@@ -1,8 +1,9 @@
 html {
+  padding: 0px;
+  font-size: 16px;
   body {
     margin: 0px;
     padding: 0px;
-    font-size: 16px;
     #indexTitle {
       margin: 0px;
       padding: 0px;
@@ -76,6 +77,38 @@ html {
     #signForm {
       color: white;
       background-color: green;
+    };
+    #indexMain {
+      margin-top: 20px;
+      background-color: yellow;
+      #motto {
+        padding: 30px 0 30px 10%;
+        color: white;
+        font-size: 4rem;
+        text-align: left;
+        background-color: grey;
+        p {
+          margin: 15px 0;
+        }
+      };
+      #indexIntro {
+        margin: 50px 10% 0px 10%;
+        text-align: center;
+        b {
+          font-size: 5rem;
+        };
+        p {
+          padding-bottom: 30px;
+          text-align: left;
+          font-size: 3rem;
+        };
+        ul {
+          li {
+            text-align: left;
+            font-size: 1.8rem;
+          };
+        };
+      };
     };
   };
 };
