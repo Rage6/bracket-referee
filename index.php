@@ -125,6 +125,7 @@
     <title>
       Welcome | Bracket Referee
     </title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -132,70 +133,67 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <div>
-      <h1>
+    <div id="indexTitle">
+      <p>
         Bracket
-      </h1>
-      <h1>
+      </p>
+      <p>
         Referee
-      </h1>
+      </p>
     </div>
-    <h2>
-      Welcome! The Bracket Referee is a free center where you and your friend's can make private brackets and compete against one another!
-    </h2>
-    <p>If you want to step on the court, simply...</p>
-    <div id="logBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
-      <div id="logButton"><b>ACCOUNT LOGIN</b></div>
-      <div id="logForm">
-        <form method="POST">
-          <table>
-            <tr>
-              <td>Email or Username </td>
-              <td><input type="text" name="userEmail"></td>
-            </tr>
-            <tr>
-              <td>Password </td>
-              <td><input type="password" name="password"></td>
-            </tr>
-          </table>
-          <input type="submit" name="confirmOld" value="ENTER">
-        </form>
+    <div id="bothAcctButtons">
+      <div id="logButton">
+        <b>LOGIN</b>
+      </div>
+      <div id="signButton">
+        <b>CREATE</b>
       </div>
     </div>
-    </br>
-    <div id="signBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
-      <div id="signButton"><b>CREATE ACCOUNT</b></div>
-      <div id="signForm">
-        <form method='POST'>
-          <table>
-            <tr>
-              <td>Username</td>
-              <td><input type='text' name='newUser'/></td>
-            </tr>
-            <tr>
-              <td>First Name</td>
-              <td><input text='text' name='newFirst'/></td>
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td><input type='text' name='newLast'/></td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td><input type='text' name='newEmail'/></td>
-            </tr>
-            <tr>
-              <td>Password</td>
-              <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
-            </tr>
-            <tr>
-              <td>Confirm Password</td>
-              <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
-            </tr>
-          </table>
-          <input type='submit' name='makeNew' value='ENTER'/>
-        </form>
-      </div>
+    <div class="acctForms" id="logForm">
+      <form method="POST">
+        <table>
+          <tr>
+            <td>Email or Username </td>
+            <td><input type="text" name="userEmail"></td>
+          </tr>
+          <tr>
+            <td>Password </td>
+            <td><input type="password" name="password"></td>
+          </tr>
+        </table>
+        <input type="submit" name="confirmOld" value="ENTER">
+      </form>
+    </div>
+    <div class="acctForms" id="signForm">
+      <form method='POST'>
+        <table>
+          <tr>
+            <td>Username</td>
+            <td><input type='text' name='newUser'/></td>
+          </tr>
+          <tr>
+            <td>First Name</td>
+            <td><input text='text' name='newFirst'/></td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td><input type='text' name='newLast'/></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><input type='text' name='newEmail'/></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
+          </tr>
+          <tr>
+            <td>Confirm Password</td>
+            <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
+          </tr>
+        </table>
+        <input type='submit' name='makeNew' value='ENTER'/>
+      </form>
     </div>
     <?php
       if (isset($_SESSION['message'])) {

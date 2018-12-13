@@ -1,0 +1,62 @@
+html body {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px; }
+  html body #indexTitle {
+    margin: 0px;
+    padding: 0px;
+    color: black;
+    text-align: center;
+    background-size: cover; }
+    html body #indexTitle p {
+      margin: 0px;
+      font-size: 12rem; }
+  html body #bothAcctButtons {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    font-size: 5rem;
+    text-align: center; }
+    html body #bothAcctButtons #logButton {
+      padding: 30px 0px;
+      background-color: blue;
+      width: 50%; }
+    html body #bothAcctButtons #signButton {
+      padding: 30px 0px;
+      background-color: green;
+      width: 50%; }
+  html body .acctForms {
+    padding: 20px 0px;
+    text-align: center;
+    width: 100%; }
+    html body .acctForms table {
+      width: 100%; }
+      html body .acctForms table tbody tr {
+        padding: 5px 0px; }
+        html body .acctForms table tbody tr td {
+          font-size: 3rem;
+          width: 50%; }
+          html body .acctForms table tbody tr td input {
+            border: 1px solid white;
+            padding-left: 10px;
+            color: black;
+            font-size: 3rem;
+            background-color: white;
+            width: 88%; }
+    html body .acctForms input {
+      margin: 20px 0;
+      border-radius: 15px;
+      padding: 0px 20px;
+      color: green;
+      font-size: 4rem;
+      background-color: white; }
+  html body #logForm {
+    color: white;
+    background-color: blue; }
+    html body #logForm input {
+      color: blue; }
+  html body #signForm {
+    color: white;
+    background-color: green; }
+
+/*# sourceMappingURL=output.css.map */

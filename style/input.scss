@@ -1,0 +1,81 @@
+html {
+  body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    #indexTitle {
+      margin: 0px;
+      padding: 0px;
+      color: black;
+      text-align: center;
+      // background-image: url("img/ball_ref.jpg");
+      background-size: cover;
+      p {
+        margin: 0px;
+        font-size: 12rem;
+      };
+    };
+    #bothAcctButtons {
+      display: flex;
+      justify-content: space-around;
+      color: white;
+      font-size: 5rem;
+      text-align: center;
+      #logButton {
+        padding: 30px 0px;
+        background-color: blue;
+        width: 50%;
+      };
+      #signButton {
+        padding: 30px 0px;
+        background-color: green;
+        width: 50%;
+      };
+    };
+    .acctForms {
+      padding: 20px 0px;
+      text-align: center;
+      width: 100%;
+      table {
+        width: 100%;
+        tbody {
+          tr {
+            // border: 1px solid white;
+            padding: 5px 0px;
+            td {
+              font-size: 3rem;
+              width: 50%;
+              input {
+                border: 1px solid white;
+                padding-left: 10px;
+                color: black;
+                font-size: 3rem;
+                background-color: white;
+                width: 88%;
+              };
+            };
+          };
+        };
+      };
+      input {
+        margin: 20px 0;
+        border-radius: 15px;
+        padding: 0px 20px;
+        color: green;
+        font-size: 4rem;
+        background-color: white;
+      }
+    };
+    #logForm {
+      color: white;
+      background-color: blue;
+      input {
+        color: blue;
+      }
+    };
+    #signForm {
+      color: white;
+      background-color: green;
+    };
+  };
+};
