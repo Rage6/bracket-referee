@@ -4,6 +4,8 @@ html {
   body {
     margin: 0px;
     padding: 0px;
+
+    // ----------- INDEX.PHP FILE BEGINS -----------
     #indexTitle {
       margin: 0px;
       padding: 0px;
@@ -123,6 +125,30 @@ html {
           margin: 50px 0;
           border-radius: 15px;
           width: 100%;
+        };
+      };
+    };
+
+    // ----------- PLAYER.PHP FILE BEGINS -----------
+    #playerPage {
+      #hqTitle {
+        font-size: 9rem;
+        text-align: center;
+      };
+      #profileId {
+        border: 3px solid black;
+        margin-left: 10%;
+        width: 80%;
+        tr {
+          font-size: 3rem;
+          td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+          };
+          .profTitle {
+            background-color: yellow;
+          };
         };
       };
     };

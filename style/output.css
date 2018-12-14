@@ -96,5 +96,20 @@ html {
           margin: 50px 0;
           border-radius: 15px;
           width: 100%; }
+    html body #playerPage #hqTitle {
+      font-size: 9rem;
+      text-align: center; }
+    html body #playerPage #profileId {
+      border: 3px solid black;
+      margin-left: 10%;
+      width: 80%; }
+      html body #playerPage #profileId tr {
+        font-size: 3rem; }
+        html body #playerPage #profileId tr td {
+          border: 2px solid black;
+          border-collapse: collapse;
+          text-align: center; }
+        html body #playerPage #profileId tr .profTitle {
+          background-color: yellow; }
 
 /*# sourceMappingURL=output.css.map */

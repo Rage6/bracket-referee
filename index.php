@@ -239,9 +239,9 @@
       </div>
     </div>
     <footer>
-      <a href="https://portfolio-vogt.herokuapp.com"><img class="footerLogo" src="style/img/nick_vogt.jpg"></a>
-      <a href="https://www.linkedin.com/in/nicholasvogt2017/"><img class="footerLogo" src="style/img/linkedin.jpg"></a>
-      <a href="https://github.com/Rage6/bracket-referee"><img style="background-color:white;" class="footerLogo" src="style/img/gitHubLogo.png"></a>
+      <a href="https://portfolio-vogt.herokuapp.com"><img class="footerLogo" src="style/img/index/nick_vogt.jpg"></a>
+      <a href="https://www.linkedin.com/in/nicholasvogt2017/"><img class="footerLogo" src="style/img/index/linkedin.jpg"></a>
+      <a href="https://github.com/Rage6/bracket-referee"><img style="background-color:white;" class="footerLogo" src="style/img/index/gitHubLogo.png"></a>
     </footer>
   </body>
 </html>
