@@ -239,6 +239,7 @@
       </div>
     </div>
     <footer>
+      text here</br>
       Portfolio</br>
       LinkedIn</br>
       GitHub</br>

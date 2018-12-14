@@ -62,7 +62,7 @@ html {
       background-color: green; }
     html body #indexMain {
       margin-top: 20px;
-      background-color: yellow; }
+      background-color: orange; }
       html body #indexMain #motto {
         padding: 30px 0 30px 10%;
         color: white;
@@ -75,6 +75,7 @@ html {
         margin: 50px 10% 0px 10%;
         text-align: center; }
         html body #indexMain #indexIntro b {
+          color: red;
           font-size: 5rem; }
         html body #indexMain #indexIntro p {
           color: yellow;
