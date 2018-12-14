@@ -77,11 +77,17 @@ html {
         html body #indexMain #indexIntro b {
           font-size: 5rem; }
         html body #indexMain #indexIntro p {
+          color: yellow;
           padding-bottom: 30px;
           text-align: left;
           font-size: 3rem; }
         html body #indexMain #indexIntro ul li {
           text-align: left;
           font-size: 1.8rem; }
+    html body footer {
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      background-color: red; }
 
 /*# sourceMappingURL=output.css.map */
