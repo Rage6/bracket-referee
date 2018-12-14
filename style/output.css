@@ -75,10 +75,8 @@ html {
         margin: 50px 10% 0px 10%;
         text-align: center; }
         html body #indexMain #indexIntro b {
-          color: red;
           font-size: 5rem; }
         html body #indexMain #indexIntro p {
-          color: yellow;
           padding-bottom: 30px;
           text-align: left;
           font-size: 3rem; }
@@ -87,8 +85,16 @@ html {
           font-size: 1.8rem; }
     html body footer {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      font-size: 2rem;
       color: white;
       background-color: red; }
+      html body footer a {
+        border-radius: 15px;
+        width: 20%; }
+        html body footer a .footerLogo {
+          margin: 50px 0;
+          border-radius: 15px;
+          width: 100%; }
 
 /*# sourceMappingURL=output.css.map */

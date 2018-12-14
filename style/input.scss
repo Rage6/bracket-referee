@@ -94,12 +94,10 @@ html {
       #indexIntro {
         margin: 50px 10% 0px 10%;
         text-align: center;
-        b {
-          color: red;
+        b {;
           font-size: 5rem;
         };
         p {
-          color: yellow;
           padding-bottom: 30px;
           text-align: left;
           font-size: 3rem;
@@ -114,9 +112,19 @@ html {
     };
     footer {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      font-size: 2rem;
       color: white;
       background-color: red;
+      a {
+        border-radius: 15px;
+        width: 20%;
+        .footerLogo {
+          margin: 50px 0;
+          border-radius: 15px;
+          width: 100%;
+        };
+      };
     };
   };
 };
