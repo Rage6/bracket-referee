@@ -99,17 +99,37 @@ html {
     html body #playerPage #hqTitle {
       font-size: 9rem;
       text-align: center; }
-    html body #playerPage #profileId {
-      border: 3px solid black;
-      margin-left: 10%;
-      width: 80%; }
-      html body #playerPage #profileId tr {
-        font-size: 3rem; }
-        html body #playerPage #profileId tr td {
-          border: 2px solid black;
-          border-collapse: collapse;
-          text-align: center; }
-        html body #playerPage #profileId tr .profTitle {
-          background-color: yellow; }
+    html body #playerPage #profIdBox {
+      margin: 0 2%;
+      padding: 20px 0;
+      background-color: grey; }
+      html body #playerPage #profIdBox #profIdTable {
+        border: 3px solid black;
+        margin-left: 10%;
+        background-color: white;
+        width: 80%; }
+        html body #playerPage #profIdBox #profIdTable tr {
+          font-size: 3rem; }
+          html body #playerPage #profIdBox #profIdTable tr td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center; }
+          html body #playerPage #profIdBox #profIdTable tr .profTitle {
+            background-color: yellow; }
+      html body #playerPage #profIdBox #profIdBtns {
+        margin: 20px 20%;
+        display: flex;
+        justify-content: space-around; }
+        html body #playerPage #profIdBox #profIdBtns input {
+          border-radius: 15px;
+          padding: 10px 20px;
+          font-size: 3rem;
+          color: white; }
+        html body #playerPage #profIdBox #profIdBtns #plrEdit {
+          background-color: blue; }
+        html body #playerPage #profIdBox #profIdBtns #plrLogOut {
+          background-color: orange; }
+    html body #playerPage #grpListBox {
+      background-color: yellow; }
 
 /*# sourceMappingURL=output.css.map */

@@ -136,29 +136,32 @@
       <h1 id="hqTitle">Bracket HQ</h1>
       <?php
       if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
+        echo("<div style='text-align:center;margin-bottom:30px'>".$_SESSION['message']."</div>");
         unset($_SESSION['message']);
       };
       ?>
-      <table id="profileId">
-        <tr>
-          <td class="profTitle">Name</th>
-          <td><?php echo($playerData['firstName']) ?> <?php echo($playerData['lastName']) ?></td>
-        </tr>
-        <tr>
-          <td class="profTitle">Username</th>
-          <td><?php echo($playerData['userName']) ?></td>
-        </tr>
-        <tr>
-          <td class="profTitle">Email</th>
-          <td><?php echo($playerData['email']) ?></td>
-        </tr>
-      </table>
-      <form method='POST'>
-        <input type='submit' name='logout' value='LOGOUT'/>
-        <input type='submit' name='edit' value='EDIT'/>
-      </form>
-      <div>
+      <div id="profIdBox">
+        <div style="margin-left:10%;font-size:3.5rem;color:white;width:80%">Profile:</div>
+        <table id="profIdTable">
+          <tr>
+            <td class="profTitle">Name</th>
+            <td><?php echo($playerData['firstName']) ?> <?php echo($playerData['lastName']) ?></td>
+          </tr>
+          <tr>
+            <td class="profTitle">Username</th>
+            <td><?php echo($playerData['userName']) ?></td>
+          </tr>
+          <tr>
+            <td class="profTitle">Email</th>
+            <td><?php echo($playerData['email']) ?></td>
+          </tr>
+        </table>
+        <form id="profIdBtns" method='POST'>
+          <input id="plrEdit" type='submit' name='edit' value='EDIT'/>
+          <input id="plrLogOut" type='submit' name='logout' value='LOGOUT'/>
+        </form>
+      </div>
+      <div id="grpListBox">
         <h3>Group List</h3>
         <table>
           <tr>
