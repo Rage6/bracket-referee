@@ -140,8 +140,10 @@
         unset($_SESSION['message']);
       };
       ?>
-      <div id="profIdBox">
-        <div style="margin-left:10%;font-size:3.5rem;color:white;width:80%">Profile:</div>
+      <div id="profIdBox" class="allBox">
+        <div class="allBoxTitle">
+          Your Profile:
+        </div>
         <table id="profIdTable">
           <tr>
             <td class="profTitle">Name</th>
@@ -161,8 +163,10 @@
           <input id="plrLogOut" type='submit' name='logout' value='LOGOUT'/>
         </form>
       </div>
-      <div id="grpListBox">
-        <h3>Group List</h3>
+      <div id="grpListBox" class="allBox">
+        <div class="allBoxTitle">
+          Your Current Groups:
+        </div>
         <table>
           <tr>
             <th>
@@ -180,8 +184,8 @@
           ?>
         </table>
       </div>
-      <div id="groupBox">
-        <h3 id="findGroup">Find An Existing Group?</h3>
+      <div id="groupBox" class="allBox">
+        <div id="findGroup" class="allBoxTitle">Find A New Group?</div>
         <div id="findGroupBox">
           <form method="POST">
             <input type="text" name="name"/>

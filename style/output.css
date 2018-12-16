@@ -99,15 +99,20 @@ html {
     html body #playerPage #hqTitle {
       font-size: 9rem;
       text-align: center; }
+    html body #playerPage .allBox {
+      margin: 0 2% 20px 2%;
+      padding: 40px 10%; }
+      html body #playerPage .allBox .allBoxTitle {
+        margin-bottom: 30px;
+        font-size: 3.5rem;
+        color: white;
+        width: 80%; }
     html body #playerPage #profIdBox {
-      margin: 0 2%;
-      padding: 20px 0;
       background-color: grey; }
       html body #playerPage #profIdBox #profIdTable {
         border: 3px solid black;
-        margin-left: 10%;
         background-color: white;
-        width: 80%; }
+        width: 100%; }
         html body #playerPage #profIdBox #profIdTable tr {
           font-size: 3rem; }
           html body #playerPage #profIdBox #profIdTable tr td {
@@ -130,6 +135,20 @@ html {
         html body #playerPage #profIdBox #profIdBtns #plrLogOut {
           background-color: orange; }
     html body #playerPage #grpListBox {
-      background-color: yellow; }
+      background-color: blue; }
+      html body #playerPage #grpListBox table {
+        border: 3px solid black;
+        background-color: white;
+        width: 100%; }
+        html body #playerPage #grpListBox table tr {
+          font-size: 3rem; }
+          html body #playerPage #grpListBox table tr th {
+            background-color: yellow; }
+          html body #playerPage #grpListBox table tr td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center; }
+    html body #playerPage #groupBox {
+      background-color: green; }
 
 /*# sourceMappingURL=output.css.map */
