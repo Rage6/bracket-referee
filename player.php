@@ -91,17 +91,6 @@
     };
   };
 
-  // Delete user's account
-  if (isset($_POST['deleteAcct'])) {
-    $deleteStmt = $pdo->prepare('DELETE FROM Players WHERE player_id=:id');
-    $deleteStmt->execute(array(
-      ':id'=>$_SESSION['player_id']
-    ));
-    $_SESSION['message'] = "<b style='color:green'>Account deleted</b>";
-    header('Location: index.php');
-    return true;
-  }
-
   // Redirects to player_edit.php
   if (isset($_POST['edit'])) {
     unset($_SESSION['message']);
@@ -251,18 +240,9 @@
               <input type="submit" name="new_group" value="START">
               <span id="cancelGroup">CANCEL</span>
             </form>
-            <!-- <span id="cancelGroup">CANCEL</span> -->
           </div>
         </div>
       </div>
-      <!-- <h3 id="showDeleteBox">Delete your account?</h3>
-      <div id="deleteBox">
-        <b>Are you sure that you want to delete your account?
-        <form method="POST">
-          <input type="submit" name="deleteAcct" value="YES, delete my account"/>
-        </form>
-        <span id="cancelDelete">NO, keep my account</span>
-      </div> -->
     </div>
   </body>
 </html>
