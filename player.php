@@ -186,7 +186,7 @@
       </div>
       <div id="groupBox" class="allBox">
         <div class="newGrpOption">
-          <div id="findGroup" class="allBoxTitle">Search For A Group:</div>
+          <div id="findGroup" class="allOptTitle">Search For A Group</div>
           <div id="findGroupBox">
             <form method="POST">
               <input type="text" name="name"/>
@@ -224,7 +224,7 @@
           ?>
         </div>
         <div class="newGrpOption">
-          <div id="showAddBox" class="allBoxTitle">Create A New Group?</div>
+          <div id="showAddBox" class="allOptTitle">Create A New Group</div>
           <div id="addGroupBox">
             <form method="POST">
               <table>
@@ -249,19 +249,20 @@
                 </tr>
               </table>
               <input type="submit" name="new_group" value="START">
+              <span id="cancelGroup">CANCEL</span>
             </form>
-            <span id="cancelGroup">CANCEL</span>
+            <!-- <span id="cancelGroup">CANCEL</span> -->
           </div>
         </div>
       </div>
-      <h3 id="showDeleteBox">Delete your account?</h3>
+      <!-- <h3 id="showDeleteBox">Delete your account?</h3>
       <div id="deleteBox">
         <b>Are you sure that you want to delete your account?
         <form method="POST">
           <input type="submit" name="deleteAcct" value="YES, delete my account"/>
         </form>
         <span id="cancelDelete">NO, keep my account</span>
-      </div>
+      </div> -->
     </div>
   </body>
 </html>

@@ -203,10 +203,18 @@ html {
       #groupBox {
         background-color: green;
         .newGrpOption {
-          margin-bottom: 20px;
+          margin: 20px 0;
           border: 2px solid white;
           padding: 10px 2%;
+          .allOptTitle {
+            // margin-bottom:30px;
+            text-align: center;
+            font-size:3.5rem;
+            color:white;
+            width:100%;
+          };
           #findGroupBox {
+            margin-top: 20px;
             form {
               display: flex;
               justify-content: space-between;
@@ -214,7 +222,7 @@ html {
                 padding: 5px 10px;
                 border: 1px solid black;
                 border-radius: 15px;
-                background-color: grey;
+                background-color: yellow;
               };
               input {
                 font-size: 3rem;
@@ -231,26 +239,46 @@ html {
               padding: 10px 2%;;
               border: 1px solid black;
               border-spacing: 0px 15px;
-              width: 100%;
+              width: 96%;
             };
             b {
 
             };
           };
           #showAddBox {
-            form {
-              tr {
-                td {
 
+          };
+          #addGroupBox {
+            margin-top: 20px;
+            color: white;
+            font-size: 3rem;
+            form {
+              table {
+                tr {
+                  td {
+                    input {
+                      font-size: 2.5rem;
+                      width: 100%;
+                    };
+                    select {
+                      color: black;
+                      font-size: 2rem;
+                      background-color: white;
+                      width: 100%;
+                      option {
+
+                      };
+                    };
+                  };
                 };
               };
             };
           };
-          #addGroupBox {
-
-          };
         };
       };
     };
+
+    // ----------- PLAYER_EDIT.PHP FILE BEGINS -----------
+    
   };
 };

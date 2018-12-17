@@ -151,19 +151,26 @@ html {
     html body #playerPage #groupBox {
       background-color: green; }
       html body #playerPage #groupBox .newGrpOption {
-        margin-bottom: 20px;
+        margin: 20px 0;
         border: 2px solid white;
         padding: 10px 2%; }
-        html body #playerPage #groupBox .newGrpOption #findGroupBox form {
-          display: flex;
-          justify-content: space-between; }
-          html body #playerPage #groupBox .newGrpOption #findGroupBox form #searchBtn {
-            padding: 5px 10px;
-            border: 1px solid black;
-            border-radius: 15px;
-            background-color: grey; }
-          html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
-            font-size: 3rem; }
+        html body #playerPage #groupBox .newGrpOption .allOptTitle {
+          text-align: center;
+          font-size: 3.5rem;
+          color: white;
+          width: 100%; }
+        html body #playerPage #groupBox .newGrpOption #findGroupBox {
+          margin-top: 20px; }
+          html body #playerPage #groupBox .newGrpOption #findGroupBox form {
+            display: flex;
+            justify-content: space-between; }
+            html body #playerPage #groupBox .newGrpOption #findGroupBox form #searchBtn {
+              padding: 5px 10px;
+              border: 1px solid black;
+              border-radius: 15px;
+              background-color: yellow; }
+            html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
+              font-size: 3rem; }
         html body #playerPage #groupBox .newGrpOption #searchResults {
           margin-top: 10px;
           padding: 10px 2%;
@@ -174,6 +181,18 @@ html {
             padding: 10px 2%;
             border: 1px solid black;
             border-spacing: 0px 15px;
+            width: 96%; }
+        html body #playerPage #groupBox .newGrpOption #addGroupBox {
+          margin-top: 20px;
+          color: white;
+          font-size: 3rem; }
+          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td input {
+            font-size: 2.5rem;
+            width: 100%; }
+          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td select {
+            color: black;
+            font-size: 2rem;
+            background-color: white;
             width: 100%; }
 
 /*# sourceMappingURL=output.css.map */
