@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("main.js is STILL active...");
+  console.log("main.js is active again...");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -22,6 +22,14 @@ $(()=>{
   // Close the box for changing the password with 'CANCEL' button
   $('#change-Pw-cancel').click(()=>{
     $('#changePs').hide();
+  });
+
+  //Toggle the box for using the 'SEARCH' option
+  if ($("#searchResults").css('display') != 'block') {
+    $("#findGroupBox").hide();
+  };
+  $("#findGroup").click(()=>{
+    $("#findGroupBox").toggle();
   });
 
   // Toggle the box for adding a new group

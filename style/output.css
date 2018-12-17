@@ -150,5 +150,30 @@ html {
             text-align: center; }
     html body #playerPage #groupBox {
       background-color: green; }
+      html body #playerPage #groupBox .newGrpOption {
+        margin-bottom: 20px;
+        border: 2px solid white;
+        padding: 10px 2%; }
+        html body #playerPage #groupBox .newGrpOption #findGroupBox form {
+          display: flex;
+          justify-content: space-between; }
+          html body #playerPage #groupBox .newGrpOption #findGroupBox form #searchBtn {
+            padding: 5px 10px;
+            border: 1px solid black;
+            border-radius: 15px;
+            background-color: grey; }
+          html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
+            font-size: 3rem; }
+        html body #playerPage #groupBox .newGrpOption #searchResults {
+          margin-top: 10px;
+          padding: 10px 2%;
+          font-size: 3rem;
+          background-color: white; }
+          html body #playerPage #groupBox .newGrpOption #searchResults table {
+            margin-bottom: 25px;
+            padding: 10px 2%;
+            border: 1px solid black;
+            border-spacing: 0px 15px;
+            width: 100%; }
 
 /*# sourceMappingURL=output.css.map */

@@ -56,7 +56,7 @@
       $findStmt = $pdo->prepare('SELECT group_name FROM Groups');
       $findList = $findStmt->execute();
       $_SESSION['search'] = htmlentities($_POST['name']);
-      header('Location: player.php');
+      header('Location: player.php?inSearch=true');
       return true;
     } else {
       $_SESSION['message'] = "<b style='color:red'>Empty value</b>";
@@ -185,69 +185,73 @@
         </table>
       </div>
       <div id="groupBox" class="allBox">
-        <div id="findGroup" class="allBoxTitle">Find A New Group?</div>
-        <div id="findGroupBox">
-          <form method="POST">
-            <input type="text" name="name"/>
-            <input type="submit" name="findGroup" value="SEARCH" />
-          </form>
-          <?php
-            $nameList = null;
-            if (isset($_SESSION['search'])) {
-              $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE group_name LIKE :nm');
-              $findList->execute(array(
-                ':nm'=>"%".$_SESSION['search']."%"
-              ));
-              $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-              // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
-              while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
-                $nameList[] = $row['group_name'];
-                $startList[] = "<a href='".$url.$row['group_id']."'>";
-                $stopList[] = "</a>";
+        <div class="newGrpOption">
+          <div id="findGroup" class="allBoxTitle">Search For A Group:</div>
+          <div id="findGroupBox">
+            <form method="POST">
+              <input type="text" name="name"/>
+              <input id="searchBtn" type="submit" name="findGroup" value="SEARCH" />
+            </form>
+            <?php
+              $nameList = null;
+              if (isset($_SESSION['search'])) {
+                $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE group_name LIKE :nm');
+                $findList->execute(array(
+                  ':nm'=>"%".$_SESSION['search']."%"
+                ));
+                $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
+                // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+                while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
+                  $nameList[] = $row['group_name'];
+                  $startList[] = "<a href='".$url.$row['group_id']."'>";
+                  $stopList[] = "</a>";
+                };
+                unset($_SESSION['search']);
               };
-              unset($_SESSION['search']);
+            ?>
+          </div>
+          <?php
+            if ($nameList != null) {
+              echo("<div id='searchResults'><table>");
+              for ($i = 0; $i < count($nameList); $i++) {
+                echo("<tr>");
+                echo("<td>".$startList[$i].$nameList[$i].$stopList[$i]."</td>");
+                echo("</tr>");
+              };
+              echo("</table>");
+              echo("<b>Total Found: ".$i."</b></div>");
             };
           ?>
         </div>
-        <?php
-          if ($nameList != null) {
-            echo("<table style='border:1px solid black'>");
-            for ($i = 0; $i < count($nameList); $i++) {
-              echo("<tr>");
-              echo("<td>".$startList[$i].$nameList[$i].$stopList[$i]."</td>");
-              echo("</tr>");
-            };
-            echo("</table>");
-            echo("Total Found: ".$i);
-          };
-        ?>
-        <h3 id="showAddBox">Create A New Group?</h3>
-        <div id="addGroupBox">
-          <form method="POST">
-            <table>
-              <tr>
-                <td>Group name:</td>
-                <td><input type='text' name='group_name'></td>
-              </tr>
-              <tr>
-                <td>Tournament:</td>
-                <td>
-                  <select name="tourn_id">
-                    <option value='null'>Choose from...</option>
-                    <?php
-                      $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name FROM Tournaments');
-                      $tournStmt->execute();
-                      while ($tournRow = $tournStmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo("<option value='".$tournRow['tourn_id']."'>".$tournRow['tourn_name']."</option>");
-                      };
-                    ?>
-                  </select>
-                </td>
-              </tr>
-            </table>
-            <input type="submit" name="new_group" value="START">
-          </form>
-          <span id="cancelGroup">CANCEL</span>
+        <div class="newGrpOption">
+          <div id="showAddBox" class="allBoxTitle">Create A New Group?</div>
+          <div id="addGroupBox">
+            <form method="POST">
+              <table>
+                <tr>
+                  <td>Group name:</td>
+                  <td><input type='text' name='group_name'></td>
+                </tr>
+                <tr>
+                  <td>Tournament:</td>
+                  <td>
+                    <select name="tourn_id">
+                      <option value='null'>Choose from...</option>
+                      <?php
+                        $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name FROM Tournaments');
+                        $tournStmt->execute();
+                        while ($tournRow = $tournStmt->fetch(PDO::FETCH_ASSOC)) {
+                          echo("<option value='".$tournRow['tourn_id']."'>".$tournRow['tourn_name']."</option>");
+                        };
+                      ?>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+              <input type="submit" name="new_group" value="START">
+            </form>
+            <span id="cancelGroup">CANCEL</span>
+          </div>
         </div>
       </div>
       <h3 id="showDeleteBox">Delete your account?</h3>
