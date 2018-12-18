@@ -204,5 +204,85 @@ html {
             font-size: 2rem;
             background-color: white;
             width: 100%; }
+    html body #plyrEditPage #editTitle {
+      margin: 50px 0;
+      font-size: 7rem;
+      text-align: center; }
+    html body #plyrEditPage form table {
+      margin-left: 5%;
+      font-size: 3rem;
+      width: 90%; }
+      html body #plyrEditPage form table th {
+        border: 2px solid black; }
+      html body #plyrEditPage form table td {
+        border: 2px solid black; }
+        html body #plyrEditPage form table td input {
+          font-size: 3rem; }
+    html body #plyrEditPage form #plyrEditBttns {
+      display: flex;
+      justify-content: space-around; }
+      html body #plyrEditPage form #plyrEditBttns .onePlyrEditBttn {
+        margin: 30px 0;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 20px;
+        font-size: 3rem; }
+    html body #plyrEditPage #delAndPsBox {
+      margin-top: 100px;
+      display: flex;
+      font-size: 3rem;
+      color: white;
+      text-align: center; }
+      html body #plyrEditPage #delAndPsBox .pwAndDeleteBttns {
+        padding: 20px 0;
+        width: 50%; }
+      html body #plyrEditPage #delAndPsBox #change-Pw-Btn {
+        background-color: blue; }
+      html body #plyrEditPage #delAndPsBox #showDeleteBox {
+        background-color: red; }
+    html body #plyrEditPage #changePs {
+      padding-top: 30px;
+      background-color: blue; }
+      html body #plyrEditPage #changePs form table {
+        background-color: white; }
+      html body #plyrEditPage #changePs form div {
+        display: flex;
+        justify-content: space-around; }
+        html body #plyrEditPage #changePs form div input {
+          margin: 20px 0;
+          border: 2px solid white;
+          font-size: 3rem;
+          color: white;
+          background-color: blue; }
+        html body #plyrEditPage #changePs form div span {
+          margin: 20px 0;
+          border: 2px solid white;
+          padding: 0 10px;
+          font-size: 3rem;
+          color: white;
+          background-color: blue; }
+    html body #plyrEditPage #deleteBox {
+      padding: 30px 0;
+      border: 10px solid red;
+      color: red;
+      font-size: 4rem;
+      text-align: center; }
+      html body #plyrEditPage #deleteBox #warning {
+        color: red;
+        margin-bottom: 50px; }
+      html body #plyrEditPage #deleteBox div {
+        display: flex;
+        justify-content: space-around; }
+        html body #plyrEditPage #deleteBox div form input {
+          border: 2px solid red;
+          padding: 10px;
+          color: red;
+          font-size: 2.1rem;
+          background-color: white; }
+        html body #plyrEditPage #deleteBox div #cancelDelete {
+          border: 2px solid black;
+          padding: 10px;
+          color: black;
+          font-size: 2rem; }
 
 /*# sourceMappingURL=output.css.map */

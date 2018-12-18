@@ -18,6 +18,7 @@ $(()=>{
   $('#changePs').hide();
   $('#change-Pw-Btn').click(()=>{
     $('#changePs').toggle();
+    $('#deleteBox').hide();
   });
   // Close the box for changing the password with 'CANCEL' button
   $('#change-Pw-cancel').click(()=>{
@@ -61,7 +62,7 @@ $(()=>{
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
-    $("#addGroupBox").hide();
+    $('#changePs').hide();
     $('#deleteBox').toggle();
   });
   // Close the account deletion account

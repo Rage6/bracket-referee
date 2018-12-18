@@ -126,6 +126,7 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo($playerData['userName']) ?> | Bracket Referee</title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -133,72 +134,83 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Bracket HQ</h1>
-    <?php
-    if (isset($_SESSION['message']) && !isset($_POST['cancel'])) {
-      echo($_SESSION['message']);
-      unset($_SESSION['message']);
-    };
-    ?>
-    <form method="POST">
-      <table>
-        <tr>
-          <th>First Name</th>
-          <td>
-            <input type="text" name="editFirst" value="<?php echo($playerData['firstName']) ?>" />
-          </td>
-        </tr>
-        <tr>
-          <th>Last Name</th>
-          <td>
-            <input type="text" name="editLast" value="<?php echo($playerData['lastName']) ?>" />
-          </td>
-        </tr>
-        <tr>
-          <th>Username</th>
-          <td>
-            <input type="text" name="editUser" value="<?php echo($playerData['userName']) ?>" />
-          </td>
-        </tr>
-        <tr>
-          <th>Email</th>
-          <td>
-            <input type="text" name="editEmail" value="<?php echo($playerData['email']) ?>" />
-          </td>
-        </tr>
-      </table>
-      <input type='submit' name='submit' value='SUBMIT'/>
-      <input type='submit' name='cancel' value='CANCEL'/>
-    </form>
-    </br>
-    <h3 id="change-Pw-Btn">Change Password</h3>
-    <div id="changePs">
+    <div id="plyrEditPage">
+      <div id="editTitle">Edit Your Profile</div>
+      <?php
+      if (isset($_SESSION['message']) && !isset($_POST['cancel'])) {
+        echo($_SESSION['message']);
+        unset($_SESSION['message']);
+      };
+      ?>
       <form method="POST">
         <table>
           <tr>
-            <td>Current Password</td>
-            <td><input type='text' name='oldPw'></td>
+            <th>First Name</th>
+            <td>
+              <input type="text" name="editFirst" value="<?php echo($playerData['firstName']) ?>" />
+            </td>
           </tr>
           <tr>
-            <td>New Password</td>
-            <td><input type='text' name='newPw'></td>
+            <th>Last Name</th>
+            <td>
+              <input type="text" name="editLast" value="<?php echo($playerData['lastName']) ?>" />
+            </td>
           </tr>
           <tr>
-            <td>Confirm New Password</td>
-            <td><input type='text' name='confPw'></td>
+            <th>Username</th>
+            <td>
+              <input type="text" name="editUser" value="<?php echo($playerData['userName']) ?>" />
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>
+              <input type="text" name="editEmail" value="<?php echo($playerData['email']) ?>" />
+            </td>
           </tr>
         </table>
-        <input type="submit" name="makePassword" value="CHANGE">
-        <span id="change-Pw-cancel">CANCEL</span>
+        <div id="plyrEditBttns">
+          <input class="onePlyrEditBttn" type='submit' name='submit' value='SUBMIT'/>
+          <input class="onePlyrEditBttn" type='submit' name='cancel' value='CANCEL'/>
+        </div>
       </form>
-    </div>
-    <h3 id="showDeleteBox">Delete your account?</h3>
-    <div id="deleteBox">
-      <b>Are you sure that you want to delete your account?
-      <form method="POST">
-        <input type="submit" name="deleteAcct" value="YES, delete my account"/>
-      </form>
-      <span id="cancelDelete">NO, keep my account</span>
+      <div id="delAndPsBox">
+        <div id="change-Pw-Btn" class="pwAndDeleteBttns">Change Password</div>
+        <div id="showDeleteBox" class="pwAndDeleteBttns">Delete your account?</div>
+      </div>
+      <div id="changePs">
+        <form method="POST">
+          <table>
+            <tr>
+              <td>Current Password</td>
+              <td><input type='text' name='oldPw'></td>
+            </tr>
+            <tr>
+              <td>New Password</td>
+              <td><input type='text' name='newPw'></td>
+            </tr>
+            <tr>
+              <td>Confirm New Password</td>
+              <td><input type='text' name='confPw'></td>
+            </tr>
+          </table>
+          <div>
+            <input type="submit" name="makePassword" value="CHANGE">
+            <span id="change-Pw-cancel">CANCEL</span>
+          </div>
+        </form>
+      </div>
+      <div id="deleteBox">
+        <div id="warning">
+          Are you sure that you want to delete your account? All of your information will be lost.
+        </div>
+        <div>
+          <form method="POST">
+            <input type="submit" name="deleteAcct" value="YES, delete my account"/>
+          </form>
+          <span id="cancelDelete">NO, keep my account</span>
+        </div>
+      </div>
     </div>
   </body>
 </html>
