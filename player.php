@@ -167,15 +167,25 @@
             $groupList->execute(array(
               ':id'=>$_SESSION['player_id']
             ));
-            while ($row = $groupList->fetch(PDO::FETCH_ASSOC)) {
-              echo("<tr><td><a href=".$groupLink.$row['group_id'].">".$row['group_name']."</td></tr>");
+            // $groupCount = count($groupList->fetch(PDO::FETCH_ASSOC));
+            // echo($groupCount);
+            if ($groupList->fetch(PDO::FETCH_ASSOC) > 0) {
+              while ($row = $groupList->fetch(PDO::FETCH_ASSOC)) {
+                echo("<tr><td><a href=".$groupLink.$row['group_id'].">".$row['group_name']."</td></tr>");
+              };
+            } else {
+              echo("<tr><td><i>Join Group Below</i></td></tr>");
             };
           ?>
         </table>
       </div>
       <div id="groupBox" class="allBox">
+        <div class="allBoxTitle">Join A Group:</div>
         <div class="newGrpOption">
-          <div id="findGroup" class="allOptTitle">Search For A Group</div>
+          <div id="findGroup" class="allOptTitle">
+            <span>Search For A Group</span>
+            <span id="findGrpV"><img src="style/img/player/down_arrow.jpg"></span>
+          </div>
           <div id="findGroupBox">
             <form method="POST">
               <input type="text" name="name"/>

@@ -155,10 +155,15 @@ html {
         border: 2px solid white;
         padding: 10px 2%; }
         html body #playerPage #groupBox .newGrpOption .allOptTitle {
+          display: flex;
+          justify-content: space-between;
           text-align: center;
           font-size: 3.5rem;
           color: white;
           width: 100%; }
+        html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV {
+          transform: scaleX(-1);
+          height: 10%; }
         html body #playerPage #groupBox .newGrpOption #findGroupBox {
           margin-top: 20px; }
           html body #playerPage #groupBox .newGrpOption #findGroupBox form {
