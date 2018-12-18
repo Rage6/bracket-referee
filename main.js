@@ -25,18 +25,34 @@ $(()=>{
   });
 
   //Toggle the box for using the 'SEARCH' option
+  var findPoint = "up";
   if ($("#searchResults").css('display') != 'block') {
     $("#findGroupBox").hide();
   };
   $("#findGroup").click(()=>{
     $("#findGroupBox").toggle();
+    if (findPoint == "up") {
+      $("#findGrpVimg").css('transform','scaleY(-1)');
+      findPoint = "down";
+    } else {
+      $("#findGrpVimg").css('transform','scaleY(1)');
+      findPoint = "up";
+    };
   });
 
   // Toggle the box for adding a new group
+  var addPoint = "up";
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
     $('#deleteBox').hide();
     $("#addGroupBox").toggle();
+    if (addPoint == "up") {
+      $("#showAddVimg").css('transform','scaleY(-1)');
+      addPoint = "down";
+    } else {
+      $("#showAddVimg").css('transform','scaleY(1)');
+      addPoint = "up";
+    };
   });
   $('#cancelGroup').click(()=>{
     $("#addGroupBox").hide();

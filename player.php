@@ -184,7 +184,9 @@
         <div class="newGrpOption">
           <div id="findGroup" class="allOptTitle">
             <span>Search For A Group</span>
-            <span id="findGrpV"><img src="style/img/player/down_arrow.jpg"></span>
+            <span id="findGrpV">
+              <img id="findGrpVimg" src="style/img/player/down_arrow.jpg">
+            </span>
           </div>
           <div id="findGroupBox">
             <form method="POST">
@@ -223,7 +225,12 @@
           ?>
         </div>
         <div class="newGrpOption">
-          <div id="showAddBox" class="allOptTitle">Create A New Group</div>
+          <div id="showAddBox" class="allOptTitle">
+            <span>Create A New Group</span>
+            <span id="showAddV">
+              <img id="showAddVimg" src="style/img/player/down_arrow.jpg">
+            </span>
+          </div>
           <div id="addGroupBox">
             <form method="POST">
               <table>

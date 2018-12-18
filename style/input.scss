@@ -216,11 +216,18 @@ html {
           };
           #findGroup {
             #findGrpV {
-              transform: scaleX(-1);
-              height: 10%;
-              // img {
-              //   height: 10%;
-              // };
+              width: 50px;
+              #findGrpVimg {
+                width: 100%;
+              };
+            };
+          };
+          #showAddBox {
+            #showAddV {
+              width: 50px;
+              #showAddVimg {
+                width: 100%;
+              };
             };
           };
           #findGroupBox {
@@ -289,6 +296,9 @@ html {
     };
 
     // ----------- PLAYER_EDIT.PHP FILE BEGINS -----------
+    #plyrEditPage {
+
+    };
 
   };
 };
