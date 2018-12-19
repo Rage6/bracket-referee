@@ -133,6 +133,22 @@
   </head>
   <body>
     <div id="groupPage">
+      <form method="POST">
+        <input type="submit" name="returnPlayer" value="<<  BACK " />
+        <?php
+          if ($canJoinResult['COUNT(main_id)'] == 0) {
+            echo("<input id='joinBttn' type='submit' name='joinGroup' value='JOIN  >>'>");
+          };
+          // if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
+          //   echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
+          //   echo("<div id='leaveGrpBox'>
+          //     <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
+          //     <input type='submit' name='leaveGroup' value='[X] LEAVE '>
+          //     <span id='cancelLeave'> CANCEL </span>
+          //     </div>");
+          // };
+        ?>
+      </form>
       <div id="introTitle">Welcome to</div>
       <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
       <div class="allTitles">Tournament:</div>
@@ -151,17 +167,19 @@
         </tr>
         <tr>
           <td>Director</td>
-          <td><?php echo($adminResult['userName']) ?></td>
+          <td>
+            <?php echo($adminResult['userName']) ?>
+            <?php
+              if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
+                $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+                // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
+                $urlId = $_GET['group_id'];
+                echo(" <a style='text-decoration:none' href='".$urlPrefix.$urlId."'>(EDIT)</a>");
+              };
+            ?>
+          </td>
         </tr>
       </table>
-      <?php
-        if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-          $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-          // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
-          $urlId = $_GET['group_id'];
-          echo(" <u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u>");
-        };
-      ?>
       <?php
         if ($canJoinResult['COUNT(main_id)'] > 0) {
           echo("
@@ -239,9 +257,9 @@
             //   echo("</table>");
             // };
             if ($currentLayer == null) {
-              echo("<div class='allRounds'><div>".$roundTitle."</div>");
+              echo("<div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
             } else {
-              echo("</div><div class='allRounds'><div>".$roundTitle."</div>");
+              echo("</div><div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
             };
             $currentLayer = $newLayer;
           };
@@ -272,14 +290,14 @@
           $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
           $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
           if ($team_a == $winnerTeam) {
-            $a_name = "<div><span style='color:white;background-color:green'>".$a_name['team_name']."</span>";
-            $b_name = "<span>".$b_name['team_name']."</span></div>";
+            $a_name = "<div class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
+            $b_name = "<div>".$b_name['team_name']."</div></div>";
           } elseif ($team_b == $winnerTeam) {
-            $a_name = "<div><span>".$a_name['team_name']."</span>";
-            $b_name = "<span style='color:white;background-color:green'>".$b_name['team_name']."</span></div>";
+            $a_name = "<div class='allRows'><div>".$a_name['team_name']."</div>";
+            $b_name = "<div style='color:white;background-color:green'>".$b_name['team_name']."</div></div>";
           } else {
-            $a_name = "<div><span>".$a_name['team_name']."</span>";
-            $b_name = "<span>".$b_name['team_name']."</span></div>";
+            $a_name = "<div class='allRows'><div>".$a_name['team_name']."</div>";
+            $b_name = "<div>".$b_name['team_name']."</div></div>";
           };
           echo($a_name);
           echo($b_name);
@@ -292,22 +310,19 @@
           unset($_SESSION['message']);
         };
       ?>
-      <form method="POST">
-        <input type="submit" name="returnPlayer" value="<-- BACK " />
-        <?php
-          if ($canJoinResult['COUNT(main_id)'] == 0) {
-            echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
-          };
-          if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
-            echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
-            echo("<div id='leaveGrpBox'>
+      <?php
+        if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
+          echo("<div id='leaveGrpButton'>Unjoin this group?</div>");
+          echo("
+            <div id='leaveGrpBox'>
               <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
-              <input type='submit' name='leaveGroup' value='[X] LEAVE '>
-              <span id='cancelLeave'> CANCEL </span>
-              </div>");
-          };
-        ?>
-      </form>
+              <div>
+                <input type='submit' name='leaveGroup' value='[X] UNJOIN '>
+                <span id='cancelLeave'><u>CANCEL</u></span>
+              </div>
+            </div>");
+        };
+      ?>
     </div>
   </body>
 </html>

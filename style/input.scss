@@ -423,6 +423,22 @@ html {
 
     // ----------- GROUP.PHP FILE BEGINS -----------
     #groupPage {
+      form {
+        display: flex;
+        justify-content: space-between;
+        input {
+          margin: 15px 15px 0 15px;
+          padding: 10px 15px;
+          border: 1px solid green;
+          border-radius: 15px;
+          font-size: 2.5rem;
+        };
+        #joinBttn {
+          font-size: 3rem;
+          color: white;
+          background-color: blue;
+        };
+      };
       #introTitle {
         margin: 40px 0 20px 0;
         font-size: 4rem;
@@ -439,17 +455,33 @@ html {
         text-align: center;
       };
       table {
+        margin: 0 0 40px 10%;
+        font-size: 2.5rem;
+        text-align: center;
+        width: 80%;
+        th {
+          background-color: yellow;
+        };
+        td {
+          border: 1px solid black;
+        }
+      };
+      .allRounds {
         margin-left: 10%;
         font-size: 2.5rem;
         text-align: center;
         width: 80%;
-        tr {
-          th {
-            background-color: yellow;
+        .rowTitle {
+          background-color: yellow;
+        };
+        .allRows {
+          display: flex;
+          justify-content: space-between;
+          div {
+            margin: 2px 0;
+            border-radius: 20px;
+            width: 50%;
           };
-          td {
-            border: 1px solid black;
-          }
         }
       };
       #tournTable {
@@ -471,6 +503,35 @@ html {
       };
       .allRounds {
         margin-bottom: 30px;
+      };
+      #leaveGrpButton {
+        margin-top: 100px;
+        padding: 20px 0;
+        color: white;
+        font-size: 1.5rem;
+        text-align: center;
+        background-color: black;
+      };
+      #leaveGrpBox {
+        padding: 50px 10%;
+        font-size: 2.5rem;
+        color: white;
+        background-color: black;
+        div {
+          margin: 55px;
+          display: flex;
+          justify-content: space-between;
+          input {
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 2.5rem;
+            color: white;
+            background-color: red;
+          };
+          span {
+            padding: 15px;
+          };
+        };
       };
     };
 
