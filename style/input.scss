@@ -534,6 +534,84 @@ html {
         };
       };
     };
+    // ----------- GROUP_EDIT.PHP FILE BEGINS -----------
+    #groupEditPage {
+      #mainEditTitle {
+        margin: 40px 10% 80px 10%;
+        font-size: 6.7rem;
+        text-align: center;
+      };
+      p {
+        margin: 0 5% 50px 5%;
+        font-size: 2.5rem;
+      };
+      form {
+        #changeBox {
+          margin: 0 2%;
+          border-radius: 15px;
+          padding: 20px 0;
+          background-color: grey;
+          table {
+            margin-left: 5%;
+            border: 4px solid black;
+            border-collapse: collapse;
+            font-size: 3.5rem;
+            width: 90%;
+            tr {
+              th {
+                border: 4px solid black;
+                background-color: lightgrey;
+                padding: 5px;
+                text-align: center;
+                vertical-align: middle;
+              };
+              td {
+                border: 4px solid black;
+                padding: 10px 0px;
+                background-color: white;
+                input {
+                  font-size: 3rem;
+                  text-align: center;
+                  width: 99%;
+                };
+              };
+            };
+          };
+          div {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            input {
+              border: 3px solid black;
+              border-radius: 10px;
+              padding: 10px 20px;
+              font-size: 3rem;
+            };
+            #submitEnter {
+              border: 3px solid blue;
+              color: white;
+              background-color: blue;
+            };
+          };
+        };
+        #delGrpButton {
+          margin: 150px 20% 20px 20%;
+          border-radius: 5px;
+          padding: 20px 0;
+          color: white;
+          font-size: 2.5rem;
+          text-align: center;
+          background-color: red;
+        };
+        #delGrpBox {
+          color: black;
+          background-color: white;
+          b {
+            color: red;
+          };
+        };
+      };
+    };
 
   };
 };

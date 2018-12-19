@@ -163,7 +163,7 @@
             </th>
           </tr>
           <?php
-            $groupList = $pdo->prepare('SELECT Groups.group_id,Groups.group_name FROM Groups JOIN Groups_Players ON Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id=:id');
+            $groupList = $pdo->prepare('SELECT Groups.group_id,Groups.group_name FROM Groups JOIN Groups_Players WHERE Groups_Players.player_id=:id AND Groups.group_id=Groups_Players.group_id');
             $groupList->execute(array(
               ':id'=>$_SESSION['player_id']
             ));

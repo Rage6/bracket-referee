@@ -381,5 +381,63 @@ html {
           background-color: red; }
         html body #groupPage #leaveGrpBox div span {
           padding: 15px; }
+    html body #groupEditPage #mainEditTitle {
+      margin: 40px 10% 80px 10%;
+      font-size: 6.7rem;
+      text-align: center; }
+    html body #groupEditPage p {
+      margin: 0 5% 50px 5%;
+      font-size: 2.5rem; }
+    html body #groupEditPage form #changeBox {
+      margin: 0 2%;
+      border-radius: 15px;
+      padding: 20px 0;
+      background-color: grey; }
+      html body #groupEditPage form #changeBox table {
+        margin-left: 5%;
+        border: 4px solid black;
+        border-collapse: collapse;
+        font-size: 3.5rem;
+        width: 90%; }
+        html body #groupEditPage form #changeBox table tr th {
+          border: 4px solid black;
+          background-color: lightgrey;
+          padding: 5px;
+          text-align: center;
+          vertical-align: middle; }
+        html body #groupEditPage form #changeBox table tr td {
+          border: 4px solid black;
+          padding: 10px 0px;
+          background-color: white; }
+          html body #groupEditPage form #changeBox table tr td input {
+            font-size: 3rem;
+            text-align: center;
+            width: 99%; }
+      html body #groupEditPage form #changeBox div {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around; }
+        html body #groupEditPage form #changeBox div input {
+          border: 3px solid black;
+          border-radius: 10px;
+          padding: 10px 20px;
+          font-size: 3rem; }
+        html body #groupEditPage form #changeBox div #submitEnter {
+          border: 3px solid blue;
+          color: white;
+          background-color: blue; }
+    html body #groupEditPage form #delGrpButton {
+      margin: 150px 20% 20px 20%;
+      border-radius: 5px;
+      padding: 20px 0;
+      color: white;
+      font-size: 2.5rem;
+      text-align: center;
+      background-color: red; }
+    html body #groupEditPage form #delGrpBox {
+      color: black;
+      background-color: white; }
+      html body #groupEditPage form #delGrpBox b {
+        color: red; }
 
 /*# sourceMappingURL=output.css.map */

@@ -98,6 +98,7 @@
   };
 
   // Remove current player from this group
+  // [UPDATE] Here, also add in code that deletes the player's bracket and picks (if any)
   if (isset($_POST['leaveGroup'])) {
     $leaveGrpStmt = $pdo->prepare('DELETE FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
     $leaveGrpStmt->execute(array(
