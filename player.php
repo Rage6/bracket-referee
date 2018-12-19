@@ -254,8 +254,10 @@
                   </td>
                 </tr>
               </table>
-              <input type="submit" name="new_group" value="START">
-              <span id="cancelGroup">CANCEL</span>
+              <div>
+                <input id="submitNewGrp" type="submit" name="new_group" value="START">
+                <span id="cancelGroup">CANCEL</span>
+              </div>
             </form>
           </div>
         </div>

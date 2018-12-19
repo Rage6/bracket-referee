@@ -29,14 +29,19 @@ $(()=>{
   var findPoint = "up";
   if ($("#searchResults").css('display') != 'block') {
     $("#findGroupBox").hide();
+  } else {
+    $("#findGrpVimg").css('transform','scaleY(-1)');
+    var findPoint = "down";
   };
   $("#findGroup").click(()=>{
     $("#findGroupBox").toggle();
     if (findPoint == "up") {
       $("#findGrpVimg").css('transform','scaleY(-1)');
+      $("#searchResults").css('display','block');
       findPoint = "down";
     } else {
       $("#findGrpVimg").css('transform','scaleY(1)');
+      $("#searchResults").css('display','none');
       findPoint = "up";
     };
   });
