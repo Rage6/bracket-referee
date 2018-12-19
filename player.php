@@ -256,7 +256,7 @@
               </table>
               <div>
                 <input id="submitNewGrp" type="submit" name="new_group" value="START">
-                <span id="cancelGroup">CANCEL</span>
+                <span id="cancelGroup"><u>CANCEL</u></span>
               </div>
             </form>
           </div>

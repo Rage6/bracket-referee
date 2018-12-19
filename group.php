@@ -124,6 +124,7 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo($grpNameResult['group_name']) ?> | Bracket Referee</title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -131,163 +132,165 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Group: <?php echo($grpNameResult['group_name']) ?></h1>
-    <span>Director: <?php echo($adminResult['userName']) ?></span>
-    <?php
-      if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-        $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-        // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
-        $urlId = $_GET['group_id'];
-        echo(" <span><u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u></span>");
-      };
-    ?>
-    <?php
-      if ($canJoinResult['COUNT(main_id)'] > 0) {
-        echo("
-        <h2>Players:</h2>
-        <table border='1px solid black'>
-          <tr>
-            <th>Username</th>
-            <th>Bracket?</th>
-            <th>Score</th>
-          </tr>");
-          $hasBracket = false;
-          while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
-            // Detects if the user has a bracket
-            $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
-            $bracketStmt->execute(array(
-              ':pid'=>$playerRow['player_id'],
-              ':gid'=>htmlentities($_GET['group_id'])
-            ));
-            $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
-            if (is_array($bracketArray)==false || count($bracketArray) <= 0) {
-              $bracketStatus = "NO";
-              $bracketTotal = "---";
-            } else {
-              $bracketID = $bracketArray['bracket_id'];
-              $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
-              $bracketTotal = 0;
-              if ($playerRow['player_id'] == $_SESSION['player_id']) {
-                $hasBracket = true;
-              };
-            };
-            // Detects the user's score IF they have a bracket
-            if ($bracketStatus != "NO") {
-              $findPointsStmt = $pdo->prepare('SELECT player_pick,winner_id,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Levels.level_id=Games.level_id');
-              $findPointsStmt->execute(array(
-                ':bid'=>$bracketID
+    <div id="groupPage">
+      <div id="introTitle">Welcome to</div>
+      <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
+      <div class="allTitles">Tournament:</div>
+      <table id="tournTable">
+        <tr>
+          <td>Name</td>
+          <td><?php echo($tournArray['tourn_name']) ?></td>
+        </tr>
+        <tr>
+          <td>Rounds</td>
+          <td><?php echo($tournArray['level_total']) ?></td>
+        </tr>
+        <tr>
+          <td>Start Date</td>
+          <td><?php echo($tournArray['start_date']) ?></td>
+        </tr>
+        <tr>
+          <td>Director</td>
+          <td><?php echo($adminResult['userName']) ?></td>
+        </tr>
+      </table>
+      <?php
+        if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
+          $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+          // $urlPrefix = "https://bracket-referee.herokuapp.com/bracket-referee/group_edit.php?group_id=";
+          $urlId = $_GET['group_id'];
+          echo(" <u><a href='".$urlPrefix.$urlId."'>(EDIT)</a></u>");
+        };
+      ?>
+      <?php
+        if ($canJoinResult['COUNT(main_id)'] > 0) {
+          echo("
+          <div class='allTitles'>Current Players:</div>
+          <table border='1px solid black'>
+            <tr>
+              <th>Username</th>
+              <th>Bracket?</th>
+              <th>Score</th>
+            </tr>");
+            $hasBracket = false;
+            while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
+              // Detects if the user has a bracket
+              $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
+              $bracketStmt->execute(array(
+                ':pid'=>$playerRow['player_id'],
+                ':gid'=>htmlentities($_GET['group_id'])
               ));
-              while ($onePick = $findPointsStmt->fetch(PDO::FETCH_ASSOC)) {
-                if ($onePick['player_pick'] == $onePick['winner_id']) {
-                  $bracketTotal += $onePick['points'];
+              $bracketArray = $bracketStmt->fetch(PDO::FETCH_ASSOC);
+              if (is_array($bracketArray)==false || count($bracketArray) <= 0) {
+                $bracketStatus = "NO";
+                $bracketTotal = "---";
+              } else {
+                $bracketID = $bracketArray['bracket_id'];
+                $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
+                $bracketTotal = 0;
+                if ($playerRow['player_id'] == $_SESSION['player_id']) {
+                  $hasBracket = true;
                 };
               };
+              // Detects the user's score IF they have a bracket
+              if ($bracketStatus != "NO") {
+                $findPointsStmt = $pdo->prepare('SELECT player_pick,winner_id,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Levels.level_id=Games.level_id');
+                $findPointsStmt->execute(array(
+                  ':bid'=>$bracketID
+                ));
+                while ($onePick = $findPointsStmt->fetch(PDO::FETCH_ASSOC)) {
+                  if ($onePick['player_pick'] == $onePick['winner_id']) {
+                    $bracketTotal += $onePick['points'];
+                  };
+                };
+              };
+              echo("
+              <tr>
+                <td>".$playerRow['userName']."</td>
+                <td>".$bracketStatus."</td>
+                <td>".$bracketTotal."</td>
+              </tr>");
             };
-            echo("
-            <tr>
-              <td>".$playerRow['userName']."</td>
-              <td>".$bracketStatus."</td>
-              <td>".$bracketTotal."</td>
-            </tr>");
+            echo("</table>");
           };
-          echo("</table>");
-        };
-      ?>
-    <!-- </table> -->
-
-    <h2>Tournament:</h2>
-    <table>
-      <tr>
-        <td>Name</td>
-        <td><?php echo($tournArray['tourn_name']) ?></td>
-      </tr>
-      <tr>
-        <td># of Rounds</td>
-        <td><?php echo($tournArray['level_total']) ?></td>
-      </tr>
-      <tr>
-        <td>Start Date</td>
-        <td><?php echo($tournArray['start_date']) ?></td>
-      </tr>
-    </table>
-    </br>
-    <?php
-      if ($canJoinResult['COUNT(main_id)'] > 0) {
-        if ($hasBracket == false) {
-          echo("<form method='POST'>
-            <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-          </form>");
-        };
-      };
-    ?>
-    </br>
-    <h3>Tournament Results</h3>
-    <?php
-      $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
-      $gameListStmt->execute(array(
-        ':gid'=>htmlentities($_GET['group_id'])
-      ));
-      $currentLayer = "-1";
-      while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
-        $newLayer = $oneGame['layer'];
-        if ($currentLayer != $newLayer) {
-          $roundTitle = $oneGame['level_name'];
-          if ($currentLayer != "0") {
-            echo("</table></br>");
-          };
-          echo("<table border=1><tr><th colspan='2'>".$roundTitle."</th></tr>");
-          $currentLayer = $newLayer;
-        };
-        $team_a = $oneGame['team_a'];
-        $getTeamA = $pdo->prepare('SELECT team_name FROM Teams WHERE :aid=team_id');
-        $getTeamA->execute(array(
-          ':aid'=>$team_a
-        ));
-        $team_b = $oneGame['team_b'];
-        $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
-        $getTeamB->execute(array(
-          ':bid'=>$team_b
-        ));
-        $winnerTeam = $oneGame['winner_id'];
-        $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
-        $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
-        if ($team_a == $winnerTeam) {
-          $a_name = "<tr><td style='color:white;background-color:green'>".$a_name['team_name']."</td>";
-          $b_name = "<td>".$b_name['team_name']."</td></tr>";
-        } elseif ($team_b == $winnerTeam) {
-          $a_name = "<tr><td>".$a_name['team_name']."</td>";
-          $b_name = "<td style='color:white;background-color:green'>".$b_name['team_name']."</td></tr>";
-        } else {
-          $a_name = "<tr><td>".$a_name['team_name']."</td></tr>";
-          $b_name = "<tr><tr>".$b_name['team_name']."</td></tr>";
-        };
-        echo($a_name);
-        echo($b_name);
-        // print_r($a_name.$b_name).echo;
-      };
-      echo("</table></br>")
-    ?>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
-        unset($_SESSION['message']);
-      };
-    ?>
-    <form method="POST">
-      <input type="submit" name="returnPlayer" value="<-- BACK " />
+        ?>
       <?php
-        if ($canJoinResult['COUNT(main_id)'] == 0) {
-          echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
-        };
-        if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
-          echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
-          echo("<div id='leaveGrpBox'>
-            <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
-            <input type='submit' name='leaveGroup' value='[X] LEAVE '>
-            <span id='cancelLeave'> CANCEL </span>
-            </div>");
+        if ($canJoinResult['COUNT(main_id)'] > 0) {
+          if ($hasBracket == false) {
+            echo("<div id='bracketButton'><form method='POST'>
+              <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+            </form></div>");
+          };
         };
       ?>
-    </form>
+      <div class="allTitles">Tournament Results</div>
+      <?php
+        $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
+        $gameListStmt->execute(array(
+          ':gid'=>htmlentities($_GET['group_id'])
+        ));
+        $currentLayer = "-1";
+        while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
+          $newLayer = $oneGame['layer'];
+          if ($currentLayer != $newLayer) {
+            $roundTitle = $oneGame['level_name'];
+            if ($currentLayer != "0") {
+              echo("</table></br>");
+            };
+            echo("<table border=1><tr><th colspan='2'>".$roundTitle."</th></tr>");
+            $currentLayer = $newLayer;
+          };
+          $team_a = $oneGame['team_a'];
+          $getTeamA = $pdo->prepare('SELECT team_name FROM Teams WHERE :aid=team_id');
+          $getTeamA->execute(array(
+            ':aid'=>$team_a
+          ));
+          $team_b = $oneGame['team_b'];
+          $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+          $getTeamB->execute(array(
+            ':bid'=>$team_b
+          ));
+          $winnerTeam = $oneGame['winner_id'];
+          $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
+          $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
+          if ($team_a == $winnerTeam) {
+            $a_name = "<tr><td style='color:white;background-color:green'>".$a_name['team_name']."</td>";
+            $b_name = "<td>".$b_name['team_name']."</td></tr>";
+          } elseif ($team_b == $winnerTeam) {
+            $a_name = "<tr><td>".$a_name['team_name']."</td>";
+            $b_name = "<td style='color:white;background-color:green'>".$b_name['team_name']."</td></tr>";
+          } else {
+            $a_name = "<tr><td>".$a_name['team_name']."</td></tr>";
+            $b_name = "<tr><tr>".$b_name['team_name']."</td></tr>";
+          };
+          echo($a_name);
+          echo($b_name);
+          // print_r($a_name.$b_name).echo;
+        };
+        echo("</table></br>")
+      ?>
+      <?php
+        if (isset($_SESSION['message'])) {
+          echo($_SESSION['message']);
+          unset($_SESSION['message']);
+        };
+      ?>
+      <form method="POST">
+        <input type="submit" name="returnPlayer" value="<-- BACK " />
+        <?php
+          if ($canJoinResult['COUNT(main_id)'] == 0) {
+            echo("<input type='submit' name='joinGroup' value=' JOIN -->'>");
+          };
+          if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
+            echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
+            echo("<div id='leaveGrpBox'>
+              <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
+              <input type='submit' name='leaveGroup' value='[X] LEAVE '>
+              <span id='cancelLeave'> CANCEL </span>
+              </div>");
+          };
+        ?>
+      </form>
+    </div>
   </body>
 </html>

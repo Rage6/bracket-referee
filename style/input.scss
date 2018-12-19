@@ -293,17 +293,17 @@ html {
                 margin: 30px 0;
                 display: flex;
                 justify-content: space-around;
-              };
-              #submitNewGrp {
-                border: 5px solid white;
-                border-radius: 15px;
-                padding: 10px 20px;
-                font-size: 3rem;
-                color: white;
-                background-color: green;
-              };
-              span {
-                margin-top: 15px;
+                #submitNewGrp {
+                  border: 5px solid white;
+                  border-radius: 15px;
+                  padding: 10px 20px;
+                  font-size: 3rem;
+                  color: white;
+                  background-color: green;
+                };
+                span {
+                  margin-top: 15px;
+                };
               };
             };
           };
@@ -381,7 +381,6 @@ html {
             };
             span {
               margin: 20px 0;
-              border: 2px solid white;
               padding: 0 10px;
               font-size: 3rem;
               color: white;
@@ -417,6 +416,53 @@ html {
             padding: 10px;
             color: black;
             font-size: 2rem;
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP.PHP FILE BEGINS -----------
+    #groupPage {
+      #introTitle {
+        margin: 40px 0 20px 0;
+        font-size: 4rem;
+        text-align: center;
+      };
+      #groupTitle {
+        margin-bottom: 75px;
+        font-size: 7rem;
+        text-align: center;
+      };
+      .allTitles {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        text-align: center;
+      };
+      table {
+        margin-left: 10%;
+        font-size: 2.5rem;
+        text-align: center;
+        width: 80%;
+        tr {
+          td {
+            border: 1px solid black;
+          }
+        }
+      };
+      #tournTable {
+        margin-bottom: 30px;
+        border: 2px solid black;
+      };
+      #bracketButton {
+        form {
+          input {
+            margin: 20px 10% 40px 10%;
+            border-radius: 55px;
+            padding: 30px 0;
+            font-size: 3.8rem;
+            color: white;
+            background-color: blue;
+            width: 80%;
           };
         };
       };

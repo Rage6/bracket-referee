@@ -196,7 +196,7 @@
           </table>
           <div>
             <input type="submit" name="makePassword" value="CHANGE">
-            <span id="change-Pw-cancel">CANCEL</span>
+            <span id="change-Pw-cancel"><u>CANCEL</u></span>
           </div>
         </form>
       </div>
