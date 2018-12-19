@@ -444,6 +444,9 @@ html {
         text-align: center;
         width: 80%;
         tr {
+          th {
+            background-color: yellow;
+          };
           td {
             border: 1px solid black;
           }
@@ -465,6 +468,9 @@ html {
             width: 80%;
           };
         };
+      };
+      .allRounds {
+        margin-bottom: 30px;
       };
     };
 

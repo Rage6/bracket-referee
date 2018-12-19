@@ -225,19 +225,24 @@
       ?>
       <div class="allTitles">Tournament Results</div>
       <?php
-        $gameListStmt = $pdo->prepare('SELECT team_a,team_b,winner_id,layer,level_name FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
+        $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
         $gameListStmt->execute(array(
           ':gid'=>htmlentities($_GET['group_id'])
         ));
-        $currentLayer = "-1";
+        // $currentLayer = "-1";
+        $currentLayer = null;
         while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
           $newLayer = $oneGame['layer'];
           if ($currentLayer != $newLayer) {
             $roundTitle = $oneGame['level_name'];
-            if ($currentLayer != "0") {
-              echo("</table></br>");
+            // if ($currentLayer != "0") {
+            //   echo("</table>");
+            // };
+            if ($currentLayer == null) {
+              echo("<div class='allRounds'><div>".$roundTitle."</div>");
+            } else {
+              echo("</div><div class='allRounds'><div>".$roundTitle."</div>");
             };
-            echo("<table border=1><tr><th colspan='2'>".$roundTitle."</th></tr>");
             $currentLayer = $newLayer;
           };
           $team_a = $oneGame['team_a'];
@@ -245,29 +250,41 @@
           $getTeamA->execute(array(
             ':aid'=>$team_a
           ));
-          $team_b = $oneGame['team_b'];
-          $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
-          $getTeamB->execute(array(
-            ':bid'=>$team_b
-          ));
+          if ($oneGame['get_wildcard'] == 0) {
+            $team_b = $oneGame['team_b'];
+            $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+            $getTeamB->execute(array(
+              ':bid'=>$team_b
+            ));
+          } else {
+            $nextGameId = $oneGame['game_id'];
+            $getWildWinId = $pdo->prepare('SELECT winner_id FROM Games WHERE is_wildcard=1 AND next_game=:ngid');
+            $getWildWinId->execute(array(
+              ':ngid'=>$nextGameId
+            ));
+            $team_b = $getWildWinId->fetch(PDO::FETCH_ASSOC)['winner_id'];
+            $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+            $getTeamB->execute(array(
+              ':bid'=>$team_b
+            ));
+          };
           $winnerTeam = $oneGame['winner_id'];
           $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
           $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
           if ($team_a == $winnerTeam) {
-            $a_name = "<tr><td style='color:white;background-color:green'>".$a_name['team_name']."</td>";
-            $b_name = "<td>".$b_name['team_name']."</td></tr>";
+            $a_name = "<div><span style='color:white;background-color:green'>".$a_name['team_name']."</span>";
+            $b_name = "<span>".$b_name['team_name']."</span></div>";
           } elseif ($team_b == $winnerTeam) {
-            $a_name = "<tr><td>".$a_name['team_name']."</td>";
-            $b_name = "<td style='color:white;background-color:green'>".$b_name['team_name']."</td></tr>";
+            $a_name = "<div><span>".$a_name['team_name']."</span>";
+            $b_name = "<span style='color:white;background-color:green'>".$b_name['team_name']."</span></div>";
           } else {
-            $a_name = "<tr><td>".$a_name['team_name']."</td></tr>";
-            $b_name = "<tr><tr>".$b_name['team_name']."</td></tr>";
+            $a_name = "<div><span>".$a_name['team_name']."</span>";
+            $b_name = "<span>".$b_name['team_name']."</span></div>";
           };
           echo($a_name);
           echo($b_name);
-          // print_r($a_name.$b_name).echo;
         };
-        echo("</table></br>")
+        echo("</div>")
       ?>
       <?php
         if (isset($_SESSION['message'])) {
