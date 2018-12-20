@@ -102,10 +102,51 @@
 
   // Delete user's account
   if (isset($_POST['deleteAcct'])) {
-    $deleteStmt = $pdo->prepare('DELETE FROM Players WHERE player_id=:id');
-    $deleteStmt->execute(array(
+
+    // TABLES: BRACKETS, PICKS
+    // This deletes all of the player's prior picks and brackets
+    $findBrackets = $pdo->prepare('SELECT bracket_id FROM Brackets WHERE player_id=:plid');
+    $findBrackets->execute(array(
+      ':plid'=>$_SESSION['player_id']
+    ));
+    while ($oneBracket = $findBrackets->fetch(PDO::FETCH_ASSOC)) {
+      $findPicks = $pdo->prepare('SELECT pick_id FROM Picks WHERE bracket_id=:bid');
+      $findPicks->execute(array(
+        ':bid'=>$oneBracket['bracket_id']
+      ));
+      while ($onePick = $findPicks->fetch(PDO::FETCH_ASSOC)) {
+        $delPickStmt = $pdo->prepare('DELETE FROM Picks WHERE pick_id=:pkid');
+        $delPickStmt->execute(array(
+          'pkid'=>$onePick['pick_id']
+        ));
+      };
+      $delBrackStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:brid');
+      $delBrackStmt->execute(array(
+        'brid'=>$oneBracket['bracket_id']
+      ));
+    };
+
+    // TABLES: GROUPS_PLAYERS
+    // This deletes all of the rows that link the player to his/her current groups
+    $findGrpPly = $pdo->prepare('SELECT main_id FROM Groups_Players WHERE player_id=:gpid');
+    $findGrpPly->execute(array(
+      'gpid'=>$_SESSION['player_id']
+    ));
+    while ($oneLink = $findGrpPly->fetch(PDO::FETCH_ASSOC)) {
+      $delLink = $pdo->prepare('DELETE FROM Groups_Players WHERE main_id=:lkid');
+      $delLink->execute(array(
+        'lkid'=>$oneLink['main_id']
+      ));
+    };
+
+    // TABLES: PLAYERS
+    // This finally deletes the player's actual account
+    $delPlyStmt = $pdo->prepare('DELETE FROM Players WHERE player_id=:id');
+    $delPlyStmt->execute(array(
       ':id'=>$_SESSION['player_id']
     ));
+
+    // After deletion, the user is sent back to the index page
     $_SESSION['message'] = "<b style='color:green'>Account deleted</b>";
     header('Location: index.php');
     return true;
