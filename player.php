@@ -167,9 +167,14 @@
             $groupList->execute(array(
               ':id'=>$_SESSION['player_id']
             ));
-            // $groupCount = count($groupList->fetch(PDO::FETCH_ASSOC));
-            // echo($groupCount);
-            if ($groupList->fetch(PDO::FETCH_ASSOC) > 0) {
+            $numCurrGrp = 0;
+            while ($oneGrp = $groupList->fetch(PDO::FETCH_ASSOC)) {
+              $numCurrGrp++;
+            };
+            if ($numCurrGrp > 0) {
+              $groupList->execute(array(
+                ':id'=>$_SESSION['player_id']
+              ));
               while ($row = $groupList->fetch(PDO::FETCH_ASSOC)) {
                 echo("<tr><td><a href=".$groupLink.$row['group_id'].">".$row['group_name']."</td></tr>");
               };

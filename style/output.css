@@ -427,7 +427,7 @@ html {
           color: white;
           background-color: blue; }
     html body #groupEditPage form #delGrpButton {
-      margin: 150px 20% 20px 20%;
+      margin: 150px 20% 0 20%;
       border-radius: 5px;
       padding: 20px 0;
       color: white;
@@ -435,9 +435,32 @@ html {
       text-align: center;
       background-color: red; }
     html body #groupEditPage form #delGrpBox {
+      margin: 0 20% 80px 20%;
+      border: 2px solid red;
+      padding: 15px 5% 50px 5%;
       color: black;
       background-color: white; }
-      html body #groupEditPage form #delGrpBox b {
-        color: red; }
+      html body #groupEditPage form #delGrpBox #warningGrp {
+        margin-bottom: 30px;
+        font-size: 2.7rem;
+        color: red;
+        text-align: center; }
+      html body #groupEditPage form #delGrpBox p {
+        margin-bottom: 50px;
+        padding: 0px; }
+      html body #groupEditPage form #delGrpBox #warningRow {
+        display: flex;
+        justify-content: space-between; }
+        html body #groupEditPage form #delGrpBox #warningRow input {
+          border: 3px solid red;
+          border-radius: 30px;
+          padding: 10px 20px;
+          font-size: 2.5rem;
+          color: red;
+          background-color: white; }
+        html body #groupEditPage form #delGrpBox #warningRow span {
+          text-decoration: underline;
+          font-size: 2.5rem;
+          vertical-align: middle; }
 
 /*# sourceMappingURL=output.css.map */

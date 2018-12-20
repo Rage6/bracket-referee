@@ -595,7 +595,7 @@ html {
           };
         };
         #delGrpButton {
-          margin: 150px 20% 20px 20%;
+          margin: 150px 20% 0 20%;
           border-radius: 5px;
           padding: 20px 0;
           color: white;
@@ -604,10 +604,37 @@ html {
           background-color: red;
         };
         #delGrpBox {
+          margin: 0 20% 80px 20%;
+          border: 2px solid red;
+          padding: 15px 5% 50px 5%;
           color: black;
           background-color: white;
-          b {
+          #warningGrp {
+            margin-bottom: 30px;
+            font-size: 2.7rem;
             color: red;
+            text-align: center;
+          };
+          p {
+            margin-bottom: 50px;
+            padding: 0px;
+          };
+          #warningRow {
+            display: flex;
+            justify-content: space-between;
+            input {
+              border: 3px solid red;
+              border-radius: 30px;
+              padding: 10px 20px;
+              font-size: 2.5rem;
+              color: red;
+              background-color: white;
+            };
+            span {
+              text-decoration: underline;
+              font-size: 2.5rem;
+              vertical-align: middle;
+            };
           };
         };
       };

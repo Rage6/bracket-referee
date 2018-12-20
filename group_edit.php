@@ -116,14 +116,16 @@
             <input type="submit" name="cancelEdit" value="CANCEL" />
           </div>
         </div>
-        <div id="delGrpButton">Delete this Group?</h3>
-        <div id="delGrpBox" style="border: 1px solid red">
-          <b style='color:red'>WARNING</b></br>
+        <div id="delGrpButton">Delete this Group?</div>
+        <div id="delGrpBox">
+          <div id="warningGrp">WARNING</div>
           <p>
             Are you sure you want to delete this group? All of the results and brackets will be permanently deleted!
           </p>
-          <input type="submit" name="submitDelete" value="DELETE" />
-          <span id="cancelDelGrp">CANCEL</span>
+          <div id="warningRow">
+            <input type="submit" name="submitDelete" value="DELETE" />
+            <span id="cancelDelGrp">CANCEL</span>
+          </div>
         </div>
       </form>
       <?php
