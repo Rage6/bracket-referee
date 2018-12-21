@@ -38,7 +38,7 @@
   };
 
   // Prevent members from putting in more than one bracket
-  
+
 
   // Discontinue this bracket and return to group.php
   if (isset($_POST['cancelBracket'])) {
@@ -86,6 +86,7 @@
   <head>
     <meta charset="utf-8">
     <title>Make A Bracket | Bracket Referee</title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -93,44 +94,46 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Make Your Bracket</h1>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
-        unset($_SESSION['message']);
-      };
-      $wildStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
-      $wildStmt->execute(array(
-        ':tid'=>$tournId
-      ));
-      while ($oneWild = $wildStmt->fetch(PDO::FETCH_ASSOC)) {
-        if ($oneWild['is_wildcard'] == 1) {
-          echo("<div id='layer_wild'>
-                  <h3>
-                    <u>".$oneWild['level_name']."</u>
-                  </h3>
-                </div>");
+    <div id="makePage">
+      <div id="makeTitle">Make Your Bracket</div>
+      <?php
+        if (isset($_SESSION['message'])) {
+          echo($_SESSION['message']);
+          unset($_SESSION['message']);
         };
-      };
-      $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
-      $levelStmt->execute(array(
-        ':tid'=>$tournId
-      ));
-      while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
-        if ($oneLevel['is_wildcard'] != 1) {
-          echo("<div id='layer_".$oneLevel['layer']."'>
-                  <h3 id='layerTitle_".$oneLevel['layer']."'>
-                    <u>".$oneLevel['level_name']."</u>
-                  </h3>
-                </div>");
+        $wildStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
+        $wildStmt->execute(array(
+          ':tid'=>$tournId
+        ));
+        while ($oneWild = $wildStmt->fetch(PDO::FETCH_ASSOC)) {
+          if ($oneWild['is_wildcard'] == 1) {
+            echo("<div id='layer_wild'>
+                    <h3>
+                      <u>".$oneWild['level_name']."</u>
+                    </h3>
+                  </div>");
+          };
         };
-      };
-    ?>
-    </br>
-    <form method="POST">
-      <span id="submitBracket" style="background-color:blue;font-size:20px;color:white;padding: 0 20px;border-radius:10px">SUBMIT</span>
-      <input type='submit' name='cancelBracket' value='CANCEL'/>
-    </form>
+        $levelStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
+        $levelStmt->execute(array(
+          ':tid'=>$tournId
+        ));
+        while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
+          if ($oneLevel['is_wildcard'] != 1) {
+            echo("<div id='layer_".$oneLevel['layer']."'>
+                    <h3 id='layerTitle_".$oneLevel['layer']."'>
+                      <u>".$oneLevel['level_name']."</u>
+                    </h3>
+                  </div>");
+          };
+        };
+      ?>
+      </br>
+      <form method="POST">
+        <span id="submitBracket" style="background-color:blue;font-size:20px;color:white;padding: 0 20px;border-radius:10px">SUBMIT</span>
+        <input type='submit' name='cancelBracket' value='CANCEL'/>
+      </form>
+    </div>
   </body>
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
