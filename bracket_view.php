@@ -40,12 +40,36 @@
 
   // To delete this bracket
   if (isset($_POST['deleteBracket'])) {
-    $deleteStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bid');
-    $deleteStmt->execute(array(
-      ':bid'=>htmlentities($_GET['bracket_id'])
+    $urlBracket = htmlentities($_GET['bracket_id']);
+    // This confirms that the current player_id goes with this bracket's player_id
+    $findPlayer = $pdo->prepare('SELECT player_id FROM Brackets WHERE bracket_id=:gid');
+    $findPlayer->execute(array(
+      ':gid'=>$urlBracket
     ));
-    $_SESSION['message'] = "<b style='color:green'>Bracket successfully deleted</b>";
-    header('Location: group.php?group_id='.$_GET['group_id']);
+    $bracketPlyId = $findPlayer->fetch(PDO::FETCH_ASSOC)['player_id'];
+    if ($bracketPlyId == $_SESSION['player_id']) {
+      // This deletes all of the picks connected to this bracket
+      $findPicks = $pdo->prepare('SELECT pick_id FROM Picks WHERE bracket_id=:brid');
+      $findPicks->execute(array(
+        ':brid'=>$urlBracket
+      ));
+      while ($onePick = $findPicks->fetch(PDO::FETCH_ASSOC)) {
+        $delPicks = $pdo->prepare('DELETE FROM Picks WHERE pick_id=:pkid');
+        $delPicks->execute(array(
+          ':pkid'=>$onePick['pick_id']
+        ));
+      };
+      // This deletes the bracket itself
+      $deleteStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bid');
+      $deleteStmt->execute(array(
+        ':bid'=>$urlBracket
+      ));
+      $_SESSION['message'] = "<b style='color:green'>Bracket successfully deleted</b>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Players can only delete there own brackets</b>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+    };
   };
 
   // Returns the user to the group that this bracket is in

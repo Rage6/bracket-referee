@@ -59,10 +59,47 @@
 
   // Delete this group and it's linking table in the Groups_Players.php file
   if (isset($_POST['submitDelete'])) {
+
+    // This deletes the brackets and picks
+    $findBrackets = $pdo->prepare('SELECT bracket_id FROM Brackets WHERE group_id=:gid');
+    $findBrackets->execute(array(
+      ':gid'=>$urlId
+    ));
+    while ($oneBracket = $findBrackets->fetch(PDO::FETCH_ASSOC)) {
+      $findPicks = $pdo->prepare('SELECT pick_id FROM Picks WHERE bracket_id=:bid');
+      $findPicks->execute(array(
+        ':bid'=>$oneBracket['bracket_id']
+      ));
+      while ($onePick = $findPicks->fetch(PDO::FETCH_ASSOC)) {
+        $delPick = $pdo->prepare('DELETE FROM Picks WHERE pick_id=:pid');
+        $delPick->execute(array(
+          ':pid'=>$onePick['pick_id']
+        ));
+      };
+      $delBracket = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bdid');
+      $delBracket->execute(array(
+        ':bdid'=>$oneBracket['bracket_id']
+      ));
+    };
+
+    // This deletes the links between the players and groups in the Groups_Players table
+    $findLinks = $pdo->prepare('SELECT main_id FROM Groups_Players WHERE group_id=:grid');
+    $findLinks->execute(array(
+      ':grid'=>$urlId
+    ));
+    while ($oneLink = $findLinks->fetch(PDO::FETCH_ASSOC)) {
+      $delLink = $pdo->prepare('DELETE FROM Groups_Players WHERE main_id=:mid');
+      $delLink->execute(array(
+        'mid'=>$oneLink['main_id']
+      ));
+    };
+
+    // This is where the actual groups data is deleted in the Groups table
     $deleteStmt = $pdo->prepare('DELETE FROM Groups WHERE group_id=:id');
     $deleteStmt->execute(array(
       ':id'=>$urlId
     ));
+
     $_SESSION['message'] = "<b style='color:blue'>Group deleted</b>";
     header('Location: player.php');
     return true;
