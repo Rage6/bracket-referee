@@ -107,10 +107,10 @@
         ));
         while ($oneWild = $wildStmt->fetch(PDO::FETCH_ASSOC)) {
           if ($oneWild['is_wildcard'] == 1) {
-            echo("<div id='layer_wild'>
-                    <h3>
+            echo("<div id='layer_wild' class='gameList'>
+                    <div class='roundTitle'>
                       <u>".$oneWild['level_name']."</u>
-                    </h3>
+                    </div>
                   </div>");
           };
         };
@@ -120,10 +120,10 @@
         ));
         while ($oneLevel = $levelStmt->fetch(PDO::FETCH_ASSOC)) {
           if ($oneLevel['is_wildcard'] != 1) {
-            echo("<div id='layer_".$oneLevel['layer']."'>
-                    <h3 id='layerTitle_".$oneLevel['layer']."'>
+            echo("<div id='layer_".$oneLevel['layer']."' class='gameList'>
+                    <div id='layerTitle_".$oneLevel['layer']."' class='roundTitle'>
                       <u>".$oneLevel['level_name']."</u>
-                    </h3>
+                    </div>
                   </div>");
           };
         };
@@ -192,7 +192,9 @@
 
         // If there are wildcards, this installs them before the first actual round
         if (wildcardList.length > 0) {
-          $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
+          // $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
+          $("#layer_wild").append("<div id='table_wild' class='allRoundLists'></div>");
+          var alternateColor = "white";
           for (var d = 0; d < wildcardList.length; d++) {
             var wild_team_a = wildcardList[d][2];
             var wild_team_b = wildcardList[d][3];
@@ -207,24 +209,31 @@
                 wild_name_b = data[getName]['team_name'];
               };
             };
+            if (alternateColor == "white") {
+              alternateColor = "lightgrey";
+            } else {
+              alternateColor = "white";
+            };
             $("#table_wild").append(
-              "<tr>\
-                <td\
+              "<div style='background-color:"+alternateColor+"'>\
+                <div\
                   id='pickId_wild_"+d+"_top'\
+                  class='allTeams'\
                   data-team_id="+wild_team_a+"\
                   data-team_name="+wild_name_a+"\
                   data-game="+d+"\
                   data-game_id="+wild_game_id+"\
-                  data-next_game="+wild_next_game+">"+wild_name_a+"</td>\
-                <td>VS</td>\
-                <td\
+                  data-next_game="+wild_next_game+">"+wild_name_a+"</div>\
+                <div class='vs'>VS</div>\
+                <div\
                   id='pickId_wild_"+d+"_bottom'\
+                  class='allTeams'\
                   data-team_id="+wild_team_b+"\
                   data-team_name="+wild_name_b+"\
                   data-game="+d+"\
                   data-game_id="+wild_game_id+"\
-                  data-next_game="+wild_next_game+">"+wild_name_b+"</td>\
-              </tr>");
+                  data-next_game="+wild_next_game+">"+wild_name_b+"</div>\
+              </div>");
           };
         };
         // Now the regular games begin...

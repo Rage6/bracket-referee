@@ -644,8 +644,50 @@ html {
     // ----------- BRACKET_MAKE.PHP FILE BEGINS -----------
     #makePage {
       #makeTitle {
-        
-      }
+        margin-bottom: 80px;
+        font-size: 8rem;
+        text-align: center;
+      };
+      .gameList {
+        margin: 0 5% 50px 5%;
+        border: 3px solid black;
+        border-radius: 20px;
+        width: 90%;
+        .roundTitle {
+          border-radius: 20px 20px 0 0;
+          padding: 20px 0;
+          font-size: 5rem;
+          text-align: center;
+          background-color: yellow;
+        };
+        .allRoundLists {
+          border-radius: 0 0 20px 20px;
+          font-size: 2.7rem;
+          div {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            .allTeams {
+              padding: 0;
+              border: 4px solid green;
+              border-radius: 20px;
+              background-color: white;
+              width: 40%;
+            };
+            .allTeams:last-child {
+              border-radius: 20px;
+            };
+            .vs {
+              padding: 0;
+              width: 10%;
+            };
+          };
+          div:last-child {
+            border-radius: 0 0 20px 20px;
+          };
+        };
+      };
     };
 
   };
