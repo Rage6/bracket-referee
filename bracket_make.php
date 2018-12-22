@@ -190,11 +190,20 @@
           totalGames = ((data.length - wildcardList.length) / 2) + 1;
         };
 
-        // If there are wildcards, this installs them before the first actual round
+        // This will alternate the background colors for each game to help users read it easier
+        var currentColor = "white";
+        const alternateColors = (whichColor) => {
+          if (whichColor == "white") {
+            currentColor = "lightgrey";
+          } else {
+            currentColor = "white";
+          };
+        };
+
+        // If there are wildcards, this installs them before the first regular round
         if (wildcardList.length > 0) {
           // $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
           $("#layer_wild").append("<div id='table_wild' class='allRoundLists'></div>");
-          var alternateColor = "white";
           for (var d = 0; d < wildcardList.length; d++) {
             var wild_team_a = wildcardList[d][2];
             var wild_team_b = wildcardList[d][3];
@@ -209,13 +218,9 @@
                 wild_name_b = data[getName]['team_name'];
               };
             };
-            if (alternateColor == "white") {
-              alternateColor = "lightgrey";
-            } else {
-              alternateColor = "white";
-            };
+            alternateColors(currentColor);
             $("#table_wild").append(
-              "<div style='background-color:"+alternateColor+"'>\
+              "<div style='background-color:"+currentColor+"'>\
                 <div\
                   id='pickId_wild_"+d+"_top'\
                   class='allTeams'\
@@ -239,7 +244,7 @@
         // Now the regular games begin...
         for (var c = firstTable; c <= lastTable; c++) {
           var tableId = c;
-          $("<table border='1px solid black' id='table_" + tableId + "'></table>").insertAfter("#layerTitle_" + tableId);
+          $("<div id='table_" + tableId + "' class='allRoundLists'></div>").insertAfter("#layerTitle_" + tableId);
           const findNextGame = (currentNum)=>{
             if (currentNum == 0) {
               return [0,"top"];
@@ -275,7 +280,7 @@
                     if (teamA['get_wildcard'] == "1") {
                       var bTeamData = {
                         id: "null",
-                        name: "waiting on B...",
+                        name: "---",
                         gameId: teamA['game_id'],
                         nextGame: teamA['next_game']
                       };
@@ -288,10 +293,12 @@
                       };
                     };
                     //
+                    alternateColors(currentColor);
                     $("#table_" + tableId).append(
-                      "<tr>\
-                        <td \
+                      "<div style='background-color:"+currentColor+"'>\
+                        <div \
                           id='" + pickIdA + "'\
+                          class='allTeams'\
                           data-team_id="+teamA['team_id']+"\
                           data-team_name='"+teamA['team_name']+"'\
                           data-layer='"+tableId+"'\
@@ -299,9 +306,11 @@
                           data-game_id='" + teamA['game_id'] + "'\
                           data-next_game_id='" + teamA['next_game'] + "'\
                           data-pick='"+pickNum+"'\
-                          data-winner='null'>"+teamA['team_name']+"</td>\
-                        <td> VS </td>\
-                        <td id='" + pickIdB + "'\
+                          data-winner='null'>"+teamA['team_name']+"</div>\
+                        <div> VS </div>\
+                        <div\
+                          id='" + pickIdB + "'\
+                          class='allTeams'\
                           data-team_id="+bTeamData.id+"\
                           data-team_name='"+bTeamData.name+"'\
                           data-layer='"+tableId+"'\
@@ -309,8 +318,8 @@
                           data-game_id='" + bTeamData.gameId + "'\
                           data-next_game_id='" + bTeamData.nextGame + "'\
                           data-pick='"+pickNum+"'\
-                          data-winner='null'>"+bTeamData.name+"</td>\
-                      </tr>");
+                          data-winner='null'>"+bTeamData.name+"</div>\
+                      </div>");
                     // When clicking on the A team in the first round...
                     $("#"+pickIdA).click((pickIdA)=>{
                       var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
@@ -401,28 +410,33 @@
                 };
               };
               // console.log("returns next_game_id: "+nextGameId);
+              alternateColors(currentColor);
               $("#table_"+tableId).append("\
-              <tr>\
-                <td id='pickId_"+tableId+"_"+gameNum+"_top'\
+              <div style='background-color:"+currentColor+"'>\
+                <div \
+                  id='pickId_"+tableId+"_"+gameNum+"_top'\
+                  class='allTeams'\
                   data-team_id='null'\
-                  data-team_name='waiting on A...'\
+                  data-team_name='---'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
                   data-game_id='"+currentGameId+"'\
                   data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
-                  data-winner='null'></td>\
-                <td>VS</td>\
-                <td id='pickId_"+tableId+"_"+gameNum+"_bottom'\
+                  data-winner='null'></div>\
+                <div>VS</div>\
+                <div \
+                  id='pickId_"+tableId+"_"+gameNum+"_bottom'\
+                  class='allTeams'\
                   data-team_id='null'\
-                  data-team_name='waiting on B...'\
+                  data-team_name='---'\
                   data-layer='"+tableId+"'\
                   data-game='"+gameNum+"'\
                   data-game_id='"+currentGameId+"'\
                   data-next_game_id='"+nextGameId+"'\
                   data-pick='"+pickNum+"'\
-                  data-winner='null'></td>\
-              </tr>");
+                  data-winner='null'></div>\
+              </div>");
               $("#pickId_"+tableId+"_"+gameNum+"_top")
                 .text($("#pickId_"+tableId+"_"+gameNum+"_top")
                 // .data('team_name'));
