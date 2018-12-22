@@ -1,0 +1,518 @@
+html {
+  padding: 0px;
+  font-size: 16px; }
+  html body {
+    margin: 0px;
+    padding: 0px; }
+    html body #indexTitle {
+      margin: 0px;
+      padding: 0px;
+      color: black;
+      text-align: center;
+      background-size: cover; }
+      html body #indexTitle p {
+        margin: 0px;
+        font-size: 12rem; }
+    html body #bothAcctButtons {
+      display: flex;
+      justify-content: space-around;
+      color: white;
+      font-size: 5rem;
+      text-align: center; }
+      html body #bothAcctButtons #logButton {
+        padding: 30px 0px;
+        background-color: blue;
+        width: 50%; }
+      html body #bothAcctButtons #signButton {
+        padding: 30px 0px;
+        background-color: green;
+        width: 50%; }
+    html body .acctForms {
+      padding: 20px 0px;
+      text-align: center;
+      width: 100%; }
+      html body .acctForms table {
+        width: 100%; }
+        html body .acctForms table tbody tr {
+          padding: 5px 0px; }
+          html body .acctForms table tbody tr td {
+            font-size: 3rem;
+            width: 50%; }
+            html body .acctForms table tbody tr td input {
+              border: 1px solid white;
+              padding-left: 10px;
+              color: black;
+              font-size: 3rem;
+              background-color: white;
+              width: 88%; }
+      html body .acctForms input {
+        margin: 20px 0;
+        border-radius: 15px;
+        padding: 0px 20px;
+        color: green;
+        font-size: 4rem;
+        background-color: white; }
+    html body #logForm {
+      color: white;
+      background-color: blue; }
+      html body #logForm input {
+        color: blue; }
+    html body #signForm {
+      color: white;
+      background-color: green; }
+    html body #indexMain {
+      margin-top: 20px;
+      background-color: orange; }
+      html body #indexMain #motto {
+        padding: 30px 0 30px 10%;
+        color: white;
+        font-size: 4rem;
+        text-align: left;
+        background-color: grey; }
+        html body #indexMain #motto p {
+          margin: 15px 0; }
+      html body #indexMain #indexIntro {
+        margin: 50px 10% 0px 10%;
+        text-align: center; }
+        html body #indexMain #indexIntro b {
+          font-size: 5rem; }
+        html body #indexMain #indexIntro p {
+          padding-bottom: 30px;
+          text-align: left;
+          font-size: 3rem; }
+        html body #indexMain #indexIntro ul li {
+          text-align: left;
+          font-size: 1.8rem; }
+    html body footer {
+      display: flex;
+      justify-content: space-around;
+      font-size: 2rem;
+      color: white;
+      background-color: red; }
+      html body footer a {
+        border-radius: 15px;
+        width: 20%; }
+        html body footer a .footerLogo {
+          margin: 50px 0;
+          border-radius: 15px;
+          width: 100%; }
+    html body #playerPage #hqTitle {
+      font-size: 9rem;
+      text-align: center; }
+    html body #playerPage .allBox {
+      margin: 0 2% 20px 2%;
+      padding: 40px 10%; }
+      html body #playerPage .allBox .allBoxTitle {
+        margin-bottom: 30px;
+        font-size: 3.5rem;
+        color: white;
+        width: 80%; }
+    html body #playerPage #profIdBox {
+      background-color: grey; }
+      html body #playerPage #profIdBox #profIdTable {
+        border: 3px solid black;
+        background-color: white;
+        width: 100%; }
+        html body #playerPage #profIdBox #profIdTable tr {
+          font-size: 3rem; }
+          html body #playerPage #profIdBox #profIdTable tr td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center; }
+          html body #playerPage #profIdBox #profIdTable tr .profTitle {
+            background-color: yellow; }
+      html body #playerPage #profIdBox #profIdBtns {
+        margin: 20px 20%;
+        display: flex;
+        justify-content: space-around; }
+        html body #playerPage #profIdBox #profIdBtns input {
+          border-radius: 15px;
+          padding: 10px 20px;
+          font-size: 3rem;
+          color: white; }
+        html body #playerPage #profIdBox #profIdBtns #plrEdit {
+          background-color: blue; }
+        html body #playerPage #profIdBox #profIdBtns #plrLogOut {
+          background-color: orange; }
+    html body #playerPage #grpListBox {
+      background-color: blue; }
+      html body #playerPage #grpListBox table {
+        border: 3px solid black;
+        background-color: white;
+        width: 100%; }
+        html body #playerPage #grpListBox table tr {
+          font-size: 3rem; }
+          html body #playerPage #grpListBox table tr th {
+            background-color: yellow; }
+          html body #playerPage #grpListBox table tr td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center; }
+    html body #playerPage #groupBox {
+      background-color: green; }
+      html body #playerPage #groupBox .newGrpOption {
+        margin: 20px 0;
+        border: 2px solid white;
+        padding: 10px 2%; }
+        html body #playerPage #groupBox .newGrpOption .allOptTitle {
+          display: flex;
+          justify-content: space-between;
+          text-align: center;
+          font-size: 3.5rem;
+          color: white;
+          width: 100%; }
+        html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV {
+          width: 50px; }
+          html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV #findGrpVimg {
+            width: 100%; }
+        html body #playerPage #groupBox .newGrpOption #showAddBox #showAddV {
+          width: 50px; }
+          html body #playerPage #groupBox .newGrpOption #showAddBox #showAddV #showAddVimg {
+            width: 100%; }
+        html body #playerPage #groupBox .newGrpOption #findGroupBox {
+          margin-top: 20px; }
+          html body #playerPage #groupBox .newGrpOption #findGroupBox form {
+            display: flex;
+            justify-content: space-between; }
+            html body #playerPage #groupBox .newGrpOption #findGroupBox form #searchBtn {
+              padding: 5px 10px;
+              border: 1px solid black;
+              border-radius: 15px;
+              background-color: yellow; }
+            html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
+              font-size: 3rem; }
+        html body #playerPage #groupBox .newGrpOption #searchResults {
+          margin-top: 10px;
+          padding: 10px 2%;
+          font-size: 3rem;
+          background-color: white; }
+          html body #playerPage #groupBox .newGrpOption #searchResults table {
+            margin-bottom: 25px;
+            padding: 10px 2%;
+            border: 1px solid black;
+            border-spacing: 0px 15px;
+            width: 96%; }
+        html body #playerPage #groupBox .newGrpOption #addGroupBox {
+          margin-top: 20px;
+          color: white;
+          font-size: 3rem; }
+          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td input {
+            font-size: 2.5rem;
+            width: 100%; }
+          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td select {
+            color: black;
+            font-size: 2rem;
+            background-color: white;
+            width: 100%; }
+          html body #playerPage #groupBox .newGrpOption #addGroupBox form div {
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-around; }
+            html body #playerPage #groupBox .newGrpOption #addGroupBox form div #submitNewGrp {
+              border: 5px solid white;
+              border-radius: 15px;
+              padding: 10px 20px;
+              font-size: 3rem;
+              color: white;
+              background-color: green; }
+            html body #playerPage #groupBox .newGrpOption #addGroupBox form div span {
+              margin-top: 15px; }
+    html body #plyrEditPage #editTitle {
+      margin: 50px 0;
+      font-size: 7rem;
+      text-align: center; }
+    html body #plyrEditPage form table {
+      margin-left: 5%;
+      font-size: 3rem;
+      width: 90%; }
+      html body #plyrEditPage form table th {
+        border: 2px solid black; }
+      html body #plyrEditPage form table td {
+        border: 2px solid black; }
+        html body #plyrEditPage form table td input {
+          font-size: 3rem; }
+    html body #plyrEditPage form #plyrEditBttns {
+      display: flex;
+      justify-content: space-around; }
+      html body #plyrEditPage form #plyrEditBttns .onePlyrEditBttn {
+        margin: 30px 0;
+        border: 2px solid black;
+        border-radius: 20px;
+        padding: 20px;
+        font-size: 3rem; }
+    html body #plyrEditPage #delAndPsBox {
+      margin-top: 100px;
+      display: flex;
+      font-size: 3rem;
+      color: white;
+      text-align: center; }
+      html body #plyrEditPage #delAndPsBox .pwAndDeleteBttns {
+        padding: 20px 0;
+        width: 50%; }
+      html body #plyrEditPage #delAndPsBox #change-Pw-Btn {
+        background-color: blue; }
+      html body #plyrEditPage #delAndPsBox #showDeleteBox {
+        background-color: red; }
+    html body #plyrEditPage #changePs {
+      padding-top: 30px;
+      background-color: blue; }
+      html body #plyrEditPage #changePs form table {
+        background-color: white; }
+      html body #plyrEditPage #changePs form div {
+        display: flex;
+        justify-content: space-around; }
+        html body #plyrEditPage #changePs form div input {
+          margin: 20px 0;
+          border: 2px solid white;
+          font-size: 3rem;
+          color: white;
+          background-color: blue; }
+        html body #plyrEditPage #changePs form div span {
+          margin: 20px 0;
+          padding: 0 10px;
+          font-size: 3rem;
+          color: white;
+          background-color: blue; }
+    html body #plyrEditPage #deleteBox {
+      padding: 30px 0;
+      border: 10px solid red;
+      color: red;
+      font-size: 4rem;
+      text-align: center; }
+      html body #plyrEditPage #deleteBox #warning {
+        color: red;
+        margin-bottom: 50px; }
+      html body #plyrEditPage #deleteBox div {
+        display: flex;
+        justify-content: space-around; }
+        html body #plyrEditPage #deleteBox div form input {
+          border: 2px solid red;
+          padding: 10px;
+          color: red;
+          font-size: 2.1rem;
+          background-color: white; }
+        html body #plyrEditPage #deleteBox div #cancelDelete {
+          border: 2px solid black;
+          padding: 10px;
+          color: black;
+          font-size: 2rem; }
+    html body #groupPage form {
+      display: flex;
+      justify-content: space-between; }
+      html body #groupPage form input {
+        margin: 15px 15px 0 15px;
+        padding: 10px 15px;
+        border: 1px solid green;
+        border-radius: 15px;
+        font-size: 2.5rem; }
+      html body #groupPage form #joinBttn {
+        font-size: 3rem;
+        color: white;
+        background-color: blue; }
+    html body #groupPage #introTitle {
+      margin: 40px 0 20px 0;
+      font-size: 4rem;
+      text-align: center; }
+    html body #groupPage #groupTitle {
+      margin-bottom: 75px;
+      font-size: 7rem;
+      text-align: center; }
+    html body #groupPage .allTitles {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      text-align: center; }
+    html body #groupPage table {
+      margin: 0 0 40px 10%;
+      font-size: 2.5rem;
+      text-align: center;
+      width: 80%; }
+      html body #groupPage table th {
+        background-color: yellow; }
+      html body #groupPage table td {
+        border: 1px solid black; }
+    html body #groupPage .allRounds {
+      margin-left: 10%;
+      font-size: 2.5rem;
+      text-align: center;
+      width: 80%; }
+      html body #groupPage .allRounds .rowTitle {
+        background-color: yellow; }
+      html body #groupPage .allRounds .allRows {
+        display: flex;
+        justify-content: space-between; }
+        html body #groupPage .allRounds .allRows div {
+          margin: 2px 0;
+          border-radius: 20px;
+          width: 50%; }
+    html body #groupPage #tournTable {
+      margin-bottom: 30px;
+      border: 2px solid black; }
+    html body #groupPage #bracketButton form input {
+      margin: 20px 10% 40px 10%;
+      border-radius: 55px;
+      padding: 30px 0;
+      font-size: 3.8rem;
+      color: white;
+      background-color: blue;
+      width: 80%; }
+    html body #groupPage .allRounds {
+      margin-bottom: 30px; }
+    html body #groupPage #leaveGrpButton {
+      margin-top: 100px;
+      padding: 20px 0;
+      color: white;
+      font-size: 1.5rem;
+      text-align: center;
+      background-color: black; }
+    html body #groupPage #leaveGrpBox {
+      padding: 50px 10%;
+      font-size: 2.5rem;
+      color: white;
+      background-color: black; }
+      html body #groupPage #leaveGrpBox div {
+        margin: 55px;
+        display: flex;
+        justify-content: space-between; }
+        html body #groupPage #leaveGrpBox div input {
+          border-radius: 15px;
+          padding: 15px;
+          font-size: 2.5rem;
+          color: white;
+          background-color: red; }
+        html body #groupPage #leaveGrpBox div span {
+          padding: 15px; }
+    html body #groupEditPage #mainEditTitle {
+      margin: 40px 10% 80px 10%;
+      font-size: 6.7rem;
+      text-align: center; }
+    html body #groupEditPage p {
+      margin: 0 5% 50px 5%;
+      font-size: 2.5rem; }
+    html body #groupEditPage form #changeBox {
+      margin: 0 2%;
+      border-radius: 15px;
+      padding: 20px 0;
+      background-color: grey; }
+      html body #groupEditPage form #changeBox table {
+        margin-left: 5%;
+        border: 4px solid black;
+        border-collapse: collapse;
+        font-size: 3.5rem;
+        width: 90%; }
+        html body #groupEditPage form #changeBox table tr th {
+          border: 4px solid black;
+          background-color: lightgrey;
+          padding: 5px;
+          text-align: center;
+          vertical-align: middle; }
+        html body #groupEditPage form #changeBox table tr td {
+          border: 4px solid black;
+          padding: 10px 0px;
+          background-color: white; }
+          html body #groupEditPage form #changeBox table tr td input {
+            font-size: 3rem;
+            text-align: center;
+            width: 99%; }
+      html body #groupEditPage form #changeBox div {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around; }
+        html body #groupEditPage form #changeBox div input {
+          border: 3px solid black;
+          border-radius: 10px;
+          padding: 10px 20px;
+          font-size: 3rem; }
+        html body #groupEditPage form #changeBox div #submitEnter {
+          border: 3px solid blue;
+          color: white;
+          background-color: blue; }
+    html body #groupEditPage form #delGrpButton {
+      margin: 150px 20% 0 20%;
+      border-radius: 5px;
+      padding: 20px 0;
+      color: white;
+      font-size: 2.5rem;
+      text-align: center;
+      background-color: red; }
+    html body #groupEditPage form #delGrpBox {
+      margin: 0 20% 80px 20%;
+      border: 2px solid red;
+      padding: 15px 5% 50px 5%;
+      color: black;
+      background-color: white; }
+      html body #groupEditPage form #delGrpBox #warningGrp {
+        margin-bottom: 30px;
+        font-size: 2.7rem;
+        color: red;
+        text-align: center; }
+      html body #groupEditPage form #delGrpBox p {
+        margin-bottom: 50px;
+        padding: 0px; }
+      html body #groupEditPage form #delGrpBox #warningRow {
+        display: flex;
+        justify-content: space-between; }
+        html body #groupEditPage form #delGrpBox #warningRow input {
+          border: 3px solid red;
+          border-radius: 30px;
+          padding: 10px 20px;
+          font-size: 2.5rem;
+          color: red;
+          background-color: white; }
+        html body #groupEditPage form #delGrpBox #warningRow span {
+          text-decoration: underline;
+          font-size: 2.5rem;
+          vertical-align: middle; }
+    html body #makePage #makeTitle {
+      margin-bottom: 80px;
+      font-size: 8rem;
+      text-align: center; }
+    html body #makePage .gameList {
+      margin: 0 5% 50px 5%;
+      border: 3px solid black;
+      border-radius: 20px;
+      width: 90%; }
+      html body #makePage .gameList .roundTitle {
+        border-radius: 20px 20px 0 0;
+        padding: 20px 0;
+        font-size: 5rem;
+        text-align: center;
+        background-color: yellow; }
+      html body #makePage .gameList .allRoundLists {
+        border-radius: 0 0 20px 20px;
+        font-size: 2.7rem; }
+        html body #makePage .gameList .allRoundLists div {
+          padding: 20px 0;
+          display: flex;
+          justify-content: space-around;
+          text-align: center; }
+          html body #makePage .gameList .allRoundLists div .allTeams {
+            padding: 0;
+            border: 4px solid green;
+            border-radius: 20px;
+            background-color: white;
+            width: 40%; }
+          html body #makePage .gameList .allRoundLists div .allTeams:last-child {
+            border-radius: 20px; }
+          html body #makePage .gameList .allRoundLists div .vs {
+            padding: 0;
+            width: 10%; }
+        html body #makePage .gameList .allRoundLists div:last-child {
+          border-radius: 0 0 20px 20px; }
+    html body #makePage form #makeSubmitBox {
+      margin: 40px 5% 80px 5%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 6rem; }
+      html body #makePage form #makeSubmitBox #submitBracket {
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        background-color: blue;
+        width: 50%; }
+      html body #makePage form #makeSubmitBox input {
+        font-size: 4rem;
+        text-decoration: underline;
+        text-align: center;
+        width: 30%; }
+
+/*# sourceMappingURL=output.css.map */
