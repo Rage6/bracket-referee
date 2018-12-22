@@ -128,10 +128,13 @@
           };
         };
       ?>
-      </br>
       <form method="POST">
-        <span id="submitBracket" style="background-color:blue;font-size:20px;color:white;padding: 0 20px;border-radius:10px">SUBMIT</span>
-        <input type='submit' name='cancelBracket' value='CANCEL'/>
+        <div id="makeSubmitBox">
+          <div id="submitBracket">
+            SUBMIT
+          </div>
+          <input type='submit' name='cancelBracket' value='CANCEL'/>
+        </div>
       </form>
     </div>
   </body>

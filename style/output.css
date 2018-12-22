@@ -498,5 +498,21 @@ html {
             width: 10%; }
         html body #makePage .gameList .allRoundLists div:last-child {
           border-radius: 0 0 20px 20px; }
+    html body #makePage form #makeSubmitBox {
+      margin: 40px 5% 80px 5%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 6rem; }
+      html body #makePage form #makeSubmitBox #submitBracket {
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        background-color: blue;
+        width: 50%; }
+      html body #makePage form #makeSubmitBox input {
+        font-size: 4rem;
+        text-decoration: underline;
+        text-align: center;
+        width: 30%; }
 
 /*# sourceMappingURL=output.css.map */

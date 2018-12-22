@@ -688,6 +688,27 @@ html {
           };
         };
       };
+      form {
+        #makeSubmitBox {
+          margin: 40px 5% 80px 5%;
+          display: flex;
+          justify-content: space-between;
+          font-size: 6rem;
+          #submitBracket{
+            border-radius:10px;
+            color: white;
+            text-align: center;
+            background-color:blue;
+            width: 50%;
+          };
+          input {
+            font-size: 4rem;
+            text-decoration: underline;
+            text-align: center;
+            width: 30%;
+          }
+        };
+      };
     };
 
   };
