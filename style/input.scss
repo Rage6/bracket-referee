@@ -1,0 +1,715 @@
+html {
+  padding: 0px;
+  font-size: 16px;
+  body {
+    margin: 0px;
+    padding: 0px;
+
+    // ----------- INDEX.PHP FILE BEGINS -----------
+    #indexTitle {
+      margin: 0px;
+      padding: 0px;
+      color: black;
+      text-align: center;
+      // background-image: url("img/ball_ref.jpg");
+      background-size: cover;
+      p {
+        margin: 0px;
+        font-size: 12rem;
+      };
+    };
+    #bothAcctButtons {
+      display: flex;
+      justify-content: space-around;
+      color: white;
+      font-size: 5rem;
+      text-align: center;
+      #logButton {
+        padding: 30px 0px;
+        background-color: blue;
+        width: 50%;
+      };
+      #signButton {
+        padding: 30px 0px;
+        background-color: green;
+        width: 50%;
+      };
+    };
+    .acctForms {
+      padding: 20px 0px;
+      text-align: center;
+      width: 100%;
+      table {
+        width: 100%;
+        tbody {
+          tr {
+            // border: 1px solid white;
+            padding: 5px 0px;
+            td {
+              font-size: 3rem;
+              width: 50%;
+              input {
+                border: 1px solid white;
+                padding-left: 10px;
+                color: black;
+                font-size: 3rem;
+                background-color: white;
+                width: 88%;
+              };
+            };
+          };
+        };
+      };
+      input {
+        margin: 20px 0;
+        border-radius: 15px;
+        padding: 0px 20px;
+        color: green;
+        font-size: 4rem;
+        background-color: white;
+      }
+    };
+    #logForm {
+      color: white;
+      background-color: blue;
+      input {
+        color: blue;
+      }
+    };
+    #signForm {
+      color: white;
+      background-color: green;
+    };
+    #indexMain {
+      margin-top: 20px;
+      background-color: orange;
+      #motto {
+        padding: 30px 0 30px 10%;
+        color: white;
+        font-size: 4rem;
+        text-align: left;
+        background-color: grey;
+        p {
+          margin: 15px 0;
+        }
+      };
+      #indexIntro {
+        margin: 50px 10% 0px 10%;
+        text-align: center;
+        b {;
+          font-size: 5rem;
+        };
+        p {
+          padding-bottom: 30px;
+          text-align: left;
+          font-size: 3rem;
+        };
+        ul {
+          li {
+            text-align: left;
+            font-size: 1.8rem;
+          };
+        };
+      };
+    };
+    footer {
+      display: flex;
+      justify-content: space-around;
+      font-size: 2rem;
+      color: white;
+      background-color: red;
+      a {
+        border-radius: 15px;
+        width: 20%;
+        .footerLogo {
+          margin: 50px 0;
+          border-radius: 15px;
+          width: 100%;
+        };
+      };
+    };
+
+    // ----------- PLAYER.PHP FILE BEGINS -----------
+    #playerPage {
+      #hqTitle {
+        font-size: 9rem;
+        text-align: center;
+      };
+      .allBox {
+        margin: 0 2% 20px 2%;
+        padding: 40px 10%;
+        .allBoxTitle {
+          margin-bottom:30px;
+          font-size:3.5rem;
+          color:white;
+          width:80%;
+        };
+      };
+      #profIdBox {
+        background-color: grey;
+        #profIdTable {
+          border: 3px solid black;
+          background-color: white;
+          width: 100%;
+          tr {
+            font-size: 3rem;
+            td {
+              border: 2px solid black;
+              border-collapse: collapse;
+              text-align: center;
+            };
+            .profTitle {
+              background-color: yellow;
+            };
+          };
+        };
+        #profIdBtns {
+          margin: 20px 20%;
+          display: flex;;
+          justify-content: space-around;
+          input {
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-size: 3rem;
+            color: white;
+          };
+          #plrEdit {
+            background-color: blue;
+          };
+          #plrLogOut {
+            background-color: orange;
+          };
+        };
+      };
+      #grpListBox {
+        background-color: blue;
+        table {
+          border: 3px solid black;
+          background-color: white;
+          width: 100%;
+          tr {
+            font-size: 3rem;
+            th {
+              background-color: yellow;
+            };
+            td {
+              border: 2px solid black;
+              border-collapse: collapse;
+              text-align: center;
+            };
+          };
+        };
+      };
+      #groupBox {
+        background-color: green;
+        .newGrpOption {
+          margin: 20px 0;
+          border: 2px solid white;
+          padding: 10px 2%;
+          .allOptTitle {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            font-size:3.5rem;
+            color:white;
+            width:100%;
+          };
+          #findGroup {
+            #findGrpV {
+              width: 50px;
+              #findGrpVimg {
+                width: 100%;
+              };
+            };
+          };
+          #showAddBox {
+            #showAddV {
+              width: 50px;
+              #showAddVimg {
+                width: 100%;
+              };
+            };
+          };
+          #findGroupBox {
+            margin-top: 20px;
+            form {
+              display: flex;
+              justify-content: space-between;
+              #searchBtn {
+                padding: 5px 10px;
+                border: 1px solid black;
+                border-radius: 15px;
+                background-color: yellow;
+              };
+              input {
+                font-size: 3rem;
+              };
+            };
+          };
+          #searchResults {
+            margin-top: 10px;
+            padding: 10px 2%;
+            font-size: 3rem;
+            background-color: white;
+            table {
+              margin-bottom: 25px;
+              padding: 10px 2%;;
+              border: 1px solid black;
+              border-spacing: 0px 15px;
+              width: 96%;
+            };
+            b {
+
+            };
+          };
+          #showAddBox {
+
+          };
+          #addGroupBox {
+            margin-top: 20px;
+            color: white;
+            font-size: 3rem;
+            form {
+              table {
+                tr {
+                  td {
+                    input {
+                      font-size: 2.5rem;
+                      width: 100%;
+                    };
+                    select {
+                      color: black;
+                      font-size: 2rem;
+                      background-color: white;
+                      width: 100%;
+                      option {
+
+                      };
+                    };
+                  };
+                };
+              };
+              div {
+                margin: 30px 0;
+                display: flex;
+                justify-content: space-around;
+                #submitNewGrp {
+                  border: 5px solid white;
+                  border-radius: 15px;
+                  padding: 10px 20px;
+                  font-size: 3rem;
+                  color: white;
+                  background-color: green;
+                };
+                span {
+                  margin-top: 15px;
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- PLAYER_EDIT.PHP FILE BEGINS -----------
+    #plyrEditPage {
+      #editTitle {
+        margin: 50px 0;
+        font-size: 7rem;
+        text-align: center;
+      };
+      form {
+        table {
+          margin-left: 5%;
+          font-size: 3rem;
+          width: 90%;
+          th {
+            border: 2px solid black;
+          };
+          td {
+            border: 2px solid black;
+            input {
+              font-size: 3rem;
+            };
+          };
+        };
+        #plyrEditBttns {
+          display: flex;
+          justify-content: space-around;
+          .onePlyrEditBttn {
+            margin: 30px 0;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 3rem;
+          };
+        };
+      };
+      #delAndPsBox {
+        margin-top: 100px;
+        display: flex;
+        font-size: 3rem;
+        color: white;
+        text-align: center;
+        .pwAndDeleteBttns {
+          padding: 20px 0;
+          width: 50%;
+        };
+        #change-Pw-Btn {
+          background-color: blue;
+        };
+        #showDeleteBox {
+          background-color: red;
+        };
+      };
+      #changePs {
+        padding-top: 30px;
+        background-color: blue;
+        form {
+          table {
+            background-color: white;
+          };
+          div {
+            display: flex;
+            justify-content: space-around;
+            input {
+              margin: 20px 0;
+              border: 2px solid white;
+              font-size: 3rem;
+              color: white;
+              background-color: blue;
+            };
+            span {
+              margin: 20px 0;
+              padding: 0 10px;
+              font-size: 3rem;
+              color: white;
+              background-color: blue;
+            };
+          };
+        };
+      };
+      #deleteBox {
+        padding: 30px 0;
+        border: 10px solid red;
+        color: red;
+        font-size: 4rem;
+        text-align: center;
+        #warning {
+          color: red;
+          margin-bottom: 50px;
+        };
+        div {
+          display: flex;
+          justify-content: space-around;
+          form {
+            input {
+              border: 2px solid red;
+              padding: 10px;
+              color: red;
+              font-size: 2.1rem;
+              background-color: white;
+            };
+          };
+          #cancelDelete {
+            border: 2px solid black;
+            padding: 10px;
+            color: black;
+            font-size: 2rem;
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP.PHP FILE BEGINS -----------
+    #groupPage {
+      form {
+        display: flex;
+        justify-content: space-between;
+        input {
+          margin: 15px 15px 0 15px;
+          padding: 10px 15px;
+          border: 1px solid green;
+          border-radius: 15px;
+          font-size: 2.5rem;
+        };
+        #joinBttn {
+          font-size: 3rem;
+          color: white;
+          background-color: blue;
+        };
+      };
+      #introTitle {
+        margin: 40px 0 20px 0;
+        font-size: 4rem;
+        text-align: center;
+      };
+      #groupTitle {
+        margin-bottom: 75px;
+        font-size: 7rem;
+        text-align: center;
+      };
+      .allTitles {
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+        text-align: center;
+      };
+      table {
+        margin: 0 0 40px 10%;
+        font-size: 2.5rem;
+        text-align: center;
+        width: 80%;
+        th {
+          background-color: yellow;
+        };
+        td {
+          border: 1px solid black;
+        }
+      };
+      .allRounds {
+        margin-left: 10%;
+        font-size: 2.5rem;
+        text-align: center;
+        width: 80%;
+        .rowTitle {
+          background-color: yellow;
+        };
+        .allRows {
+          display: flex;
+          justify-content: space-between;
+          div {
+            margin: 2px 0;
+            border-radius: 20px;
+            width: 50%;
+          };
+        }
+      };
+      #tournTable {
+        margin-bottom: 30px;
+        border: 2px solid black;
+      };
+      #bracketButton {
+        form {
+          input {
+            margin: 20px 10% 40px 10%;
+            border-radius: 55px;
+            padding: 30px 0;
+            font-size: 3.8rem;
+            color: white;
+            background-color: blue;
+            width: 80%;
+          };
+        };
+      };
+      .allRounds {
+        margin-bottom: 30px;
+      };
+      #leaveGrpButton {
+        margin-top: 100px;
+        padding: 20px 0;
+        color: white;
+        font-size: 1.5rem;
+        text-align: center;
+        background-color: black;
+      };
+      #leaveGrpBox {
+        padding: 50px 10%;
+        font-size: 2.5rem;
+        color: white;
+        background-color: black;
+        div {
+          margin: 55px;
+          display: flex;
+          justify-content: space-between;
+          input {
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 2.5rem;
+            color: white;
+            background-color: red;
+          };
+          span {
+            padding: 15px;
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_EDIT.PHP FILE BEGINS -----------
+    #groupEditPage {
+      #mainEditTitle {
+        margin: 40px 10% 80px 10%;
+        font-size: 6.7rem;
+        text-align: center;
+      };
+      p {
+        margin: 0 5% 50px 5%;
+        font-size: 2.5rem;
+      };
+      form {
+        #changeBox {
+          margin: 0 2%;
+          border-radius: 15px;
+          padding: 20px 0;
+          background-color: grey;
+          table {
+            margin-left: 5%;
+            border: 4px solid black;
+            border-collapse: collapse;
+            font-size: 3.5rem;
+            width: 90%;
+            tr {
+              th {
+                border: 4px solid black;
+                background-color: lightgrey;
+                padding: 5px;
+                text-align: center;
+                vertical-align: middle;
+              };
+              td {
+                border: 4px solid black;
+                padding: 10px 0px;
+                background-color: white;
+                input {
+                  font-size: 3rem;
+                  text-align: center;
+                  width: 99%;
+                };
+              };
+            };
+          };
+          div {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            input {
+              border: 3px solid black;
+              border-radius: 10px;
+              padding: 10px 20px;
+              font-size: 3rem;
+            };
+            #submitEnter {
+              border: 3px solid blue;
+              color: white;
+              background-color: blue;
+            };
+          };
+        };
+        #delGrpButton {
+          margin: 150px 20% 0 20%;
+          border-radius: 5px;
+          padding: 20px 0;
+          color: white;
+          font-size: 2.5rem;
+          text-align: center;
+          background-color: red;
+        };
+        #delGrpBox {
+          margin: 0 20% 80px 20%;
+          border: 2px solid red;
+          padding: 15px 5% 50px 5%;
+          color: black;
+          background-color: white;
+          #warningGrp {
+            margin-bottom: 30px;
+            font-size: 2.7rem;
+            color: red;
+            text-align: center;
+          };
+          p {
+            margin-bottom: 50px;
+            padding: 0px;
+          };
+          #warningRow {
+            display: flex;
+            justify-content: space-between;
+            input {
+              border: 3px solid red;
+              border-radius: 30px;
+              padding: 10px 20px;
+              font-size: 2.5rem;
+              color: red;
+              background-color: white;
+            };
+            span {
+              text-decoration: underline;
+              font-size: 2.5rem;
+              vertical-align: middle;
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- BRACKET_MAKE.PHP FILE BEGINS -----------
+    #makePage {
+      #makeTitle {
+        margin-bottom: 80px;
+        font-size: 8rem;
+        text-align: center;
+      };
+      .gameList {
+        margin: 0 5% 50px 5%;
+        border: 3px solid black;
+        border-radius: 20px;
+        width: 90%;
+        .roundTitle {
+          border-radius: 20px 20px 0 0;
+          padding: 20px 0;
+          font-size: 5rem;
+          text-align: center;
+          background-color: yellow;
+        };
+        .allRoundLists {
+          border-radius: 0 0 20px 20px;
+          font-size: 2.7rem;
+          div {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            .allTeams {
+              padding: 0;
+              border: 4px solid green;
+              border-radius: 20px;
+              background-color: white;
+              width: 40%;
+            };
+            .allTeams:last-child {
+              border-radius: 20px;
+            };
+            .vs {
+              padding: 0;
+              width: 10%;
+            };
+          };
+          div:last-child {
+            border-radius: 0 0 20px 20px;
+          };
+        };
+      };
+      form {
+        #makeSubmitBox {
+          margin: 40px 5% 80px 5%;
+          display: flex;
+          justify-content: space-between;
+          font-size: 6rem;
+          #submitBracket{
+            border-radius:10px;
+            color: white;
+            text-align: center;
+            background-color:blue;
+            width: 50%;
+          };
+          input {
+            font-size: 4rem;
+            text-decoration: underline;
+            text-align: center;
+            width: 30%;
+          }
+        };
+      };
+    };
+
+  };
+};

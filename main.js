@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("main.js is STILL active...");
+  console.log("main.js is active again...");
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -18,17 +18,47 @@ $(()=>{
   $('#changePs').hide();
   $('#change-Pw-Btn').click(()=>{
     $('#changePs').toggle();
+    $('#deleteBox').hide();
   });
   // Close the box for changing the password with 'CANCEL' button
   $('#change-Pw-cancel').click(()=>{
     $('#changePs').hide();
   });
 
+  //Toggle the box for using the 'SEARCH' option
+  var findPoint = "up";
+  if ($("#searchResults").css('display') != 'block') {
+    $("#findGroupBox").hide();
+  } else {
+    $("#findGrpVimg").css('transform','scaleY(-1)');
+    var findPoint = "down";
+  };
+  $("#findGroup").click(()=>{
+    $("#findGroupBox").toggle();
+    if (findPoint == "up") {
+      $("#findGrpVimg").css('transform','scaleY(-1)');
+      $("#searchResults").css('display','block');
+      findPoint = "down";
+    } else {
+      $("#findGrpVimg").css('transform','scaleY(1)');
+      $("#searchResults").css('display','none');
+      findPoint = "up";
+    };
+  });
+
   // Toggle the box for adding a new group
+  var addPoint = "up";
   $("#addGroupBox").hide();
   $('#showAddBox').click(()=>{
     $('#deleteBox').hide();
     $("#addGroupBox").toggle();
+    if (addPoint == "up") {
+      $("#showAddVimg").css('transform','scaleY(-1)');
+      addPoint = "down";
+    } else {
+      $("#showAddVimg").css('transform','scaleY(1)');
+      addPoint = "up";
+    };
   });
   $('#cancelGroup').click(()=>{
     $("#addGroupBox").hide();
@@ -37,7 +67,7 @@ $(()=>{
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
   $('#showDeleteBox').click(()=>{
-    $("#addGroupBox").hide();
+    $('#changePs').hide();
     $('#deleteBox').toggle();
   });
   // Close the account deletion account

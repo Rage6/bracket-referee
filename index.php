@@ -125,6 +125,7 @@
     <title>
       Welcome | Bracket Referee
     </title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -132,76 +133,115 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <div>
-      <h1>
+    <div id="indexTitle">
+      <p>
         Bracket
-      </h1>
-      <h1>
+      </p>
+      <p>
         Referee
-      </h1>
+      </p>
     </div>
-    <h2>
-      Welcome! The Bracket Referee is a free center where you and your friend's can make private brackets and compete against one another!
-    </h2>
-    <p>If you want to step on the court, simply...</p>
-    <div id="logBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
-      <div id="logButton"><b>ACCOUNT LOGIN</b></div>
-      <div id="logForm">
-        <form method="POST">
-          <table>
-            <tr>
-              <td>Email or Username </td>
-              <td><input type="text" name="userEmail"></td>
-            </tr>
-            <tr>
-              <td>Password </td>
-              <td><input type="password" name="password"></td>
-            </tr>
-          </table>
-          <input type="submit" name="confirmOld" value="ENTER">
-        </form>
+    <div id="bothAcctButtons">
+      <div id="logButton">
+        <b>LOGIN</b>
       </div>
-    </div>
-    </br>
-    <div id="signBox" style="margin-left:25%;width:50%;border:1px solid black;text-align:center">
-      <div id="signButton"><b>CREATE ACCOUNT</b></div>
-      <div id="signForm">
-        <form method='POST'>
-          <table>
-            <tr>
-              <td>Username</td>
-              <td><input type='text' name='newUser'/></td>
-            </tr>
-            <tr>
-              <td>First Name</td>
-              <td><input text='text' name='newFirst'/></td>
-            </tr>
-            <tr>
-              <td>Last Name</td>
-              <td><input type='text' name='newLast'/></td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td><input type='text' name='newEmail'/></td>
-            </tr>
-            <tr>
-              <td>Password</td>
-              <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
-            </tr>
-            <tr>
-              <td>Confirm Password</td>
-              <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
-            </tr>
-          </table>
-          <input type='submit' name='makeNew' value='ENTER'/>
-        </form>
+      <div id="signButton">
+        <b>CREATE</b>
       </div>
     </div>
     <?php
       if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
+        echo("<div style='margin-bottom:20px;text-align:center'>".$_SESSION['message']."</div>");
         unset($_SESSION['message']);
       };
     ?>
+    <div class="acctForms" id="logForm">
+      <form method="POST">
+        <table>
+          <tr>
+            <td>Email or Username </td>
+            <td><input type="text" name="userEmail"></td>
+          </tr>
+          <tr>
+            <td>Password </td>
+            <td><input type="password" name="password"></td>
+          </tr>
+        </table>
+        <input type="submit" name="confirmOld" value="ENTER">
+      </form>
+    </div>
+    <div class="acctForms" id="signForm">
+      <form method='POST'>
+        <table>
+          <tr>
+            <td>Username</td>
+            <td><input type='text' name='newUser'/></td>
+          </tr>
+          <tr>
+            <td>First Name</td>
+            <td><input text='text' name='newFirst'/></td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td><input type='text' name='newLast'/></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><input type='text' name='newEmail'/></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
+          </tr>
+          <tr>
+            <td>Confirm Password</td>
+            <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
+          </tr>
+        </table>
+        <input type='submit' name='makeNew' value='ENTER'/>
+      </form>
+    </div>
+    <div id="indexMain">
+      <div id="motto">
+        <p>Public Tournaments.</p>
+        <p>Personal Groups.</p>
+        <p>Precious Glory.</p>
+      </div>
+      <div id="indexIntro">
+        <b>Welcom to Bracket Referee!</b>
+        <p>
+          Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
+        </p>
+        <b><i>What is Bracket Referee for?</i></b>
+        <p>
+          sdsdfsdfsdf
+        </p>
+        <b><i>How does it work?</i></b>
+        <p>
+          First, press the "LOGIN" button and enter your email address/username and password. If you haven't already created an account, do so by clicking on "CREATE" above and fill out the basic information. Doing either will allow you into your profile, <u>Bracket HQ</u>.
+        </p>
+        <p>
+          This page is the center of all of your information and possibilities. From here, you can:
+        </p>
+        <ul>
+          <li>See the groups that you compete within</li>
+          <li>Search for a specific group</li>
+          <li>Create a new group</li>
+          <li>Edit or delete your account</li>
+        </ul>
+        <p>
+          Upon entering a new group, you can officially join it by the single click. A joined member can then enter their own bracket and see their fellow member's usernames, scores, and brackets.
+        </p>
+        <b><i>Who Made This?</i></b>
+        <p style="margin-bottom:0px;padding-bottom:100px">
+          The creator and director of "Bracket Referee" is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio, my professional history, or the actual code for this website, please click below.
+        </p>
+      </div>
+    </div>
+    <footer>
+      <a href="https://portfolio-vogt.herokuapp.com"><img class="footerLogo" src="style/img/index/nick_vogt.jpg"></a>
+      <a href="https://www.linkedin.com/in/nicholasvogt2017/"><img class="footerLogo" src="style/img/index/linkedin.jpg"></a>
+      <a href="https://github.com/Rage6/bracket-referee"><img style="background-color:white;" class="footerLogo" src="style/img/index/gitHubLogo.png"></a>
+    </footer>
   </body>
 </html>

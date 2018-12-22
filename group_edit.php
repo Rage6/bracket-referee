@@ -59,10 +59,47 @@
 
   // Delete this group and it's linking table in the Groups_Players.php file
   if (isset($_POST['submitDelete'])) {
+
+    // This deletes the brackets and picks
+    $findBrackets = $pdo->prepare('SELECT bracket_id FROM Brackets WHERE group_id=:gid');
+    $findBrackets->execute(array(
+      ':gid'=>$urlId
+    ));
+    while ($oneBracket = $findBrackets->fetch(PDO::FETCH_ASSOC)) {
+      $findPicks = $pdo->prepare('SELECT pick_id FROM Picks WHERE bracket_id=:bid');
+      $findPicks->execute(array(
+        ':bid'=>$oneBracket['bracket_id']
+      ));
+      while ($onePick = $findPicks->fetch(PDO::FETCH_ASSOC)) {
+        $delPick = $pdo->prepare('DELETE FROM Picks WHERE pick_id=:pid');
+        $delPick->execute(array(
+          ':pid'=>$onePick['pick_id']
+        ));
+      };
+      $delBracket = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bdid');
+      $delBracket->execute(array(
+        ':bdid'=>$oneBracket['bracket_id']
+      ));
+    };
+
+    // This deletes the links between the players and groups in the Groups_Players table
+    $findLinks = $pdo->prepare('SELECT main_id FROM Groups_Players WHERE group_id=:grid');
+    $findLinks->execute(array(
+      ':grid'=>$urlId
+    ));
+    while ($oneLink = $findLinks->fetch(PDO::FETCH_ASSOC)) {
+      $delLink = $pdo->prepare('DELETE FROM Groups_Players WHERE main_id=:mid');
+      $delLink->execute(array(
+        'mid'=>$oneLink['main_id']
+      ));
+    };
+
+    // This is where the actual groups data is deleted in the Groups table
     $deleteStmt = $pdo->prepare('DELETE FROM Groups WHERE group_id=:id');
     $deleteStmt->execute(array(
       ':id'=>$urlId
     ));
+
     $_SESSION['message'] = "<b style='color:blue'>Group deleted</b>";
     header('Location: player.php');
     return true;
@@ -90,6 +127,7 @@
   <head>
     <meta charset="utf-8">
     <title>Change Group | Bracket Referee</title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -97,34 +135,42 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Change Your Group</h1>
-    <p>To change any of your group's values, simply put in the new values into the below boxes and click 'ENTER'</p>
-    <form method="POST">
-      <table style='border:solid black 1px'>
-        <tr>
-          <td><b>Group Name</b><td>
-          <td><input type="text" name="new_name" value="<?php echo($adminId['group_name']) ?>"/></td>
-        </tr>
-      </table>
-      <span>
-        <input type="submit" name="submitEdit" value="ENTER" />
-        <input type="submit" name="cancelEdit" value="CANCEL" />
-      </span>
-      <h3 id="delGrpButton">Delete this Group?</h3>
-      <div id="delGrpBox" style="border: 1px solid red">
-        <b style='color:red'>WARNING</b></br>
-        <p>
-          Are you sure you want to delete this group? All of the results and brackets will be permanently deleted!
-        </p>
-        <input type="submit" name="submitDelete" value="DELETE" />
-        <span id="cancelDelGrp">CANCEL</span>
-      </div>
-    </form>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo($_SESSION['message']);
-        unset($_SESSION['message']);
-      };
-    ?>
+    <div id="groupEditPage">
+      <div id="mainEditTitle">Want to change this group?</div>
+      <p>As the director, you can change this group by simply inserting a new values in the below boxes. Enter your changes by clicking on 'ENTER', or ignore your changes and return to the previous page by clicking 'CANCEL'.</p>
+      <form method="POST">
+        <div id="changeBox">
+          <table>
+            <tr>
+              <th>Group Name</th>
+              <td>
+                <input type="text" name="new_name" value="<?php echo($adminId['group_name']) ?>"/>
+              </td>
+            </tr>
+          </table>
+          <div>
+            <input id="submitEnter" type="submit" name="submitEdit" value="ENTER" />
+            <input type="submit" name="cancelEdit" value="CANCEL" />
+          </div>
+        </div>
+        <div id="delGrpButton">Delete this Group?</div>
+        <div id="delGrpBox">
+          <div id="warningGrp">WARNING</div>
+          <p>
+            Are you sure you want to delete this group? All of the results and brackets will be permanently deleted!
+          </p>
+          <div id="warningRow">
+            <input type="submit" name="submitDelete" value="DELETE" />
+            <span id="cancelDelGrp">CANCEL</span>
+          </div>
+        </div>
+      </form>
+      <?php
+        if (isset($_SESSION['message'])) {
+          echo($_SESSION['message']);
+          unset($_SESSION['message']);
+        };
+      ?>
+    </div>
   </body>
 </html>
