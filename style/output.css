@@ -514,5 +514,67 @@ html {
         text-decoration: underline;
         text-align: center;
         width: 30%; }
+    html body #viewPage form #returnBttn {
+      margin: 15px 15px 0 15px;
+      padding: 10px 15px;
+      border: 1px solid green;
+      border-radius: 15px;
+      font-size: 2.5rem; }
+    html body #viewPage #viewTitle {
+      margin: 80px 0;
+      font-size: 8rem;
+      text-align: center; }
+    html body #viewPage #statsBox {
+      margin: 0 5% 80px 5%;
+      padding: 30px 5%;
+      text-align: center;
+      font-size: 5rem;
+      color: white;
+      background-color: blue; }
+    html body #viewPage .oneScoreList {
+      margin: 0 5% 80px 5%;
+      text-align: center;
+      width: 90%; }
+      html body #viewPage .oneScoreList .oneTitle {
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 4rem;
+        color: red; }
+      html body #viewPage .oneScoreList .oneScoreRow {
+        margin: 2px 0;
+        border-radius: 15px;
+        padding: 10px 3%;
+        display: flex;
+        justify-content: space-between;
+        font-size: 3.5rem; }
+    html body #viewPage #bottomPoints {
+      display: none; }
+    html body #viewPage #showDelBox {
+      margin: 40px 0 0 0;
+      padding: 20px 0;
+      font-size: 2rem;
+      color: white;
+      text-align: center;
+      background-color: black; }
+    html body #viewPage #delBox {
+      margin: 0;
+      font-size: 2.5rem;
+      padding: 30px 5%;
+      background-color: lightgrey; }
+      html body #viewPage #delBox p {
+        margin-bottom: 60px;
+        padding: 0 5%; }
+      html body #viewPage #delBox form {
+        display: flex;
+        justify-content: space-between; }
+        html body #viewPage #delBox form input {
+          border-radius: 20px;
+          padding: 20px;
+          color: white;
+          font-size: 3rem;
+          background-color: red; }
+        html body #viewPage #delBox form span {
+          font-size: 3.5rem; }
 
 /*# sourceMappingURL=output.css.map */
