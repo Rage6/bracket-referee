@@ -302,6 +302,7 @@
           <div id="resultBox">
             <?php
             $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            // $randomURL = "https://bracket-referee.herokuapp.com/group.php?group_id=";
             for ($randNum = 0; $randNum < count($randomList); $randNum++) {
               $randomGrpId = $randomList[$randNum][1];
               $randomGrpName = $randomList[$randNum][0];
