@@ -67,7 +67,6 @@
       $randomList[] = [$oneRandom['group_name'],$oneRandom['group_id']];
     };
   };
-  var_dump($randomList);
 
   // Allows user to log out
   if (isset($_POST['logout'])) {
@@ -299,16 +298,16 @@
         <div class="newGrpOption">
           <div class="allOptTitle">
             Available Groups
-            <div style="display:block">
-              <?php
-              $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
-              for ($randNum = 0; $randNum < count($randomList); $randNum++) {
-                $randomGrpId = $randomList[$randNum][1];
-                $randomGrpName = $randomList[$randNum][0];
-                echo("<p><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
-              };
-              ?>
-            </div>
+          </div>
+          <div id="resultBox">
+            <?php
+            $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            for ($randNum = 0; $randNum < count($randomList); $randNum++) {
+              $randomGrpId = $randomList[$randNum][1];
+              $randomGrpName = $randomList[$randNum][0];
+              echo("<p><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
+            };
+            ?>
           </div>
         </div>
       </div>

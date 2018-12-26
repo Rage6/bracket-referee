@@ -307,7 +307,15 @@ html {
               };
             };
           };
-          // for randomly chosen, public groups
+          #resultBox {
+            margin: 20px 0 10px 0;
+            padding: 10px 0;
+            text-decoration: none;
+            background-color: white;
+            p {
+              padding: 10px 5%;
+            };
+          };
         };
       };
     };

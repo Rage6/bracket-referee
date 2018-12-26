@@ -217,6 +217,13 @@ html {
               background-color: green; }
             html body #playerPage #groupBox .newGrpOption #addGroupBox form div span {
               margin-top: 15px; }
+        html body #playerPage #groupBox .newGrpOption #resultBox {
+          margin: 20px 0 10px 0;
+          padding: 10px 0;
+          text-decoration: none;
+          background-color: white; }
+          html body #playerPage #groupBox .newGrpOption #resultBox p {
+            padding: 10px 5%; }
     html body #plyrEditPage #editTitle {
       margin: 50px 0;
       font-size: 7rem;
