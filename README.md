@@ -1,7 +1,6 @@
 # The Bracket Referee
 
 ## https://bracket-referee.herokuapp.com
-<p>NOTE: To prevent exposing its password and sharing private data, this website cannot post or request data from its database. Upon completion of the website, the database will be reconnected to the website.</p>
 
 <b>Languages</b>: PHP, Javscript (jQuery, JSON), CSS (SASS), HTML
 
