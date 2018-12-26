@@ -94,6 +94,7 @@
   <head>
     <meta charset="utf-8">
     <title>Review | Bracket Referee</title>
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -101,77 +102,96 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <h1>Bracket Review</h1>
-    <h2>Player: <?php echo($usrNmeArray['userName']) ?></h2>
-    <?php
-      if ($brkPlyId['player_id'] == $_SESSION['player_id']) {
-        echo("<p id='showDelBox'><u>Delete Bracket?</u></p>");
-      };
-    ?>
-    <div id="delBox">
-      <p>
-        <i>Are you sure?</i> This bracket and its results will be permanently deleted.
-      </p>
-      <form method='POST'>
-        <input type='submit' name='deleteBracket' value='DELETE'/>
-        <span id="hideDelBox">CANCEL</span>
+    <div id="viewPage">
+      <form method="POST">
+        <input id="returnBttn" type="submit" name="returnGroup" value="<< BACK" />
       </form>
-      </br>
-    </div>
-    <?php
-      $pickListStmt = $pdo->prepare('SELECT pick_id,player_pick,layer,level_name,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Games.level_id=Levels.level_id ORDER BY Levels.layer ASC');
-      $pickListStmt->execute(array(
-        ':bid'=>htmlentities($_GET['bracket_id'])
-      ));
-      $pickArray = array();
-      while ($onePush = $pickListStmt->fetch(PDO::FETCH_ASSOC)) {
-        $pickArray[] = $onePush;
-      };
-      $totalScore = 0;
-      $lastLayer = null;
-      foreach ($pickArray as $layer) {
-        if ($layer['layer'] != $lastLayer) {
-          echo("<table border=1>
-            <tr>
-              <th>".$layer['level_name']."</th>
-              <th>Points Earned</th>
-            </tr>");
-          foreach ($pickArray as $pick) {
-            if ($pick['layer'] == $layer['layer']) {
-              $pickNameStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:pid');
-              $pickNameStmt->execute(array(
-                ':pid'=>$pick['player_pick']
-              ));
-              $pickName = $pickNameStmt->fetch(PDO::FETCH_ASSOC);
-              $checkPtsStmt = $pdo->prepare('SELECT winner_id,player_pick FROM Games JOIN Picks WHERE Picks.pick_id=:pid2 AND Picks.bracket_id=:bid AND Games.game_id=Picks.game_id');
-              $checkPtsStmt->execute(array(
-                ':bid'=>htmlentities($_GET['bracket_id']),
-                ':pid2'=>$pick['pick_id']
-              ));
-              $checkResult = $checkPtsStmt->fetch(PDO::FETCH_ASSOC);
-              $winnerId = $checkResult['winner_id'];
-              $playerPick = $checkResult['player_pick'];
-              $pointsEarned = 0;
-              if ($winnerId == $playerPick) {
-                $pointsEarned = $layer['points'];
-                $totalScore += $layer['points'];
-              };
-              echo("<tr>
-                <td>".$pickName['team_name']."</td>
-                <td>".$pointsEarned."</td>
-              </tr>");
-            };
-          };
-          echo("</table></br>");
-          $lastLayer = $layer['layer'];
+      <div id="viewTitle">Bracket Review</div>
+      <div id="statsBox">
+        <div id="plyrName">Player: <?php echo($usrNmeArray['userName']) ?></div>
+        <div id="scoreRow">Current Score: <span id="currentScore"></span></div>
+      </div>
+      <?php
+        $pickListStmt = $pdo->prepare('SELECT pick_id,player_pick,layer,level_name,points FROM Picks JOIN Games JOIN Levels WHERE Picks.bracket_id=:bid AND Picks.game_id=Games.game_id AND Games.level_id=Levels.level_id ORDER BY Levels.layer ASC');
+        $pickListStmt->execute(array(
+          ':bid'=>htmlentities($_GET['bracket_id'])
+        ));
+        $pickArray = array();
+        while ($onePush = $pickListStmt->fetch(PDO::FETCH_ASSOC)) {
+          $pickArray[] = $onePush;
         };
-      };
-    ?>
-    <h3>
-      <u>Total Score:</u> <?php echo($totalScore) ?>
-    </h3>
-    <form method="POST">
-      <input type="submit" name="returnGroup" value="<-- BACK" />
-    </form>
+        $totalScore = 0;
+        $lastLayer = null;
+        foreach ($pickArray as $layer) {
+          if ($layer['layer'] != $lastLayer) {
+            echo("
+            <div class='oneScoreList'>
+              <div class='oneTitle'>
+                <span>".$layer['level_name']."</span>
+                <span>Points Earned</span>
+              </div>");
+            foreach ($pickArray as $pick) {
+              if ($pick['layer'] == $layer['layer']) {
+                $pickNameStmt = $pdo->prepare('SELECT team_name FROM Teams WHERE team_id=:pid');
+                $pickNameStmt->execute(array(
+                  ':pid'=>$pick['player_pick']
+                ));
+                $pickName = $pickNameStmt->fetch(PDO::FETCH_ASSOC);
+                $checkPtsStmt = $pdo->prepare('SELECT winner_id,player_pick FROM Games JOIN Picks WHERE Picks.pick_id=:pid2 AND Picks.bracket_id=:bid AND Games.game_id=Picks.game_id');
+                $checkPtsStmt->execute(array(
+                  ':bid'=>htmlentities($_GET['bracket_id']),
+                  ':pid2'=>$pick['pick_id']
+                ));
+                $checkResult = $checkPtsStmt->fetch(PDO::FETCH_ASSOC);
+                $winnerId = $checkResult['winner_id'];
+                $playerPick = $checkResult['player_pick'];
+                $pointsEarned = 0;
+                if ($winnerId == $playerPick) {
+                  $pointsEarned = $layer['points'];
+                  $totalScore += $layer['points'];
+                };
+                if ($pointsEarned == 0) {
+                  echo("
+                    <div class='oneScoreRow' style='background-color:red;color:white'>
+                      <span>".$pickName['team_name']."</span>
+                      <span>".$pointsEarned."</span>
+                    </div>");
+                } else if ($pointsEarned > 0) {
+                  echo("
+                    <div class='oneScoreRow' style='background-color:green;color:white'>
+                      <span>".$pickName['team_name']."</span>
+                      <span>".$pointsEarned."</span>
+                    </div>");
+                } else {
+                  echo("
+                    <div class='oneScoreRow' style='background-color:none;color:black'>
+                      <span>".$pickName['team_name']."</span>
+                      <span>".$pointsEarned."</span>
+                    </div>");
+                };
+              };
+            };
+            echo("</div>");
+            $lastLayer = $layer['layer'];
+          };
+        };
+      ?>
+      <div id="bottomPoints"><?php echo($totalScore) ?></div>
+      <?php
+        if ($brkPlyId['player_id'] == $_SESSION['player_id']) {
+          echo("
+          <p id='showDelBox'><u>Delete Bracket?</u></p>
+          <div id='delBox'>
+            <p>
+              <i>Are you sure?</i> This bracket and its results will be permanently deleted.
+            </p>
+            <form method='POST'>
+              <input type='submit' name='deleteBracket' value='DELETE'/>
+              <span id='hideDelBox'><u>CANCEL</u></span>
+            </form>
+          </div>");
+        };
+      ?>
+    </div>
   </body>
 </html>

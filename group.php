@@ -141,14 +141,6 @@
           if ($canJoinResult['COUNT(main_id)'] == 0) {
             echo("<input id='joinBttn' type='submit' name='joinGroup' value='JOIN  >>'>");
           };
-          // if ($canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
-          //   echo("<h3 id='leaveGrpButton'>Leave this group?</h3>");
-          //   echo("<div id='leaveGrpBox'>
-          //     <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
-          //     <input type='submit' name='leaveGroup' value='[X] LEAVE '>
-          //     <span id='cancelLeave'> CANCEL </span>
-          //     </div>");
-          // };
         ?>
       </form>
       <div id="introTitle">Welcome to</div>
@@ -319,8 +311,10 @@
             <div id='leaveGrpBox'>
               <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
               <div>
-                <input type='submit' name='leaveGroup' value='[X] UNJOIN '>
-                <span id='cancelLeave'><u>CANCEL</u></span>
+                <form method='POST'>
+                  <input type='submit' name='leaveGroup' value='[X] UNJOIN '>
+                  <span id='cancelLeave'><u>CANCEL</u></span>
+                </form>
               </div>
             </div>");
         };
