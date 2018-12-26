@@ -115,4 +115,10 @@ $(()=>{
     $("#delBox").hide();
   });
 
+  // Takes the final total at the bottom of bracket_view.php and displays it at the top;
+  if (window.location.pathname == "/bracket-referee/bracket_view.php") {
+    var currentScore = $("#bottomPoints").text();
+    $("#currentScore").text(currentScore);
+  };
+
 })

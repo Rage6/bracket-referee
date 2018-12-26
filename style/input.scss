@@ -307,6 +307,15 @@ html {
               };
             };
           };
+          #resultBox {
+            margin: 20px 0 10px 0;
+            padding: 10px 0;
+            text-decoration: none;
+            background-color: white;
+            p {
+              padding: 10px 5%;
+            };
+          };
         };
       };
     };
@@ -707,6 +716,90 @@ html {
             text-align: center;
             width: 30%;
           }
+        };
+      };
+    };
+
+    // ----------- BRACKET_VIEW.PHP FILE BEGINS -----------
+    #viewPage {
+      form {
+        #returnBttn {
+          margin: 15px 15px 0 15px;
+          padding: 10px 15px;
+          border: 1px solid green;
+          border-radius: 15px;
+          font-size: 2.5rem;
+        };
+      };
+      #viewTitle {
+        margin: 80px 0;
+        font-size: 8rem;
+        text-align: center;
+      };
+      #statsBox {
+        margin: 0 5% 80px 5%;
+        padding: 30px 5%;
+        text-align: center;
+        font-size: 5rem;
+        color: white;
+        background-color: blue;
+      };
+      .oneScoreList {
+        margin: 0 5% 80px 5%;;
+        text-align: center;
+        width: 90%;
+        .oneTitle {
+          margin-bottom: 15px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 4rem;
+          color: red;
+          span {
+
+          };
+        };
+        .oneScoreRow {
+          margin: 2px 0;
+          border-radius: 15px;
+          padding: 10px 3%;
+          display: flex;
+          justify-content: space-between;
+          font-size: 3.5rem;
+        };
+      };
+      #bottomPoints {
+        display: none;
+      };
+      #showDelBox {
+        margin: 40px 0 0 0;
+        padding: 20px 0;
+        font-size: 2rem;
+        color: white;
+        text-align: center;
+        background-color: black;
+      };
+      #delBox {
+        margin: 0;
+        font-size: 2.5rem;
+        padding: 30px 5%;
+        background-color: lightgrey;
+        p {
+          margin-bottom: 60px;
+          padding: 0 5%;
+        };
+        form {
+          display: flex;
+          justify-content: space-between;
+          input {
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            font-size: 3rem;
+            background-color: red;
+          };
+          span {
+            font-size: 3.5rem
+          };
         };
       };
     };

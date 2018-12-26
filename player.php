@@ -39,6 +39,35 @@
     return false;
   };
 
+  // Finds a list of random, public groups to choose from
+  // First, it learns all of the player's current groups to take them off of the list...
+  $joinGrpIdList = [];
+  $allCurrentGrps = $pdo->prepare('SELECT Groups.group_id FROM Groups JOIN Groups_Players WHERE Groups.group_id=Groups_Players.group_id AND player_id=:cid');
+  $allCurrentGrps->execute(array(
+    ':cid'=>$_SESSION['player_id']
+  ));
+  while ($oneCurGrp = $allCurrentGrps->fetch(PDO::FETCH_ASSOC)) {
+    $joinGrpIdList[] = (int)$oneCurGrp['group_id'];
+  };
+  // Second, it randomly selects up to 20 groups...
+  $randomGrpsStmt = $pdo->prepare('SELECT group_name,Groups.group_id FROM Groups JOIN Groups_Players WHERE Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id<>:pid ORDER BY RAND() LIMIT 10');
+  $randomGrpsStmt->execute(array(
+    ':pid'=>$_SESSION['player_id']
+  ));
+  // Third, adds any selected to the list that are not already on the player's current list
+  $randomList = [];
+  while ($oneRandom = $randomGrpsStmt->fetch(PDO::FETCH_ASSOC)) {
+    $duplicate = false;
+    for ($listNum = 0; $listNum < count($joinGrpIdList); $listNum++) {
+      if ($oneRandom['group_id'] == $joinGrpIdList[$listNum]) {
+        $duplicate = true;
+      };
+    };
+    if ($duplicate != true) {
+      $randomList[] = [$oneRandom['group_name'],$oneRandom['group_id']];
+    };
+  };
+
   // Allows user to log out
   if (isset($_POST['logout'])) {
     $_SESSION['message'] = "<b style='color:green'>Log out successful</b>";
@@ -264,6 +293,21 @@
                 <span id="cancelGroup"><u>CANCEL</u></span>
               </div>
             </form>
+          </div>
+        </div>
+        <div class="newGrpOption">
+          <div class="allOptTitle">
+            Available Groups
+          </div>
+          <div id="resultBox">
+            <?php
+            $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
+            for ($randNum = 0; $randNum < count($randomList); $randNum++) {
+              $randomGrpId = $randomList[$randNum][1];
+              $randomGrpName = $randomList[$randNum][0];
+              echo("<p><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
+            };
+            ?>
           </div>
         </div>
       </div>

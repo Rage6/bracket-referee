@@ -7,12 +7,10 @@
 
 <b>DB Managment System</b>: MySQL
 
-<b>Database</b>: ClearDB
-
-<b>Status</b>: <i>Under construction</i>
+<b>Status</b>: <i>Functional, not completed</i>
 
 <u><i>PURPOSE:</i></u>
-<p>This is an exercise of my PHP and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It is my first, independent venture into "server-side" coding from scratch... and I'm LOVING it! Once completed, this app will allow the user to:</p>
+<p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It is my first, independent venture into "server-side" coding from scratch... and I'm LOVING it! Once completed, this app will allow the user to:</p>
 <ul>
   <li>Create, read, update, or delete their own account</li>
   <li>Create, read, update, or delete their own group(s)</li>
@@ -35,7 +33,7 @@
     <b>Password Encryption</b>: Upon doing research, I used PHP's more recent tool for encrypting the user's password: <i>password_hash()</i>. My previous training had only explained how to manually insert a "salt" before using the more basic <i>hash()</i> and a chosen algorithm, like MD5. The <i>password_hash()</i> seems to do it easier and more affectively.
   </li>
   <li>
-    <b>Hacker Prevention</b>: Several measures have been taken in order to prevent hacking attacks. They include: 
+    <b>Hacker Prevention</b>: Several measures have been taken in order to prevent hacking attacks. They include:
     <ul>
       <li>
         <i>htmlentities()</i> is used to block SQL injection. If not, SQL could be maliciously used to see or modify the database.
