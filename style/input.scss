@@ -93,6 +93,7 @@ html {
     };
     #message {
       margin: 30px 0;
+      padding: 0 5%;
       text-align: center;
       font-size: 3rem;
     };
@@ -164,17 +165,21 @@ html {
     // ----------- PLAYER.PHP FILE BEGINS -----------
     #playerPage {
       #hqTitle {
+        margin: 50px 0;
         font-size: 7rem;
         font-family: 'Bevan', cursive;
         color: rgb(181,7,7);
         text-align: center;
       };
       .allBox {
-        margin: 0 2% 20px 2%;
+        margin: 0 2% 130px 2%;
         padding: 120px 0;
+        background-size: cover;
         .allInnerBox {
           padding: 40px 10%;
-          background-color:white;
+          border-left: 1px solid grey;
+          border-right: 1px solid grey;
+          background-color: white;
           .allBoxTitle {
             margin-bottom:30px;
             font-size:4.7rem;
@@ -185,14 +190,11 @@ html {
         };
       };
       #profIdBox {
-        border: 20px solid grey;
+        // border-color: grey;
         border-radius: 30px;
         color: rgb(181,7,7);
-
-        background-color: red;
-
+        background-image: url('https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612');
         #profIdTable {
-          // border: 3px solid black;
           background-color: white;
           width: 100%;
           tr {
@@ -228,11 +230,9 @@ html {
         };
       };
       #grpListBox {
-        border: 20px solid blue;
+        // border: 1px solid blue;
         border-radius: 30px;
-
-        background-color: red;
-
+        background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
         #completeList {
           background-color: white;
           width: 100%;
@@ -266,21 +266,20 @@ html {
         };
       };
       #groupBox {
-        border: 20px solid green;
+        // border-color: green;
         border-radius: 30px;
-
-        background-color: red;
-
+        background-image: url('https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg');
         .newGrpOption {
           margin: 20px 0;
-          border: 2px solid green;
-          padding: 10px 2%;
+          border-radius: 15px;
+          padding: 20px 5%;
+          background-color: green;
           .allOptTitle {
             display: flex;
             justify-content: space-between;
             text-align: center;
             font-size:3.5rem;
-            color:green;
+            color: white;
             width:100%;
           };
           #findGroup {
@@ -308,10 +307,13 @@ html {
                 padding: 5px 10px;
                 border: 1px solid black;
                 border-radius: 15px;
-                background-color: yellow;
+                font-size: 2.5rem;
+                background-color: lightgrey;
+                width: 30%;
               };
               input {
                 font-size: 3rem;
+                width: 60%;
               };
             };
           };
@@ -382,7 +384,8 @@ html {
             text-decoration: none;
             background-color: white;
             p {
-              padding: 10px 5%;
+              padding: 0 3%;
+              font-size: 1.2rem;
             };
           };
         };

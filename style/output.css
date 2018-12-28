@@ -75,6 +75,7 @@ html {
       background-color: green; }
     html body #message {
       margin: 30px 0;
+      padding: 0 5%;
       text-align: center;
       font-size: 3rem; }
     html body #indexMain {
@@ -127,15 +128,19 @@ html {
           border-radius: 15px;
           width: 100%; }
     html body #playerPage #hqTitle {
+      margin: 50px 0;
       font-size: 7rem;
       font-family: 'Bevan', cursive;
       color: #b50707;
       text-align: center; }
     html body #playerPage .allBox {
-      margin: 0 2% 20px 2%;
-      padding: 120px 0; }
+      margin: 0 2% 130px 2%;
+      padding: 120px 0;
+      background-size: cover; }
       html body #playerPage .allBox .allInnerBox {
         padding: 40px 10%;
+        border-left: 1px solid grey;
+        border-right: 1px solid grey;
         background-color: white; }
         html body #playerPage .allBox .allInnerBox .allBoxTitle {
           margin-bottom: 30px;
@@ -144,10 +149,9 @@ html {
           color: #b50707;
           width: 80%; }
     html body #playerPage #profIdBox {
-      border: 20px solid grey;
       border-radius: 30px;
       color: #b50707;
-      background-color: red; }
+      background-image: url("https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612"); }
       html body #playerPage #profIdBox #profIdTable {
         background-color: white;
         width: 100%; }
@@ -175,9 +179,8 @@ html {
         html body #playerPage #profIdBox #profIdBtns #plrLogOut {
           background-color: #b74c37; }
     html body #playerPage #grpListBox {
-      border: 20px solid blue;
       border-radius: 30px;
-      background-color: red; }
+      background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg"); }
       html body #playerPage #grpListBox #completeList {
         background-color: white;
         width: 100%;
@@ -205,19 +208,19 @@ html {
               border-bottom: 20px solid transparent;
               border-right: 0px solid transparent; }
     html body #playerPage #groupBox {
-      border: 20px solid green;
       border-radius: 30px;
-      background-color: red; }
+      background-image: url("https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg"); }
       html body #playerPage #groupBox .newGrpOption {
         margin: 20px 0;
-        border: 2px solid green;
-        padding: 10px 2%; }
+        border-radius: 15px;
+        padding: 20px 5%;
+        background-color: green; }
         html body #playerPage #groupBox .newGrpOption .allOptTitle {
           display: flex;
           justify-content: space-between;
           text-align: center;
           font-size: 3.5rem;
-          color: green;
+          color: white;
           width: 100%; }
         html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV {
           width: 50px; }
@@ -236,9 +239,12 @@ html {
               padding: 5px 10px;
               border: 1px solid black;
               border-radius: 15px;
-              background-color: yellow; }
+              font-size: 2.5rem;
+              background-color: lightgrey;
+              width: 30%; }
             html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
-              font-size: 3rem; }
+              font-size: 3rem;
+              width: 60%; }
         html body #playerPage #groupBox .newGrpOption #searchResults {
           margin-top: 10px;
           padding: 10px 2%;
@@ -281,7 +287,8 @@ html {
           text-decoration: none;
           background-color: white; }
           html body #playerPage #groupBox .newGrpOption #resultBox p {
-            padding: 10px 5%; }
+            padding: 0 3%;
+            font-size: 1.2rem; }
     html body #plyrEditPage #editTitle {
       margin: 50px 0;
       font-size: 7rem;
