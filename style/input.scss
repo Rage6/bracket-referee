@@ -171,82 +171,116 @@ html {
       };
       .allBox {
         margin: 0 2% 20px 2%;
-        padding: 40px 10%;
-        .allBoxTitle {
-          margin-bottom:30px;
-          font-size:4.7rem;
-          font-family: 'Special Elite',cursive;
-          color:white;
-          width:80%;
+        padding: 120px 0;
+        .allInnerBox {
+          padding: 40px 10%;
+          background-color:white;
+          .allBoxTitle {
+            margin-bottom:30px;
+            font-size:4.7rem;
+            font-family: 'Special Elite',cursive;
+            color:rgb(181,7,7);
+            width:80%;
+          };
         };
       };
       #profIdBox {
-        background-color: grey;
+        border: 20px solid grey;
+        border-radius: 30px;
+        color: rgb(181,7,7);
+
+        background-color: red;
+
         #profIdTable {
-          border: 3px solid black;
+          // border: 3px solid black;
           background-color: white;
           width: 100%;
           tr {
             font-size: 3rem;
             td {
-              border: 2px solid black;
-              border-collapse: collapse;
+              border: 2px solid grey;
+              color: black;
               text-align: center;
             };
             .profTitle {
-              background-color: yellow;
+              border: none;
+              color: white;
+              background-color: grey;
             };
           };
         };
         #profIdBtns {
-          margin: 20px 20%;
+          margin: 80px 0 20px 0;
           display: flex;;
-          justify-content: space-around;
+          justify-content: space-between;
           input {
             border-radius: 15px;
-            padding: 10px 20px;
-            font-size: 3rem;
+            padding: 10px 40px;
+            font-size: 4rem;
             color: white;
           };
           #plrEdit {
             background-color: blue;
           };
           #plrLogOut {
-            background-color: orange;
+            background-color: rgb(183, 76, 55);
           };
         };
       };
       #grpListBox {
-        background-color: blue;
-        table {
-          border: 3px solid black;
+        border: 20px solid blue;
+        border-radius: 30px;
+
+        background-color: red;
+
+        #completeList {
           background-color: white;
           width: 100%;
-          tr {
-            font-size: 3rem;
-            th {
-              background-color: yellow;
-            };
-            td {
-              border: 2px solid black;
-              border-collapse: collapse;
-              text-align: center;
+          font-size: 3.5rem;
+          #listTitle {
+            display: none;
+            text-align: center;
+            background-color: yellow;
+          };
+          a {
+            text-decoration: none;
+            color: white;
+            .listContent {
+              margin-top: 20px;
+              border-radius: 0 50px 50px 0 ;
+              padding: 20px 10% 20px 5%;
+              display: flex;
+              justify-content: space-between;
+              background-color: blue;
+              .rightArrow {
+                height: 0;
+                width: 0;
+                margin-top: 15px;
+                border-top: 20px solid transparent;
+                border-left: 40px solid white;
+                border-bottom: 20px solid transparent;
+                border-right: 0px solid transparent;
+              };
             };
           };
         };
       };
       #groupBox {
-        background-color: green;
+        border: 20px solid green;
+        border-radius: 30px;
+
+        background-color: red;
+
         .newGrpOption {
           margin: 20px 0;
-          border: 2px solid white;
+          border: 2px solid green;
           padding: 10px 2%;
           .allOptTitle {
             display: flex;
             justify-content: space-between;
             text-align: center;
             font-size:3.5rem;
-            color:white;
+            color:green;
             width:100%;
           };
           #findGroup {
