@@ -142,6 +142,7 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo($playerData['userName']) ?> | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -151,7 +152,7 @@
   </head>
   <body>
     <div id="playerPage">
-      <h1 id="hqTitle">Bracket HQ</h1>
+      <div id="hqTitle">Bracket HQ</div>
       <?php
       if (isset($_SESSION['message'])) {
         echo("<div style='text-align:center;margin-bottom:30px'>".$_SESSION['message']."</div>");
@@ -160,7 +161,7 @@
       ?>
       <div id="profIdBox" class="allBox">
         <div class="allBoxTitle">
-          Your Profile:
+          Profile
         </div>
         <table id="profIdTable">
           <tr>
@@ -183,7 +184,7 @@
       </div>
       <div id="grpListBox" class="allBox">
         <div class="allBoxTitle">
-          Your Current Groups:
+          Current Groups
         </div>
         <table>
           <tr>
@@ -214,7 +215,7 @@
         </table>
       </div>
       <div id="groupBox" class="allBox">
-        <div class="allBoxTitle">Join A Group:</div>
+        <div class="allBoxTitle">Join A Group</div>
         <div class="newGrpOption">
           <div id="findGroup" class="allOptTitle">
             <span>Search For A Group</span>

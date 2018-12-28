@@ -1,6 +1,10 @@
 $(()=>{
   console.log("main.js is active again...");
 
+  // Measures the background box and adjusts the word lines accordingly
+  var titleHeight = $('#indexWords').height();
+  $('#indexTitle').css('height',titleHeight);
+
   $('#logForm').hide();
   $('#signForm').hide();
   // Toggles the "Login" box

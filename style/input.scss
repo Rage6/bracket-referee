@@ -4,18 +4,29 @@ html {
   body {
     margin: 0px;
     padding: 0px;
-
     // ----------- INDEX.PHP FILE BEGINS -----------
     #indexTitle {
       margin: 0px;
       padding: 0px;
-      color: black;
-      text-align: center;
-      // background-image: url("img/ball_ref.jpg");
+      background-image: url("img/ball_ref.jpg");
+      opacity: 0.3;
       background-size: cover;
+    };
+    #indexWords {
+      margin: 0px;
+      padding: 0px;
+      color: rgb(181,7,7);
+      text-align: center;
+      background-color: none;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 1;
+      width: 100%;
       p {
         margin: 0px;
         font-size: 12rem;
+        font-family: 'Bevan', cursive;
       };
     };
     #bothAcctButtons {
@@ -23,6 +34,7 @@ html {
       justify-content: space-around;
       color: white;
       font-size: 5rem;
+      font-family: 'Staatliches', cursive;
       text-align: center;
       #logButton {
         padding: 30px 0px;
@@ -43,7 +55,6 @@ html {
         width: 100%;
         tbody {
           tr {
-            // border: 1px solid white;
             padding: 5px 0px;
             td {
               font-size: 3rem;
@@ -80,13 +91,18 @@ html {
       color: white;
       background-color: green;
     };
+    #message {
+      margin: 30px 0;
+      text-align: center;
+      font-size: 3rem;
+    };
     #indexMain {
       margin-top: 20px;
-      background-color: orange;
       #motto {
         padding: 30px 0 30px 10%;
         color: white;
         font-size: 4rem;
+        font-family: 'Special Elite',cursive;
         text-align: left;
         background-color: grey;
         p {
@@ -94,21 +110,37 @@ html {
         }
       };
       #indexIntro {
-        margin: 50px 10% 0px 10%;
+        margin: 50px 0% 0px 0%;
         text-align: center;
-        b {;
-          font-size: 5rem;
-        };
-        p {
-          padding-bottom: 30px;
-          text-align: left;
-          font-size: 3rem;
-        };
-        ul {
-          li {
-            text-align: left;
-            font-size: 1.8rem;
+        .introParagraph {
+          margin: 0 10% 0 10%;
+          b {;
+            font-size: 5rem;
+            font-family: 'Staatliches', cursive;
           };
+          p {
+            padding-bottom: 30px;
+            text-align: left;
+            font-size: 3rem;
+            font-family: 'Catamaran', sans-serif;
+          };
+          div {
+            border: 5px dashed black;
+            padding: 0 5%;
+            ul {
+              li {
+                text-align: left;
+                font-size: 2rem;
+                font-family: 'Catamaran', sans-serif;
+              };
+            };
+          };
+        };
+        .imageBorder {
+          margin-bottom: 100px;
+          background-size: cover;
+          height: 225px;
+          width: 100%;
         };
       };
     };
@@ -117,7 +149,7 @@ html {
       justify-content: space-around;
       font-size: 2rem;
       color: white;
-      background-color: red;
+      background-color: rgb(181,7,7);;
       a {
         border-radius: 15px;
         width: 20%;
@@ -132,7 +164,9 @@ html {
     // ----------- PLAYER.PHP FILE BEGINS -----------
     #playerPage {
       #hqTitle {
-        font-size: 9rem;
+        font-size: 7rem;
+        font-family: 'Bevan', cursive;
+        color: rgb(181,7,7);
         text-align: center;
       };
       .allBox {
@@ -140,7 +174,8 @@ html {
         padding: 40px 10%;
         .allBoxTitle {
           margin-bottom:30px;
-          font-size:3.5rem;
+          font-size:4.7rem;
+          font-family: 'Special Elite',cursive;
           color:white;
           width:80%;
         };

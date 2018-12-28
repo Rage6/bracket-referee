@@ -7,17 +7,30 @@ html {
     html body #indexTitle {
       margin: 0px;
       padding: 0px;
-      color: black;
-      text-align: center;
+      background-image: url("img/ball_ref.jpg");
+      opacity: 0.3;
       background-size: cover; }
-      html body #indexTitle p {
+    html body #indexWords {
+      margin: 0px;
+      padding: 0px;
+      color: #b50707;
+      text-align: center;
+      background-color: none;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 1;
+      width: 100%; }
+      html body #indexWords p {
         margin: 0px;
-        font-size: 12rem; }
+        font-size: 12rem;
+        font-family: 'Bevan', cursive; }
     html body #bothAcctButtons {
       display: flex;
       justify-content: space-around;
       color: white;
       font-size: 5rem;
+      font-family: 'Staatliches', cursive;
       text-align: center; }
       html body #bothAcctButtons #logButton {
         padding: 30px 0px;
@@ -60,35 +73,52 @@ html {
     html body #signForm {
       color: white;
       background-color: green; }
+    html body #message {
+      margin: 30px 0;
+      text-align: center;
+      font-size: 3rem; }
     html body #indexMain {
-      margin-top: 20px;
-      background-color: orange; }
+      margin-top: 20px; }
       html body #indexMain #motto {
         padding: 30px 0 30px 10%;
         color: white;
         font-size: 4rem;
+        font-family: 'Special Elite',cursive;
         text-align: left;
         background-color: grey; }
         html body #indexMain #motto p {
           margin: 15px 0; }
       html body #indexMain #indexIntro {
-        margin: 50px 10% 0px 10%;
+        margin: 50px 0% 0px 0%;
         text-align: center; }
-        html body #indexMain #indexIntro b {
-          font-size: 5rem; }
-        html body #indexMain #indexIntro p {
-          padding-bottom: 30px;
-          text-align: left;
-          font-size: 3rem; }
-        html body #indexMain #indexIntro ul li {
-          text-align: left;
-          font-size: 1.8rem; }
+        html body #indexMain #indexIntro .introParagraph {
+          margin: 0 10% 0 10%; }
+          html body #indexMain #indexIntro .introParagraph b {
+            font-size: 5rem;
+            font-family: 'Staatliches', cursive; }
+          html body #indexMain #indexIntro .introParagraph p {
+            padding-bottom: 30px;
+            text-align: left;
+            font-size: 3rem;
+            font-family: 'Catamaran', sans-serif; }
+          html body #indexMain #indexIntro .introParagraph div {
+            border: 5px dashed black;
+            padding: 0 5%; }
+            html body #indexMain #indexIntro .introParagraph div ul li {
+              text-align: left;
+              font-size: 2rem;
+              font-family: 'Catamaran', sans-serif; }
+        html body #indexMain #indexIntro .imageBorder {
+          margin-bottom: 100px;
+          background-size: cover;
+          height: 225px;
+          width: 100%; }
     html body footer {
       display: flex;
       justify-content: space-around;
       font-size: 2rem;
       color: white;
-      background-color: red; }
+      background-color: #b50707; }
       html body footer a {
         border-radius: 15px;
         width: 20%; }
@@ -97,14 +127,17 @@ html {
           border-radius: 15px;
           width: 100%; }
     html body #playerPage #hqTitle {
-      font-size: 9rem;
+      font-size: 7rem;
+      font-family: 'Bevan', cursive;
+      color: #b50707;
       text-align: center; }
     html body #playerPage .allBox {
       margin: 0 2% 20px 2%;
       padding: 40px 10%; }
       html body #playerPage .allBox .allBoxTitle {
         margin-bottom: 30px;
-        font-size: 3.5rem;
+        font-size: 4.7rem;
+        font-family: 'Special Elite',cursive;
         color: white;
         width: 80%; }
     html body #playerPage #profIdBox {
