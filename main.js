@@ -125,4 +125,51 @@ $(()=>{
     $("#currentScore").text(currentScore);
   };
 
+  // This is 1) how only the first rounds is shown on a mobile device, and 2) how the user can click to go to the next one
+  if (window.location.pathname == "/bracket-referee/group.php") {
+    var lastRound = $(".allRounds").length;
+    console.log(lastRound);
+    var initLayerNum = null;
+    if ($("#layer_0").attr("data-check") == "true") {
+      initLayerNum = 0;
+      lastRound--;
+    } else {
+      initLayerNum = 1;
+    };
+    var initLayerId = "layer_" + initLayerNum;
+    for (var layer = initLayerNum + 1; layer <= lastRound; layer++) {
+      var layerId = "#layer_" + layer;
+      console.log(layerId);
+      $(layerId).css('display','none');
+    };
+    var currentLayer = initLayerNum;
+    const checkArrows = () => {
+      if (currentLayer == initLayerNum) {
+        $("#scrollLeft").css('background-color','white');
+      } else if (currentLayer == lastRound) {
+        $("#scrollRight").css('background-color','white');
+      } else {
+        $("#scrollLeft").css('background-color','blue');
+        $("#scrollRight").css('background-color','blue');
+      };
+    };
+    checkArrows();
+    $("#scrollLeft").click(()=>{
+      if (currentLayer != initLayerNum) {
+        $("#layer_"+currentLayer).css('display','none');
+        currentLayer--;
+        $("#layer_"+currentLayer).css('display','block');
+      };
+      checkArrows();
+    });
+    $("#scrollRight").click(()=>{
+      if (currentLayer != lastRound) {
+        $("#layer_"+currentLayer).css('display','none');
+        currentLayer++;
+        $("#layer_"+currentLayer).css('display','block');
+      };
+      checkArrows();
+    });
+  };
+
 })

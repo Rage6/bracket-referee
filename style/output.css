@@ -369,6 +369,7 @@ html {
           color: black;
           font-size: 2rem; }
     html body #groupPage form {
+      margin-bottom: 50px;
       display: flex;
       justify-content: space-between; }
       html body #groupPage form input {
@@ -381,29 +382,36 @@ html {
         font-size: 3rem;
         color: white;
         background-color: blue; }
-    html body #groupPage #introTitle {
-      margin: 40px 0 20px 0;
-      font-size: 4rem;
-      text-align: center; }
     html body #groupPage #groupTitle {
-      margin-bottom: 75px;
-      font-size: 7rem;
-      text-align: center; }
+      margin: 0 0 75px 10%;
+      font-size: 5.5rem;
+      font-family: 'Staatliches', cursive; }
     html body #groupPage .allTitles {
-      margin-bottom: 20px;
-      font-size: 2.5rem;
-      text-align: center; }
+      margin: 0 0 20px 10%;
+      font-size: 3rem;
+      font-family: 'Special Elite',cursive;
+      text-align: left; }
+    html body #groupPage #tournTableTitle {
+      margin-bottom: 0px;
+      border-radius: 20px 20px 0 0;
+      padding: 30px 0;
+      color: white;
+      text-align: center;
+      background-color: grey;
+      width: 50%; }
     html body #groupPage table {
       margin: 0 0 40px 10%;
-      font-size: 2.5rem;
       text-align: center;
       width: 80%; }
       html body #groupPage table th {
-        background-color: yellow; }
+        font-size: 3rem;
+        padding: 5px 0; }
       html body #groupPage table td {
-        border: 1px solid black; }
+        font-size: 3rem;
+        padding: 5px 0; }
     html body #groupPage .allRounds {
       margin-left: 10%;
+      margin-bottom: 30px;
       font-size: 2.5rem;
       text-align: center;
       width: 80%; }
@@ -417,8 +425,14 @@ html {
           border-radius: 20px;
           width: 50%; }
     html body #groupPage #tournTable {
-      margin-bottom: 30px;
-      border: 2px solid black; }
+      margin-bottom: 80px;
+      border: 1px solid grey;
+      border-collapse: collapse; }
+      html body #groupPage #tournTable th {
+        color: white;
+        background-color: grey; }
+      html body #groupPage #tournTable td {
+        border: 3px solid grey; }
     html body #groupPage #bracketButton form input {
       margin: 20px 10% 40px 10%;
       border-radius: 55px;
@@ -427,8 +441,21 @@ html {
       color: white;
       background-color: blue;
       width: 80%; }
-    html body #groupPage .allRounds {
-      margin-bottom: 30px; }
+    html body #groupPage #groupScrollBox {
+      margin: 0 10% 40px 10%;
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      text-align: center;
+      font-size: 3rem; }
+      html body #groupPage #groupScrollBox div {
+        padding: 10px 0;
+        background-color: blue;
+        width: 30%; }
+      html body #groupPage #groupScrollBox #scrollLeft {
+        border-radius: 70px 0 0 70px; }
+      html body #groupPage #groupScrollBox #scrollRight {
+        border-radius: 0 70px 70px 0; }
     html body #groupPage #leaveGrpButton {
       margin-top: 100px;
       padding: 20px 0;

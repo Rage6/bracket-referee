@@ -126,6 +126,7 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo($grpNameResult['group_name']) ?> | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -143,24 +144,24 @@
           };
         ?>
       </form>
-      <div id="introTitle">Welcome to</div>
+      <div class="allTitles">Group:</div>
       <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
-      <div class="allTitles">Tournament:</div>
+      <div id="tournTableTitle" class="allTitles">Tournament:</div>
       <table id="tournTable">
         <tr>
-          <td>Name</td>
+          <th>Name: </td>
           <td><?php echo($tournArray['tourn_name']) ?></td>
         </tr>
         <tr>
-          <td>Rounds</td>
+          <th>Rounds: </td>
           <td><?php echo($tournArray['level_total']) ?></td>
         </tr>
         <tr>
-          <td>Start Date</td>
+          <th>Start Date: </td>
           <td><?php echo($tournArray['start_date']) ?></td>
         </tr>
         <tr>
-          <td>Director</td>
+          <th>Director: </td>
           <td>
             <?php echo($adminResult['userName']) ?>
             <?php
@@ -178,7 +179,7 @@
         if ($canJoinResult['COUNT(main_id)'] > 0) {
           echo("
           <div class='allTitles'>Current Players:</div>
-          <table border='1px solid black'>
+          <table id='playerTable'>
             <tr>
               <th>Username</th>
               <th>Bracket?</th>
@@ -236,6 +237,10 @@
         };
       ?>
       <div class="allTitles">Tournament Results</div>
+      <div id="groupScrollBox">
+        <div id="scrollLeft"> << PREV</div>
+        <div id="scrollRight"> NEXT >> </div>
+      </div>
       <?php
         $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
         $gameListStmt->execute(array(
@@ -250,10 +255,11 @@
             // if ($currentLayer != "0") {
             //   echo("</table>");
             // };
+            $roundNum = 0;
             if ($currentLayer == null) {
-              echo("<div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
+              echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'>".$roundTitle."</div>");
             } else {
-              echo("</div><div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
+              echo("</div><div id='layer_".$newLayer."' class='allRounds' data-round='".$newLayer."'><div class='rowTitle'>".$roundTitle."</div>");
             };
             $currentLayer = $newLayer;
           };
