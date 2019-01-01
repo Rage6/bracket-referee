@@ -50,7 +50,7 @@
     $joinGrpIdList[] = (int)$oneCurGrp['group_id'];
   };
   // Second, it randomly selects up to 20 groups...
-  $randomGrpsStmt = $pdo->prepare('SELECT group_name,Groups.group_id FROM Groups JOIN Groups_Players WHERE Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id<>:pid ORDER BY RAND() LIMIT 10');
+  $randomGrpsStmt = $pdo->prepare('SELECT DISTINCT group_name,Groups.group_id FROM Groups JOIN Groups_Players WHERE Groups.group_id=Groups_Players.group_id AND Groups_Players.player_id<>:pid AND private=0 ORDER BY RAND() LIMIT 10');
   $randomGrpsStmt->execute(array(
     ':pid'=>$_SESSION['player_id']
   ));

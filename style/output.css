@@ -507,6 +507,7 @@ html {
         html body #groupEditPage form #changeBox table tr td {
           border: 4px solid black;
           padding: 10px 0px;
+          color: red;
           text-align: center;
           background-color: white;
           font-size: 3rem; }
@@ -516,6 +517,9 @@ html {
             width: 99%; }
           html body #groupEditPage form #changeBox table tr td select {
             font-size: 3rem; }
+        html body #groupEditPage form #changeBox table tr #inviteLinkBox {
+          overflow-wrap: break-word;
+          word-wrap: break-word; }
       html body #groupEditPage form #changeBox #inviteBox {
         margin: 0 5%;
         display: block;

@@ -197,7 +197,7 @@
               </th>
             </tr>
             <tr>
-              <td>
+              <td id="inviteLinkBox">
                 <?php echo($inviteLink) ?>
               </td>
             </tr>
