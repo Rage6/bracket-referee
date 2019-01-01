@@ -21,11 +21,21 @@
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
         $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
-        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+        } else {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        };
         return false;
       } elseif (count($list['player_id']) > 1) {
         $_SESSION['message'] = "<b style='color:red'>An error has occured. Notify the administrator at nicholas.vogt2017@gmail.com with any details</b>";
-        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+        } else {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        };
         return false;
       } else {
         if (password_verify($_POST['password'],$list['pswd'])) {
@@ -46,13 +56,23 @@
           return true;
         } else {
           $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
-          header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+            header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+          } else {
+            header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          };
           return false;
         };
       };
     } else {
       $_SESSION['message'] = "<b style='color:red;'>All values must be entered</b>";
-      header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+        header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+      } else {
+        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      };
       return false;
     };
   };
@@ -99,27 +119,52 @@
               return true;
             } else {
               $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
-              header('Location: group_invite.php?group_id='.$_GET['group_id']);
+              // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+              if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+                header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+              } else {
+                header('Location: group_invite.php?group_id='.$_GET['group_id']);
+              };
               return false;
             };
           } else {
             $_SESSION['message'] = "<b style='color:red'>Password must be greater than 7 and less than 26 characters</b>";
-            header('Location: group_invite.php?group_id='.$_GET['group_id']);
+            // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+            if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+              header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+            } else {
+              header('Location: group_invite.php?group_id='.$_GET['group_id']);
+            };
             return false;
           };
         } else {
           $_SESSION['message'] = "<b style='color:red'>The password and confirming password must be identical</b>";
-          header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+            header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+          } else {
+            header('Location: group_invite.php?group_id='.$_GET['group_id']);
+          };
           return false;
         };
       } else {
         $_SESSION['message'] = "<b style='color:red'>Invalid email address</b>";
-        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+        } else {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        };
         return false;
       };
     } else {
       $_SESSION['message'] = "<b style='color:red'>All values must be entered</b>";
-      header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      // header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+        header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+      } else {
+        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+      };
       return false;
     };
   };
@@ -139,64 +184,77 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/output.css"/>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="main.js"></script>
     <title>Invitation | Bracket Referee</title>
   </head>
   <body>
-    <h2>Welcome!</h2>
-    <?php
-    if (isset($_SESSION['message'])) {
-      echo($_SESSION['message']);
-      unset($_SESSION['message']);
-    };
-    ?>
-    <p>
-      You have been invited to the group "<?php echo($groupInfo['group_name']) ?>" in Bracket Referee! Before joining any group, you must first either a) log in to your current account or b) create a new account. Once done, you will be sent directly to the
-    </p>
-    <div>
-      <form method="POST">
-        <table>
-          <tr>
-            <td>Email or Username </td>
-            <td><input type="text" name="userEmail"></td>
-          </tr>
-          <tr>
-            <td>Password </td>
-            <td><input type="password" name="password"></td>
-          </tr>
-        </table>
-        <input type="submit" name="confirmOld" value="ENTER">
-      </form>
-    </div>
-    <div>
-      <form method='POST'>
-        <table>
-          <tr>
-            <td>Username</td>
-            <td><input type='text' name='newUser'/></td>
-          </tr>
-          <tr>
-            <td>First Name</td>
-            <td><input text='text' name='newFirst'/></td>
-          </tr>
-          <tr>
-            <td>Last Name</td>
-            <td><input type='text' name='newLast'/></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td><input type='text' name='newEmail'/></td>
-          </tr>
-          <tr>
-            <td>Password</td>
-            <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
-          </tr>
-          <tr>
-            <td>Confirm Password</td>
-            <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
-          </tr>
-        </table>
-        <input type='submit' name='makeNew' value='ENTER'/>
-      </form>
+    <div id="invitePage">
+      <div id="contentBody">
+        <div id="inviteTitle">
+          You're Invited To The <u>Bracket Referee</u>!
+        </div>
+        <?php
+        if (isset($_SESSION['message'])) {
+          echo($_SESSION['message']);
+          unset($_SESSION['message']);
+        };
+        ?>
+        <p>
+          You have been invited to the group "<?php echo($groupInfo['group_name']) ?>" in Bracket Referee! Before joining any group, you must first either a) log in to your current account or b) create a new account. Once done, you will be sent directly to the
+        </p>
+        <div>
+          <form method="POST">
+            <table>
+              <tr>
+                <td>Email or Username </td>
+                <td><input type="text" name="userEmail"></td>
+              </tr>
+              <tr>
+                <td>Password </td>
+                <td><input type="password" name="password"></td>
+              </tr>
+            </table>
+            <input type="submit" name="confirmOld" value="ENTER">
+          </form>
+        </div>
+        <div>
+          <form method='POST'>
+            <table>
+              <tr>
+                <td>Username</td>
+                <td><input type='text' name='newUser'/></td>
+              </tr>
+              <tr>
+                <td>First Name</td>
+                <td><input text='text' name='newFirst'/></td>
+              </tr>
+              <tr>
+                <td>Last Name</td>
+                <td><input type='text' name='newLast'/></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input type='text' name='newEmail'/></td>
+              </tr>
+              <tr>
+                <td>Password</td>
+                <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
+              </tr>
+              <tr>
+                <td>Confirm Password</td>
+                <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
+              </tr>
+            </table>
+            <input type='submit' name='makeNew' value='ENTER'/>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

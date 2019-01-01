@@ -675,6 +675,7 @@ html {
             margin: 20px 0 0 5%;
             border: 4px solid black;
             border-collapse: collapse;
+            table-layout: fixed;
             font-size: 3.5rem;
             width: 90%;
             tr {
@@ -688,7 +689,6 @@ html {
               td {
                 border: 4px solid black;
                 padding: 10px 0px;
-                color: red;
                 text-align: center;
                 background-color: white;
                 font-size: 3rem;
@@ -705,6 +705,8 @@ html {
                 };
               };
               #inviteLinkBox {
+                padding: 20px 5%;
+                text-align: left;
                 overflow-wrap: break-word;
                 word-wrap: break-word;
               };
@@ -715,30 +717,18 @@ html {
             display: block;
             font-size: 4rem;
             width: 90%;
-            #inviteTitle {
-              text-align: center;
-              background-color: lightgrey;
-            };
-            #bothClicks {
-              margin: 0;
+            .inviteQ {
+              margin-bottom: 0;
+              padding: 10px 5%;
               display: block;
-              .statusClick {
-                border: 1px solid red;
-                width: 50%;
-              };
-              div {
-                margin: 0;
-                #privateClick {
-
-                };
-                #publicClick {
-
-                };
-              };
-              #statusInfo {
-                display: block;
-                background-color: white;
-              };
+              background-color: lightgrey;
+              text-align: center;
+            };
+            .inviteA {
+              margin-top: 0;
+              padding: 10px 5%;
+              display: block;
+              background-color: white;
             };
           };
           div {
@@ -800,6 +790,22 @@ html {
               vertical-align: middle;
             };
           };
+        };
+      };
+    };
+
+    // ----------- GROUP_INVITE.PHP FILE BEGINS -----------
+    #invitePage {
+      padding: 20px 0;
+      background-color: lightgrey;
+      #contentBody {
+        margin: 0 5%;
+        background-color: white;
+        #inviteTitle {
+          font-size: 7rem;
+          color: rgb(181,7,7);
+          text-align: center;
+          font-family: 'Bevan', cursive;
         };
       };
     };

@@ -203,22 +203,35 @@
             </tr>
           </table>
           <div id="inviteBox">
-            <div id="inviteTitle">
-              Q) How Does 'Invite' Work?</br>
-              A) The 'Invite' tool provides a link for you to send to other desired players. An Invite's privacy settings helps you make your group more or less selective. The details of 'private' and 'public' can be read below.</br>
+            <div style="color:white">Group Q & A</div>
+            <div class="inviteQ">
+              What does the Invite Link do?
             </div>
-            <div id="bothClicks">
-              <div>
-                <div id="publicClick" class="statusClick">
-                  Public
-                </div>
-                <div id="privateClick" class="statusClick">
-                  Private
-                </div>
-              </div>
-              <div id="statusInfo">
-                This is explains the status selected...
-              </div>
+            <div class="inviteA">
+              The 'Invite Link' tool provides you a link which you can send to others as a quick, easy way for them to join Bracket Referee and join your group.
+            </div>
+            <div class="inviteQ">
+              What does the 'Invite Status' mean?
+            </div>
+            <div class="inviteA">
+              'Invite Status' helps make your group more (or less) selective. The two settings are 'PRIVATE' or 'PUBLIC'.
+            </div>
+            <div class="inviteQ">
+              What does 'PRIVATE' or 'PUBLIC' cause?
+            </div>
+            <div class="inviteA">
+              <u>PRIVATE:</u>
+              <ul>
+                <li>'Invite Link' includes unique password</li>
+                <li>Cannot be found with the 'Search For A Group' tool</li>
+                <li>Is not displayed on the 'Available Groups' board</li>
+              </ul>
+              <u>PUBLIC:</u>
+              <ul>
+                <li>'Invite Link' uses generic link without a password</li>
+                <li>Can be found with the 'Search For A Group' tool</li>
+                <li>Can be displayed on the 'Available Groups' board</li>
+              </ul>
             </div>
           </div>
           <div>

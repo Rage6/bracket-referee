@@ -239,7 +239,7 @@
               <?php
                 $nameList = null;
                 if (isset($_SESSION['search'])) {
-                  $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE group_name LIKE :nm');
+                  $findList = $pdo->prepare('SELECT group_name,group_id,admin_id FROM Groups WHERE private=0 AND group_name LIKE :nm');
                   $findList->execute(array(
                     ':nm'=>"%".$_SESSION['search']."%"
                   ));
