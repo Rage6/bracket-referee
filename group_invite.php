@@ -38,7 +38,11 @@
           ));
           $_SESSION['token'] = $token;
           $_SESSION['player_id'] = $list['player_id'];
-          header('Location: group.php?group_id='.$_GET['group_id']);
+          if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+            header('Location: group.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+          } else {
+            header('Location: group.php?group_id='.$_GET['group_id']);
+          };
           return true;
         } else {
           $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
@@ -87,7 +91,11 @@
               $_SESSION['player_id'] = $newID['player_id'];
               $_SESSION['token'] = $token;
               $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-              header('Location: group.php?group_id='.$_GET['group_id']);
+              if (isset($_GET['invite']) && isset($_GET['link_key'])) {
+                header('Location: group.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+              } else {
+                header('Location: group.php?group_id='.$_GET['group_id']);
+              };
               return true;
             } else {
               $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";

@@ -2,28 +2,32 @@
   session_start();
   require_once("pdo.php");
 
+  $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+  $ifInviteStmt->execute(array(
+    ':gp'=>htmlentities($_GET['group_id'])
+  ));
+  $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
+
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
     if (isset($_GET['invite'])) {
-      $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
-      $ifInviteStmt->execute(array(
-        ':gp'=>htmlentities($_GET['group_id'])
-      ));
-      $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
+      // $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+      // $ifInviteStmt->execute(array(
+      //   ':gp'=>htmlentities($_GET['group_id'])
+      // ));
+      // $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
       if ($ifInvite['private'] == 1) {
+        // Example (Private): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=1111111111
         if ($_GET['link_key'] == $ifInvite['link_key']) {
-          // $_SESSION['message'] = "<b style='color:green'>You have been invited to the PRIVATE group, ".$ifInvite['group_name'].".</b>";
-          // $_SESSION['group_id'] = htmlentities($_GET['group_id']);
-          header('Location: group_invite.php?group_id='.$_GET['group_id']."&link_key=".$_GET['link_key']);
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
           return true;
         } else {
-          $_SESSION['message'] = "<b style='color:red'>Your invitation link was incorrect. Contact the group creator in order to get the correct link.";
+          $_SESSION['message'] = "<b style='color:red'>Your invitation link was incorrect. Contact the group creator in order to get the correct link.</b>";
           header('Location: index.php');
           return false;
         };
       } else {
-        // $_SESSION['message'] = "<b style='color:green'>You have been invited to the PUBLIC group, ".$ifInvite['group_name'].".</b>";
-        // $_SESSION['group_id'] = htmlentities($_GET['group_id']);
+        // Example (Public): http://localhost:8888/bracket-referee/group.php?group_id=2&invite=true
         header('Location: group_invite.php?group_id='.$_GET['group_id']);
         return false;
       };
@@ -75,6 +79,29 @@
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
+
+  // This determines if a) the group is 'private' and b) if the current player is already joined. If not joined, it will confirm that they are invited and with the correct link_key
+  if ($ifInvite['private'] == 1) {
+    $isMember = false;
+    while ($checkPlayerId = $grpAllStmt->fetch(PDO::FETCH_ASSOC)['player_id']) {
+      if ($checkPlayerId == $_SESSION['player_id']) {
+        $isMember = true;
+      };
+    };
+    if ($isMember == false) {
+      if ($_GET['invite'] == true) {
+        if ($ifInvite['link_key'] != $_GET['link_key']) {
+          $_SESSION['message'] = "<b style='color:red'>Your invite key was incorrect</b>";
+          header('Location: player.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<b style='color:red'>This private group requiring an invite link</b>";
+        header('Location: player.php');
+        return false;
+      };
+    };
+  };
 
   // Recalls the tournament's info for this group
   // $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date,bracket_id FROM Groups JOIN Tournaments JOIN Brackets WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
