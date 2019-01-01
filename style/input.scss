@@ -672,7 +672,7 @@ html {
           padding: 20px 0;
           background-color: grey;
           table {
-            margin-left: 5%;
+            margin: 20px 0 0 5%;
             border: 4px solid black;
             border-collapse: collapse;
             font-size: 3.5rem;
@@ -688,12 +688,51 @@ html {
               td {
                 border: 4px solid black;
                 padding: 10px 0px;
+                text-align: center;
                 background-color: white;
+                font-size: 3rem;
                 input {
                   font-size: 3rem;
                   text-align: center;
                   width: 99%;
                 };
+                select {
+                  font-size: 3rem;
+                  option {
+
+                  };
+                };
+              };
+            };
+          };
+          #inviteBox {
+            margin: 0 5%;
+            display: block;
+            font-size: 4rem;
+            width: 90%;
+            #inviteTitle {
+              text-align: center;
+              background-color: lightgrey;
+            };
+            #bothClicks {
+              margin: 0;
+              display: block;
+              .statusClick {
+                border: 1px solid red;
+                width: 50%;
+              };
+              div {
+                margin: 0;
+                #privateClick {
+
+                };
+                #publicClick {
+
+                };
+              };
+              #statusInfo {
+                display: block;
+                background-color: white;
               };
             };
           };

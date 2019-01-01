@@ -493,7 +493,7 @@ html {
       padding: 20px 0;
       background-color: grey; }
       html body #groupEditPage form #changeBox table {
-        margin-left: 5%;
+        margin: 20px 0 0 5%;
         border: 4px solid black;
         border-collapse: collapse;
         font-size: 3.5rem;
@@ -507,11 +507,34 @@ html {
         html body #groupEditPage form #changeBox table tr td {
           border: 4px solid black;
           padding: 10px 0px;
-          background-color: white; }
+          text-align: center;
+          background-color: white;
+          font-size: 3rem; }
           html body #groupEditPage form #changeBox table tr td input {
             font-size: 3rem;
             text-align: center;
             width: 99%; }
+          html body #groupEditPage form #changeBox table tr td select {
+            font-size: 3rem; }
+      html body #groupEditPage form #changeBox #inviteBox {
+        margin: 0 5%;
+        display: block;
+        font-size: 4rem;
+        width: 90%; }
+        html body #groupEditPage form #changeBox #inviteBox #inviteTitle {
+          text-align: center;
+          background-color: lightgrey; }
+        html body #groupEditPage form #changeBox #inviteBox #bothClicks {
+          margin: 0;
+          display: block; }
+          html body #groupEditPage form #changeBox #inviteBox #bothClicks .statusClick {
+            border: 1px solid red;
+            width: 50%; }
+          html body #groupEditPage form #changeBox #inviteBox #bothClicks div {
+            margin: 0; }
+          html body #groupEditPage form #changeBox #inviteBox #bothClicks #statusInfo {
+            display: block;
+            background-color: white; }
       html body #groupEditPage form #changeBox div {
         margin-top: 50px;
         display: flex;

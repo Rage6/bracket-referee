@@ -4,9 +4,34 @@
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
-    $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to join a group.</b>";
-    header('Location: index.php');
-    return false;
+    if (isset($_GET['invite'])) {
+      $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+      $ifInviteStmt->execute(array(
+        ':gp'=>htmlentities($_GET['group_id'])
+      ));
+      $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
+      if ($ifInvite['private'] == 1) {
+        if ($_GET['link_key'] == $ifInvite['link_key']) {
+          // $_SESSION['message'] = "<b style='color:green'>You have been invited to the PRIVATE group, ".$ifInvite['group_name'].".</b>";
+          // $_SESSION['group_id'] = htmlentities($_GET['group_id']);
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&link_key=".$_GET['link_key']);
+          return true;
+        } else {
+          $_SESSION['message'] = "<b style='color:red'>Your invitation link was incorrect. Contact the group creator in order to get the correct link.";
+          header('Location: index.php');
+          return false;
+        };
+      } else {
+        // $_SESSION['message'] = "<b style='color:green'>You have been invited to the PUBLIC group, ".$ifInvite['group_name'].".</b>";
+        // $_SESSION['group_id'] = htmlentities($_GET['group_id']);
+        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to join a group.</b>";
+      header('Location: index.php');
+      return false;
+    };
   };
 
   // Prevents someone from manually switching players after logging in
