@@ -45,9 +45,14 @@
     ':gid'=>$urlId
   ));
   $linkKey = $inviteStatus->fetch(PDO::FETCH_ASSOC)['link_key'];
-  // Local URL
+
+  // Localhost URL
   $privateLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
   $publicLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+  // Heroku URL
+  // $privateLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
+  // $publicLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+
   $inviteStatus->execute(array(
     ':gid'=>$urlId
   ));
