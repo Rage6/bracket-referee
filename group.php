@@ -2,11 +2,40 @@
   session_start();
   require_once("pdo.php");
 
+  $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+  $ifInviteStmt->execute(array(
+    ':gp'=>htmlentities($_GET['group_id'])
+  ));
+  $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
+
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
-    $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to join a group.</b>";
-    header('Location: index.php');
-    return false;
+    if (isset($_GET['invite'])) {
+      // $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+      // $ifInviteStmt->execute(array(
+      //   ':gp'=>htmlentities($_GET['group_id'])
+      // ));
+      // $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
+      if ($ifInvite['private'] == 1) {
+        // Example (Private, "The First One"): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=11111111111111111111
+        if ($_GET['link_key'] == $ifInvite['link_key']) {
+          header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
+          return true;
+        } else {
+          $_SESSION['message'] = "<b style='color:red'>Your invitation link was incorrect. Contact the group creator in order to get the correct link.</b>";
+          header('Location: index.php');
+          return false;
+        };
+      } else {
+        // Example (Public): http://localhost:8888/bracket-referee/group.php?group_id=2&invite=true
+        header('Location: group_invite.php?group_id='.$_GET['group_id']);
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to join a group.</b>";
+      header('Location: index.php');
+      return false;
+    };
   };
 
   // Prevents someone from manually switching players after logging in
@@ -50,6 +79,29 @@
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
+
+  // This determines if a) the group is 'private' and b) if the current player is already joined. If not joined, it will confirm that they are invited and with the correct link_key
+  if ($ifInvite['private'] == 1) {
+    $isMember = false;
+    while ($checkPlayerId = $grpAllStmt->fetch(PDO::FETCH_ASSOC)['player_id']) {
+      if ($checkPlayerId == $_SESSION['player_id']) {
+        $isMember = true;
+      };
+    };
+    if ($isMember == false) {
+      if ($_GET['invite'] == true) {
+        if ($ifInvite['link_key'] != $_GET['link_key']) {
+          $_SESSION['message'] = "<b style='color:red'>Your invite key was incorrect</b>";
+          header('Location: player.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<b style='color:red'>This private group requiring an invite link</b>";
+        header('Location: player.php');
+        return false;
+      };
+    };
+  };
 
   // Recalls the tournament's info for this group
   // $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date,bracket_id FROM Groups JOIN Tournaments JOIN Brackets WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
@@ -126,6 +178,7 @@
   <head>
     <meta charset="utf-8">
     <title><?php echo($grpNameResult['group_name']) ?> | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -143,24 +196,24 @@
           };
         ?>
       </form>
-      <div id="introTitle">Welcome to</div>
+      <div class="allTitles">Group:</div>
       <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
-      <div class="allTitles">Tournament:</div>
+      <div id="tournTableTitle" class="allTitles">Tournament:</div>
       <table id="tournTable">
         <tr>
-          <td>Name</td>
+          <th>Name: </td>
           <td><?php echo($tournArray['tourn_name']) ?></td>
         </tr>
         <tr>
-          <td>Rounds</td>
+          <th>Rounds: </td>
           <td><?php echo($tournArray['level_total']) ?></td>
         </tr>
         <tr>
-          <td>Start Date</td>
+          <th>Start Date: </td>
           <td><?php echo($tournArray['start_date']) ?></td>
         </tr>
         <tr>
-          <td>Director</td>
+          <th>Director: </td>
           <td>
             <?php echo($adminResult['userName']) ?>
             <?php
@@ -178,7 +231,7 @@
         if ($canJoinResult['COUNT(main_id)'] > 0) {
           echo("
           <div class='allTitles'>Current Players:</div>
-          <table border='1px solid black'>
+          <table id='playerTable'>
             <tr>
               <th>Username</th>
               <th>Bracket?</th>
@@ -236,6 +289,10 @@
         };
       ?>
       <div class="allTitles">Tournament Results</div>
+      <div id="groupScrollBox">
+        <div id="scrollLeft"> << PREV</div>
+        <div id="scrollRight"> NEXT >> </div>
+      </div>
       <?php
         $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
         $gameListStmt->execute(array(
@@ -250,10 +307,11 @@
             // if ($currentLayer != "0") {
             //   echo("</table>");
             // };
+            $roundNum = 0;
             if ($currentLayer == null) {
-              echo("<div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
+              echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'>".$roundTitle."</div>");
             } else {
-              echo("</div><div class='allRounds'><div class='rowTitle'>".$roundTitle."</div>");
+              echo("</div><div id='layer_".$newLayer."' class='allRounds' data-round='".$newLayer."'><div class='rowTitle'>".$roundTitle."</div>");
             };
             $currentLayer = $newLayer;
           };

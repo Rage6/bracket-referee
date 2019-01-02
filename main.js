@@ -1,5 +1,9 @@
 $(()=>{
-  console.log("main.js is active again...");
+  console.log("main.js is active...");
+
+  // Measures the background box and adjusts the word lines accordingly
+  var titleHeight = $('#indexWords').height();
+  $('#indexTitle').css('height',titleHeight);
 
   $('#logForm').hide();
   $('#signForm').hide();
@@ -120,5 +124,68 @@ $(()=>{
     var currentScore = $("#bottomPoints").text();
     $("#currentScore").text(currentScore);
   };
+
+  // This is 1) how only the first rounds is shown on a mobile device, and 2) how the user can click to go to the next one
+  if (window.location.pathname == "/bracket-referee/group.php") {
+    var lastRound = $(".allRounds").length;
+    console.log(lastRound);
+    var initLayerNum = null;
+    if ($("#layer_0").attr("data-check") == "true") {
+      initLayerNum = 0;
+      lastRound--;
+    } else {
+      initLayerNum = 1;
+    };
+    var initLayerId = "layer_" + initLayerNum;
+    for (var layer = initLayerNum + 1; layer <= lastRound; layer++) {
+      var layerId = "#layer_" + layer;
+      console.log(layerId);
+      $(layerId).css('display','none');
+    };
+    var currentLayer = initLayerNum;
+    const checkArrows = () => {
+      if (currentLayer == initLayerNum) {
+        $("#scrollLeft").css('background-color','white');
+      } else if (currentLayer == lastRound) {
+        $("#scrollRight").css('background-color','white');
+      } else {
+        $("#scrollLeft").css('background-color','blue');
+        $("#scrollRight").css('background-color','blue');
+      };
+    };
+    checkArrows();
+    $("#scrollLeft").click(()=>{
+      if (currentLayer != initLayerNum) {
+        $("#layer_"+currentLayer).css('display','none');
+        currentLayer--;
+        $("#layer_"+currentLayer).css('display','block');
+      };
+      checkArrows();
+    });
+    $("#scrollRight").click(()=>{
+      if (currentLayer != lastRound) {
+        $("#layer_"+currentLayer).css('display','none');
+        currentLayer++;
+        $("#layer_"+currentLayer).css('display','block');
+      };
+      checkArrows();
+    });
+  };
+
+  // Opens the 'Login' box and closes the 'Create' box on group_invite.php
+  $("#inviteLogin").click(()=>{
+    $("#inviteLogin").css('border-radius','20px 20px 0 0');
+    $("#inviteCreate").css('border-radius','20px 20px 0 0');
+    $("#inviteLoginBox").css('display','block');
+    $("#inviteCreateBox").css('display','none');
+  });
+
+  // Opens the 'Create' box and closes the 'Login' box on group_invite.php
+  $("#inviteCreate").click(()=>{
+    $("#inviteCreate").css('border-radius','20px 20px 0 0');
+    $("#inviteLogin").css('border-radius','20px 20px 0 0');
+    $("#inviteCreateBox").css('display','block');
+    $("#inviteLoginBox").css('display','none');
+  });
 
 })

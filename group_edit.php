@@ -39,22 +39,42 @@
   // The current group_id
   $urlId = htmlentities($_GET['group_id']);
 
+  // Puts together the 'invite link' to this group
+  $inviteStatus = $pdo->prepare('SELECT link_key,private FROM Groups WHERE group_id=:gid');
+  $inviteStatus->execute(array(
+    ':gid'=>$urlId
+  ));
+  $linkKey = $inviteStatus->fetch(PDO::FETCH_ASSOC)['link_key'];
+  // Local URL
+  $privateLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
+  $publicLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+  $inviteStatus->execute(array(
+    ':gid'=>$urlId
+  ));
+  $private = $inviteStatus->fetch(PDO::FETCH_ASSOC)['private'];
+  if ($private == 1) {
+    $inviteLink = $privateLink;
+  } else {
+    $inviteLink = $publicLink;
+  };
+
   if (isset($_POST['submitEdit'])) {
-    // $urlId = htmlentities($_GET['group_id']);
-    if ($adminId['group_name'] != $_POST['new_name']) {
+    if ($adminId['group_name'] == $_POST['new_name'] && $private == $_POST['is_private']) {
+      header('Location: group_edit.php?group_id='.$urlId);
+    } else {
       if (strlen($_POST['new_name'])) {
-        $editStmt = $pdo->prepare('UPDATE Groups SET group_name=:nw WHERE group_id=:id');
+        $privateInt = intval($_POST['is_private']);
+        $editStmt = $pdo->prepare('UPDATE Groups SET group_name=:nw, private=:pv WHERE group_id=:id');
         $editStmt->execute(array(
           ':id'=>$urlId,
-          ':nw'=>htmlentities($_POST['new_name'])
+          ':nw'=>htmlentities($_POST['new_name']),
+          ':pv'=>$privateInt
         ));
         $_SESSION['message'] = "<b style='color:green'>Change completed</b>";
         header('Location: group.php?group_id='.$urlId);
         return true;
       };
-    } else {
-      header('Location: group_edit.php?group_id='.$urlId);
-    }
+    };
   };
 
   // Delete this group and it's linking table in the Groups_Players.php file
@@ -147,7 +167,73 @@
                 <input type="text" name="new_name" value="<?php echo($adminId['group_name']) ?>"/>
               </td>
             </tr>
+            <tr>
+              <th>Invite Status</th>
+              <td>
+                <?php
+                  if ($private == 1) {
+                    $currStatus = "PRIVATE";
+                    $currValue = 1;
+                    $otherStatus = "PUBLIC";
+                    $otherValue = 0;
+                  } else {
+                    $currStatus = "PUBLIC";
+                    $currValue = 0;
+                    $otherStatus = "PRIVATE";
+                    $otherValue = 1;
+                  };
+                ?>
+                <select name="is_private">
+                  <option value=<?php echo($currValue) ?>><?php echo($currStatus) ?></option>
+                  <option value=<?php echo($otherValue) ?>><?php echo($otherStatus) ?></option>
+                </select>
+              </td>
+            </tr>
           </table>
+          <table>
+            <tr>
+              <th>
+                Invite Link
+              </th>
+            </tr>
+            <tr>
+              <td id="inviteLinkBox">
+                <?php echo($inviteLink) ?>
+              </td>
+            </tr>
+          </table>
+          <div id="inviteBox">
+            <div style="color:white">Group Q & A</div>
+            <div class="inviteQ">
+              What does the Invite Link do?
+            </div>
+            <div class="inviteA">
+              The 'Invite Link' tool provides you a link which you can send to others as a quick, easy way for them to join Bracket Referee and join your group.
+            </div>
+            <div class="inviteQ">
+              What does the 'Invite Status' mean?
+            </div>
+            <div class="inviteA">
+              'Invite Status' helps make your group more (or less) selective. The two settings are 'PRIVATE' or 'PUBLIC'.
+            </div>
+            <div class="inviteQ">
+              What does 'PRIVATE' or 'PUBLIC' cause?
+            </div>
+            <div class="inviteA">
+              <u>PRIVATE:</u>
+              <ul>
+                <li>'Invite Link' includes unique password</li>
+                <li>Cannot be found with the 'Search For A Group' tool</li>
+                <li>Is not displayed on the 'Available Groups' board</li>
+              </ul>
+              <u>PUBLIC:</u>
+              <ul>
+                <li>'Invite Link' uses generic link without a password</li>
+                <li>Can be found with the 'Search For A Group' tool</li>
+                <li>Can be displayed on the 'Available Groups' board</li>
+              </ul>
+            </div>
+          </div>
           <div>
             <input id="submitEnter" type="submit" name="submitEdit" value="ENTER" />
             <input type="submit" name="cancelEdit" value="CANCEL" />

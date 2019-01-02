@@ -4,18 +4,29 @@ html {
   body {
     margin: 0px;
     padding: 0px;
-
     // ----------- INDEX.PHP FILE BEGINS -----------
     #indexTitle {
       margin: 0px;
       padding: 0px;
-      color: black;
-      text-align: center;
-      // background-image: url("img/ball_ref.jpg");
+      background-image: url("img/ball_ref.jpg");
+      opacity: 0.3;
       background-size: cover;
+    };
+    #indexWords {
+      margin: 0px;
+      padding: 0px;
+      color: rgb(181,7,7);
+      text-align: center;
+      background-color: none;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      z-index: 1;
+      width: 100%;
       p {
         margin: 0px;
         font-size: 12rem;
+        font-family: 'Bevan', cursive;
       };
     };
     #bothAcctButtons {
@@ -23,6 +34,7 @@ html {
       justify-content: space-around;
       color: white;
       font-size: 5rem;
+      font-family: 'Staatliches', cursive;
       text-align: center;
       #logButton {
         padding: 30px 0px;
@@ -43,7 +55,6 @@ html {
         width: 100%;
         tbody {
           tr {
-            // border: 1px solid white;
             padding: 5px 0px;
             td {
               font-size: 3rem;
@@ -80,13 +91,19 @@ html {
       color: white;
       background-color: green;
     };
+    #message {
+      margin: 30px 0;
+      padding: 0 5%;
+      text-align: center;
+      font-size: 3rem;
+    };
     #indexMain {
       margin-top: 20px;
-      background-color: orange;
       #motto {
         padding: 30px 0 30px 10%;
         color: white;
         font-size: 4rem;
+        font-family: 'Special Elite',cursive;
         text-align: left;
         background-color: grey;
         p {
@@ -94,21 +111,37 @@ html {
         }
       };
       #indexIntro {
-        margin: 50px 10% 0px 10%;
+        margin: 50px 0% 0px 0%;
         text-align: center;
-        b {;
-          font-size: 5rem;
-        };
-        p {
-          padding-bottom: 30px;
-          text-align: left;
-          font-size: 3rem;
-        };
-        ul {
-          li {
-            text-align: left;
-            font-size: 1.8rem;
+        .introParagraph {
+          margin: 0 10% 0 10%;
+          b {;
+            font-size: 5rem;
+            font-family: 'Staatliches', cursive;
           };
+          p {
+            padding-bottom: 30px;
+            text-align: left;
+            font-size: 3rem;
+            font-family: 'Catamaran', sans-serif;
+          };
+          div {
+            border: 5px dashed black;
+            padding: 0 5%;
+            ul {
+              li {
+                text-align: left;
+                font-size: 2rem;
+                font-family: 'Catamaran', sans-serif;
+              };
+            };
+          };
+        };
+        .imageBorder {
+          margin-bottom: 100px;
+          background-size: cover;
+          height: 225px;
+          width: 100%;
         };
       };
     };
@@ -117,7 +150,7 @@ html {
       justify-content: space-around;
       font-size: 2rem;
       color: white;
-      background-color: red;
+      background-color: rgb(181,7,7);;
       a {
         border-radius: 15px;
         width: 20%;
@@ -132,86 +165,121 @@ html {
     // ----------- PLAYER.PHP FILE BEGINS -----------
     #playerPage {
       #hqTitle {
-        font-size: 9rem;
+        margin: 50px 0;
+        font-size: 7rem;
+        font-family: 'Bevan', cursive;
+        color: rgb(181,7,7);
         text-align: center;
       };
       .allBox {
-        margin: 0 2% 20px 2%;
-        padding: 40px 10%;
-        .allBoxTitle {
-          margin-bottom:30px;
-          font-size:3.5rem;
-          color:white;
-          width:80%;
+        margin: 0 2% 130px 2%;
+        padding: 120px 0;
+        background-size: cover;
+        .allInnerBox {
+          padding: 40px 10%;
+          border-left: 1px solid grey;
+          border-right: 1px solid grey;
+          background-color: white;
+          .allBoxTitle {
+            margin-bottom:30px;
+            font-size:4.7rem;
+            font-family: 'Special Elite',cursive;
+            color:rgb(181,7,7);
+            width:80%;
+          };
         };
       };
       #profIdBox {
-        background-color: grey;
+        // border-color: grey;
+        border-radius: 30px;
+        color: rgb(181,7,7);
+        background-image: url('https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612');
         #profIdTable {
-          border: 3px solid black;
           background-color: white;
           width: 100%;
           tr {
             font-size: 3rem;
             td {
-              border: 2px solid black;
-              border-collapse: collapse;
+              border: 2px solid grey;
+              color: black;
               text-align: center;
             };
             .profTitle {
-              background-color: yellow;
+              border: none;
+              color: white;
+              background-color: grey;
             };
           };
         };
         #profIdBtns {
-          margin: 20px 20%;
+          margin: 80px 0 20px 0;
           display: flex;;
-          justify-content: space-around;
+          justify-content: space-between;
           input {
             border-radius: 15px;
-            padding: 10px 20px;
-            font-size: 3rem;
+            padding: 10px 40px;
+            font-size: 4rem;
             color: white;
           };
           #plrEdit {
             background-color: blue;
           };
           #plrLogOut {
-            background-color: orange;
+            background-color: rgb(183, 76, 55);
           };
         };
       };
       #grpListBox {
-        background-color: blue;
-        table {
-          border: 3px solid black;
+        // border: 1px solid blue;
+        border-radius: 30px;
+        background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
+        #completeList {
           background-color: white;
           width: 100%;
-          tr {
-            font-size: 3rem;
-            th {
-              background-color: yellow;
-            };
-            td {
-              border: 2px solid black;
-              border-collapse: collapse;
-              text-align: center;
+          font-size: 3.5rem;
+          #listTitle {
+            display: none;
+            text-align: center;
+            background-color: yellow;
+          };
+          a {
+            text-decoration: none;
+            color: white;
+            .listContent {
+              margin-top: 20px;
+              border-radius: 0 50px 50px 0 ;
+              padding: 20px 10% 20px 5%;
+              display: flex;
+              justify-content: space-between;
+              background-color: blue;
+              .rightArrow {
+                height: 0;
+                width: 0;
+                margin-top: 15px;
+                border-top: 20px solid transparent;
+                border-left: 40px solid white;
+                border-bottom: 20px solid transparent;
+                border-right: 0px solid transparent;
+              };
             };
           };
         };
       };
       #groupBox {
-        background-color: green;
+        // border-color: green;
+        border-radius: 30px;
+        background-image: url('https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg');
         .newGrpOption {
           margin: 20px 0;
-          border: 2px solid white;
-          padding: 10px 2%;
+          border-radius: 15px;
+          padding: 20px 5%;
+          background-color: green;
           .allOptTitle {
             display: flex;
             justify-content: space-between;
             text-align: center;
             font-size:3.5rem;
-            color:white;
+            color: white;
             width:100%;
           };
           #findGroup {
@@ -239,10 +307,13 @@ html {
                 padding: 5px 10px;
                 border: 1px solid black;
                 border-radius: 15px;
-                background-color: yellow;
+                font-size: 2.5rem;
+                background-color: lightgrey;
+                width: 30%;
               };
               input {
                 font-size: 3rem;
+                width: 60%;
               };
             };
           };
@@ -313,7 +384,8 @@ html {
             text-decoration: none;
             background-color: white;
             p {
-              padding: 10px 5%;
+              padding: 0 3%;
+              font-size: 1.2rem;
             };
           };
         };
@@ -433,6 +505,7 @@ html {
     // ----------- GROUP.PHP FILE BEGINS -----------
     #groupPage {
       form {
+        margin-bottom: 50px;
         display: flex;
         justify-content: space-between;
         input {
@@ -448,35 +521,42 @@ html {
           background-color: blue;
         };
       };
-      #introTitle {
-        margin: 40px 0 20px 0;
-        font-size: 4rem;
-        text-align: center;
-      };
       #groupTitle {
-        margin-bottom: 75px;
-        font-size: 7rem;
-        text-align: center;
+        margin: 0 0 75px 10%;
+        font-size: 5.5rem;
+        font-family: 'Staatliches', cursive;
       };
       .allTitles {
-        margin-bottom: 20px;
-        font-size: 2.5rem;
+        margin: 0 0 20px 10%;
+        font-size: 3rem;
+        font-family: 'Special Elite',cursive;
+        text-align: left;
+      };
+      #tournTableTitle {
+        margin-bottom: 0px;
+        border-radius: 20px 20px 0 0;
+        padding: 30px 0;
+        color: white;
         text-align: center;
+        background-color: grey;
+        width: 50%;
       };
       table {
         margin: 0 0 40px 10%;
-        font-size: 2.5rem;
         text-align: center;
         width: 80%;
         th {
-          background-color: yellow;
+          font-size: 3rem;
+          padding: 5px 0;
         };
         td {
-          border: 1px solid black;
+          font-size: 3rem;
+          padding: 5px 0;
         }
       };
       .allRounds {
         margin-left: 10%;
+        margin-bottom: 30px;
         font-size: 2.5rem;
         text-align: center;
         width: 80%;
@@ -494,8 +574,19 @@ html {
         }
       };
       #tournTable {
-        margin-bottom: 30px;
-        border: 2px solid black;
+        margin-bottom: 80px;
+        border: 1px solid grey;
+        border-collapse: collapse;
+        th {
+          color: white;
+          background-color: grey;
+        };
+        td {
+          border: 3px solid grey;
+        };
+      };
+      #playerTable {
+
       };
       #bracketButton {
         form {
@@ -510,8 +601,27 @@ html {
           };
         };
       };
-      .allRounds {
-        margin-bottom: 30px;
+      // .allRounds {
+      //   margin-bottom: 30px;
+      // };
+      #groupScrollBox {
+        margin: 0 10% 40px 10%;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+        text-align: center;
+        font-size: 3rem;
+        div {
+          padding: 10px 0;
+          background-color: blue;
+          width: 30%;
+        };
+        #scrollLeft {
+          border-radius: 70px 0 0 70px;
+        };
+        #scrollRight {
+          border-radius: 0 70px 70px 0;
+        };
       };
       #leaveGrpButton {
         margin-top: 100px;
@@ -562,9 +672,10 @@ html {
           padding: 20px 0;
           background-color: grey;
           table {
-            margin-left: 5%;
+            margin: 20px 0 0 5%;
             border: 4px solid black;
             border-collapse: collapse;
+            table-layout: fixed;
             font-size: 3.5rem;
             width: 90%;
             tr {
@@ -578,13 +689,46 @@ html {
               td {
                 border: 4px solid black;
                 padding: 10px 0px;
+                text-align: center;
                 background-color: white;
+                font-size: 3rem;
                 input {
                   font-size: 3rem;
                   text-align: center;
                   width: 99%;
                 };
+                select {
+                  font-size: 3rem;
+                  option {
+
+                  };
+                };
               };
+              #inviteLinkBox {
+                padding: 20px 5%;
+                text-align: left;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+              };
+            };
+          };
+          #inviteBox {
+            margin: 0 5%;
+            display: block;
+            font-size: 4rem;
+            width: 90%;
+            .inviteQ {
+              margin-bottom: 0;
+              padding: 10px 5%;
+              display: block;
+              background-color: lightgrey;
+              text-align: center;
+            };
+            .inviteA {
+              margin-top: 0;
+              padding: 10px 5%;
+              display: block;
+              background-color: white;
             };
           };
           div {
@@ -645,6 +789,110 @@ html {
               font-size: 2.5rem;
               vertical-align: middle;
             };
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_INVITE.PHP FILE BEGINS -----------
+    #invitePage {
+
+      #contentBody {
+        margin: 30px 5%;
+        background-color: white;
+        .inviteTitle {
+          margin-bottom: 40px;
+          border-radius: 20px 20px 0 0;
+          color: rgb(181,7,7);
+          text-align: center;
+          font-family: 'Bevan', cursive;
+        };
+        #inviteSubTitle {
+          font-size: 4rem;
+          a {
+            color: inherit;
+          };
+        };
+        #inviteMainTitle {
+          margin-bottom: 0;
+          color: gold;
+          font-size: 6rem;
+          background-color: black;
+        };
+        #inviteBox {
+          margin-bottom: 70px;
+          border: 2px solid black;
+          border-radius: 0 0 20px 20px;
+          padding: 50px 8%;
+          line-height: 57px;
+          font-family: 'Special Elite',cursive;
+          ul {
+            margin: 30px 0;
+            border: dashed black 2px;
+            li:first-child {
+              padding: 20px 4% 10px 4%;
+            };
+            li:last-child {
+              padding: 10px 4% 20px 4%;
+            };
+          };
+          p {
+
+          };
+          #bothInviteBttns {
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            span {
+              margin: 0;
+              border: solid black 1px;
+              border-radius: 20px;
+              padding-top: 20px;
+              font-size: 4rem;
+              text-align: center;
+              width: 47%;
+            };
+            #inviteLogin {
+              color: black;
+              background-color: gold;
+            };
+            #inviteCreate {
+              color: gold;
+              background-color: black;
+            };
+          };
+          .inviteFormBox {
+            border: 1px solid black;
+            font-size: 3.5rem;
+            form {
+              .formTitle {
+                margin: 60px 0 10px 0;
+                text-align: center;
+              };
+              input {
+                margin: 0 10%;
+                border: 1px solid black;
+                font-size: 3rem;
+                text-align: center;
+                width: 80%;
+              };
+              .submitInvite {
+                margin: 50px 25% 30px 25%;
+                border-radius: 30px;
+                display: block;
+                width: 50%;
+              };
+            };
+          };
+          #inviteLoginBox {
+            display: none;
+            color: black;
+            background-color: gold;
+          };
+          #inviteCreateBox {
+            display: none;
+            color: gold;
+            background-color: black;
           };
         };
       };
