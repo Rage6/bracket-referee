@@ -125,6 +125,7 @@
     <title>
       Welcome | Bracket Referee
     </title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -133,7 +134,8 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <div id="indexTitle">
+    <div id="indexTitle"></div>
+    <div id="indexWords">
       <p>
         Bracket
       </p>
@@ -143,15 +145,15 @@
     </div>
     <div id="bothAcctButtons">
       <div id="logButton">
-        <b>LOGIN</b>
+        <span>LOGIN</span>
       </div>
       <div id="signButton">
-        <b>CREATE</b>
+        <span>CREATE</span>
       </div>
     </div>
     <?php
       if (isset($_SESSION['message'])) {
-        echo("<div style='margin-bottom:20px;text-align:center'>".$_SESSION['message']."</div>");
+        echo("<div id='message'>".$_SESSION['message']."</div>");
         unset($_SESSION['message']);
       };
     ?>
@@ -208,34 +210,51 @@
         <p>Precious Glory.</p>
       </div>
       <div id="indexIntro">
-        <b>Welcom to Bracket Referee!</b>
-        <p>
-          Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
-        </p>
-        <b><i>What is Bracket Referee for?</i></b>
-        <p>
-          sdsdfsdfsdf
-        </p>
-        <b><i>How does it work?</i></b>
-        <p>
-          First, press the "LOGIN" button and enter your email address/username and password. If you haven't already created an account, do so by clicking on "CREATE" above and fill out the basic information. Doing either will allow you into your profile, <u>Bracket HQ</u>.
-        </p>
-        <p>
-          This page is the center of all of your information and possibilities. From here, you can:
-        </p>
-        <ul>
-          <li>See the groups that you compete within</li>
-          <li>Search for a specific group</li>
-          <li>Create a new group</li>
-          <li>Edit or delete your account</li>
-        </ul>
-        <p>
-          Upon entering a new group, you can officially join it by the single click. A joined member can then enter their own bracket and see their fellow member's usernames, scores, and brackets.
-        </p>
-        <b><i>Who Made This?</i></b>
-        <p style="margin-bottom:0px;padding-bottom:100px">
-          The creator and director of "Bracket Referee" is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio, my professional history, or the actual code for this website, please click below.
-        </p>
+        <div class="introParagraph">
+          <b>Welcom to Bracket Referee!</b>
+          <p>
+            Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
+          </p>
+        </div>
+        <div class="imageBorder" style="background-image: url('https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg')"></div>
+        <div class="introParagraph">
+          <b>
+            <i>What is Bracket Referee used for?</i>
+          </b>
+          <p>
+            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just spectator! <u>Bracket Referee</u> allows groups or individuals to fill out their picks, record their bracket, and watch how their scores compare to others. <u>Bracket Referee</u> can be used for any <span style="color:green">single-elimination</span> tournament, with or without <span style="color:green">wildcards</span>.
+          </p>
+        </div>
+        <div class="imageBorder" style="background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800')"></div>
+        <div class="introParagraph">
+          <b>
+            <i>How do I start?</i>
+          </b>
+          <p>
+            First, click on the <span style="border-radius:15px;padding:0 10px;background-color:green;color:white">CREATE</span> button above and fill out the basic information. If you have already created an account, press the <span style="border-radius:15px;padding:0 10px;background-color:blue;color:white">LOGIN</span> button and enter your email address (or username) and password. Doing either will then send you to your profile, <u>Bracket HQ</u>. From here, you can:
+          </p>
+          <div>
+            <ul>
+              <li>See the groups that you are a member of</li>
+              <li>Search for a specific group</li>
+              <li>Create a new group</li>
+              <li>See a list of groups with open memberships</li>
+              <li>Edit or delete your account</li>
+            </ul>
+          </div>
+          <p>
+            Upon joining a group, a member can enter a bracket and see their fellow members' usernames, scores, and brackets.
+          </p>
+        </div>
+        <div class="imageBorder" style="background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg')"></div>
+        <div class="introParagraph">
+          <b>
+            <i>Who Made This?</i>
+          </b>
+          <p style="margin-bottom:0px;padding-bottom:100px">
+            The creator and director of <u>Bracket Referee</u> is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio, my professional history, or the actual code for this website, please click below.
+          </p>
+        </div>
       </div>
     </div>
     <footer>
