@@ -97,11 +97,14 @@
   // Start a new Group
   if (isset($_POST['new_group'])) {
     if (strlen($_POST['group_name']) > 0 && $_POST['tourn_id'] != 'null') {
-      $groupStmt = $pdo->prepare('INSERT INTO Groups(admin_id,group_name,fk_tourn_id) VALUES (:pid,:gnm,:tid)');
+      $linkKey = bin2hex(random_bytes(10));
+      $groupStmt = $pdo->prepare('INSERT INTO Groups(admin_id,group_name,fk_tourn_id,private,link_key) VALUES (:pid,:gnm,:tid,:inv,:lky)');
       $groupStmt->execute(array(
         ':pid'=>$_SESSION['player_id'],
         ':gnm'=>htmlentities($_POST['group_name']),
-        ':tid'=>htmlentities($_POST['tourn_id'])
+        ':tid'=>htmlentities($_POST['tourn_id']),
+        ':inv'=>intval($_POST['invitation']),
+        ':lky'=>$linkKey
       ));
       $getIdStmt = $pdo->query("SELECT LAST_INSERT_ID()");
       $groupId = $getIdStmt->fetchColumn();
@@ -278,7 +281,7 @@
               <form method="POST">
                 <table>
                   <tr>
-                    <td>Group name:</td>
+                    <td>Name:</td>
                     <td><input type='text' name='group_name'></td>
                   </tr>
                   <tr>
@@ -293,6 +296,15 @@
                             echo("<option value='".$tournRow['tourn_id']."'>".$tournRow['tourn_name']."</option>");
                           };
                         ?>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Invite Level</td>
+                    <td>
+                      <select name="invitation">
+                        <option value="1">PRIVATE</option>
+                        <option value="0" selected>PUBLIC</option>
                       </select>
                     </td>
                   </tr>
