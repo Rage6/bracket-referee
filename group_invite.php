@@ -10,6 +10,12 @@
   ));
   $groupInfo = $groupInfoStmt->fetch(PDO::FETCH_ASSOC);
 
+  // URL to the home page
+  // Local
+  $urlIndex = "http://localhost:8888/bracket-referee";
+  // Heroku
+  // $urlIndex = "https://bracket-referee.herokuapp.com/bracket-referee/";
+
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
@@ -197,7 +203,7 @@
     <div id="invitePage">
       <div id="contentBody">
         <div id="inviteSubTitle" class="inviteTitle">
-          <a href="http://localhost:8888/bracket-referee">
+          <a href=<?php echo($urlIndex) ?>>
             <u>Bracket Referee</u>
           </a>
         </div>
