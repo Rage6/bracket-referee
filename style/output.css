@@ -645,6 +645,7 @@ html {
             margin: 0 10%;
             border: 1px solid black;
             font-size: 3rem;
+            text-align: center;
             width: 80%; }
           html body #invitePage #contentBody #inviteBox .inviteFormBox form .submitInvite {
             margin: 50px 25% 30px 25%;

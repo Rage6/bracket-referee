@@ -228,13 +228,9 @@
           </div>
           <div id="inviteLoginBox" class="inviteFormBox">
             <form method="POST">
-              <div class="formTitle">
-                Email or Username
-              </div>
+              <div class="formTitle">Email or Username</div>
               <input type="text" name="userEmail">
-              <div class="formTitle">
-                Password
-              </div>
+              <div class="formTitle">Password</div>
               <input type="password" name="password">
               <input class="submitInvite" type="submit" name="confirmOld" value="ENTER">
             </form>
@@ -243,31 +239,31 @@
             <form method='POST'>
               <!-- <table>
                 <tr> -->
-                  <td>Username</td>
-                  <td><input type='text' name='newUser'/></td>
+                  <div class="formTitle">Username</div>
+                  <input type='text' name='newUser'/>
                 <!-- </tr>
                 <tr> -->
-                  <td>First Name</td>
-                  <td><input text='text' name='newFirst'/></td>
+                  <div class="formTitle">First Name</div>
+                  <input text='text' name='newFirst'/>
                 <!-- </tr>
                 <tr> -->
-                  <td>Last Name</td>
-                  <td><input type='text' name='newLast'/></td>
+                  <div class="formTitle">Last Name</div>
+                  <input type='text' name='newLast'/>
                 <!-- </tr>
                 <tr> -->
-                  <td>Email</td>
-                  <td><input type='text' name='newEmail'/></td>
+                  <div class="formTitle">Email</div>
+                  <input type='text' name='newEmail'/>
                 <!-- </tr>
                 <tr> -->
-                  <td>Password</td>
-                  <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
+                  <div class="formTitle">Password</div>
+                  <input type='password' name='newPass' placeholder='8 - 25 characters'/>
                 <!-- </tr>
                 <tr> -->
-                  <td>Confirm Password</td>
-                  <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
+                  <div class="formTitle">Confirm Password</div>
+                  <input type='password' name='newConf' placeholder='8 - 25 characters'/>
                 <!-- </tr>
               </table> -->
-              <input type='submit' name='makeNew' value='ENTER'/>
+              <input class="submitInvite" type='submit' name='makeNew' value='ENTER'/>
             </form>
           </div>
         </div>
