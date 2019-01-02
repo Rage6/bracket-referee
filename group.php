@@ -17,7 +17,7 @@
       // ));
       // $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
       if ($ifInvite['private'] == 1) {
-        // Example (Private): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=1111111111
+        // Example (Private, "The First One"): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=11111111111111111111
         if ($_GET['link_key'] == $ifInvite['link_key']) {
           header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
           return true;

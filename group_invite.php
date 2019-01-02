@@ -4,7 +4,7 @@
   require_once("pdo.php");
 
   // This is used to get info about the group that they user is trying to get to
-  $groupInfoStmt = $pdo->prepare('SELECT group_name FROM Groups WHERE group_id=:gid');
+  $groupInfoStmt = $pdo->prepare('SELECT group_name,tourn_name FROM Groups JOIN Tournaments WHERE group_id=:gid AND tourn_id=fk_tourn_id');
   $groupInfoStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -196,8 +196,11 @@
   <body>
     <div id="invitePage">
       <div id="contentBody">
-        <div id="inviteTitle">
-          You're Invited To The <u>Bracket Referee</u>!
+        <div id="inviteSubTitle" class="inviteTitle">
+          <u>Bracket Referee</u>
+        </div>
+        <div id="inviteMainTitle" class="inviteTitle">
+          VIP Ticket
         </div>
         <?php
         if (isset($_SESSION['message'])) {
@@ -205,54 +208,68 @@
           unset($_SESSION['message']);
         };
         ?>
-        <p>
-          You have been invited to the group "<?php echo($groupInfo['group_name']) ?>" in Bracket Referee! Before joining any group, you must first either a) log in to your current account or b) create a new account. Once done, you will be sent directly to the
-        </p>
-        <div>
-          <form method="POST">
-            <table>
-              <tr>
-                <td>Email or Username </td>
-                <td><input type="text" name="userEmail"></td>
-              </tr>
-              <tr>
-                <td>Password </td>
-                <td><input type="password" name="password"></td>
-              </tr>
-            </table>
-            <input type="submit" name="confirmOld" value="ENTER">
-          </form>
-        </div>
-        <div>
-          <form method='POST'>
-            <table>
-              <tr>
-                <td>Username</td>
-                <td><input type='text' name='newUser'/></td>
-              </tr>
-              <tr>
-                <td>First Name</td>
-                <td><input text='text' name='newFirst'/></td>
-              </tr>
-              <tr>
-                <td>Last Name</td>
-                <td><input type='text' name='newLast'/></td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td><input type='text' name='newEmail'/></td>
-              </tr>
-              <tr>
-                <td>Password</td>
-                <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
-              </tr>
-              <tr>
-                <td>Confirm Password</td>
-                <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
-              </tr>
-            </table>
-            <input type='submit' name='makeNew' value='ENTER'/>
-          </form>
+        <div id="inviteBox">
+          <p>
+            You have been invited to the "<i><?php echo($groupInfo['group_name']) ?></i>" group for <u><?php echo($groupInfo['tourn_name']) ?></u>.
+          </p>
+          <p>
+            Before joining this group, though, you must first either:
+          </p>
+          <ul>
+            <li>Log into your current account</li>
+            <li>Create a new account Once done</li>
+          </ul>
+          <p>
+            Once done, you will then be directed to "<i><?php echo($groupInfo['group_name']) ?></i>".
+          </p>
+          <div id="bothInviteBttns">
+            <span id="inviteLogin">LOGIN</span>
+            <span id="inviteCreate">CREATE</span>
+          </div>
+          <div id="inviteLoginBox" class="inviteFormBox">
+            <form method="POST">
+              <div class="formTitle">
+                Email or Username
+              </div>
+              <input type="text" name="userEmail">
+              <div class="formTitle">
+                Password
+              </div>
+              <input type="password" name="password">
+              <input class="submitInvite" type="submit" name="confirmOld" value="ENTER">
+            </form>
+          </div>
+          <div id="inviteCreateBox" class="inviteFormBox">
+            <form method='POST'>
+              <!-- <table>
+                <tr> -->
+                  <td>Username</td>
+                  <td><input type='text' name='newUser'/></td>
+                <!-- </tr>
+                <tr> -->
+                  <td>First Name</td>
+                  <td><input text='text' name='newFirst'/></td>
+                <!-- </tr>
+                <tr> -->
+                  <td>Last Name</td>
+                  <td><input type='text' name='newLast'/></td>
+                <!-- </tr>
+                <tr> -->
+                  <td>Email</td>
+                  <td><input type='text' name='newEmail'/></td>
+                <!-- </tr>
+                <tr> -->
+                  <td>Password</td>
+                  <td><input type='password' name='newPass' placeholder='8 - 25 characters'/s></td>
+                <!-- </tr>
+                <tr> -->
+                  <td>Confirm Password</td>
+                  <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
+                <!-- </tr>
+              </table> -->
+              <input type='submit' name='makeNew' value='ENTER'/>
+            </form>
+          </div>
         </div>
       </div>
     </div>

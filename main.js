@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("main.js is active again...");
+  console.log("main.js is active...");
 
   // Measures the background box and adjusts the word lines accordingly
   var titleHeight = $('#indexWords').height();
@@ -171,5 +171,23 @@ $(()=>{
       checkArrows();
     });
   };
+
+  // Opens the 'Login' box and closes the 'Create' box on group_invite.php
+  $("#inviteLogin").click(()=>{
+    console.log("Login works");
+    $("#inviteLogin").css('border-radius','20px 20px 0 0');
+    $("#inviteCreate").css('border-radius','20px 20px 0 0');
+    $("#inviteLoginBox").css('display','block');
+    $("#inviteCreateBox").css('display','none');
+  });
+
+  // Opens the 'Create' box and closes the 'Login' box on group_invite.php
+  $("#inviteCreate").click(()=>{
+    console.log("Create works");
+    $("#inviteCreate").css('border-radius','20px 20px 0 0');
+    $("#inviteLogin").css('border-radius','20px 20px 0 0');
+    $("#inviteCreateBox").css('display','block');
+    $("#inviteLoginBox").css('display','none');
+  });
 
 })
