@@ -174,7 +174,6 @@ $(()=>{
 
   // Opens the 'Login' box and closes the 'Create' box on group_invite.php
   $("#inviteLogin").click(()=>{
-    console.log("Login works");
     $("#inviteLogin").css('border-radius','20px 20px 0 0');
     $("#inviteCreate").css('border-radius','20px 20px 0 0');
     $("#inviteLoginBox").css('display','block');
@@ -183,7 +182,6 @@ $(()=>{
 
   // Opens the 'Create' box and closes the 'Login' box on group_invite.php
   $("#inviteCreate").click(()=>{
-    console.log("Create works");
     $("#inviteCreate").css('border-radius','20px 20px 0 0');
     $("#inviteLogin").css('border-radius','20px 20px 0 0');
     $("#inviteCreateBox").css('display','block');

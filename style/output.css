@@ -598,6 +598,8 @@ html {
         font-family: 'Bevan', cursive; }
       html body #invitePage #contentBody #inviteSubTitle {
         font-size: 4rem; }
+        html body #invitePage #contentBody #inviteSubTitle a {
+          color: inherit; }
       html body #invitePage #contentBody #inviteMainTitle {
         margin-bottom: 0;
         color: gold;

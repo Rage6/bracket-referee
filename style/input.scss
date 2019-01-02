@@ -809,6 +809,9 @@ html {
         };
         #inviteSubTitle {
           font-size: 4rem;
+          a {
+            color: inherit;
+          };
         };
         #inviteMainTitle {
           margin-bottom: 0;
@@ -843,7 +846,6 @@ html {
             span {
               margin: 0;
               border: solid black 1px;
-              // border-radius: 20px 20px 0 0;
               border-radius: 20px;
               padding-top: 20px;
               font-size: 4rem;

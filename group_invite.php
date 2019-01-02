@@ -197,7 +197,9 @@
     <div id="invitePage">
       <div id="contentBody">
         <div id="inviteSubTitle" class="inviteTitle">
-          <u>Bracket Referee</u>
+          <a href="http://localhost:8888/bracket-referee">
+            <u>Bracket Referee</u>
+          </a>
         </div>
         <div id="inviteMainTitle" class="inviteTitle">
           VIP Ticket
@@ -217,7 +219,7 @@
           </p>
           <ul>
             <li>Log into your current account</li>
-            <li>Create a new account Once done</li>
+            <li>Create a new account</li>
           </ul>
           <p>
             Once done, you will then be directed to "<i><?php echo($groupInfo['group_name']) ?></i>".
@@ -237,32 +239,18 @@
           </div>
           <div id="inviteCreateBox" class="inviteFormBox">
             <form method='POST'>
-              <!-- <table>
-                <tr> -->
-                  <div class="formTitle">Username</div>
-                  <input type='text' name='newUser'/>
-                <!-- </tr>
-                <tr> -->
-                  <div class="formTitle">First Name</div>
-                  <input text='text' name='newFirst'/>
-                <!-- </tr>
-                <tr> -->
-                  <div class="formTitle">Last Name</div>
-                  <input type='text' name='newLast'/>
-                <!-- </tr>
-                <tr> -->
-                  <div class="formTitle">Email</div>
-                  <input type='text' name='newEmail'/>
-                <!-- </tr>
-                <tr> -->
-                  <div class="formTitle">Password</div>
-                  <input type='password' name='newPass' placeholder='8 - 25 characters'/>
-                <!-- </tr>
-                <tr> -->
-                  <div class="formTitle">Confirm Password</div>
-                  <input type='password' name='newConf' placeholder='8 - 25 characters'/>
-                <!-- </tr>
-              </table> -->
+              <div class="formTitle">Username</div>
+              <input type='text' name='newUser'/>
+              <div class="formTitle">First Name</div>
+              <input text='text' name='newFirst'/>
+              <div class="formTitle">Last Name</div>
+              <input type='text' name='newLast'/>
+              <div class="formTitle">Email</div>
+              <input type='text' name='newEmail'/>
+              <div class="formTitle">Password</div>
+              <input type='password' name='newPass' placeholder='8 - 25 characters'/>
+              <div class="formTitle">Confirm Password</div>
+              <input type='password' name='newConf' placeholder='8 - 25 characters'/>
               <input class="submitInvite" type='submit' name='makeNew' value='ENTER'/>
             </form>
           </div>
