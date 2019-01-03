@@ -11,11 +11,6 @@
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
     if (isset($_GET['invite'])) {
-      // $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
-      // $ifInviteStmt->execute(array(
-      //   ':gp'=>htmlentities($_GET['group_id'])
-      // ));
-      // $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
       if ($ifInvite['private'] == 1) {
         // Example (Private, "The First One"): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=11111111111111111111
         if ($_GET['link_key'] == $ifInvite['link_key']) {
@@ -75,7 +70,6 @@
 
   // Recalls all of the players in this group
   $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
-  // $grpAllStmt = $pdo->prepare('SELECT userName,Groups_Players.player_id FROM Players JOIN Groups_Players WHERE Players.player_id=Groups_Players.player_id AND Groups_Players.group_id=:gid');
   $grpAllStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -87,7 +81,6 @@
   // This determines if a) the group is 'private' and b) if the current player is already joined. If not joined, it will confirm that they are invited and with the correct link_key
   if ($ifInvite['private'] == 1) {
     $isMember = false;
-    // while ($checkPlayerId = $grpAllStmt->fetch(PDO::FETCH_ASSOC)['player_id']) {
     for ($checkNum = 0; $checkNum < sizeof($grpAllArray); $checkNum++) {
       $checkPlayerId = $grpAllArray[$checkNum][1];
       if ($checkPlayerId == $_SESSION['player_id']) {
@@ -110,7 +103,6 @@
   };
 
   // Recalls the tournament's info for this group
-  // $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date,bracket_id FROM Groups JOIN Tournaments JOIN Brackets WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
   $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date FROM Groups JOIN Tournaments WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
   $tournStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
@@ -120,10 +112,8 @@
   // Create a bracket with the current group by going to 'bracket_make.php'
   if (isset($_POST['make_bracket'])) {
     $isMember = false;
-    // while ($onePlayer = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
     for ($playerNum = 0; $playerNum < sizeof($grpAllArray); $playerNum++) {
       $onePlayerId = $grpAllArray[$playerNum][1];
-      // $onePlayerId = (int)$onePlayer['player_id'];
       if ($onePlayerId == $_SESSION['player_id']) {
         $isMember = true;
       };
@@ -252,13 +242,11 @@
               <th>Score</th>
             </tr>");
             $hasBracket = false;
-            // while ($playerRow = $grpAllStmt->fetch(PDO::FETCH_ASSOC)) {
             for ($rowNum = 0; $rowNum < sizeof($grpAllArray); $rowNum++) {
               $playerRow = $grpAllArray[$rowNum];
               // Detects if the user has a bracket
               $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
               $bracketStmt->execute(array(
-                // ':pid'=>$playerRow['player_id'],
                 ':pid'=>$playerRow[1],
                 ':gid'=>htmlentities($_GET['group_id'])
               ));
@@ -270,7 +258,6 @@
                 $bracketID = $bracketArray['bracket_id'];
                 $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
                 $bracketTotal = 0;
-                // if ($playerRow['player_id'] == $_SESSION['player_id']) {
                 if ($playerRow[1] == $_SESSION['player_id']) {
                   $hasBracket = true;
                 };
@@ -289,11 +276,8 @@
               };
               echo("
               <tr>
-                <td>".$playerRow[0]."</td>".
-
-                // "<td>".$playerRow['userName']."</td>"
-
-                "<td>".$bracketStatus."</td>
+                <td>".$playerRow[0]."</td>
+                <td>".$bracketStatus."</td>
                 <td>".$bracketTotal."</td>
               </tr>");
             };
@@ -319,15 +303,11 @@
         $gameListStmt->execute(array(
           ':gid'=>htmlentities($_GET['group_id'])
         ));
-        // $currentLayer = "-1";
         $currentLayer = null;
         while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
           $newLayer = $oneGame['layer'];
           if ($currentLayer != $newLayer) {
             $roundTitle = $oneGame['level_name'];
-            // if ($currentLayer != "0") {
-            //   echo("</table>");
-            // };
             $roundNum = 0;
             if ($currentLayer == null) {
               echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'>".$roundTitle."</div>");
