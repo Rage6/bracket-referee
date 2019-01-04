@@ -8,6 +8,9 @@
   ));
   $ifInvite = $ifInviteStmt->fetch(PDO::FETCH_ASSOC);
 
+  // finds current host
+  $currentHost = $_SERVER['HTTP_HOST'];
+
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
     if (isset($_GET['invite'])) {
@@ -222,8 +225,11 @@
             <?php echo($adminResult['userName']) ?>
             <?php
               if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-                $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-                // $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
+                if ($currentHost == 'localhost:8888') {
+                  $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+                } else {
+                  $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
+                };
                 $urlId = $_GET['group_id'];
                 echo(" <a style='text-decoration:none' href='".$urlPrefix.$urlId."'>(EDIT)</a>");
               };

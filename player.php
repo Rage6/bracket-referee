@@ -2,6 +2,9 @@
   session_start();
   require_once("pdo.php");
 
+  // Finds the page's current host
+  $currentHost = $_SERVER['HTTP_HOST'];
+
   // Uses the $_SESSION['player_id'] from logging in to find the rest of the player's data
   $recall = $pdo->prepare('SELECT email,userName,firstName,lastName FROM Players WHERE (player_id=:id)');
   $recall->execute(array(
@@ -10,10 +13,11 @@
   $playerData = $recall->fetch(PDO::FETCH_ASSOC);
 
   // This is the prefix for all of the href that take a user to a givien group in the search list
-  // Local host
-  $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
-  // ClearDB host
-  // $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+  if ($currentHost == 'localhost:8888') {
+    $groupLink = "http://localhost:8888/bracket-referee/group.php?group_id=";
+  } else {
+    $groupLink = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+  };
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -246,8 +250,11 @@
                   $findList->execute(array(
                     ':nm'=>"%".$_SESSION['search']."%"
                   ));
-                  $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
-                  // $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+                  if ($currentHost == 'localhost:8888') {
+                    $url = "http://localhost:8888/bracket-referee/group.php?group_id=";
+                  } else {
+                    $url = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+                  };
                   while ($row = $findList->fetch(PDO::FETCH_ASSOC)) {
                     $nameList[] = $row['group_name'];
                     $startList[] = "<a href='".$url.$row['group_id']."'>";
@@ -322,8 +329,11 @@
             </div>
             <div id="resultBox">
               <?php
-              $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
-              // $randomURL = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+              if ($currentHost == 'localhost:8888') {
+                $randomURL = "http://localhost:8888/bracket-referee/group.php?group_id=";
+              } else {
+                $randomURL = "https://bracket-referee.herokuapp.com/group.php?group_id=";
+              };
               for ($randNum = 0; $randNum < count($randomList); $randNum++) {
                 $randomGrpId = $randomList[$randNum][1];
                 $randomGrpName = $randomList[$randNum][0];
