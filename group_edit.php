@@ -2,6 +2,9 @@
   session_start();
   require_once("pdo.php");
 
+  // Finds the page's current host
+  $currentHost = $_SERVER['HTTP_HOST'];
+
   // Confirms that the user is logged in
   if (!isset($_SESSION['player_id'])) {
     $_SESSION['message'] = "<b style='color:red'>You must log in or create an account to edit a group.</b>";
@@ -46,12 +49,14 @@
   ));
   $linkKey = $inviteStatus->fetch(PDO::FETCH_ASSOC)['link_key'];
 
-  // Localhost URL
-  $privateLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
-  $publicLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true";
-  // Heroku URL
-  // $privateLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
-  // $publicLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+  // Chooses the inviteLinks based on whether on the local host or not
+  if ($currentHost == 'localhost:8888') {
+    $privateLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
+    $publicLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+  } else {
+    $privateLink = "https://bracket-referee.herokuapp.com/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
+    $publicLink = "https://bracket-referee.herokuapp.com/group.php?group_id=".$urlId."&invite=true";
+  };
 
   $inviteStatus->execute(array(
     ':gid'=>$urlId

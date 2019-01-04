@@ -3,6 +3,9 @@
   session_start();
   require_once("pdo.php");
 
+  // Finds the page's current host
+  $currentHost = $_SERVER['HTTP_HOST'];
+
   // This is used to get info about the group that they user is trying to get to
   $groupInfoStmt = $pdo->prepare('SELECT group_name,tourn_name FROM Groups JOIN Tournaments WHERE group_id=:gid AND tourn_id=fk_tourn_id');
   $groupInfoStmt->execute(array(
@@ -11,10 +14,11 @@
   $groupInfo = $groupInfoStmt->fetch(PDO::FETCH_ASSOC);
 
   // URL to the home page
-  // Local
-  $urlIndex = "http://localhost:8888/bracket-referee";
-  // Heroku
-  // $urlIndex = "https://bracket-referee.herokuapp.com/bracket-referee/";
+  if ($currentHost == 'localhost:8888') {
+    $urlIndex = "http://localhost:8888/bracket-referee";
+  } else {
+    $urlIndex = "https://bracket-referee.herokuapp.com";
+  };
 
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
