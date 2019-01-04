@@ -132,20 +132,12 @@ $(()=>{
   };
 
   // Takes the final total at the bottom of bracket_view.php and displays it at the top;
-  // For localhost...
-  // if (window.location.pathname == "/bracket-referee/bracket_view.php") {
-  // For public host...
-  // if (window.location.pathname == "/bracket_view.php") {
   if (window.location.pathname == currentViewPath) {
     var currentScore = $("#bottomPoints").text();
     $("#currentScore").text(currentScore);
   };
 
   // This is 1) how only the first rounds is shown on a mobile device, and 2) how the user can click to go to the next one
-  // For localhost...
-  // if (window.location.pathname == "/bracket-referee/group.php") {
-  // For public host...
-  // if (window.location.pathname == "/group.php") {
   if (window.location.pathname == currentGroupPath) {
     var lastRound = $(".allRounds").length;
     console.log(lastRound);
