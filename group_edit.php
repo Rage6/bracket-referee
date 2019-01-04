@@ -50,8 +50,8 @@
   $privateLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
   $publicLink = "http://localhost:8888/bracket-referee/group.php?group_id=".$urlId."&invite=true";
   // Heroku URL
-  // $privateLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
-  // $publicLink = "https://bracket-referee.herokuapp.com/bracket-referee/group.php?group_id=".$urlId."&invite=true";
+  // $privateLink = "https://bracket-referee.herokuapp.com/group.php?group_id=".$urlId."&invite=true&link_key=".$linkKey;
+  // $publicLink = "https://bracket-referee.herokuapp.com/group.php?group_id=".$urlId."&invite=true";
 
   $inviteStatus->execute(array(
     ':gid'=>$urlId
