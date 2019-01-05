@@ -591,6 +591,24 @@ html {
           border: 3px solid grey;
         };
       };
+      #inviteBox {
+        margin: 0 5% 80px 5%;
+        border: 4px dashed black;
+        padding: 30px 5%;
+        width: 80%;
+        #inviteTitle {
+          color: rgb(181,7,7);
+          text-align: center;
+          font-size: 5rem;
+          font-family: 'Staatliches', cursive;
+        };
+        #inviteIntro {
+          margin: 30px 0;
+          font-size: 3rem;
+          font-family: 'Special Elite',cursive;
+          line-height: 1.3;
+        };
+      };
       #playerTable {
 
       };

@@ -211,7 +211,7 @@
       </div>
       <div id="indexIntro">
         <div class="introParagraph">
-          <b>Welcom to Bracket Referee!</b>
+          <b>Welcome to Bracket Referee!</b>
           <p>
             Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
           </p>

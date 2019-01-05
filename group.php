@@ -2,7 +2,7 @@
   session_start();
   require_once("pdo.php");
 
-  $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private FROM Groups WHERE group_id=:gp');
+  $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private,admin_id FROM Groups WHERE group_id=:gp');
   $ifInviteStmt->execute(array(
     ':gp'=>htmlentities($_GET['group_id'])
   ));
@@ -237,6 +237,35 @@
           </td>
         </tr>
       </table>
+      <?php
+      // Here is where the 'Invite Link' is displayed (or not)
+      if ($currentHost == 'localhost:8888') {
+        $inviteLinkHead = $currentHost."/bracket-referee/group.php?group_id=".$_GET['group_id']."&invite=true";
+      } else {
+        $inviteLinkHead = $currentHost."/group.php?group_id=".$_GET['group_id']."&invite=true";
+      };
+
+      if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+        if ($ifInvite['private'] == 1) {
+          if ($ifInvite['admin_id'] == $_SESSION['player_id']) {
+            echo(
+              "<div id='inviteBox'>
+                <div id='inviteTitle'>INVITE A PLAYER</div>
+                <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+                <textarea row=1>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</textarea>
+              </div>");
+          };
+        } else {
+          echo(
+            "<div id='inviteBox'>
+              <div id='inviteTitle'>INVITE A PLAYER</div>
+              <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+              <textarea row=1>".$inviteLinkHead."</textarea>
+            </div>");
+        };
+      };
+
+      ?>
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
           echo("
