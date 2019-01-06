@@ -252,7 +252,10 @@
               "<div id='inviteBox'>
                 <div id='inviteTitle'>INVITE A PLAYER</div>
                 <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
-                <textarea row=1>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</textarea>
+                <div class='inviteCopyLine'>
+                  <div class='inviteBttn'>COPY</div>
+                  <div class='inviteScroll'>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</div>
+                </div>
               </div>");
           };
         } else {
@@ -260,7 +263,10 @@
             "<div id='inviteBox'>
               <div id='inviteTitle'>INVITE A PLAYER</div>
               <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
-              <textarea row=1>".$inviteLinkHead."</textarea>
+              <div class='inviteCopyLine'>
+                <div class='inviteBttn'>COPY</div>
+                <div class='inviteScroll'>".$inviteLinkHead."</div>
+              </div>
             </div>");
         };
       };
