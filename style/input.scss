@@ -386,6 +386,9 @@ html {
             p {
               padding: 0 3%;
               font-size: 1.2rem;
+              a {
+                font-size: inherit;
+              };
             };
           };
         };
