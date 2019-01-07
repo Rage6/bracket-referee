@@ -289,6 +289,8 @@ html {
           html body #playerPage #groupBox .newGrpOption #resultBox p {
             padding: 0 3%;
             font-size: 1.2rem; }
+            html body #playerPage #groupBox .newGrpOption #resultBox p a {
+              font-size: inherit; }
     html body #plyrEditPage #editTitle {
       margin: 50px 0;
       font-size: 7rem;

@@ -147,7 +147,7 @@
       ':pid'=>$_SESSION['player_id']
     ));
     $_SESSION['message'] = "<b style='color:green'>New player added</b>";
-    header('Location: player.php');
+    header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
   };
 
