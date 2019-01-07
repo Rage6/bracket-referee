@@ -251,10 +251,13 @@
             echo(
               "<div id='inviteBox'>
                 <div id='inviteTitle'>INVITE A PLAYER</div>
-                <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+                <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
                 <div class='inviteCopyLine'>
-                  <div class='inviteBttn'>COPY</div>
-                  <div class='inviteScroll'>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</div>
+                  <div id='clickLink' class='inviteBttn'>COPY</div>
+                  <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</div>
+                </div>
+                <div class='inviteIntro' style='font-size:1.5rem'>
+                  <u>NOTE</u>: As the director of a private group, ONLY YOU are shown the above 'invitation link'. <i>However</i>, you DO NOT have absolute control over group memberships since the link that you email to others can be shared by the recipients too.
                 </div>
               </div>");
           };
@@ -262,10 +265,10 @@
           echo(
             "<div id='inviteBox'>
               <div id='inviteTitle'>INVITE A PLAYER</div>
-              <div id='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+              <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
               <div class='inviteCopyLine'>
-                <div class='inviteBttn'>COPY</div>
-                <div class='inviteScroll'>".$inviteLinkHead."</div>
+                <div id='clickLink' class='inviteBttn'>COPY</div>
+                <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."</div>
               </div>
             </div>");
         };

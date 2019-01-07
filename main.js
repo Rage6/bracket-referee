@@ -200,4 +200,20 @@ $(()=>{
     $("#inviteLoginBox").css('display','none');
   });
 
-})
+  // For copying the invite link with clicking
+  // Answer found at: https://brianscode.com/jquery-copy-span-contents-clipboard-example/#comment-755
+  // $(document).ready(() => {
+  	$("#clickLink").click(() => {
+  		var chooseLinkDiv = document.getElementById("copyLink");
+  		var range = document.createRange();
+  		range.selectNodeContents(chooseLinkDiv);
+  		var chooseSelection = window.getSelection();
+  		chooseSelection.removeAllRanges();
+  		chooseSelection.addRange(range);
+  		document.execCommand('copy');
+      $("#copyLink").css('background-color','lightgreen')
+  		return true;
+  	});
+  // });
+
+});
