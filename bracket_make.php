@@ -38,7 +38,17 @@
   };
 
   // Prevent members from putting in more than one bracket
-
+  $bracketListStmt = $pdo->prepare('SELECT COUNT(bracket_id) FROM Brackets WHERE player_id=:plid AND group_id=:grid');
+  $bracketListStmt->execute(array(
+    ':plid'=>$_SESSION['player_id'],
+    ':grid'=>htmlentities($_GET['group_id'])
+  ));
+  $bracketNum = $bracketListStmt->fetch(PDO::FETCH_ASSOC)['COUNT(bracket_id)'];
+  if ((int)$bracketNum > 0) {
+    $_SESSION['message'] = "<b style='color:red'>No more than one bracket per group</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return false;
+  };
 
   // Discontinue this bracket and return to group.php
   if (isset($_POST['cancelBracket'])) {
