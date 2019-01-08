@@ -66,6 +66,8 @@ $(()=>{
   });
   $('#cancelGroup').click(()=>{
     $("#addGroupBox").hide();
+    $("#showAddVimg").css('transform','scaleY(1)');
+    addPoint = "up";
   });
 
   // Toggle the box for deleting account in player.php
