@@ -159,12 +159,12 @@ $(()=>{
     var currentLayer = initLayerNum;
     const checkArrows = () => {
       if (currentLayer == initLayerNum) {
-        $("#scrollLeft").css('background-color','white');
+        $("#scrollLeft").css('color','green');
       } else if (currentLayer == lastRound) {
-        $("#scrollRight").css('background-color','white');
+        $("#scrollRight").css('color','green');
       } else {
-        $("#scrollLeft").css('background-color','blue');
-        $("#scrollRight").css('background-color','blue');
+        $("#scrollLeft").css('color','white');
+        $("#scrollRight").css('color','white');
       };
     };
     checkArrows();

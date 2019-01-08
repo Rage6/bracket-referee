@@ -398,19 +398,22 @@ html {
       font-size: 3rem;
       font-family: 'Special Elite',cursive;
       text-align: left; }
+    html body #groupPage .allSubtitles {
+      margin-bottom: 0px;
+      border-radius: 20px 20px 0 0;
+      padding: 30px 0;
+      color: white;
+      text-align: center;
+      width: 50%; }
     html body #groupPage #message {
       margin: 30px 0;
       padding: 0 5%;
       text-align: center;
       font-size: 3rem; }
     html body #groupPage #tournTableTitle {
-      margin-bottom: 0px;
-      border-radius: 20px 20px 0 0;
-      padding: 30px 0;
-      color: white;
-      text-align: center;
-      background-color: grey;
-      width: 50%; }
+      background-color: grey; }
+    html body #groupPage #tournTable th {
+      background-color: grey; }
     html body #groupPage table {
       margin: 0 0 40px 10%;
       text-align: center;
@@ -436,14 +439,14 @@ html {
           margin: 2px 0;
           border-radius: 20px;
           width: 50%; }
-    html body #groupPage #tournTable {
+    html body #groupPage .allTables {
       margin-bottom: 80px;
       border: 1px solid grey;
       border-collapse: collapse; }
-      html body #groupPage #tournTable th {
+      html body #groupPage .allTables th {
         color: white;
         background-color: grey; }
-      html body #groupPage #tournTable td {
+      html body #groupPage .allTables td {
         border: 3px solid grey; }
     html body #groupPage #inviteBox {
       margin: 0 5% 80px 5%;
@@ -479,6 +482,11 @@ html {
           white-space: nowrap;
           font-size: 2.5rem;
           width: 60%; }
+    html body #groupPage #currentTitle {
+      color: white;
+      background-color: blue; }
+    html body #groupPage #playerTable th {
+      background-color: blue; }
     html body #groupPage #playerTable a {
       border: 3px solid green;
       border-radius: 15px;
@@ -493,16 +501,19 @@ html {
       color: white;
       background-color: blue;
       width: 80%; }
+    html body #groupPage #resultListTitle {
+      background-color: green; }
     html body #groupPage #groupScrollBox {
-      margin: 0 10% 40px 10%;
+      margin: 0 10% 20px 10%;
       display: flex;
       justify-content: space-between;
       color: white;
       text-align: center;
-      font-size: 3rem; }
+      font-size: 3rem;
+      background-color: green; }
       html body #groupPage #groupScrollBox div {
         padding: 10px 0;
-        background-color: blue;
+        background-color: green;
         width: 30%; }
       html body #groupPage #groupScrollBox #scrollLeft {
         border-radius: 70px 0 0 70px; }

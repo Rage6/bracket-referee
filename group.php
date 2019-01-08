@@ -205,8 +205,8 @@
           unset($_SESSION['message']);
         };
       ?>
-      <div id="tournTableTitle" class="allTitles">Tournament:</div>
-      <table id="tournTable">
+      <div id="tournTableTitle" class="allSubtitles allTitles">Tournament:</div>
+      <table id="tournTable" class="allTables">
         <tr>
           <th>Name: </td>
           <td><?php echo($tournArray['tourn_name']) ?></td>
@@ -238,48 +238,10 @@
         </tr>
       </table>
       <?php
-      // Here is where the 'Invite Link' is displayed (or not)
-      if ($currentHost == 'localhost:8888') {
-        $inviteLinkHead = $currentHost."/bracket-referee/group.php?group_id=".$_GET['group_id']."&invite=true";
-      } else {
-        $inviteLinkHead = $currentHost."/group.php?group_id=".$_GET['group_id']."&invite=true";
-      };
-
-      if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
-        if ($ifInvite['private'] == 1) {
-          if ($ifInvite['admin_id'] == $_SESSION['player_id']) {
-            echo(
-              "<div id='inviteBox'>
-                <div id='inviteTitle'>INVITE A PLAYER</div>
-                <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
-                <div class='inviteCopyLine'>
-                  <div id='clickLink' class='inviteBttn'>COPY</div>
-                  <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</div>
-                </div>
-                <div class='inviteIntro' style='font-size:1.5rem'>
-                  <u>NOTE</u>: As the director of a private group, ONLY YOU are shown the above 'invitation link'. <i>However</i>, you DO NOT have absolute control over group memberships since the link that you email to others can be shared by the recipients too.
-                </div>
-              </div>");
-          };
-        } else {
-          echo(
-            "<div id='inviteBox'>
-              <div id='inviteTitle'>INVITE A PLAYER</div>
-              <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
-              <div class='inviteCopyLine'>
-                <div id='clickLink' class='inviteBttn'>COPY</div>
-                <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."</div>
-              </div>
-            </div>");
-        };
-      };
-
-      ?>
-      <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
           echo("
-          <div class='allTitles'>Current Players:</div>
-          <table id='playerTable'>
+          <div id='currentTitle' class='allSubtitles allTitles'>Players:</div>
+          <table id='playerTable' class='allTables'>
             <tr>
               <th>Username</th>
               <th>Bracket?</th>
@@ -341,7 +303,44 @@
           };
         };
       ?>
-      <div class="allTitles">Tournament Results</div>
+      <?php
+      // Here is where the 'Invite Link' is displayed (or not)
+      if ($currentHost == 'localhost:8888') {
+        $inviteLinkHead = $currentHost."/bracket-referee/group.php?group_id=".$_GET['group_id']."&invite=true";
+      } else {
+        $inviteLinkHead = $currentHost."/group.php?group_id=".$_GET['group_id']."&invite=true";
+      };
+
+      if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+        if ($ifInvite['private'] == 1) {
+          if ($ifInvite['admin_id'] == $_SESSION['player_id']) {
+            echo(
+              "<div id='inviteBox'>
+                <div id='inviteTitle'>INVITE A PLAYER</div>
+                <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+                <div class='inviteCopyLine'>
+                  <div id='clickLink' class='inviteBttn'>COPY</div>
+                  <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."&link_key=".$ifInvite['link_key']."</div>
+                </div>
+                <div class='inviteIntro' style='font-size:1.5rem'>
+                  <u>NOTE</u>: As the director of a private group, ONLY YOU are shown the above 'invitation link'. <i>However</i>, you DO NOT have absolute control over group memberships since the link that you email to others can be shared by the recipients too.
+                </div>
+              </div>");
+          };
+        } else {
+          echo(
+            "<div id='inviteBox'>
+              <div id='inviteTitle'>INVITE A PLAYER</div>
+              <div class='inviteIntro'>Send the below link to your friends so that they can quickly join the arena!</div>
+              <div class='inviteCopyLine'>
+                <div id='clickLink' class='inviteBttn'>COPY</div>
+                <div id='copyLink' class='inviteScroll'>".$inviteLinkHead."</div>
+              </div>
+            </div>");
+        };
+      };
+      ?>
+      <div id="resultListTitle" class="allSubtitles allTitles">Game Results</div>
       <div id="groupScrollBox">
         <div id="scrollLeft"> << PREV</div>
         <div id="scrollRight"> NEXT >> </div>

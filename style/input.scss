@@ -541,6 +541,14 @@ html {
         font-family: 'Special Elite',cursive;
         text-align: left;
       };
+      .allSubtitles {
+        margin-bottom: 0px;
+        border-radius: 20px 20px 0 0;
+        padding: 30px 0;
+        color: white;
+        text-align: center;
+        width: 50%;
+      };
       #message {
         margin: 30px 0;
         padding: 0 5%;
@@ -548,13 +556,12 @@ html {
         font-size: 3rem;
       };
       #tournTableTitle {
-        margin-bottom: 0px;
-        border-radius: 20px 20px 0 0;
-        padding: 30px 0;
-        color: white;
-        text-align: center;
         background-color: grey;
-        width: 50%;
+      };
+      #tournTable {
+        th {
+          background-color: grey;
+        };
       };
       table {
         margin: 0 0 40px 10%;
@@ -588,7 +595,7 @@ html {
           };
         }
       };
-      #tournTable {
+      .allTables {
         margin-bottom: 80px;
         border: 1px solid grey;
         border-collapse: collapse;
@@ -640,7 +647,14 @@ html {
           };
         };
       };
+      #currentTitle {
+        color: white;
+        background-color: blue;
+      };
       #playerTable {
+        th {
+          background-color: blue;
+        };
         a {
           border: 3px solid green;
           border-radius: 15px;
@@ -662,19 +676,20 @@ html {
           };
         };
       };
-      // .allRounds {
-      //   margin-bottom: 30px;
-      // };
+      #resultListTitle {
+        background-color: green;
+      };
       #groupScrollBox {
-        margin: 0 10% 40px 10%;
+        margin: 0 10% 20px 10%;
         display: flex;
         justify-content: space-between;
         color: white;
         text-align: center;
         font-size: 3rem;
+        background-color: green;
         div {
           padding: 10px 0;
-          background-color: blue;
+          background-color: green;
           width: 30%;
         };
         #scrollLeft {
