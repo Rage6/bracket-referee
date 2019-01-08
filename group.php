@@ -341,10 +341,6 @@
       };
       ?>
       <div id="resultListTitle" class="allSubtitles allTitles">Game Results</div>
-      <div id="groupScrollBox">
-        <div id="scrollLeft"> << PREV</div>
-        <div id="scrollRight"> NEXT >> </div>
-      </div>
       <?php
         $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
         $gameListStmt->execute(array(
@@ -404,6 +400,10 @@
         };
         echo("</div>")
       ?>
+      <div id="groupScrollBox">
+        <div id="scrollLeft"> << PREV</div>
+        <div id="scrollRight"> NEXT >> </div>
+      </div>
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
           echo("<div id='leaveGrpButton'>Unjoin this group?</div>");

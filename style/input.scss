@@ -537,7 +537,7 @@ html {
       };
       .allTitles {
         margin: 0 0 20px 10%;
-        font-size: 3rem;
+        font-size: 4rem;
         font-family: 'Special Elite',cursive;
         text-align: left;
       };
@@ -578,20 +578,28 @@ html {
       };
       .allRounds {
         margin-left: 10%;
-        margin-bottom: 30px;
+        border: 3px solid green;
+        border-radius: 0 20px 0 0;
         font-size: 2.5rem;
         text-align: center;
         width: 80%;
         .rowTitle {
-          background-color: yellow;
+          border-radius: 0 20px 0 0;
+          padding: 30px 0;
+          color: white;
+          font-size: 2.7rem;
+          font-family: 'Special Elite',cursive;
+          background-color: green;
+          width: 100%;
         };
         .allRows {
+          padding: 30px 2%;
           display: flex;
           justify-content: space-between;
           div {
-            margin: 2px 0;
+            margin: 2px 1%;
             border-radius: 20px;
-            width: 50%;
+            width: 48%;
           };
         }
       };
@@ -655,12 +663,21 @@ html {
         th {
           background-color: blue;
         };
-        a {
-          border: 3px solid green;
-          border-radius: 15px;
-          padding: 5px 10px;
-          color: green;
-          text-decoration: none;
+        tr {
+          td {
+            padding: 15px;
+            a {
+              margin: 5px 0;
+              border: 3px solid green;
+              border-radius: 15px;
+              padding: 5px 10px;
+              color: green;
+              text-decoration: none;
+            };
+            a:hover {
+              cursor: pointer;
+            }
+          };
         };
       };
       #bracketButton {
@@ -677,16 +694,23 @@ html {
         };
       };
       #resultListTitle {
+        border-radius: 20px 20px 0 0;
         background-color: green;
       };
       #groupScrollBox {
-        margin: 0 10% 20px 10%;
+        margin-left: 10%;
+        margin-bottom: 100px;
+        border: 3px solid green;
+        border-radius: 0 0 20px 20px;
+        padding: 10px 0;
         display: flex;
         justify-content: space-between;
         color: white;
         text-align: center;
         font-size: 3rem;
+        font-family: 'Special Elite',cursive;
         background-color: green;
+        width: 80%;
         div {
           padding: 10px 0;
           background-color: green;
@@ -988,10 +1012,20 @@ html {
 
     // ----------- BRACKET_MAKE.PHP FILE BEGINS -----------
     #makePage {
-      #makeTitle {
-        margin-bottom: 80px;
-        font-size: 8rem;
-        text-align: center;
+      #makeTitleBkgd {
+        margin-bottom: 40px;
+        padding: 90px 5%;
+        background-size: cover;
+        background-image: url('https://get.pxhere.com/photo/ice-hockey-hockey-sports-ball-game-team-sport-roller-in-line-hockey-stick-and-ball-games-college-ice-hockey-ice-hockey-position-defenseman-bandy-204021.jpg');
+        #makeTitle {
+          border-radius: 30px;
+          padding: 40px 0;
+          font-size: 8rem;
+          font-family: 'Bevan', cursive;
+          color: rgb(181,7,7);
+          text-align: center;
+          background-color: white;
+        };
       };
       b {
         margin: 0 5% 30px 5%;
@@ -1001,15 +1035,17 @@ html {
       };
       .gameList {
         margin: 0 5% 50px 5%;
-        border: 3px solid black;
+        border: 3px solid green;
         border-radius: 20px;
         width: 90%;
         .roundTitle {
           border-radius: 20px 20px 0 0;
-          padding: 20px 0;
+          padding: 30px 0;
+          color: white;
+          font-family: 'Special Elite',cursor;
           font-size: 5rem;
           text-align: center;
-          background-color: yellow;
+          background-color: green;
         };
         .allRoundLists {
           border-radius: 0 0 20px 20px;
@@ -1045,6 +1081,7 @@ html {
           display: flex;
           justify-content: space-between;
           font-size: 6rem;
+          font-family: 'Staatliches', cursive;
           #submitBracket{
             border-radius:10px;
             color: white;
