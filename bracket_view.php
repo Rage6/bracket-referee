@@ -24,7 +24,23 @@
     return false;
   };
 
-  // To find this bracket's player idea
+  // Prevents someone from seeing another player's bracket
+  $brktPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE bracket_id=:brid');
+  $brktPlyStmt->execute(array(
+    ':brid'=>htmlentities($_GET['bracket_id'])
+  ));
+  $bracketId = (int)$brktPlyStmt->fetch(PDO::FETCH_ASSOC)['player_id'];
+  $checkBrktStmt = $pdo->prepare('SELECT COUNT(bracket_id) FROM Brackets WHERE bracket_id=:bkid AND player_id=:plid');
+  $checkBrktStmt->execute(array(
+    ':bkid'=>$bracketId,
+    ':plid'=>$_SESSION['player_id']
+  ));
+  if ((int)$checkBrktStmt->fetch(PDO::FETCH_ASSOC)['bracket_id'] != 1) {
+    $_SESSION['message'] = "<b style='color:red'>Players may only review their own bracket</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+  };
+
+  // To find this bracket's player id
   $brkPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE :bid=bracket_id');
   $brkPlyStmt->execute(array(
     ':bid'=>htmlentities($_GET['bracket_id'])
