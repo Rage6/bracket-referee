@@ -72,7 +72,7 @@
     if ($adminId['group_name'] == $_POST['new_name'] && $private == $_POST['is_private']) {
       header('Location: group_edit.php?group_id='.$urlId);
     } else {
-      if (strlen($_POST['new_name'])) {
+      if (strlen($_POST['new_name']) > 0) {
         $privateInt = intval($_POST['is_private']);
         $editStmt = $pdo->prepare('UPDATE Groups SET group_name=:nw, private=:pv WHERE group_id=:id');
         $editStmt->execute(array(
@@ -82,6 +82,10 @@
         ));
         $_SESSION['message'] = "<b style='color:green'>Change completed</b>";
         header('Location: group.php?group_id='.$urlId);
+        return true;
+      } else {
+        $_SESSION['message'] = "<b style='color:red'>Group must have a name</b>";
+        header('Location: group_edit.php?group_id='.$urlId);
         return true;
       };
     };
@@ -167,6 +171,12 @@
   <body>
     <div id="groupEditPage">
       <div id="mainEditTitle">Want to change this group?</div>
+      <?php
+        if (isset($_SESSION['message'])) {
+          echo($_SESSION['message']);
+          unset($_SESSION['message']);
+        };
+      ?>
       <p>As the director, you can change this group by simply inserting a new values in the below boxes. Enter your changes by clicking on 'ENTER', or ignore your changes and return to the previous page by clicking 'CANCEL'.</p>
       <form method="POST">
         <div id="changeBox">
@@ -261,12 +271,7 @@
           </div>
         </div>
       </form>
-      <?php
-        if (isset($_SESSION['message'])) {
-          echo($_SESSION['message']);
-          unset($_SESSION['message']);
-        };
-      ?>
+
     </div>
   </body>
 </html>

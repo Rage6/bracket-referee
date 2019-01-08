@@ -295,6 +295,11 @@ html {
       margin: 50px 0;
       font-size: 7rem;
       text-align: center; }
+    html body #plyrEditPage b {
+      margin-bottom: 30px;
+      display: block;
+      font-size: 3rem;
+      text-align: center; }
     html body #plyrEditPage form table {
       margin-left: 5%;
       font-size: 3rem;
@@ -474,6 +479,12 @@ html {
           white-space: nowrap;
           font-size: 2.5rem;
           width: 60%; }
+    html body #groupPage #playerTable a {
+      border: 3px solid green;
+      border-radius: 15px;
+      padding: 5px 10px;
+      color: green;
+      text-decoration: none; }
     html body #groupPage #bracketButton form input {
       margin: 20px 10% 40px 10%;
       border-radius: 55px;
@@ -524,6 +535,11 @@ html {
     html body #groupEditPage #mainEditTitle {
       margin: 40px 10% 80px 10%;
       font-size: 6.7rem;
+      text-align: center; }
+    html body #groupEditPage b {
+      margin-bottom: 30px;
+      display: block;
+      font-size: 3rem;
       text-align: center; }
     html body #groupEditPage p {
       margin: 0 5% 50px 5%;
@@ -646,6 +662,11 @@ html {
         color: gold;
         font-size: 6rem;
         background-color: black; }
+      html body #invitePage #contentBody b {
+        margin-bottom: 30px;
+        display: block;
+        font-size: 3rem;
+        text-align: center; }
       html body #invitePage #contentBody #inviteBox {
         margin-bottom: 70px;
         border: 2px solid black;
@@ -706,6 +727,11 @@ html {
     html body #makePage #makeTitle {
       margin-bottom: 80px;
       font-size: 8rem;
+      text-align: center; }
+    html body #makePage b {
+      margin: 0 5% 30px 5%;
+      display: block;
+      font-size: 3rem;
       text-align: center; }
     html body #makePage .gameList {
       margin: 0 5% 50px 5%;

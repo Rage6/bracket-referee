@@ -300,7 +300,7 @@
                 $bracketTotal = "---";
               } else {
                 $bracketID = $bracketArray['bracket_id'];
-                if ($ifInvite['admin_id'] == $_SESSION['player_id']) {
+                if ($bracketArray['player_id'] == $_SESSION['player_id']) {
                   $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
                 } else {
                   $bracketStatus = "YES";

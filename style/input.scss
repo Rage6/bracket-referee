@@ -402,6 +402,12 @@ html {
         font-size: 7rem;
         text-align: center;
       };
+      b {
+        margin-bottom: 30px;
+        display: block;
+        font-size: 3rem;
+        text-align: center;
+      };
       form {
         table {
           margin-left: 5%;
@@ -635,7 +641,13 @@ html {
         };
       };
       #playerTable {
-
+        a {
+          border: 3px solid green;
+          border-radius: 15px;
+          padding: 5px 10px;
+          color: green;
+          text-decoration: none;
+        };
       };
       #bracketButton {
         form {
@@ -708,6 +720,12 @@ html {
       #mainEditTitle {
         margin: 40px 10% 80px 10%;
         font-size: 6.7rem;
+        text-align: center;
+      };
+      b {
+        margin-bottom: 30px;
+        display: block;
+        font-size: 3rem;
         text-align: center;
       };
       p {
@@ -868,6 +886,12 @@ html {
           font-size: 6rem;
           background-color: black;
         };
+        b {
+          margin-bottom: 30px;
+          display: block;
+          font-size: 3rem;
+          text-align: center;
+        };
         #inviteBox {
           margin-bottom: 70px;
           border: 2px solid black;
@@ -952,6 +976,12 @@ html {
       #makeTitle {
         margin-bottom: 80px;
         font-size: 8rem;
+        text-align: center;
+      };
+      b {
+        margin: 0 5% 30px 5%;
+        display: block;
+        font-size: 3rem;
         text-align: center;
       };
       .gameList {

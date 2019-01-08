@@ -48,7 +48,7 @@
             $gameId = $_GET['gameId'.$i];
             $pickId = $_GET['pickId'.$i];
             if (!is_numeric($gameId) || !is_numeric($pickId)) {
-              $_SESSION['message'] = '<b style="color:red">All games must have a selected winner before a bracket can be submitted. gameId: '.$gameId.', pickId: '.$pickId.'</b>';
+              $_SESSION['message'] = '<b style="color:red">All games must have a selected winner for every game</b>';
               header('Location: bracket_make.php?group_id='.$_GET['group_id']);
               return false;
             };
