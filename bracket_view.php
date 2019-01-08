@@ -30,12 +30,7 @@
     ':brid'=>htmlentities($_GET['bracket_id'])
   ));
   $bracketId = (int)$brktPlyStmt->fetch(PDO::FETCH_ASSOC)['player_id'];
-  $checkBrktStmt = $pdo->prepare('SELECT COUNT(bracket_id) FROM Brackets WHERE bracket_id=:bkid AND player_id=:plid');
-  $checkBrktStmt->execute(array(
-    ':bkid'=>$bracketId,
-    ':plid'=>$_SESSION['player_id']
-  ));
-  if ((int)$checkBrktStmt->fetch(PDO::FETCH_ASSOC)['bracket_id'] != 1) {
+  if ($bracketId != $_SESSION['player_id']) {
     $_SESSION['message'] = "<b style='color:red'>Players may only review their own bracket</b>";
     header('Location: group.php?group_id='.$_GET['group_id']);
   };

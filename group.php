@@ -289,7 +289,7 @@
             for ($rowNum = 0; $rowNum < sizeof($grpAllArray); $rowNum++) {
               $playerRow = $grpAllArray[$rowNum];
               // Detects if the user has a bracket
-              $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score FROM Brackets WHERE player_id=:pid AND group_id=:gid');
+              $bracketStmt = $pdo->prepare('SELECT bracket_id,total_score,player_id FROM Brackets WHERE player_id=:pid AND group_id=:gid');
               $bracketStmt->execute(array(
                 ':pid'=>$playerRow[1],
                 ':gid'=>htmlentities($_GET['group_id'])
@@ -300,7 +300,11 @@
                 $bracketTotal = "---";
               } else {
                 $bracketID = $bracketArray['bracket_id'];
-                $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
+                if ($ifInvite['admin_id'] == $_SESSION['player_id']) {
+                  $bracketStatus = "<a href=bracket_view.php?group_id=".$_GET['group_id']."&bracket_id=".$bracketID.">YES</a>";
+                } else {
+                  $bracketStatus = "YES";
+                };
                 $bracketTotal = 0;
                 if ($playerRow[1] == $_SESSION['player_id']) {
                   $hasBracket = true;
