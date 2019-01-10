@@ -1110,18 +1110,35 @@ html {
           font-size: 2.5rem;
         };
       };
-      #viewTitle {
-        margin: 80px 0;
-        font-size: 8rem;
-        text-align: center;
+      #titleBkgd {
+        margin: 20px 0;
+        padding: 100px 5%;
+        background-size: cover;
+        background-image: url('https://www.whatsuplife.in/gurgaon/blog/wp-content/uploads/2018/06/fifa-1-702x336.jpg');
+        #viewTitle {
+          border-radius: 25px;
+          font-size: 8rem;
+          font-family: "Bevan", cursive;
+          color: rgb(181,7,7);
+          text-align: center;
+          background-color: white;
+        };
       };
       #statsBox {
-        margin: 0 5% 80px 5%;
-        padding: 30px 5%;
+        margin: 80px 5% 80px 5%;
+        border-radius: 25px;
+        padding: 50px 5%;
         text-align: center;
         font-size: 5rem;
+        font-family: "Special Elite", cursive;
         color: white;
         background-color: blue;
+        #plyrName {
+          margin-bottom: 25px;
+        };
+        #scoreRow {
+          margin-top: 25px;
+        }
       };
       .oneScoreList {
         margin: 0 5% 80px 5%;;
@@ -1131,10 +1148,11 @@ html {
           margin-bottom: 15px;
           display: flex;
           justify-content: space-between;
-          font-size: 4rem;
+          font-size: 5.5rem;
           color: red;
           span {
-
+            color: black;
+            font-family: "Staatliches", cursive;
           };
         };
         .oneScoreRow {

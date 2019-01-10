@@ -105,6 +105,7 @@
   <head>
     <meta charset="utf-8">
     <title>Review | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -117,7 +118,9 @@
       <form method="POST">
         <input id="returnBttn" type="submit" name="returnGroup" value="<< BACK" />
       </form>
-      <div id="viewTitle">Bracket Review</div>
+      <div id="titleBkgd">
+        <div id="viewTitle">Bracket Review</div>
+      </div>
       <div id="statsBox">
         <div id="plyrName">Player: <?php echo($usrNmeArray['userName']) ?></div>
         <div id="scoreRow">Current Score: <span id="currentScore"></span></div>
@@ -139,7 +142,7 @@
             <div class='oneScoreList'>
               <div class='oneTitle'>
                 <span>".$layer['level_name']."</span>
-                <span>Points Earned</span>
+                <span>Points</span>
               </div>");
             foreach ($pickArray as $pick) {
               if ($pick['layer'] == $layer['layer']) {
