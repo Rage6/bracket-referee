@@ -347,13 +347,14 @@
           ':gid'=>htmlentities($_GET['group_id'])
         ));
         $currentLayer = null;
+        $rowColor = "lightgrey";
         while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
           $newLayer = $oneGame['layer'];
           if ($currentLayer != $newLayer) {
             $roundTitle = $oneGame['level_name'];
             $roundNum = 0;
             if ($currentLayer == null) {
-              echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'>".$roundTitle."</div>");
+              echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'><u>".$roundTitle."</u></div>");
             } else {
               echo("</div><div id='layer_".$newLayer."' class='allRounds' data-round='".$newLayer."'><div class='rowTitle'>".$roundTitle."</div>");
             };
@@ -385,14 +386,19 @@
           $winnerTeam = $oneGame['winner_id'];
           $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
           $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
+          if ($rowColor == 'lightgrey') {
+            $rowColor = "white";
+          } else {
+            $rowColor = "lightgrey";
+          };
           if ($team_a == $winnerTeam) {
-            $a_name = "<div class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
+            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
           } elseif ($team_b == $winnerTeam) {
-            $a_name = "<div class='allRows'><div>".$a_name['team_name']."</div>";
+            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
             $b_name = "<div style='color:white;background-color:green'>".$b_name['team_name']."</div></div>";
           } else {
-            $a_name = "<div class='allRows'><div>".$a_name['team_name']."</div>";
+            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
           };
           echo($a_name);
