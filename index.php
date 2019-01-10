@@ -2,6 +2,29 @@
   session_start();
   require_once("pdo.php");
 
+  // Redirects someone to their player.php if they are still logged in
+  if (isset($_SESSION['player_id']) && isset($_SESSION['token'])) {
+    $checkTokenStmt = $pdo->prepare('SELECT token,userName FROM Players WHERE player_id=:ply');
+    $checkTokenStmt->execute(array(
+      'ply'=>htmlentities($_SESSION['player_id'])
+    ));
+    $checkPlayer = $checkTokenStmt->fetch(PDO::FETCH_ASSOC);
+    if ($_SESSION['token'] == $checkPlayer['token']) {
+      $_SESSION['message'] = "<b style='color:green'>Welcome back, ".$checkPlayer['userName']."!</b> ";
+      header('Location: player.php');
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Your account's token does not equal your current token. Log back in to refresh your token.</b>";
+      unset($_SESSION['player_id']);
+      unset($_SESSION['token']);
+      header('Location: index.php');
+      return false;
+    };
+    $_SESSION['message'] = "<b style='color:green'>Welcome back, ".$checkPlayer['userName']."!</b> ";
+    header('Location: player.php');
+    return true;
+  };
+
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
