@@ -131,6 +131,47 @@
     }
   };
 
+  // So users can reset a forgotten password
+  if (isset($_POST['reset'])) {
+    if (strlen($_POST['resetEmail']) > 0) {
+      if (filter_var($_POST['resetEmail'],FILTER_VALIDATE_EMAIL)) {
+        $countEmailStmt = $pdo->prepare('SELECT COUNT(email) FROM Players WHERE email=:rem');
+        $countEmailStmt->execute(array(
+          ':rem'=>htmlentities($_POST['resetEmail'])
+        ));
+        $countEmail = (int)$countEmailStmt->fetch(PDO::FETCH_ASSOC)['COUNT(email)'];
+        if ($countEmail == 1) {
+          // A new password and hash are made...
+          $newPassword = bin2hex(random_bytes(5));
+          $newHash = password_hash($newPassword,PASSWORD_DEFAULT);
+          // .. so that the old hash can be changed to the new hash...
+          // $changePasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:npw WHERE email=:fem');
+          // $changePasswordStmt->execute(array(
+          //   ':npw'=>$newHash,
+          //   ':fem'=>htmlentities($_POST['resetEmail'])
+          // ));
+          // .. and the new password can be emailed to the user.
+          mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword);
+          $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email should appear with the new password. </b>".$newPassword;
+          header('Location: index.php');
+          return true;
+        } else {
+          $_SESSION['message'] = "<b style='color:red'>No accounts recognize the entered email address</b>";
+          header('Location: index.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<b style='color:red'>Only valid email are accepted (ex. myName@email.com)</b>";
+        header('Location: index.php');
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>An email must be entered</b>";
+      header('Location: index.php');
+      return false;
+    };
+  };
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -177,6 +218,7 @@
     <?php
       if (isset($_SESSION['message'])) {
         echo("<div id='message'>".$_SESSION['message']."</div>");
+        // var_dump($_SESSION['message']);
         unset($_SESSION['message']);
       };
     ?>
@@ -194,6 +236,16 @@
         </table>
         <input type="submit" name="confirmOld" value="ENTER">
       </form>
+      <div id="forgotBttn">Forgot you password?</div>
+      <div id="forgotBox">
+        <div>
+          If you are having trouble entering your current password, you can have a new one sent to you. Simply enter your current email address below and click 'RESET'. You should recieve an email from Bracket Referee shortly.
+        </div>
+        <form method="POST">
+          <input type="text" name="resetEmail"/></br>
+          <input type="submit" name="reset" />
+        </form>
+      </div>
     </div>
     <div class="acctForms" id="signForm">
       <form method='POST'>
