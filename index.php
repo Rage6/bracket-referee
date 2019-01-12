@@ -151,8 +151,12 @@
           //   ':fem'=>htmlentities($_POST['resetEmail'])
           // ));
           // .. and the new password can be emailed to the user.
-          mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword);
-          $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email should appear with the new password. </b>".$newPassword;
+          if (mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword)) {
+            $_SESSION['message'] = "MESSAGE SUCCESSFUL!";
+          } else {
+            $_SESSION['message'] = "Sorry, didn't work";
+          };
+          // $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email should appear with the new password. </b>".$newPassword;
           header('Location: index.php');
           return true;
         } else {
