@@ -2,6 +2,11 @@
   session_start();
   require_once("pdo.php");
 
+  $currentHost = $_SERVER['HTTP_HOST'];
+  if ($currentHost != 'localhost:8888') {
+    require 'sendgrid/autoload.php';
+  };
+
   // Redirects someone to their player.php if they are still logged in
   if (isset($_SESSION['player_id']) && isset($_SESSION['token'])) {
     $checkTokenStmt = $pdo->prepare('SELECT token,userName FROM Players WHERE player_id=:ply');
