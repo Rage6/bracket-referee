@@ -159,7 +159,7 @@
           if (mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword)) {
             $_SESSION['message'] = "MESSAGE SUCCESSFUL!";
           } else {
-            $_SESSION['message'] = "Sorry, didn't work";
+            $_SESSION['message'] = "<b style='color:red'>Sorry, there must have been an error in my code that prevented it from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
           };
           // $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email should appear with the new password. </b>".$newPassword;
           header('Location: index.php');
@@ -248,7 +248,7 @@
       <div id="forgotBttn">Forgot you password?</div>
       <div id="forgotBox">
         <div>
-          If you are having trouble entering your current password, you can have a new one sent to you. Simply enter your current email address below and click 'RESET'. You should recieve an email from Bracket Referee shortly.
+          Get a new password sent to you by entering your current email address below and click 'RESET'. You should recieve an email from Bracket Referee shortly after.
         </div>
         <form method="POST">
           <input type="text" name="resetEmail"/></br>

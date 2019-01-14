@@ -18,6 +18,15 @@ $(()=>{
     $('#logForm').hide();
   });
 
+  // Toggle the 'Reset' box
+  $("#forgotBttn").click(()=>{
+    if ($("#forgotBox").css('display') == "block") {
+      $("#forgotBox").css('display','none');
+    } else {
+      $("#forgotBox").css('display','block');
+    };
+  });
+
   // Toggle the box for changing the password with title
   $('#changePs').hide();
   $('#change-Pw-Btn').click(()=>{
