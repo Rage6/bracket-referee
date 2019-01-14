@@ -4,7 +4,7 @@
 
   $currentHost = $_SERVER['HTTP_HOST'];
   if ($currentHost != 'localhost:8888') {
-    require 'sendgrid/autoload.php';
+    require 'vendor/autoload.php';
   };
 
   // Redirects someone to their player.php if they are still logged in
@@ -157,11 +157,10 @@
           // ));
           // .. and the new password can be emailed to the user.
           if (mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword)) {
-            $_SESSION['message'] = "MESSAGE SUCCESSFUL!";
+            $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email with your new password was sent to your email account.</b>";
           } else {
             $_SESSION['message'] = "<b style='color:red'>Sorry, there must have been an error in my code that prevented it from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
           };
-          // $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email should appear with the new password. </b>".$newPassword;
           header('Location: index.php');
           return true;
         } else {
