@@ -157,61 +157,60 @@ html {
           font-family: 'Special Elite',cursive;
           color: #b50707;
           width: 80%; }
-    html body #playerPage #profIdBox {
+    html body #playerPage #topRow #profIdBox {
       border-radius: 30px;
       color: #b50707;
       background-image: url("https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612"); }
-      html body #playerPage #profIdBox #profIdTable {
+      html body #playerPage #topRow #profIdBox #profIdTable {
         background-color: white;
         width: 100%; }
-        html body #playerPage #profIdBox #profIdTable tr {
+        html body #playerPage #topRow #profIdBox #profIdTable tr {
           font-size: 3rem; }
-          html body #playerPage #profIdBox #profIdTable tr td {
+          html body #playerPage #topRow #profIdBox #profIdTable tr td {
             border: 2px solid grey;
             color: black;
             text-align: center; }
-          html body #playerPage #profIdBox #profIdTable tr .profTitle {
+          html body #playerPage #topRow #profIdBox #profIdTable tr .profTitle {
             border: none;
             color: white;
             background-color: grey; }
-      html body #playerPage #profIdBox #profIdBtns {
+      html body #playerPage #topRow #profIdBox #profIdBtns {
         margin: 80px 0 20px 0;
         display: flex;
         justify-content: space-between; }
-        html body #playerPage #profIdBox #profIdBtns input {
+        html body #playerPage #topRow #profIdBox #profIdBtns input {
           border-radius: 15px;
           padding: 10px 40px;
           font-size: 4rem;
           color: white; }
-        html body #playerPage #profIdBox #profIdBtns #plrEdit {
+        html body #playerPage #topRow #profIdBox #profIdBtns #plrEdit {
           background-color: blue; }
-        html body #playerPage #profIdBox #profIdBtns #plrLogOut {
+        html body #playerPage #topRow #profIdBox #profIdBtns #plrLogOut {
           background-color: #b74c37; }
-    html body #playerPage #grpListBox {
+    html body #playerPage #topRow #grpListBox {
       border-radius: 30px;
       background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg"); }
-      html body #playerPage #grpListBox #completeList {
+      html body #playerPage #topRow #grpListBox #completeList {
         background-color: white;
         width: 100%;
         font-size: 3.5rem; }
-        html body #playerPage #grpListBox #completeList #listTitle {
+        html body #playerPage #topRow #grpListBox #completeList #listTitle {
           display: none;
           text-align: center;
           background-color: yellow; }
-        html body #playerPage #grpListBox #completeList a {
+        html body #playerPage #topRow #grpListBox #completeList a {
           text-decoration: none;
           color: white; }
-          html body #playerPage #grpListBox #completeList a .listContent {
+          html body #playerPage #topRow #grpListBox #completeList a .listContent {
             margin-top: 20px;
             border-radius: 0 50px 50px 0;
             padding: 20px 10% 20px 5%;
             display: flex;
             justify-content: space-between;
             background-color: blue; }
-            html body #playerPage #grpListBox #completeList a .listContent .rightArrow {
+            html body #playerPage #topRow #grpListBox #completeList a .listContent .rightArrow {
               height: 0;
               width: 0;
-              margin-top: 15px;
               border-top: 20px solid transparent;
               border-left: 40px solid white;
               border-bottom: 20px solid transparent;
@@ -219,86 +218,93 @@ html {
     html body #playerPage #groupBox {
       border-radius: 30px;
       background-image: url("https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg"); }
-      html body #playerPage #groupBox .newGrpOption {
+      html body #playerPage #groupBox #allNewOpts .newGrpOption {
         margin: 20px 0;
         border-radius: 15px;
-        padding: 20px 5%;
+        padding: 20px 1%;
         background-color: green; }
-        html body #playerPage #groupBox .newGrpOption .allOptTitle {
+        html body #playerPage #groupBox #allNewOpts .newGrpOption .allOptTitle {
           display: flex;
           justify-content: space-between;
           text-align: center;
           font-size: 3.5rem;
+          font-family: 'Special Elite',cursive;
           color: white;
           width: 100%; }
-        html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV {
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroup #findGrpV {
           width: 50px; }
-          html body #playerPage #groupBox .newGrpOption #findGroup #findGrpV #findGrpVimg {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroup #findGrpV #findGrpVimg {
             width: 100%; }
-        html body #playerPage #groupBox .newGrpOption #showAddBox #showAddV {
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #showAddBox #showAddV {
           width: 50px; }
-          html body #playerPage #groupBox .newGrpOption #showAddBox #showAddV #showAddVimg {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #showAddBox #showAddV #showAddVimg {
             width: 100%; }
-        html body #playerPage #groupBox .newGrpOption #findGroupBox {
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox {
           margin-top: 20px; }
-          html body #playerPage #groupBox .newGrpOption #findGroupBox form {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox form {
+            margin: 0 2%;
             display: flex;
             justify-content: space-between; }
-            html body #playerPage #groupBox .newGrpOption #findGroupBox form #searchBtn {
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox form #searchBtn {
               padding: 5px 10px;
               border: 1px solid black;
               border-radius: 15px;
               font-size: 2.5rem;
               background-color: lightgrey;
               width: 30%; }
-            html body #playerPage #groupBox .newGrpOption #findGroupBox form input {
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox form input {
               font-size: 3rem;
-              width: 60%; }
-        html body #playerPage #groupBox .newGrpOption #searchResults {
-          margin-top: 10px;
+              width: 62%; }
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults {
+          margin-top: 20px;
           padding: 10px 2%;
           font-size: 3rem;
           background-color: white; }
-          html body #playerPage #groupBox .newGrpOption #searchResults table {
-            margin-bottom: 25px;
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults table {
+            margin-bottom: 15px;
             padding: 10px 2%;
             border: 1px solid black;
             border-spacing: 0px 15px;
-            width: 96%; }
-        html body #playerPage #groupBox .newGrpOption #addGroupBox {
+            width: 100%; }
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults p {
+            margin: 5px 0;
+            font-size: 1.2rem;
+            text-align: center; }
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox {
           margin-top: 20px;
           color: white;
           font-size: 3rem; }
-          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td input {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form table tr td input {
             font-size: 2.5rem;
             width: 100%; }
-          html body #playerPage #groupBox .newGrpOption #addGroupBox form table tr td select {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form table tr td select {
             color: black;
             font-size: 2rem;
             background-color: white;
             width: 100%; }
-          html body #playerPage #groupBox .newGrpOption #addGroupBox form div {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div {
             margin: 30px 0;
             display: flex;
             justify-content: space-around; }
-            html body #playerPage #groupBox .newGrpOption #addGroupBox form div #submitNewGrp {
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div #submitNewGrp {
               border: 5px solid white;
               border-radius: 15px;
               padding: 10px 20px;
               font-size: 3rem;
               color: white;
               background-color: green; }
-            html body #playerPage #groupBox .newGrpOption #addGroupBox form div span {
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div span {
               margin-top: 15px; }
-        html body #playerPage #groupBox .newGrpOption #resultBox {
+        html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox {
           margin: 20px 0 10px 0;
           padding: 10px 0;
           text-decoration: none;
+          overflow: scroll;
           background-color: white; }
-          html body #playerPage #groupBox .newGrpOption #resultBox p {
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p {
             padding: 0 3%;
             font-size: 1.2rem; }
-            html body #playerPage #groupBox .newGrpOption #resultBox p a {
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p a {
               font-size: inherit; }
     html body #plyrEditPage #editTitle {
       margin: 50px 0;
@@ -912,5 +918,82 @@ html {
           background-color: red; }
         html body #viewPage #delBox form span {
           font-size: 3.5rem; }
+
+@media only screen and (min-width: 1366px) {
+  html body #playerPage .allBox {
+    margin-bottom: 70px;
+    padding: 70px 0; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage .allBox .allInnerBox .allBoxTitle {
+    font-size: 2.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage .allBox .allInnerBox #grpBoxTitle {
+    font-size: 4rem;
+    padding-left: 8%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage .allBox #optionInnerBox {
+    padding: 40px 1%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow {
+    display: flex;
+    justify-content: space-around; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #profIdBox {
+    width: 45%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #profIdBox #profIdTable tr {
+    font-size: 2rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #profIdBox #profIdBtns {
+    margin: 20px 0; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #profIdBox #profIdBtns input {
+    font-size: 2.3rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #grpListBox {
+    width: 45%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #grpListBox #completeList {
+    font-size: 2rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #topRow #grpListBox #completeList a .listContent {
+    padding: 10px 10% 10px 5%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption {
+    width: 30%; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption .allOptTitle {
+    margin: 20px 0;
+    text-decoration: underline;
+    font-size: 2.4rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroup #findGrpV {
+    display: none; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #showAddBox #showAddV {
+    display: none; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox form #searchBtn {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroupBox form input {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form table tr td input {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form table tr td select {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div #submitNewGrp {
+    font-size: 1.5rem; } }
+html body #groupPage #playerTable tr td a:hover {
+  cursor: pointer; }
 
 /*# sourceMappingURL=output.css.map */

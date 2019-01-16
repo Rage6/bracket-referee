@@ -38,46 +38,69 @@ $(()=>{
     $('#changePs').hide();
   });
 
-  //Toggle the box for using the 'SEARCH' option
-  var findPoint = "up";
-  if ($("#searchResults").css('display') != 'block') {
-    $("#findGroupBox").hide();
+  // Finds the correct path names based on whether it is in a local or public host
+  var currentHost = window.location.host;
+  var currentPlayerPath = null;
+  var currentViewPath = null;
+  var currentGroupPath = null;
+  if (currentHost == 'localhost:8888') {
+    currentPlayerPath = "/bracket-referee/player.php";
+    currentViewPath = "/bracket-referee/bracket_view.php";
+    currentGroupPath = "/bracket-referee/group.php";
   } else {
-    $("#findGrpVimg").css('transform','scaleY(-1)');
-    var findPoint = "down";
+    currentPlayerPath = "/player.php";
+    currentViewPath = "/bracket_view.php";
+    currentGroupPath = "/group.php";
   };
-  $("#findGroup").click(()=>{
-    $("#findGroupBox").toggle();
-    if (findPoint == "up") {
-      $("#findGrpVimg").css('transform','scaleY(-1)');
-      $("#searchResults").css('display','block');
-      findPoint = "down";
-    } else {
-      $("#findGrpVimg").css('transform','scaleY(1)');
-      $("#searchResults").css('display','none');
-      findPoint = "up";
-    };
-  });
 
-  // Toggle the box for adding a new group
-  var addPoint = "up";
-  $("#addGroupBox").hide();
-  $('#showAddBox').click(()=>{
-    $('#deleteBox').hide();
-    $("#addGroupBox").toggle();
-    if (addPoint == "up") {
-      $("#showAddVimg").css('transform','scaleY(-1)');
-      addPoint = "down";
+  // Turns on the hide/show for the "Join A Group" options if the width is less than 1366px
+  console.log(window.innerWidth);
+  if (window.location.pathname == currentPlayerPath) {
+    if (window.innerWidth < 1366) {
+      //Toggle the box for using the 'SEARCH' option
+      var findPoint = "up";
+      if ($("#searchResults").css('display') != 'block') {
+        $("#findGroupBox").hide();
+      } else {
+        $("#findGrpVimg").css('transform','scaleY(-1)');
+        var findPoint = "down";
+      };
+      $("#findGroup").click(()=>{
+        $("#findGroupBox").toggle();
+        if (findPoint == "up") {
+          $("#findGrpVimg").css('transform','scaleY(-1)');
+          $("#searchResults").css('display','block');
+          findPoint = "down";
+        } else {
+          $("#findGrpVimg").css('transform','scaleY(1)');
+          $("#searchResults").css('display','none');
+          findPoint = "up";
+        };
+      });
+
+      // Toggle the box for adding a new group
+      var addPoint = "up";
+      $("#addGroupBox").hide();
+      $('#showAddBox').click(()=>{
+        $('#deleteBox').hide();
+        $("#addGroupBox").toggle();
+        if (addPoint == "up") {
+          $("#showAddVimg").css('transform','scaleY(-1)');
+          addPoint = "down";
+        } else {
+          $("#showAddVimg").css('transform','scaleY(1)');
+          addPoint = "up";
+        };
+      });
+      $('#cancelGroup').click(()=>{
+        $("#addGroupBox").hide();
+        $("#showAddVimg").css('transform','scaleY(1)');
+        addPoint = "up";
+      });
     } else {
-      $("#showAddVimg").css('transform','scaleY(1)');
-      addPoint = "up";
+      $("#allNewOpts").css('display','flex').css('justify-content','space-between');
     };
-  });
-  $('#cancelGroup').click(()=>{
-    $("#addGroupBox").hide();
-    $("#showAddVimg").css('transform','scaleY(1)');
-    addPoint = "up";
-  });
+  };
 
   // Toggle the box for deleting account in player.php
   $('#deleteBox').hide();
@@ -129,18 +152,6 @@ $(()=>{
   $("#hideDelBox").click(()=>{
     $("#delBox").hide();
   });
-
-  // Finds the correct path names based on whether it is in a local or public host
-  var currentHost = window.location.host;
-  var currentViewPath = null;
-  var currentGroupPath = null;
-  if (currentHost == 'localhost:8888') {
-    currentViewPath = "/bracket-referee/bracket_view.php";
-    currentGroupPath = "/bracket-referee/group.php";
-  } else {
-    currentViewPath = "/bracket_view.php";
-    currentGroupPath = "/group.php";
-  };
 
   // Takes the final total at the bottom of bracket_view.php and displays it at the top;
   if (window.location.pathname == currentViewPath) {
@@ -213,7 +224,6 @@ $(()=>{
 
   // For copying the invite link with clicking
   // Answer found at: https://brianscode.com/jquery-copy-span-contents-clipboard-example/#comment-755
-  // $(document).ready(() => {
   	$("#clickLink").click(() => {
   		var chooseLinkDiv = document.getElementById("copyLink");
   		var range = document.createRange();
@@ -225,6 +235,10 @@ $(()=>{
       $("#copyLink").css('background-color','lightgreen')
   		return true;
   	});
-  // });
+
+    // // To display all of the "Join A Group" options if width is greater than 1366px
+    // if (window.location.pathname == currentPlayerPath) {
+    //
+    // };
 
 });

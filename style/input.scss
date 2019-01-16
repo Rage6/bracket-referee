@@ -1,3 +1,4 @@
+
 html {
   padding: 0px;
   font-size: 16px;
@@ -198,79 +199,88 @@ html {
             color:rgb(181,7,7);
             width:80%;
           };
+          #grpBoxTitle {
+
+          };
+        };
+        #optionInnerBox {
+
         };
       };
-      #profIdBox {
-        // border-color: grey;
-        border-radius: 30px;
-        color: rgb(181,7,7);
-        background-image: url('https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612');
-        #profIdTable {
-          background-color: white;
-          width: 100%;
-          tr {
-            font-size: 3rem;
-            td {
-              border: 2px solid grey;
-              color: black;
-              text-align: center;
+      #topRow {
+
+        #profIdBox {
+          // border-color: grey;
+          border-radius: 30px;
+          color: rgb(181,7,7);
+          background-image: url('https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612');
+          #profIdTable {
+            background-color: white;
+            width: 100%;
+            tr {
+              font-size: 3rem;
+              td {
+                border: 2px solid grey;
+                color: black;
+                text-align: center;
+              };
+              .profTitle {
+                border: none;
+                color: white;
+                background-color: grey;
+              };
             };
-            .profTitle {
-              border: none;
+          };
+          #profIdBtns {
+            margin: 80px 0 20px 0;
+            display: flex;;
+            justify-content: space-between;
+            input {
+              border-radius: 15px;
+              padding: 10px 40px;
+              font-size: 4rem;
               color: white;
-              background-color: grey;
+            };
+            #plrEdit {
+              background-color: blue;
+            };
+            #plrLogOut {
+              background-color: rgb(183, 76, 55);
             };
           };
         };
-        #profIdBtns {
-          margin: 80px 0 20px 0;
-          display: flex;;
-          justify-content: space-between;
-          input {
-            border-radius: 15px;
-            padding: 10px 40px;
-            font-size: 4rem;
-            color: white;
-          };
-          #plrEdit {
-            background-color: blue;
-          };
-          #plrLogOut {
-            background-color: rgb(183, 76, 55);
-          };
-        };
-      };
-      #grpListBox {
-        // border: 1px solid blue;
-        border-radius: 30px;
-        background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
-        #completeList {
-          background-color: white;
-          width: 100%;
-          font-size: 3.5rem;
-          #listTitle {
-            display: none;
-            text-align: center;
-            background-color: yellow;
-          };
-          a {
-            text-decoration: none;
-            color: white;
-            .listContent {
-              margin-top: 20px;
-              border-radius: 0 50px 50px 0 ;
-              padding: 20px 10% 20px 5%;
-              display: flex;
-              justify-content: space-between;
-              background-color: blue;
-              .rightArrow {
-                height: 0;
-                width: 0;
-                margin-top: 15px;
-                border-top: 20px solid transparent;
-                border-left: 40px solid white;
-                border-bottom: 20px solid transparent;
-                border-right: 0px solid transparent;
+        #grpListBox {
+          // border: 1px solid blue;
+          border-radius: 30px;
+          background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
+          #completeList {
+            background-color: white;
+            width: 100%;
+            font-size: 3.5rem;
+            #listTitle {
+              display: none;
+              text-align: center;
+              background-color: yellow;
+            };
+            a {
+              text-decoration: none;
+              color: white;
+              .listContent {
+                margin-top: 20px;
+                border-radius: 0 50px 50px 0 ;
+                padding: 20px 10% 20px 5%;
+                display: flex;
+                justify-content: space-between;
+                background-color: blue;
+                .rightArrow {
+                  height: 0;
+                  width: 0;
+                  // margin-top: 15px;
+                  border-top: 20px solid transparent;
+                  border-left: 40px solid white;
+                  border-bottom: 20px solid transparent;
+                  border-right: 0px solid transparent;
+                };
               };
             };
           };
@@ -280,125 +290,132 @@ html {
         // border-color: green;
         border-radius: 30px;
         background-image: url('https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg');
-        .newGrpOption {
-          margin: 20px 0;
-          border-radius: 15px;
-          padding: 20px 5%;
-          background-color: green;
-          .allOptTitle {
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-            font-size:3.5rem;
-            color: white;
-            width:100%;
-          };
-          #findGroup {
-            #findGrpV {
-              width: 50px;
-              #findGrpVimg {
-                width: 100%;
-              };
-            };
-          };
-          #showAddBox {
-            #showAddV {
-              width: 50px;
-              #showAddVimg {
-                width: 100%;
-              };
-            };
-          };
-          #findGroupBox {
-            margin-top: 20px;
-            form {
+        #allNewOpts {
+          .newGrpOption {
+            margin: 20px 0;
+            border-radius: 15px;
+            padding: 20px 1%;
+            background-color: green;
+            .allOptTitle {
               display: flex;
               justify-content: space-between;
-              #searchBtn {
-                padding: 5px 10px;
-                border: 1px solid black;
-                border-radius: 15px;
-                font-size: 2.5rem;
-                background-color: lightgrey;
-                width: 30%;
+              text-align: center;
+              font-size:3.5rem;
+              font-family: 'Special Elite',cursive;
+              color: white;
+              width:100%;
+            };
+            #findGroup {
+              #findGrpV {
+                width: 50px;
+                #findGrpVimg {
+                  width: 100%;
+                };
               };
-              input {
-                font-size: 3rem;
-                width: 60%;
+            };
+            #showAddBox {
+              #showAddV {
+                width: 50px;
+                #showAddVimg {
+                  width: 100%;
+                };
               };
             };
-          };
-          #searchResults {
-            margin-top: 10px;
-            padding: 10px 2%;
-            font-size: 3rem;
-            background-color: white;
-            table {
-              margin-bottom: 25px;
-              padding: 10px 2%;;
-              border: 1px solid black;
-              border-spacing: 0px 15px;
-              width: 96%;
+            #findGroupBox {
+              margin-top: 20px;
+              form {
+                margin: 0 2%;
+                display: flex;
+                justify-content: space-between;
+                #searchBtn {
+                  padding: 5px 10px;
+                  border: 1px solid black;
+                  border-radius: 15px;
+                  font-size: 2.5rem;
+                  background-color: lightgrey;
+                  width: 30%;
+                };
+                input {
+                  font-size: 3rem;
+                  width: 62%;
+                };
+              };
             };
-            b {
-
-            };
-          };
-          #showAddBox {
-
-          };
-          #addGroupBox {
-            margin-top: 20px;
-            color: white;
-            font-size: 3rem;
-            form {
+            #searchResults {
+              margin-top: 20px;
+              padding: 10px 2%;
+              font-size: 3rem;
+              background-color: white;
               table {
-                tr {
-                  td {
-                    input {
-                      font-size: 2.5rem;
-                      width: 100%;
-                    };
-                    select {
-                      color: black;
-                      font-size: 2rem;
-                      background-color: white;
-                      width: 100%;
-                      option {
+                margin-bottom: 15px;
+                padding: 10px 2%;;
+                border: 1px solid black;
+                border-spacing: 0px 15px;
+                width: 100%;
+              };
+              p {
+                margin: 5px 0;
+                font-size: 1.2rem;
+                text-align: center;
+              };
+            };
+            #showAddBox {
 
+            };
+            #addGroupBox {
+              margin-top: 20px;
+              color: white;
+              font-size: 3rem;
+              form {
+                table {
+                  tr {
+                    td {
+                      input {
+                        font-size: 2.5rem;
+                        width: 100%;
+                      };
+                      select {
+                        color: black;
+                        font-size: 2rem;
+                        background-color: white;
+                        width: 100%;
+                        option {
+
+                        };
                       };
                     };
                   };
                 };
-              };
-              div {
-                margin: 30px 0;
-                display: flex;
-                justify-content: space-around;
-                #submitNewGrp {
-                  border: 5px solid white;
-                  border-radius: 15px;
-                  padding: 10px 20px;
-                  font-size: 3rem;
-                  color: white;
-                  background-color: green;
-                };
-                span {
-                  margin-top: 15px;
+                div {
+                  margin: 30px 0;
+                  display: flex;
+                  justify-content: space-around;
+                  #submitNewGrp {
+                    border: 5px solid white;
+                    border-radius: 15px;
+                    padding: 10px 20px;
+                    font-size: 3rem;
+                    color: white;
+                    background-color: green;
+                  };
+                  span {
+                    margin-top: 15px;
+                  };
                 };
               };
             };
-          };
-          #resultBox {
-            margin: 20px 0 10px 0;
-            padding: 10px 0;
-            text-decoration: none;
-            background-color: white;
-            p {
-              padding: 0 3%;
-              font-size: 1.2rem;
-              a {
-                font-size: inherit;
+            #resultBox {
+              margin: 20px 0 10px 0;
+              padding: 10px 0;
+              text-decoration: none;
+              overflow: scroll;
+              background-color: white;
+              p {
+                padding: 0 3%;
+                font-size: 1.2rem;
+                a {
+                  font-size: inherit;
+                };
               };
             };
           };
@@ -1214,3 +1231,5 @@ html {
 
   };
 };
+
+@import '_1366px';
