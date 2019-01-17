@@ -194,13 +194,13 @@ html {
       border-radius: 30px;
       background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg"); }
       html body #playerPage #topRow #grpListBox #completeList {
+        border: 1px solid grey;
+        padding: 20px 5%;
+        font-size: 3.5rem;
         background-color: white;
-        width: 100%;
-        font-size: 3.5rem; }
-        html body #playerPage #topRow #grpListBox #completeList #listTitle {
-          display: none;
-          text-align: center;
-          background-color: yellow; }
+        width: 90%;
+        max-height: 200px;
+        overflow-y: scroll; }
         html body #playerPage #topRow #grpListBox #completeList a {
           text-decoration: none;
           color: white; }
@@ -218,6 +218,11 @@ html {
               border-left: 40px solid white;
               border-bottom: 20px solid transparent;
               border-right: 0px solid transparent; }
+        html body #playerPage #topRow #grpListBox #completeList #emptyCurrentList {
+          color: grey;
+          font-size: 1.5rem; }
+          html body #playerPage #topRow #grpListBox #completeList #emptyCurrentList ul {
+            margin-bottom: 0; }
     html body #playerPage #groupBox {
       border-radius: 30px;
       background-image: url("https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg"); }
@@ -481,7 +486,7 @@ html {
       html body #groupPage .allTables td {
         border: 3px solid grey; }
     html body #groupPage #inviteBox {
-      margin: 80px 5%;
+      margin: 0px 5% 80px 5%;
       border: 4px dashed black;
       padding: 30px 5%;
       width: 80%; }
@@ -519,7 +524,7 @@ html {
       color: white;
       background-color: blue; }
     html body #groupPage #scrollPlayers {
-      margin: 0 10%;
+      margin: 0 10% 80px 10%;
       border-bottom: 3px solid grey;
       max-height: 500px;
       overflow-y: scroll; }
@@ -541,8 +546,16 @@ html {
             text-decoration: none; }
           html body #groupPage #scrollPlayers #playerTable tr td a:hover {
             cursor: pointer; }
+        html body #groupPage #scrollPlayers #playerTable #hideMemberList {
+          color: grey;
+          text-align: left; }
+          html body #groupPage #scrollPlayers #playerTable #hideMemberList td {
+            padding: 40px 5%;
+            font-size: 2rem; }
+            html body #groupPage #scrollPlayers #playerTable #hideMemberList td ul {
+              margin-bottom: 0; }
     html body #groupPage #bracketButton form input {
-      margin: 20px 10% 40px 10%;
+      margin: 20px 10% 80px 10%;
       border-radius: 55px;
       padding: 30px 0;
       font-size: 3.8rem;

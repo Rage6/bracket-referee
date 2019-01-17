@@ -190,9 +190,6 @@ html {
             @media only screen and (min-width: $min) {
               font-size: 2rem;
             };
-            #listTitle {
-
-            };
             a {
 
               .listContent {
@@ -200,6 +197,13 @@ html {
                   padding: 10px 10% 10px 5%;
                 };
                 .rightArrow {
+
+                };
+              };
+            };
+            #emptyCurrentList {
+              ul {
+                li {
 
                 };
               };
@@ -499,6 +503,15 @@ html {
               a:hover {
                 cursor: pointer;
               }
+            };
+          };
+          #hideMemberList {
+
+            td {
+
+              ul {
+
+              };
             };
           };
         };

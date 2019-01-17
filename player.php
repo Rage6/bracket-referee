@@ -198,9 +198,6 @@
               Current Groups
             </div>
             <div id="completeList">
-              <div id="listTitle">
-                Name
-              </div>
               <?php
                 $groupList = $pdo->prepare('SELECT Groups.group_id,Groups.group_name FROM Groups JOIN Groups_Players WHERE Groups_Players.player_id=:id AND Groups.group_id=Groups_Players.group_id');
                 $groupList->execute(array(
@@ -223,7 +220,15 @@
                           </a>");
                   };
                 } else {
-                  echo("<div class='listContent'><i>Join Group Below</i></div>");
+                  echo("
+                  <div id='emptyCurrentList'>
+                    Join a group below by...
+                    <ul>
+                      <li>searching for a group by name</li>
+                      <li>creating your own group</li>
+                      <li>browsing through the available public groups</li>
+                    </ul>
+                  </div>");
                 };
               ?>
             </div>

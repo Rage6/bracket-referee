@@ -293,14 +293,39 @@
               </tr>");
             };
             echo("</table></div>");
+          } else {
+            echo("
+            <div id='currentTitle' class='allSubtitles allTitles'>Players:</div>
+            <div id='scrollPlayers'>
+              <table id='playerTable' class='allTables'>
+                <tr>
+                  <th>Username</th>
+                  <th>Bracket?</th>
+                  <th>Score</th>
+                </tr>
+                <tr id='hideMemberList'>
+                  <td colspan='3'>Becoming a member shows you a list of:
+                    <ul>
+                      <li>fellow member usernames</li>
+                      <li>which ones have entered a bracket</li>
+                      <li>each member's current score</li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            ");
           };
         ?>
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
           if ($hasBracket == false) {
-            echo("<div id='bracketButton'><form method='POST'>
-              <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-            </form></div>");
+            echo("
+            <div id='bracketButton'>
+              <form method='POST'>
+                <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+              </form>
+            </div>");
           };
         };
       ?>

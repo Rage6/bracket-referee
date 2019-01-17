@@ -257,14 +257,13 @@ html {
           border-radius: 30px;
           background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
           #completeList {
-            background-color: white;
-            width: 100%;
+            border: 1px solid grey;
+            padding: 20px 5%;
             font-size: 3.5rem;
-            #listTitle {
-              display: none;
-              text-align: center;
-              background-color: yellow;
-            };
+            background-color: white;
+            width: 90%;
+            max-height: 200px;
+            overflow-y: scroll;
             a {
               text-decoration: none;
               color: white;
@@ -278,11 +277,20 @@ html {
                 .rightArrow {
                   height: 0;
                   width: 0;
-                  // margin-top: 15px;
                   border-top: 20px solid transparent;
                   border-left: 40px solid white;
                   border-bottom: 20px solid transparent;
                   border-right: 0px solid transparent;
+                };
+              };
+            };
+            #emptyCurrentList {
+              color: grey;
+              font-size: 1.5rem;
+              ul {
+                margin-bottom: 0;
+                li {
+
                 };
               };
             };
@@ -654,7 +662,7 @@ html {
         };
       };
       #inviteBox {
-        margin: 80px 5%;
+        margin: 0px 5% 80px 5%;
         border: 4px dashed black;
         padding: 30px 5%;
         width: 80%;
@@ -699,7 +707,7 @@ html {
         background-color: blue;
       };
       #scrollPlayers {
-        margin: 0 10%;
+        margin: 0 10% 80px 10%;
         border-bottom: 3px solid grey;
         max-height: 500px;
         overflow-y: scroll;
@@ -727,12 +735,23 @@ html {
               }
             };
           };
+          #hideMemberList {
+            color: grey;
+            text-align: left;
+            td {
+              padding: 40px 5%;
+              font-size: 2rem;
+              ul {
+                margin-bottom: 0;
+              };
+            };
+          };
         };
       };
       #bracketButton {
         form {
           input {
-            margin: 20px 10% 40px 10%;
+            margin: 20px 10% 80px 10%;
             border-radius: 55px;
             padding: 30px 0;
             font-size: 3.8rem;

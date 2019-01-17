@@ -158,14 +158,18 @@ html {
 
           #completeList {
 
-            #listTitle {
-
-            };
             a {
 
               .listContent {
 
                 .rightArrow {
+
+                };
+              };
+            };
+            #emptyCurrentList {
+              ul {
+                li {
 
                 };
               };
@@ -441,6 +445,15 @@ html {
               a:hover {
                 cursor: pointer;
               }
+            };
+          };
+          #hideMemberList {
+
+            td {
+
+              ul {
+
+              };
             };
           };
         };
