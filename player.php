@@ -337,10 +337,16 @@
                 } else {
                   $randomURL = "https://bracket-referee.herokuapp.com/group.php?group_id=";
                 };
+                $rowColor = "lightgrey";
                 for ($randNum = 0; $randNum < count($randomList); $randNum++) {
                   $randomGrpId = $randomList[$randNum][1];
                   $randomGrpName = $randomList[$randNum][0];
-                  echo("<p><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
+                  if ($rowColor == "white") {
+                    $rowColor = "lightgrey";
+                  } else {
+                    $rowColor = "white";
+                  };
+                  echo("<p style='background-color:".$rowColor."'><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
                 };
                 ?>
               </div>
