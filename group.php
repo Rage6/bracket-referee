@@ -241,12 +241,13 @@
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
           echo("
           <div id='currentTitle' class='allSubtitles allTitles'>Players:</div>
-          <table id='playerTable' class='allTables'>
-            <tr>
-              <th>Username</th>
-              <th>Bracket?</th>
-              <th>Score</th>
-            </tr>");
+          <div id='scrollPlayers'>
+            <table id='playerTable' class='allTables'>
+              <tr>
+                <th>Username</th>
+                <th>Bracket?</th>
+                <th>Score</th>
+              </tr>");
             $hasBracket = false;
             for ($rowNum = 0; $rowNum < sizeof($grpAllArray); $rowNum++) {
               $playerRow = $grpAllArray[$rowNum];
@@ -291,7 +292,7 @@
                 <td>".$bracketTotal."</td>
               </tr>");
             };
-            echo("</table>");
+            echo("</table></div>");
           };
         ?>
       <?php

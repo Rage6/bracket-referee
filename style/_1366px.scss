@@ -310,7 +310,7 @@ html {
               };
             };
             #resultBox {
-              
+
               p {
 
                 a {
@@ -483,19 +483,21 @@ html {
       #currentTitle {
 
       };
-      #playerTable {
-        th {
+      #scrollPlayers {
+        #playerTable {
+          th {
 
-        };
-        tr {
-          td {
+          };
+          tr {
+            td {
 
-            a {
+              a {
 
+              };
+              a:hover {
+                cursor: pointer;
+              }
             };
-            a:hover {
-              cursor: pointer;
-            }
           };
         };
       };

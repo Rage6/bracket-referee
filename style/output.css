@@ -399,7 +399,8 @@ html {
         padding: 10px 15px;
         border: 1px solid green;
         border-radius: 15px;
-        font-size: 2.5rem; }
+        font-size: 2.5rem;
+        cursor: pointer; }
       html body #groupPage form #joinBttn {
         font-size: 3rem;
         color: white;
@@ -472,7 +473,7 @@ html {
       html body #groupPage .allTables td {
         border: 3px solid grey; }
     html body #groupPage #inviteBox {
-      margin: 0 5% 80px 5%;
+      margin: 80px 5%;
       border: 4px dashed black;
       padding: 30px 5%;
       width: 80%; }
@@ -496,7 +497,8 @@ html {
           text-align: center;
           font-size: 3rem;
           background-color: blue;
-          width: 30%; }
+          width: 30%;
+          cursor: pointer; }
         html body #groupPage #inviteBox .inviteCopyLine .inviteScroll {
           border: 2px solid black;
           padding: 30px 2%;
@@ -508,19 +510,29 @@ html {
     html body #groupPage #currentTitle {
       color: white;
       background-color: blue; }
-    html body #groupPage #playerTable th {
-      background-color: blue; }
-    html body #groupPage #playerTable tr td {
-      padding: 15px; }
-      html body #groupPage #playerTable tr td a {
-        margin: 5px 0;
-        border: 3px solid green;
-        border-radius: 15px;
-        padding: 5px 10px;
-        color: green;
-        text-decoration: none; }
-      html body #groupPage #playerTable tr td a:hover {
-        cursor: pointer; }
+    html body #groupPage #scrollPlayers {
+      margin: 0 10%;
+      border-bottom: 3px solid grey;
+      max-height: 500px;
+      overflow-y: scroll; }
+      html body #groupPage #scrollPlayers #playerTable {
+        margin-left: 0;
+        margin-bottom: 0;
+        width: 100%; }
+        html body #groupPage #scrollPlayers #playerTable th {
+          background-color: blue;
+          overflow-y: hidden; }
+        html body #groupPage #scrollPlayers #playerTable tr td {
+          padding: 15px; }
+          html body #groupPage #scrollPlayers #playerTable tr td a {
+            margin: 5px 0;
+            border: 3px solid green;
+            border-radius: 15px;
+            padding: 5px 10px;
+            color: green;
+            text-decoration: none; }
+          html body #groupPage #scrollPlayers #playerTable tr td a:hover {
+            cursor: pointer; }
     html body #groupPage #bracketButton form input {
       margin: 20px 10% 40px 10%;
       border-radius: 55px;
@@ -549,7 +561,8 @@ html {
       html body #groupPage #groupScrollBox div {
         padding: 10px 0;
         background-color: green;
-        width: 30%; }
+        width: 30%;
+        cursor: pointer; }
       html body #groupPage #groupScrollBox #scrollLeft {
         border-radius: 70px 0 0 70px; }
       html body #groupPage #groupScrollBox #scrollRight {
@@ -993,7 +1006,7 @@ html {
 @media only screen and (min-width: 1366px) {
   html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div #submitNewGrp {
     font-size: 1.5rem; } }
-html body #groupPage #playerTable tr td a:hover {
+html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
 
 /*# sourceMappingURL=output.css.map */
