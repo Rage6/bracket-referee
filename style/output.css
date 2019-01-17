@@ -28,8 +28,8 @@ html {
     html body #bothAcctButtons {
       display: flex;
       justify-content: space-around;
-      color: white;
       font-size: 5rem;
+      color: white;
       font-family: 'Staatliches', cursive;
       text-align: center; }
       html body #bothAcctButtons #logButton {

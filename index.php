@@ -245,13 +245,6 @@
         <span>CREATE</span>
       </div>
     </div>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo("<div id='message'>".$_SESSION['message']."</div>");
-        // var_dump($_SESSION['message']);
-        unset($_SESSION['message']);
-      };
-    ?>
     <div class="acctForms" id="logForm">
       <form method="POST">
         <table>
@@ -308,6 +301,13 @@
         <input class="enterBttn" type='submit' name='makeNew' value='ENTER'/>
       </form>
     </div>
+    <?php
+      if (isset($_SESSION['message'])) {
+        echo("<div id='message'>".$_SESSION['message']."</div>");
+        // var_dump($_SESSION['message']);
+        unset($_SESSION['message']);
+      };
+    ?>
     <div id="indexMain">
       <div id="motto">
         <p>Public Tournaments.</p>

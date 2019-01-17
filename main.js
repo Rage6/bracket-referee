@@ -54,7 +54,6 @@ $(()=>{
   };
 
   // Turns on the hide/show for the "Join A Group" options if the width is less than 1366px
-  console.log(window.innerWidth);
   if (window.location.pathname == currentPlayerPath) {
     if (window.innerWidth < 1366) {
       //Toggle the box for using the 'SEARCH' option
@@ -222,7 +221,7 @@ $(()=>{
     $("#inviteLoginBox").css('display','none');
   });
 
-  // For copying the invite link with clicking
+  // For copying the 'invite link' by clicking the "COPY" button on group.php
   // Answer found at: https://brianscode.com/jquery-copy-span-contents-clipboard-example/#comment-755
   	$("#clickLink").click(() => {
   		var chooseLinkDiv = document.getElementById("copyLink");
@@ -236,9 +235,46 @@ $(()=>{
   		return true;
   	});
 
-    // // To display all of the "Join A Group" options if width is greater than 1366px
-    // if (window.location.pathname == currentPlayerPath) {
-    //
-    // };
+  // Generic function that makes the screen go down when a form appears after clicking
+  const toNewForm = (targetElmt) => {
+    // console.log(targetElmt);
+    var offSetValue = $(targetElmt).offset().top;
+    // console.log("offSet: " + offSetValue);
+    // var positionValue = $(targetElmt).position().top;
+    // console.log("position: " + positionValue);
+    $('html,body').animate({
+      scrollTop:offSetValue
+    },500);
+  };
+
+  // Slides to "login form" on index.php
+  $("#logButton").click(()=>{
+    toNewForm("#logButton");
+  });
+
+  // Slides to "sign in form" on index.php
+  $("#signButton").click(()=>{
+    toNewForm("#signButton");
+  });
+
+  // Slides to "Delete A Group form" on group_edit.php
+  $("#delGrpButton").click(()=>{
+    toNewForm("#delGrpButton");
+  });
+
+  // Slides to "Delete a Bracket form" on bracket_view.php
+  $("#showDelBox").click(()=>{
+    toNewForm("#showDelBox");
+  });
+
+  // Slides to "Change Passwords form" on player_edit.php
+  $("#change-Pw-Btn").click(()=>{
+    toNewForm("#change-Pw-Btn");
+  });
+
+  // Slides to "Delete Your Account form" on player_edit.php
+  $("#showDelBox").click(()=>{
+    toNewForm("#showDeleteBox");
+  });
 
 });
