@@ -67,6 +67,8 @@ html {
         color: green;
         font-size: 4rem;
         background-color: white; }
+      html body .acctForms .enterBttn {
+        cursor: pointer; }
     html body #logForm {
       color: white;
       background-color: blue; }

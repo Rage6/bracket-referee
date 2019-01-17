@@ -264,7 +264,7 @@
             <td><input type="password" name="password"></td>
           </tr>
         </table>
-        <input type="submit" name="confirmOld" value="ENTER">
+        <input class="enterBttn" type="submit" name="confirmOld" value="ENTER">
       </form>
       <div id="forgotBttn">Forgot you password?</div>
       <div id="forgotBox">
@@ -305,7 +305,7 @@
             <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
           </tr>
         </table>
-        <input type='submit' name='makeNew' value='ENTER'/>
+        <input class="enterBttn" type='submit' name='makeNew' value='ENTER'/>
       </form>
     </div>
     <div id="indexMain">
