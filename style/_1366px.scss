@@ -311,6 +311,9 @@ html {
                     };
                   };
                   span {
+                    @media only screen and (min-width: $min) {
+                      display: none;
+                    };
                     u {
 
                     };

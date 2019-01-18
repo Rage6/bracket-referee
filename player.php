@@ -162,7 +162,7 @@
       <div id="hqTitle">Bracket HQ</div>
       <?php
       if (isset($_SESSION['message'])) {
-        echo("<div style='text-align:center;margin-bottom:30px'>".$_SESSION['message']."</div>");
+        echo("<div id='message'>".$_SESSION['message']."</div>");
         unset($_SESSION['message']);
       };
       ?>
@@ -274,14 +274,18 @@
               </div>
               <?php
                 if ($nameList != null) {
-                  echo("<div id='searchResults'><table>");
+                  echo("<div id='searchResults'><div id='resultList'>");
+                  $resultColor = "white";
                   for ($i = 0; $i < count($nameList); $i++) {
-                    echo("<tr>");
-                    echo("<td>".$startList[$i].$nameList[$i].$stopList[$i]."</td>");
-                    echo("</tr>");
+                    echo("<p style='background-color:".$resultColor."'>".$startList[$i].$nameList[$i].$stopList[$i]."</p>");
+                    if ($resultColor == "white") {
+                      $resultColor = "lightgrey";
+                    } else {
+                      $resultColor = "white";
+                    };
                   };
-                  echo("</table>");
-                  echo("<p>Groups Found: ".$i."</p></div>");
+                  echo("</div>");
+                  echo("<p>Groups found: ".$i."</p></div>");
                 };
               ?>
             </div>

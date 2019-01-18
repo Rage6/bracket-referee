@@ -188,6 +188,11 @@ html {
         color: rgb(181,7,7);
         text-align: center;
       };
+      #message {
+        margin-bottom: 30px;
+        font-size: 2rem;
+        text-align: center;
+      };
       .allBox {
         margin: 0 2% 130px 2%;
         padding: 120px 0;
@@ -361,17 +366,23 @@ html {
               padding: 10px 2%;
               font-size: 3rem;
               background-color: white;
-              table {
-                margin-bottom: 15px;
-                padding: 10px 2%;;
-                border: 1px solid black;
+              #resultList {
+                margin: 0 0 15px 0;
+                border: 1px solid lightgrey;
                 border-spacing: 0px 15px;
                 width: 100%;
+                p {
+                  margin: 0;
+                  padding: 15px 0;
+                };
               };
               p {
-                margin: 5px 0;
+                margin: 5px 0 0 0;
+                padding: 0;
                 font-size: 1.2rem;
+                color: white;
                 text-align: center;
+                background-color: green;
               };
             };
             #showAddBox {
@@ -428,6 +439,7 @@ html {
               text-decoration: none;
               overflow: scroll;
               background-color: white;
+              min-height: 230px;
               p {
                 margin: 0;
                 padding: 20px 3%;

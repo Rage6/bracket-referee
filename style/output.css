@@ -146,6 +146,10 @@ html {
       font-family: 'Bevan', cursive;
       color: #b50707;
       text-align: center; }
+    html body #playerPage #message {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      text-align: center; }
     html body #playerPage .allBox {
       margin: 0 2% 130px 2%;
       padding: 120px 0;
@@ -271,16 +275,21 @@ html {
           padding: 10px 2%;
           font-size: 3rem;
           background-color: white; }
-          html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults table {
-            margin-bottom: 15px;
-            padding: 10px 2%;
-            border: 1px solid black;
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults #resultList {
+            margin: 0 0 15px 0;
+            border: 1px solid lightgrey;
             border-spacing: 0px 15px;
             width: 100%; }
+            html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults #resultList p {
+              margin: 0;
+              padding: 15px 0; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults p {
-            margin: 5px 0;
+            margin: 5px 0 0 0;
+            padding: 0;
             font-size: 1.2rem;
-            text-align: center; }
+            color: white;
+            text-align: center;
+            background-color: green; }
         html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox {
           margin-top: 20px;
           color: white;
@@ -313,7 +322,8 @@ html {
           margin: 0;
           text-decoration: none;
           overflow: scroll;
-          background-color: white; }
+          background-color: white;
+          min-height: 230px; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p {
             margin: 0;
             padding: 20px 3%;
@@ -1029,6 +1039,9 @@ html {
 @media only screen and (min-width: 1366px) {
   html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div #submitNewGrp {
     font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div span {
+    display: none; } }
 html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
 
