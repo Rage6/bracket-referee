@@ -200,12 +200,11 @@ html {
       border-radius: 30px;
       background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg"); }
       html body #playerPage #topRow #grpListBox #completeList {
-        border: 1px solid grey;
         padding: 20px 5%;
         font-size: 3.5rem;
-        background-color: white;
+        background-color: lightgrey;
         width: 90%;
-        max-height: 200px;
+        max-height: 275px;
         overflow-y: scroll; }
         html body #playerPage #topRow #grpListBox #completeList a {
           text-decoration: none;
@@ -238,13 +237,14 @@ html {
         padding: 20px 1%;
         background-color: green; }
         html body #playerPage #groupBox #allNewOpts .newGrpOption .allOptTitle {
+          padding: 10px 2%;
           display: flex;
           justify-content: space-between;
           text-align: center;
           font-size: 3.5rem;
           font-family: 'Special Elite',cursive;
           color: white;
-          width: 100%; }
+          width: 96%; }
         html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroup #findGrpV {
           width: 50px; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #findGroup #findGrpV #findGrpVimg {
@@ -323,7 +323,7 @@ html {
           text-decoration: none;
           overflow: scroll;
           background-color: white;
-          min-height: 230px; }
+          max-height: 230px; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p {
             margin: 0;
             padding: 20px 3%;
@@ -1000,7 +1000,8 @@ html {
     width: 45%; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage #topRow #grpListBox #completeList {
-    font-size: 2rem; } }
+    font-size: 2rem;
+    max-height: 200px; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage #topRow #grpListBox #completeList a .listContent {
     padding: 10px 10% 10px 5%; } }

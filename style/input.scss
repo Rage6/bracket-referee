@@ -265,12 +265,11 @@ html {
           border-radius: 30px;
           background-image: url('https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg');
           #completeList {
-            border: 1px solid grey;
             padding: 20px 5%;
             font-size: 3.5rem;
-            background-color: white;
+            background-color: lightgrey;
             width: 90%;
-            max-height: 200px;
+            max-height: 275px;
             overflow-y: scroll;
             a {
               text-decoration: none;
@@ -316,13 +315,14 @@ html {
             padding: 20px 1%;
             background-color: green;
             .allOptTitle {
+              padding: 10px 2%;
               display: flex;
               justify-content: space-between;
               text-align: center;
               font-size:3.5rem;
               font-family: 'Special Elite',cursive;
               color: white;
-              width:100%;
+              width:96%;
             };
             #findGroup {
               #findGrpV {
@@ -439,7 +439,7 @@ html {
               text-decoration: none;
               overflow: scroll;
               background-color: white;
-              min-height: 230px;
+              max-height: 230px;
               p {
                 margin: 0;
                 padding: 20px 3%;

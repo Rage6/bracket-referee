@@ -192,6 +192,7 @@ html {
           #completeList {
             @media only screen and (min-width: $min) {
               font-size: 2rem;
+              max-height: 200px;
             };
             a {
 
