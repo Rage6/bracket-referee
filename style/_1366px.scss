@@ -270,8 +270,13 @@ html {
               @media only screen and (min-width: $min) {
                 font-size: 1.5rem;
               };
-              table {
+              #resultList {
 
+                p {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.5rem;
+                  };
+                };
               };
               p {
 

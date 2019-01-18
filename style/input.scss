@@ -370,10 +370,12 @@ html {
                 margin: 0 0 15px 0;
                 border: 1px solid lightgrey;
                 border-spacing: 0px 15px;
+                font-size: 3rem;
                 width: 100%;
                 p {
                   margin: 0;
                   padding: 15px 0;
+                  font-size: 3rem;
                 };
               };
               p {
@@ -973,11 +975,13 @@ html {
               font-size: 2.5rem;
               color: red;
               background-color: white;
+              cursor: pointer;
             };
             span {
               text-decoration: underline;
               font-size: 2.5rem;
               vertical-align: middle;
+              cursor: pointer;
             };
           };
         };

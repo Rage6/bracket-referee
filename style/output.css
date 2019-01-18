@@ -279,10 +279,12 @@ html {
             margin: 0 0 15px 0;
             border: 1px solid lightgrey;
             border-spacing: 0px 15px;
+            font-size: 3rem;
             width: 100%; }
             html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults #resultList p {
               margin: 0;
-              padding: 15px 0; }
+              padding: 15px 0;
+              font-size: 3rem; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults p {
             margin: 5px 0 0 0;
             padding: 0;
@@ -731,11 +733,13 @@ html {
           padding: 10px 20px;
           font-size: 2.5rem;
           color: red;
-          background-color: white; }
+          background-color: white;
+          cursor: pointer; }
         html body #groupEditPage form #delGrpBox #warningRow span {
           text-decoration: underline;
           font-size: 2.5rem;
-          vertical-align: middle; }
+          vertical-align: middle;
+          cursor: pointer; }
     html body #invitePage #contentBody {
       margin: 30px 5%;
       background-color: white; }
@@ -1027,6 +1031,9 @@ html {
     font-size: 1.5rem; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults {
+    font-size: 1.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #playerPage #groupBox #allNewOpts .newGrpOption #searchResults #resultList p {
     font-size: 1.5rem; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox {
