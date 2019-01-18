@@ -228,7 +228,6 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <div id="indexTitle"></div>
     <div id="indexWords">
       <p>
         Bracket
@@ -259,7 +258,7 @@
         </table>
         <input class="enterBttn" type="submit" name="confirmOld" value="ENTER">
       </form>
-      <div id="forgotBttn">Forgot you password?</div>
+      <!-- <div id="forgotBttn">Forgot you password?</div>
       <div id="forgotBox">
         <div>
           Get a new password sent to you by entering your current email address below and click 'RESET'. You should recieve an email from Bracket Referee shortly after.
@@ -268,7 +267,7 @@
           <input type="text" name="resetEmail"/></br>
           <input type="submit" name="reset" />
         </form>
-      </div>
+      </div> -->
     </div>
     <div class="acctForms" id="signForm">
       <form method='POST'>
