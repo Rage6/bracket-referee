@@ -15,7 +15,6 @@
   if (!isset($_SESSION['player_id'])) {
     if (isset($_GET['invite'])) {
       if ($ifInvite['private'] == 1) {
-        // Example (Private, "The First One"): http://localhost:8888/bracket-referee/group.php?group_id=1&invite=true&link_key=11111111111111111111
         if ($_GET['link_key'] == $ifInvite['link_key']) {
           header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
           return true;
@@ -25,7 +24,6 @@
           return false;
         };
       } else {
-        // Example (Public): http://localhost:8888/bracket-referee/group.php?group_id=2&invite=true
         header('Location: group_invite.php?group_id='.$_GET['group_id']);
         return false;
       };
@@ -197,6 +195,7 @@
           };
         ?>
       </form>
+
       <div class="allTitles">Group:</div>
       <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
       <?php
@@ -205,6 +204,7 @@
           unset($_SESSION['message']);
         };
       ?>
+
       <div id="tournTableTitle" class="allSubtitles allTitles">Tournament:</div>
       <table id="tournTable" class="allTables">
         <tr>
@@ -237,6 +237,7 @@
           </td>
         </tr>
       </table>
+
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
           echo("
@@ -438,13 +439,13 @@
       </div>
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
-          echo("<div id='leaveGrpButton'>Unjoin this group?</div>");
+          echo("<div id='leaveGrpButton'>Leave this group?</div>");
           echo("
             <div id='leaveGrpBox'>
               <p>Are you sure? Your <u>bracket</u> and <u>results</u> will be <b>permanently deleted</b>.</p>
               <div>
                 <form method='POST'>
-                  <input type='submit' name='leaveGroup' value='[X] UNJOIN '>
+                  <input type='submit' name='leaveGroup' value=' LEAVE '>
                   <span id='cancelLeave'><u>CANCEL</u></span>
                 </form>
               </div>
