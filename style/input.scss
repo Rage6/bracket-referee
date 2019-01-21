@@ -691,10 +691,10 @@ html {
         };
       };
       #inviteBox {
-        margin: 0px 5% 80px 5%;
+        margin: 0px 10% 80px 10%;
         border: 4px dashed black;
         padding: 30px 5%;
-        width: 80%;
+        width: 70%;
         #inviteTitle {
           color: rgb(181,7,7);
           text-align: center;
@@ -872,8 +872,16 @@ html {
         text-align: center;
       };
       p {
-        margin: 0 5% 50px 5%;
+        margin: 0 10% 50px 10%;
         font-size: 2.5rem;
+      };
+      ul {
+        margin-left:15%;
+        font-size:2.5rem;
+        width:70%;
+        li {
+
+        };
       };
       form {
         #changeBox {
@@ -922,27 +930,40 @@ html {
               };
             };
           };
+          #changeBttnRow {
+            margin: 40px 0 100px 0;
+          };
+          #inviteTitle {
+            margin-top: 80px;
+            color: white;
+            text-align: center;
+            font-size: 4rem;
+          };
           #inviteBox {
-            margin: 0 5%;
+            margin: 50px 5% 0 5%;
             display: block;
             font-size: 4rem;
             width: 90%;
-            .inviteQ {
-              margin-bottom: 0;
-              padding: 10px 5%;
+            .oneQA {
+              margin-bottom: 20px;
               display: block;
-              background-color: lightgrey;
-              text-align: center;
-            };
-            .inviteA {
-              margin-top: 0;
-              padding: 10px 5%;
-              display: block;
-              background-color: white;
+              .inviteQ {
+                margin-bottom: 0;
+                padding: 10px 5%;
+                display: block;
+                background-color: lightgrey;
+                text-align: center;
+              };
+              .inviteA {
+                margin-top: 0;
+                padding: 10px 5%;
+                display: block;
+                background-color: white;
+              };
             };
           };
           div {
-            margin-top: 50px;
+            // margin-top: 50px;
             display: flex;
             justify-content: space-around;
             input {

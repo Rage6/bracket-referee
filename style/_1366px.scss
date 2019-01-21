@@ -606,7 +606,15 @@ html {
 
       };
       p {
+        @media only screen and (min-width: $min) {
+          margin-left: 15%;
+          width: 70%;
+        };
+      };
+      ul {
+        li {
 
+        };
       };
       form {
         #changeBox {
@@ -634,13 +642,28 @@ html {
               };
             };
           };
+          #inviteTitle {
+
+          };
           #inviteBox {
-
-            .inviteQ {
-
+            @media only screen and (min-width: $min) {
+              display: flex;
+              flex-wrap: wrap;
             };
-            .inviteA {
-
+            .oneQA {
+              @media only screen and (min-width: $min) {
+                width: 48%;
+              };
+              .inviteQ {
+                @media only screen and (min-width: $min) {
+                  font-size: 3rem;
+                };
+              };
+              .inviteA {
+                @media only screen and (min-width: $min) {
+                  font-size: 3rem;
+                };
+              };
             };
           };
           div {

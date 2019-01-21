@@ -170,14 +170,24 @@
   </head>
   <body>
     <div id="groupEditPage">
-      <div id="mainEditTitle">Want to change this group?</div>
+      <div id="mainEditTitle">Change Your Group?</div>
       <?php
         if (isset($_SESSION['message'])) {
           echo($_SESSION['message']);
           unset($_SESSION['message']);
         };
       ?>
-      <p>As the director, you can change this group by simply inserting a new values in the below boxes. Enter your changes by clicking on 'ENTER', or ignore your changes and return to the previous page by clicking 'CANCEL'.</p>
+      <p>
+        As the director, you can change this group by simply inserting a new values in the below boxes. Then scroll to the bottom, where you can...
+      </p>
+      <ul>
+        <li>
+          complete your changes by clicking on 'ENTER'
+        </li>
+        <li>
+          ignore your changes and return to the previous page by clicking 'CANCEL'
+        </li>
+      </ul>
       <form method="POST">
         <div id="changeBox">
           <table>
@@ -210,6 +220,10 @@
               </td>
             </tr>
           </table>
+          <div id="changeBttnRow">
+            <input id="submitEnter" type="submit" name="submitEdit" value="ENTER" />
+            <input type="submit" name="cancelEdit" value="CANCEL" />
+          </div>
           <table>
             <tr>
               <th>
@@ -222,41 +236,61 @@
               </td>
             </tr>
           </table>
+          <div id="inviteTitle">Group Q & A</div>
           <div id="inviteBox">
-            <div style="color:white">Group Q & A</div>
-            <div class="inviteQ">
-              What does the Invite Link do?
+            <div class="oneQA">
+              <div class="inviteQ">
+                What does the Invite Link do?
+              </div>
+              <div class="inviteA">
+                You can use the 'Invite Link' by sending it to others as a quick, easy way for them to join your group.
+              </div>
             </div>
-            <div class="inviteA">
-              The 'Invite Link' tool provides you a link which you can send to others as a quick, easy way for them to join Bracket Referee and join your group.
+            <div class="oneQA">
+              <div class="inviteQ">
+                What does the 'Invite Status' mean?
+              </div>
+              <div class="inviteA">
+                'Invite Status' indicates how it is difficult for a random player to join your group.
+              </div>
             </div>
-            <div class="inviteQ">
-              What does the 'Invite Status' mean?
+            <div class="oneQA" style="width:98%">
+              <div class="inviteQ">
+                Invite Status: 'PRIVATE' vs. 'PUBLIC'
+              </div>
+              <div class="inviteA">
+                <u>PRIVATE:</u>
+                <ul>
+                  <li>The <i>Invite Link</i> will include a unique password, making it difficult for a player to guess themselves into the group</li>
+                  <li>The group <u>CANNOT</u> be found with the <i>Search For A Group</i> button on the "BRACKET HQ" page</li>
+                  <li>The group will <u>NOT</u> be display on the <i>Available Groups</i> board on the "BRACKET HQ" page</li>
+                </ul>
+                <u>PUBLIC:</u>
+                <ul>
+                  <li>'Invite Link' uses a simpler link that is more easily used</li>
+                  <li>The group <u>CAN</u> be found with the <i>Search For A Group</i> button on the "BRACKET HQ" page</li>
+                  <li>The group <u>WILL</u> be display on the <i>Available Groups</i> board on the "BRACKET HQ" page</li></li>
+                </ul>
+              </div>
             </div>
-            <div class="inviteA">
-              'Invite Status' helps make your group more (or less) selective. The two settings are 'PRIVATE' or 'PUBLIC'.
+            <div class="oneQA">
+              <div class="inviteQ">
+                Can I block or remove specific players from my group?
+              </div>
+              <div class="inviteA">
+                No. To prevent claims of cheating or bias, a group director CANNOT remove/change any player or their bracket.
+              </div>
             </div>
-            <div class="inviteQ">
-              What does 'PRIVATE' or 'PUBLIC' cause?
+            <div class="oneQA">
+              <div class="inviteQ">
+                Who can share the Invite Link?
+              </div>
+              <div class="inviteA">
+                Under the 'PRIVATE' setting, the director is the only player that is shown the Invite Link. With the 'PUBLIC' setting, every member can see it.
+                </br>
+                <span style='font-weight:bold'>IMPORTANT:</span> The link CAN be share by anyone recieves it, even if your group is PRIVATE. If unexpected members join your private group, it is because your link has probably been forwarded to other by one of your initial recipients.
+              </div>
             </div>
-            <div class="inviteA">
-              <u>PRIVATE:</u>
-              <ul>
-                <li>'Invite Link' includes unique password</li>
-                <li>Cannot be found with the 'Search For A Group' tool</li>
-                <li>Is not displayed on the 'Available Groups' board</li>
-              </ul>
-              <u>PUBLIC:</u>
-              <ul>
-                <li>'Invite Link' uses generic link without a password</li>
-                <li>Can be found with the 'Search For A Group' tool</li>
-                <li>Can be displayed on the 'Available Groups' board</li>
-              </ul>
-            </div>
-          </div>
-          <div>
-            <input id="submitEnter" type="submit" name="submitEdit" value="ENTER" />
-            <input type="submit" name="cancelEdit" value="CANCEL" />
           </div>
         </div>
         <div id="delGrpButton">Delete this Group?</div>

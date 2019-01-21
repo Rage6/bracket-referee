@@ -493,10 +493,10 @@ html {
       html body #groupPage .allTables th {
         color: white; }
     html body #groupPage #inviteBox {
-      margin: 0px 5% 80px 5%;
+      margin: 0px 10% 80px 10%;
       border: 4px dashed black;
       padding: 30px 5%;
-      width: 80%; }
+      width: 70%; }
       html body #groupPage #inviteBox #inviteTitle {
         color: #b50707;
         text-align: center;
@@ -633,8 +633,12 @@ html {
       font-size: 3rem;
       text-align: center; }
     html body #groupEditPage p {
-      margin: 0 5% 50px 5%;
+      margin: 0 10% 50px 10%;
       font-size: 2.5rem; }
+    html body #groupEditPage ul {
+      margin-left: 15%;
+      font-size: 2.5rem;
+      width: 70%; }
     html body #groupEditPage form #changeBox {
       margin: 0 2%;
       border-radius: 15px;
@@ -670,24 +674,33 @@ html {
           text-align: left;
           overflow-wrap: break-word;
           word-wrap: break-word; }
+      html body #groupEditPage form #changeBox #changeBttnRow {
+        margin: 40px 0 100px 0; }
+      html body #groupEditPage form #changeBox #inviteTitle {
+        margin-top: 80px;
+        color: white;
+        text-align: center;
+        font-size: 4rem; }
       html body #groupEditPage form #changeBox #inviteBox {
-        margin: 0 5%;
+        margin: 50px 5% 0 5%;
         display: block;
         font-size: 4rem;
         width: 90%; }
-        html body #groupEditPage form #changeBox #inviteBox .inviteQ {
-          margin-bottom: 0;
-          padding: 10px 5%;
-          display: block;
-          background-color: lightgrey;
-          text-align: center; }
-        html body #groupEditPage form #changeBox #inviteBox .inviteA {
-          margin-top: 0;
-          padding: 10px 5%;
-          display: block;
-          background-color: white; }
+        html body #groupEditPage form #changeBox #inviteBox .oneQA {
+          margin-bottom: 20px;
+          display: block; }
+          html body #groupEditPage form #changeBox #inviteBox .oneQA .inviteQ {
+            margin-bottom: 0;
+            padding: 10px 5%;
+            display: block;
+            background-color: lightgrey;
+            text-align: center; }
+          html body #groupEditPage form #changeBox #inviteBox .oneQA .inviteA {
+            margin-top: 0;
+            padding: 10px 5%;
+            display: block;
+            background-color: white; }
       html body #groupEditPage form #changeBox div {
-        margin-top: 50px;
         display: flex;
         justify-content: space-around; }
         html body #groupEditPage form #changeBox div input {
@@ -1088,5 +1101,22 @@ html {
     margin-bottom: 0; } }
 html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
+@media only screen and (min-width: 1366px) {
+  html body #groupEditPage p {
+    margin-left: 15%;
+    width: 70%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupEditPage form #changeBox #inviteBox {
+    display: flex;
+    flex-wrap: wrap; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupEditPage form #changeBox #inviteBox .oneQA {
+    width: 48%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupEditPage form #changeBox #inviteBox .oneQA .inviteQ {
+    font-size: 3rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupEditPage form #changeBox #inviteBox .oneQA .inviteA {
+    font-size: 3rem; } }
 
 /*# sourceMappingURL=output.css.map */
