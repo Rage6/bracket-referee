@@ -418,25 +418,60 @@ html {
 
         };
       };
-      #groupTitle {
-
-      };
       .allTitles {
 
       };
       .allSubtitles {
 
       };
-      #message {
+      #groupTopRow {
+        @media only screen and (min-width: $min) {
+          display: flex;
+          justify-content: space-between;
+        };
+        #titleBox {
+          @media only screen and (min-width: $min) {
+            padding: 0 0 0 10%;
+            width: 42%;
+          };
+          #groupTitle {
 
-      };
-      #tournTableTitle {
-
-      };
-      #tournTable {
-
-        th {
-
+          };
+          #message {
+            @media only screen and (min-width: $min) {
+              margin-left: 10%;
+              padding-left: 0;
+              text-align: left;
+            };
+          };
+        };
+        #tournBox {
+          @media only screen and (min-width: $min) {
+            width: 48%;
+          };
+          #tournTableTitle {
+            @media only screen and (min-width: $min) {
+              margin-left: 0;
+              width: 80%;
+            };
+          };
+          #tournTable {
+            @media only screen and (min-width: $min) {
+              margin-left: 0;
+            };
+            .rowTitle {
+              @media only screen and (min-width: $min) {
+                // padding: 0 2%;
+                font-size: 2rem;
+              };
+            };
+            td {
+              @media only screen and (min-width: $min) {
+                // padding: 0 2%;
+                font-size: 2rem;
+              };
+            };
+          };
         };
       };
       table {

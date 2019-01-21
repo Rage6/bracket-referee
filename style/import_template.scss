@@ -363,8 +363,13 @@ html {
 
         };
       };
-      #groupTitle {
+      #titleBox {
+        #groupTitle {
 
+        };
+        #message {
+
+        };
       };
       .allTitles {
 
@@ -372,16 +377,17 @@ html {
       .allSubtitles {
 
       };
-      #message {
+      #tournBox {
+        #tournTableTitle {
 
-      };
-      #tournTableTitle {
+        };
+        #tournTable {
+          .rowTitle {
 
-      };
-      #tournTable {
+          };
+          th {
 
-        th {
-
+          };
         };
       };
       table {

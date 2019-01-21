@@ -277,4 +277,9 @@ $(()=>{
     toNewForm("#showDeleteBox");
   });
 
+  // Slides to "Delete Your Account form" on player_edit.php
+  $("#leaveGrpButton").click(()=>{
+    toNewForm("#leaveGrpBox");
+  });
+
 });

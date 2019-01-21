@@ -422,10 +422,6 @@ html {
         font-size: 3rem;
         color: white;
         background-color: blue; }
-    html body #groupPage #groupTitle {
-      margin: 0 0 75px 10%;
-      font-size: 5.5rem;
-      font-family: 'Staatliches', cursive; }
     html body #groupPage .allTitles {
       margin: 0 0 20px 10%;
       font-size: 4rem;
@@ -438,19 +434,29 @@ html {
       color: white;
       text-align: center;
       width: 50%; }
-    html body #groupPage #message {
+    html body #groupPage #groupTopRow #titleBox #groupTitle {
+      margin: 0 0 75px 10%;
+      font-size: 5.5rem;
+      font-family: 'Staatliches', cursive; }
+    html body #groupPage #groupTopRow #titleBox #message {
       margin: 30px 0;
       padding: 0 5%;
       text-align: center;
       font-size: 3rem; }
-    html body #groupPage #tournTableTitle {
+    html body #groupPage #groupTopRow #tournBox #tournTableTitle {
       background-color: grey; }
-    html body #groupPage #tournTable th {
-      background-color: grey; }
+    html body #groupPage #groupTopRow #tournBox #tournTable {
+      margin-left: 10%;
+      width: 80%; }
+      html body #groupPage #groupTopRow #tournBox #tournTable .rowTitle {
+        border: 1px solid white;
+        color: white;
+        background-color: grey; }
+      html body #groupPage #groupTopRow #tournBox #tournTable td {
+        border: 1px solid grey; }
     html body #groupPage table {
       margin: 0 0 40px 10%;
-      text-align: center;
-      width: 80%; }
+      text-align: center; }
       html body #groupPage table th {
         font-size: 3rem;
         padding: 5px 0; }
@@ -485,10 +491,7 @@ html {
       border: 1px solid grey;
       border-collapse: collapse; }
       html body #groupPage .allTables th {
-        color: white;
-        background-color: grey; }
-      html body #groupPage .allTables td {
-        border: 3px solid grey; }
+        color: white; }
     html body #groupPage #inviteBox {
       margin: 0px 5% 80px 5%;
       border: 4px dashed black;
@@ -539,6 +542,8 @@ html {
         html body #groupPage #scrollPlayers #playerTable th {
           background-color: blue;
           overflow-y: hidden; }
+        html body #groupPage #scrollPlayers #playerTable #playersTopRow {
+          border-top: 1px solid blue; }
         html body #groupPage #scrollPlayers #playerTable tr td {
           padding: 15px; }
           html body #groupPage #scrollPlayers #playerTable tr td a {
@@ -1042,6 +1047,35 @@ html {
 @media only screen and (min-width: 1366px) {
   html body #playerPage #groupBox #allNewOpts .newGrpOption #addGroupBox form div span {
     display: none; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow {
+    display: flex;
+    justify-content: space-between; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #titleBox {
+    padding: 0 0 0 10%;
+    width: 42%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #titleBox #message {
+    margin-left: 10%;
+    padding-left: 0;
+    text-align: left; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #tournBox {
+    width: 48%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #tournBox #tournTableTitle {
+    margin-left: 0;
+    width: 80%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #tournBox #tournTable {
+    margin-left: 0; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #tournBox #tournTable .rowTitle {
+    font-size: 2rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage #groupTopRow #tournBox #tournTable td {
+    font-size: 2rem; } }
 html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
 

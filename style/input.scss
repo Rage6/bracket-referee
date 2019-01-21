@@ -582,11 +582,6 @@ html {
           background-color: blue;
         };
       };
-      #groupTitle {
-        margin: 0 0 75px 10%;
-        font-size: 5.5rem;
-        font-family: 'Staatliches', cursive;
-      };
       .allTitles {
         margin: 0 0 20px 10%;
         font-size: 4rem;
@@ -601,24 +596,56 @@ html {
         text-align: center;
         width: 50%;
       };
-      #message {
-        margin: 30px 0;
-        padding: 0 5%;
-        text-align: center;
-        font-size: 3rem;
-      };
-      #tournTableTitle {
-        background-color: grey;
-      };
-      #tournTable {
-        th {
-          background-color: grey;
+      #groupTopRow {
+        #titleBox {
+          #groupTitle {
+            margin: 0 0 75px 10%;
+            font-size: 5.5rem;
+            font-family: 'Staatliches', cursive;
+          };
+          #message {
+            margin: 30px 0;
+            padding: 0 5%;
+            text-align: center;
+            font-size: 3rem;
+          };
+        };
+        // .allTitles {
+        //   margin: 0 0 20px 10%;
+        //   font-size: 4rem;
+        //   font-family: 'Special Elite',cursive;
+        //   text-align: left;
+        // };
+        // .allSubtitles {
+        //   margin-bottom: 0px;
+        //   border-radius: 20px 20px 0 0;
+        //   padding: 30px 0;
+        //   color: white;
+        //   text-align: center;
+        //   width: 50%;
+        // };
+        #tournBox {
+
+          #tournTableTitle {
+            background-color: grey;
+          };
+          #tournTable {
+            margin-left: 10%;
+            width: 80%;
+            .rowTitle {
+              border: 1px solid white;
+              color: white;
+              background-color: grey;
+            };
+            td {
+              border: 1px solid grey;
+            };
+          };
         };
       };
       table {
         margin: 0 0 40px 10%;
         text-align: center;
-        width: 80%;
         th {
           font-size: 3rem;
           padding: 5px 0;
@@ -626,7 +653,7 @@ html {
         td {
           font-size: 3rem;
           padding: 5px 0;
-        }
+        };
       };
       .allRounds {
         margin-left: 10%;
@@ -661,10 +688,6 @@ html {
         border-collapse: collapse;
         th {
           color: white;
-          background-color: grey;
-        };
-        td {
-          border: 3px solid grey;
         };
       };
       #inviteBox {
@@ -724,6 +747,9 @@ html {
           th {
             background-color: blue;
             overflow-y: hidden;
+          };
+          #playersTopRow {
+            border-top: 1px solid blue;
           };
           tr {
             td {

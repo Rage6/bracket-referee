@@ -195,48 +195,52 @@
           };
         ?>
       </form>
-
-      <div class="allTitles">Group:</div>
-      <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
-      <?php
-        if (isset($_SESSION['message'])) {
-          echo("<div id='message'>".$_SESSION['message']."</div>");
-          unset($_SESSION['message']);
-        };
-      ?>
-
-      <div id="tournTableTitle" class="allSubtitles allTitles">Tournament:</div>
-      <table id="tournTable" class="allTables">
-        <tr>
-          <th>Name: </td>
-          <td><?php echo($tournArray['tourn_name']) ?></td>
-        </tr>
-        <tr>
-          <th>Rounds: </td>
-          <td><?php echo($tournArray['level_total']) ?></td>
-        </tr>
-        <tr>
-          <th>Start Date: </td>
-          <td><?php echo($tournArray['start_date']) ?></td>
-        </tr>
-        <tr>
-          <th>Director: </td>
-          <td>
-            <?php echo($adminResult['userName']) ?>
-            <?php
-              if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-                if ($currentHost == 'localhost:8888') {
-                  $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-                } else {
-                  $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
+      <div id="groupTopRow">
+      <div id="titleBox">
+        <div class="allTitles">Group:</div>
+        <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
+        <?php
+          if (isset($_SESSION['message'])) {
+            echo("<div id='message'>".$_SESSION['message']."</div>");
+            unset($_SESSION['message']);
+          };
+        ?>
+      </div>
+      <div id="tournBox">
+        <div id="tournTableTitle" class="allSubtitles allTitles">Tournament:</div>
+        <table id="tournTable" class="allTables" cellpadding="10">
+          <tr>
+            <td class="rowTitle">Name</td>
+            <td><?php echo($tournArray['tourn_name']) ?></td>
+          </tr>
+          <tr>
+            <td class="rowTitle">Rounds</td>
+            <td><?php echo($tournArray['level_total']) ?></td>
+          </tr>
+          <tr>
+            <td class="rowTitle">Start Date</td>
+            <td><?php echo($tournArray['start_date']) ?></td>
+          </tr>
+          <tr>
+            <td class="rowTitle">Director</td>
+            <td>
+              <?php echo($adminResult['userName']) ?>
+              <?php
+                if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
+                  if ($currentHost == 'localhost:8888') {
+                    $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+                  } else {
+                    $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
+                  };
+                  $urlId = $_GET['group_id'];
+                  echo(" <a style='text-decoration:none' href='".$urlPrefix.$urlId."'>(EDIT)</a>");
                 };
-                $urlId = $_GET['group_id'];
-                echo(" <a style='text-decoration:none' href='".$urlPrefix.$urlId."'>(EDIT)</a>");
-              };
-            ?>
-          </td>
-        </tr>
-      </table>
+              ?>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
 
       <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
@@ -244,7 +248,7 @@
           <div id='currentTitle' class='allSubtitles allTitles'>Players:</div>
           <div id='scrollPlayers'>
             <table id='playerTable' class='allTables'>
-              <tr>
+              <tr id='playersTopRow'>
                 <th>Username</th>
                 <th>Bracket?</th>
                 <th>Score</th>
@@ -299,7 +303,7 @@
             <div id='currentTitle' class='allSubtitles allTitles'>Players:</div>
             <div id='scrollPlayers'>
               <table id='playerTable' class='allTables'>
-                <tr>
+                <tr id='playersTopRow'>
                   <th>Username</th>
                   <th>Bracket?</th>
                   <th>Score</th>
