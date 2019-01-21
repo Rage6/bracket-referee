@@ -1049,12 +1049,16 @@ html {
     display: none; } }
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow {
+    margin-bottom: 60px;
     display: flex;
     justify-content: space-between; } }
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow #titleBox {
-    padding: 0 0 0 10%;
-    width: 42%; } }
+    margin-left: 10%;
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 0;
+    width: 40%; } }
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow #titleBox #message {
     margin-left: 10%;
@@ -1076,6 +1080,12 @@ html {
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow #tournBox #tournTable td {
     font-size: 2rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage table {
+    margin-bottom: 0; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage .allTables {
+    margin-bottom: 0; } }
 html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
 

@@ -426,13 +426,17 @@ html {
       };
       #groupTopRow {
         @media only screen and (min-width: $min) {
+          margin-bottom: 60px;
           display: flex;
           justify-content: space-between;
         };
         #titleBox {
           @media only screen and (min-width: $min) {
-            padding: 0 0 0 10%;
-            width: 42%;
+            margin-left: 10%;
+            border: 1px solid red;
+            border-radius: 15px;
+            padding: 0;
+            width: 40%;
           };
           #groupTitle {
 
@@ -461,13 +465,11 @@ html {
             };
             .rowTitle {
               @media only screen and (min-width: $min) {
-                // padding: 0 2%;
                 font-size: 2rem;
               };
             };
             td {
               @media only screen and (min-width: $min) {
-                // padding: 0 2%;
                 font-size: 2rem;
               };
             };
@@ -475,7 +477,9 @@ html {
         };
       };
       table {
-
+        @media only screen and (min-width: $min) {
+          margin-bottom: 0;
+        };
         th {
 
         };
@@ -496,7 +500,9 @@ html {
         }
       };
       .allTables {
-
+        @media only screen and (min-width: $min) {
+          margin-bottom: 0;
+        };
         th {
 
         };
