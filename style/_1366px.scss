@@ -433,10 +433,16 @@ html {
         #titleBox {
           @media only screen and (min-width: $min) {
             margin-left: 10%;
-            border: 1px solid red;
+            border: 5px solid rgb(181,7,7);
             border-radius: 15px;
             padding: 0;
+            padding-top: 20px;
             width: 40%;
+          };
+          #titleTab {
+            @media only screen and (min-width: $min) {
+
+            };
           };
           #groupTitle {
 

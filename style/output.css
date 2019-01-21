@@ -434,6 +434,8 @@ html {
       color: white;
       text-align: center;
       width: 50%; }
+    html body #groupPage #groupTopRow #titleBox #titleTab {
+      color: #b50707; }
     html body #groupPage #groupTopRow #titleBox #groupTitle {
       margin: 0 0 75px 10%;
       font-size: 5.5rem;
@@ -452,8 +454,17 @@ html {
         border: 1px solid white;
         color: white;
         background-color: grey; }
+      html body #groupPage #groupTopRow #tournBox #tournTable #grpEditBttn {
+        border: none;
+        background-color: lightgrey; }
       html body #groupPage #groupTopRow #tournBox #tournTable td {
         border: 1px solid grey; }
+        html body #groupPage #groupTopRow #tournBox #tournTable td a {
+          text-decoration: none;
+          color: grey; }
+          html body #groupPage #groupTopRow #tournBox #tournTable td a div {
+            width: 100%;
+            height: 100%; }
     html body #groupPage table {
       margin: 0 0 40px 10%;
       text-align: center; }
@@ -1068,9 +1079,10 @@ html {
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow #titleBox {
     margin-left: 10%;
-    border: 1px solid red;
+    border: 5px solid #b50707;
     border-radius: 15px;
     padding: 0;
+    padding-top: 20px;
     width: 40%; } }
 @media only screen and (min-width: 1366px) {
   html body #groupPage #groupTopRow #titleBox #message {

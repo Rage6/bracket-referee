@@ -197,7 +197,7 @@
       </form>
       <div id="groupTopRow">
       <div id="titleBox">
-        <div class="allTitles">Group:</div>
+        <div id="titleTab" class="allTitles">Group:</div>
         <div id="groupTitle"><?php echo($grpNameResult['group_name']) ?></div>
         <?php
           if (isset($_SESSION['message'])) {
@@ -225,19 +225,28 @@
             <td class="rowTitle">Director</td>
             <td>
               <?php echo($adminResult['userName']) ?>
-              <?php
-                if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
-                  if ($currentHost == 'localhost:8888') {
-                    $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
-                  } else {
-                    $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
-                  };
-                  $urlId = $_GET['group_id'];
-                  echo(" <a style='text-decoration:none' href='".$urlPrefix.$urlId."'>(EDIT)</a>");
-                };
-              ?>
             </td>
           </tr>
+          <?php
+            if ($grpNameResult['admin_id'] == $_SESSION['player_id']) {
+              if ($currentHost == 'localhost:8888') {
+                $urlPrefix = "http://localhost:8888/bracket-referee/group_edit.php?group_id=";
+              } else {
+                $urlPrefix = "https://bracket-referee.herokuapp.com/group_edit.php?group_id=";
+              };
+              $urlId = $_GET['group_id'];
+              echo("
+              <tr>
+                <td id='grpEditBttn' colspan='2'>
+                  <a href='".$urlPrefix.$urlId."'>
+                    <div>
+                      Change Your Group?
+                    </div>
+                  </a>
+                </td>
+              </tr>");
+            };
+          ?>
         </table>
       </div>
     </div>
