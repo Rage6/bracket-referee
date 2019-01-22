@@ -8,25 +8,25 @@
   };
 
   // email test begins
-  // putenv("SENDGRID_API_KEY=*api_key_here*")
-  // $email = new \SendGrid\Mail\Mail();
-  // $email->setFrom("nvogt10@gmail.com", "Nick");
-  // $email->setSubject("Sending with SendGrid");
-  // $email->addTo("nicholas.vogt2017@gmail.com", "Nicholas");
-  // $email->addContent("text/plain", "This is a plain text test");
-  // $email->addContent(
-  //     "text/html", "<strong>And this is an HTML test</strong>"
-  // );
-  // $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-  // try {
-  //     $response = $sendgrid->send($email);
-  //     print $response->statusCode() . "\n";
-  //     print_r($response->headers());
-  //     print $response->body() . "\n";
-  //     echo("It went through.");
-  // } catch (Exception $e) {
-  //     echo 'Caught exception: '. $e->getMessage() ."\n";
-  // };
+  putenv("SENDGRID_API_KEY=*api_key_here*")
+  $email = new \SendGrid\Mail\Mail();
+  $email->setFrom("nvogt10@gmail.com", "Nick");
+  $email->setSubject("Sending with SendGrid");
+  $email->addTo("nicholas.vogt2017@gmail.com", "Nicholas");
+  $email->addContent("text/plain", "This is a plain text test");
+  $email->addContent(
+      "text/html", "<strong>And this is an HTML test</strong>"
+  );
+  $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+  try {
+      $response = $sendgrid->send($email);
+      print $response->statusCode() . "\n";
+      print_r($response->headers());
+      print $response->body() . "\n";
+      echo("It went through.");
+  } catch (Exception $e) {
+      echo 'Caught exception: '. $e->getMessage() ."\n";
+  };
   // email test ends
 
   // Redirects someone to their player.php if they are still logged in
