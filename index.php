@@ -8,7 +8,7 @@
   };
 
   // email test begins
-  putenv("SENDGRID_API_KEY=*api_key_here*")
+  putenv("SENDGRID_API_KEY=*api_key_here*");
   $email = new \SendGrid\Mail\Mail();
   $email->setFrom("nvogt10@gmail.com", "Nick");
   $email->setSubject("Sending with SendGrid");
