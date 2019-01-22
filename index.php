@@ -146,7 +146,7 @@
         ));
         $countEmail = (int)$countEmailStmt->fetch(PDO::FETCH_ASSOC)['COUNT(email)'];
         if ($countEmail == 1) {
-          if ($currentHost != 'localhost:8888') {
+          // if ($currentHost != 'localhost:8888') {
             // A new password and hash are made...
             $newPassword = bin2hex(random_bytes(5));
             $newHash = password_hash($newPassword,PASSWORD_DEFAULT);
@@ -166,34 +166,37 @@
               ':fem'=>htmlentities($_POST['resetEmail'])
             ));
             // .. and an email with the new password is written.
-            putenv("SENDGRID_API_KEY=*api_key*");
-            $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
-            $email->setSubject("Password Reset | Bracket Referee");
-            $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
-            $email->addContent(
-                "text/html", "<strong>".$firstName." ".$lastName.", your new password is: ".$newPassword."</strong>"
-            );
-            $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-            // If the email is successful...
-            try {
-                $response = $sendgrid->send($email);
-                $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
-            // If the email fails (and the old hash is returned to the account)...
-            } catch (Exception $e) {
-                $returnPasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:opw WHERE email=:oem');
-                $changePasswordStmt->execute(array(
-                  ':opw'=>$oldHash,
-                  ':fem'=>htmlentities($_POST['resetEmail'])
-                ));
-                echo 'Caught exception: '. $e->getMessage() ."\n";
-                $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
+            // If the host is NOT a local host, it will email the new password.
+            if ($currentHost != 'localhost:8888') {
+              putenv("SENDGRID_API_KEY=*api_key*");
+              $email = new \SendGrid\Mail\Mail();
+              $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
+              $email->setSubject("Password Reset | Bracket Referee");
+              $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
+              $email->addContent(
+                  "text/html", "<strong>".$firstName." ".$lastName.", your new password is: ".$newPassword."</strong>"
+              );
+              $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+              // If the email is successful...
+              try {
+                  $response = $sendgrid->send($email);
+                  $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
+              // If the email fails (and the old hash is returned to the account)...
+              } catch (Exception $e) {
+                  $returnPasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:opw WHERE email=:oem');
+                  $changePasswordStmt->execute(array(
+                    ':opw'=>$oldHash,
+                    ':fem'=>htmlentities($_POST['resetEmail'])
+                  ));
+                  echo 'Caught exception: '. $e->getMessage() ."\n";
+                  $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
+              };
+            // If the host IS local, then it shows the new password on index.php 
+            } else {
+              $_SESSION['message'] = "<b style='color:blue'>New Password: ".$newPassword."</b>";
+              header('Location: index.php');
+              return false;
             };
-          } else {
-            $_SESSION['message'] = "<b style='color:red'>Emails cannot occur within the local host</b>";
-            header('Location: index.php');
-            return false;
-          };
           header('Location: index.php');
           return true;
         } else {
