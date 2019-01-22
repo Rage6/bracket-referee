@@ -7,28 +7,6 @@
     require 'vendor/autoload.php';
   };
 
-  // email test begins
-  // putenv("SENDGRID_API_KEY=*api_key_here*");
-  // $email = new \SendGrid\Mail\Mail();
-  // $email->setFrom("nvogt10@gmail.com", "Nick");
-  // $email->setSubject("Sending with SendGrid");
-  // $email->addTo("nicholas.vogt2017@gmail.com", "Nicholas");
-  // $email->addContent("text/plain", "This is a plain text test");
-  // $email->addContent(
-  //     "text/html", "<strong>And this is an HTML test</strong>"
-  // );
-  // $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-  // try {
-  //     $response = $sendgrid->send($email);
-  //     print $response->statusCode() . "\n";
-  //     print_r($response->headers());
-  //     print $response->body() . "\n";
-  //     echo("It went through.");
-  // } catch (Exception $e) {
-  //     echo 'Caught exception: '. $e->getMessage() ."\n";
-  // };
-  // email test ends
-
   // Redirects someone to their player.php if they are still logged in
   if (isset($_SESSION['player_id']) && isset($_SESSION['token'])) {
     $checkTokenStmt = $pdo->prepare('SELECT token,userName FROM Players WHERE player_id=:ply');
@@ -172,18 +150,15 @@
             // A new password and hash are made...
             $newPassword = bin2hex(random_bytes(5));
             $newHash = password_hash($newPassword,PASSWORD_DEFAULT);
-            // ... and keeps the old password's hash (in case the email doesn't go through)...
+            // ... but keeps the old password's hash (in case the email doesn't go through)...
             $oldDataStmt = $pdo->prepare('SELECT email,firstName,lastName,pswd FROM Players WHERE email=:gem');
             $oldDataStmt->execute(array(
               ':gem'=>htmlentities($_POST['resetEmail'])
             ));
             $oldData = $oldDataStmt->fetch(PDO::FETCH_ASSOC);
             $oldHash = $oldData['pswd'];
-            echo("old hash: ".$oldHash."</br>");
             $firstName = $oldData['firstName'];
-            echo("first name: ".$firstName."</br>");
             $lastName = $oldData['lastName'];
-            echo("last name: ".$lastName."</br>");
             // .. so that the old hash can be changed to the new hash...
             $changePasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:npw WHERE email=:fem');
             $changePasswordStmt->execute(array(
@@ -200,11 +175,11 @@
                 "text/html", "<strong>".$firstName." ".$lastName.", your new password is: ".$newPassword."</strong>"
             );
             $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
-            // The email is successful, or...
+            // If the email is successful...
             try {
                 $response = $sendgrid->send($email);
                 $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
-            // ...the email fails and the old password is returned to the account
+            // If the email fails (and the old hash is returned to the account)...
             } catch (Exception $e) {
                 $returnPasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:opw WHERE email=:oem');
                 $changePasswordStmt->execute(array(
@@ -219,21 +194,15 @@
             header('Location: index.php');
             return false;
           };
-          // if (mail(htmlentities($_POST['resetEmail']),"Password Reset | Bracket Referee","Your new password is: ".$newPassword)) {
-          //   $_SESSION['message'] = "<b style='color:green'>Password reset successful. An email with your new password was sent to your email account.</b>";
-          // } else {
-          //   $_SESSION['message'] = "<b style='color:red'>Sorry, there must have been an error in my code that prevented it from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
-          // };
           header('Location: index.php');
           return true;
-
         } else {
           $_SESSION['message'] = "<b style='color:red'>No email account could be found with that email address</b>";
           header('Location: index.php');
           return false;
         };
       } else {
-        $_SESSION['message'] = "<b style='color:red'>Only valid email are accepted (ex. myName@email.com)</b>";
+        $_SESSION['message'] = "<b style='color:red'>Only a valid email syntax is accepted (ex. myName@email.com)</b>";
         header('Location: index.php');
         return false;
       };
