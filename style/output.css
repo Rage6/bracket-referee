@@ -158,7 +158,7 @@ html {
     html body #playerPage #topRow #profIdBox {
       border-radius: 30px;
       color: #b50707;
-      background-image: url("https://ewedit.files.wordpress.com/2015/01/us-portugal-world-cup-14.jpg?w=612"); }
+      background-image: url("img/player/soccer_bkgd.jpg"); }
       html body #playerPage #topRow #profIdBox #profIdTable {
         background-color: white;
         width: 100%; }
@@ -188,7 +188,7 @@ html {
           background-color: #b74c37; }
     html body #playerPage #topRow #grpListBox {
       border-radius: 30px;
-      background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Tennis/Galleries/The+Secret/Carousel.jpg"); }
+      background-image: url("img/player/tennis_bkgd.jpg"); }
       html body #playerPage #topRow #grpListBox #completeList {
         padding: 20px 5%;
         font-size: 3.5rem;
@@ -220,7 +220,7 @@ html {
             margin-bottom: 0; }
     html body #playerPage #groupBox {
       border-radius: 30px;
-      background-image: url("https://s-i.huffpost.com/gen/1717501/images/n-BASEBALL-628x314.jpg"); }
+      background-image: url("img/player/baseball_bkgd.jpg"); }
       html body #playerPage #groupBox #allNewOpts .newGrpOption {
         margin: 20px 0;
         border-radius: 15px;
@@ -845,7 +845,7 @@ html {
       margin-bottom: 40px;
       padding: 90px 5%;
       background-size: cover;
-      background-image: url("https://get.pxhere.com/photo/ice-hockey-hockey-sports-ball-game-team-sport-roller-in-line-hockey-stick-and-ball-games-college-ice-hockey-ice-hockey-position-defenseman-bandy-204021.jpg"); }
+      background-image: url("img/bracket_make/hockey_bkgd.jpg"); }
       html body #makePage #makeTitleBkgd #makeTitle {
         border-radius: 30px;
         padding: 40px 0;
@@ -920,7 +920,7 @@ html {
       margin: 20px 0;
       padding: 100px 5%;
       background-size: cover;
-      background-image: url("https://www.whatsuplife.in/gurgaon/blog/wp-content/uploads/2018/06/fifa-1-702x336.jpg"); }
+      background-image: url("img/bracket_view/crowd_bar.jpg"); }
       html body #viewPage #titleBkgd #viewTitle {
         border-radius: 25px;
         font-size: 8rem;
