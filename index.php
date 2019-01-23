@@ -181,7 +181,8 @@
               try {
                   $response = $sendgrid->send($email);
                   $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
-              // If the email fails (and the old hash is returned to the account)...
+                  return true;
+              // ... and this happens if the email fails (and the old hash is returned to the account)...
               } catch (Exception $e) {
                   $returnPasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:opw WHERE email=:oem');
                   $changePasswordStmt->execute(array(
@@ -190,8 +191,9 @@
                   ));
                   echo 'Caught exception: '. $e->getMessage() ."\n";
                   $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
+                  return false;
               };
-            // If the host IS local, then it shows the new password on index.php
+            // If the host is a local host, then it shows the new password on index.php
             } else {
               $_SESSION['message'] = "<b style='color:blue'>New Password: ".$newPassword."</b>";
               header('Location: index.php');
