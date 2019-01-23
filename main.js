@@ -179,8 +179,10 @@ $(()=>{
     const checkArrows = () => {
       if (currentLayer == initLayerNum) {
         $("#scrollLeft").css('color','green');
+        $("#scrollRight").css('color','white');
       } else if (currentLayer == lastRound) {
         $("#scrollRight").css('color','green');
+        $("#scrollLeft").css('color','white');
       } else {
         $("#scrollLeft").css('color','white');
         $("#scrollRight").css('color','white');
