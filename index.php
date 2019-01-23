@@ -191,7 +191,7 @@
                   echo 'Caught exception: '. $e->getMessage() ."\n";
                   $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
               };
-            // If the host IS local, then it shows the new password on index.php 
+            // If the host IS local, then it shows the new password on index.php
             } else {
               $_SESSION['message'] = "<b style='color:blue'>New Password: ".$newPassword."</b>";
               header('Location: index.php');
@@ -275,7 +275,7 @@
       <div id="forgotBttn">Forgot you password?</div>
       <div id="forgotBox">
         <div>
-          Get a new password sent to you by entering your current email address below and click 'RESET'. You should recieve an email from Bracket Referee shortly after.
+          Get a new password by entering your current email address below and clicking 'RESET'. You should recieve an email from Bracket Referee shortly after.
         </div>
         <form method="POST">
           <input type="text" name="resetEmail"/></br>
@@ -317,7 +317,6 @@
     <?php
       if (isset($_SESSION['message'])) {
         echo("<div id='message'>".$_SESSION['message']."</div>");
-        // var_dump($_SESSION['message']);
         unset($_SESSION['message']);
       };
     ?>

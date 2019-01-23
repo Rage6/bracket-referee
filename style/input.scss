@@ -84,10 +84,12 @@ html {
       #forgotBttn {
         margin-top: 30px;
         margin-bottom: 20px;
+        font-size: 1.5rem;
         text-decoration: underline;
+        cursor: pointer;
       };
       #forgotBox {
-        margin: 0px 10% 30px 10%;
+        margin: 70px 10% 30px 10%;
         font-size: 2rem;
         display: none;
         width: 80%;

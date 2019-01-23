@@ -67,9 +67,11 @@ html {
       html body #logForm #forgotBttn {
         margin-top: 30px;
         margin-bottom: 20px;
-        text-decoration: underline; }
+        font-size: 1.5rem;
+        text-decoration: underline;
+        cursor: pointer; }
       html body #logForm #forgotBox {
-        margin: 0px 10% 30px 10%;
+        margin: 70px 10% 30px 10%;
         font-size: 2rem;
         display: none;
         width: 80%; }
@@ -990,6 +992,9 @@ html {
         html body #viewPage #delBox form span {
           font-size: 3.5rem; }
 
+@media only screen and (min-width: 1366px) {
+  html body #logForm #forgotBttn {
+    font-size: 2.5rem; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage .allBox {
     margin-bottom: 70px;

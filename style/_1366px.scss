@@ -50,7 +50,9 @@ html {
 
       }
       #forgotBttn {
-
+        @media only screen and (min-width: $min) {
+          font-size: 2.5rem;
+        };
       };
       #forgotBox {
 
