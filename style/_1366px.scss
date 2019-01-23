@@ -1,0 +1,887 @@
+$min: 1366px;
+
+html {
+
+  body {
+
+    // ----------- INDEX.PHP FILE BEGINS -----------
+    #indexWords {
+
+      p {
+
+      };
+    };
+    #bothAcctButtons {
+
+      #logButton {
+
+      };
+      #signButton {
+
+      };
+    };
+    .acctForms {
+
+      table {
+
+        tbody {
+
+          tr {
+
+            td {
+
+              input {
+
+              };
+            };
+          };
+        };
+      };
+      input {
+
+      };
+      .enterBttn {
+
+      };
+    };
+    #logForm {
+
+      input {
+
+      }
+      #forgotBttn {
+        @media only screen and (min-width: $min) {
+          font-size: 2.5rem;
+        };
+      };
+      #forgotBox {
+
+      };
+    };
+    #signForm {
+
+    };
+    #message {
+
+    };
+    #indexMain {
+
+      #motto {
+
+        p {
+
+        }
+      };
+      #indexIntro {
+
+        .introParagraph {
+
+          b {;
+
+          };
+          p {
+
+          };
+          div {
+
+            ul {
+              li {
+
+              };
+            };
+          };
+        };
+        .imageBorder {
+
+        };
+      };
+    };
+    footer {
+
+      a {
+
+        .footerLogo {
+
+        };
+      };
+    };
+
+    // ----------- PLAYER.PHP FILE BEGINS -----------
+    #playerPage {
+      #hqTitle {
+
+      };
+      .allBox {
+        @media only screen and (min-width: $min) {
+          margin-bottom: 70px;
+          padding: 70px 0;
+        };
+        .allInnerBox {
+
+          .allBoxTitle {
+            @media only screen and (min-width: $min) {
+              font-size: 2.5rem;
+            };
+          };
+          #grpBoxTitle {
+            @media only screen and (min-width: $min) {
+              font-size: 4rem;
+              padding-left: 8%;
+            };
+          };
+        };
+        #optionInnerBox {
+          @media only screen and (min-width: $min) {
+            padding: 40px 1%;
+          };
+        };
+      };
+      #topRow {
+        @media only screen and (min-width: $min) {
+          display: flex;
+          justify-content: space-around;
+        };
+        #profIdBox {
+          @media only screen and (min-width: $min) {
+            width: 45%;
+          };
+          #profIdTable {
+
+            tr {
+              @media only screen and (min-width: $min) {
+                font-size: 2rem;
+              };
+              td {
+
+              };
+              .profTitle {
+
+              };
+            };
+          };
+          #profIdBtns {
+            @media only screen and (min-width: $min) {
+              margin: 20px 0;
+            };
+            input {
+              @media only screen and (min-width: $min) {
+                font-size: 2.3rem;
+              };
+            };
+            #plrEdit {
+
+            };
+            #plrLogOut {
+
+            };
+          };
+        };
+        #grpListBox {
+          @media only screen and (min-width: $min) {
+            width: 45%;
+          };
+          #completeList {
+            @media only screen and (min-width: $min) {
+              font-size: 2rem;
+              max-height: 200px;
+            };
+            a {
+
+              .listContent {
+                @media only screen and (min-width: $min) {
+                  padding: 10px 10% 10px 5%;
+                };
+                .rightArrow {
+
+                };
+              };
+            };
+            #emptyCurrentList {
+              ul {
+                li {
+
+                };
+              };
+            };
+          };
+        };
+      };
+      #groupBox {
+        #allNewOpts {
+          .newGrpOption {
+            @media only screen and (min-width: $min) {
+              width: 30%;
+            };
+            .allOptTitle {
+              @media only screen and (min-width: $min) {
+                margin: 20px 0;
+                text-decoration: underline;
+                font-size: 2.4rem;
+              };
+            };
+            #findGroup {
+
+              #findGrpV {
+                @media only screen and (min-width: $min) {
+                  display: none;
+                };
+                #findGrpVimg {
+
+                };
+              };
+            };
+            #showAddBox {
+
+              #showAddV {
+                @media only screen and (min-width: $min) {
+                  display: none;
+                };
+                #showAddVimg {
+
+                };
+              };
+            };
+            #findGroupBox {
+
+              form {
+
+                #searchBtn {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.5rem;
+                  };
+                };
+                input {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.5rem;
+                  };
+                };
+              };
+            };
+            #searchResults {
+              @media only screen and (min-width: $min) {
+                font-size: 1.5rem;
+              };
+              #resultList {
+
+                p {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.5rem;
+                  };
+                };
+              };
+              p {
+
+              };
+            };
+            #showAddBox {
+
+            };
+            #addGroupBox {
+              @media only screen and (min-width: $min) {
+                font-size: 1.5rem;
+              };
+              form {
+                table {
+                  tr {
+                    td {
+                      input {
+                        @media only screen and (min-width: $min) {
+                          font-size: 1.5rem;
+                        };
+                      };
+                      select {
+                        @media only screen and (min-width: $min) {
+                          font-size: 1.5rem;
+                        };
+                        option {
+
+                        };
+                      };
+                    };
+                  };
+                };
+                div {
+
+                  #submitNewGrp {
+                    @media only screen and (min-width: $min) {
+                      font-size: 1.5rem;
+                    };
+                  };
+                  span {
+                    @media only screen and (min-width: $min) {
+                      display: none;
+                    };
+                    u {
+
+                    };
+                  };
+                };
+              };
+            };
+            #resultBox {
+
+              p {
+
+                a {
+
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- PLAYER_EDIT.PHP FILE BEGINS -----------
+    #plyrEditPage {
+
+      #editTitle {
+
+      };
+      b {
+
+      };
+      form {
+        table {
+
+          th {
+
+          };
+          td {
+
+            input {
+
+            };
+          };
+        };
+        #plyrEditBttns {
+
+          .onePlyrEditBttn {
+
+          };
+        };
+      };
+      #delAndPsBox {
+
+        .pwAndDeleteBttns {
+
+        };
+        #change-Pw-Btn {
+
+        };
+        #showDeleteBox {
+
+        };
+      };
+      #changePs {
+
+        form {
+          table {
+
+          };
+          div {
+
+            input {
+
+            };
+            span {
+
+            };
+          };
+        };
+      };
+      #deleteBox {
+
+        #warning {
+
+        };
+        div {
+
+          form {
+            input {
+
+            };
+          };
+          #cancelDelete {
+
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP.PHP FILE BEGINS -----------
+    #groupPage {
+      form {
+
+        input {
+
+        };
+        #joinBttn {
+
+        };
+      };
+      .allTitles {
+
+      };
+      .allSubtitles {
+
+      };
+      #groupTopRow {
+        @media only screen and (min-width: $min) {
+          margin-bottom: 60px;
+          display: flex;
+          justify-content: space-between;
+        };
+        #titleBox {
+          @media only screen and (min-width: $min) {
+            margin-left: 10%;
+            border: 5px solid rgb(181,7,7);
+            border-radius: 15px;
+            padding: 0;
+            padding-top: 20px;
+            width: 40%;
+          };
+          #titleTab {
+            @media only screen and (min-width: $min) {
+
+            };
+          };
+          #groupTitle {
+
+          };
+          #message {
+            @media only screen and (min-width: $min) {
+              margin-left: 10%;
+              padding-left: 0;
+              text-align: left;
+            };
+          };
+        };
+        #tournBox {
+          @media only screen and (min-width: $min) {
+            width: 48%;
+          };
+          #tournTableTitle {
+            @media only screen and (min-width: $min) {
+              margin-left: 0;
+              width: 80%;
+            };
+          };
+          #tournTable {
+            @media only screen and (min-width: $min) {
+              margin-left: 0;
+            };
+            .rowTitle {
+              @media only screen and (min-width: $min) {
+                font-size: 2rem;
+              };
+            };
+            td {
+              @media only screen and (min-width: $min) {
+                font-size: 2rem;
+              };
+            };
+          };
+        };
+      };
+      table {
+        @media only screen and (min-width: $min) {
+          margin-bottom: 0;
+        };
+        th {
+
+        };
+        td {
+
+        }
+      };
+      .allRounds {
+
+        .rowTitle {
+
+        };
+        .allRows {
+
+          div {
+
+          };
+        }
+      };
+      .allTables {
+        @media only screen and (min-width: $min) {
+          margin-bottom: 0;
+        };
+        th {
+
+        };
+        td {
+
+        };
+      };
+      #inviteBox {
+
+        #inviteTitle {
+
+        };
+        .inviteIntro {
+
+        };
+        .inviteCopyLine {
+
+          .inviteBttn {
+
+          };
+          .inviteScroll {
+
+          };
+        };
+      };
+      #currentTitle {
+
+      };
+      #scrollPlayers {
+        #playerTable {
+          th {
+
+          };
+          tr {
+            td {
+
+              a {
+
+              };
+              a:hover {
+                cursor: pointer;
+              }
+            };
+          };
+          #hideMemberList {
+
+            td {
+
+              ul {
+
+              };
+            };
+          };
+        };
+      };
+      #bracketButton {
+        form {
+          input {
+
+          };
+        };
+      };
+      #resultListTitle {
+
+      };
+      #groupScrollBox {
+
+        div {
+
+        };
+        #scrollLeft {
+
+        };
+        #scrollRight {
+
+        };
+      };
+      #leaveGrpButton {
+
+      };
+      #leaveGrpBox {
+
+        div {
+
+          input {
+
+          };
+          span {
+
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_EDIT.PHP FILE BEGINS -----------
+    #groupEditPage {
+      #mainEditTitle {
+
+      };
+      b {
+
+      };
+      p {
+        @media only screen and (min-width: $min) {
+          margin-left: 15%;
+          width: 70%;
+        };
+      };
+      ul {
+        li {
+
+        };
+      };
+      form {
+        #changeBox {
+
+          table {
+
+            tr {
+              th {
+
+              };
+              td {
+
+                input {
+
+                };
+                select {
+
+                  option {
+
+                  };
+                };
+              };
+              #inviteLinkBox {
+
+              };
+            };
+          };
+          #inviteTitle {
+
+          };
+          #inviteBox {
+            @media only screen and (min-width: $min) {
+              display: flex;
+              flex-wrap: wrap;
+            };
+            .oneQA {
+              @media only screen and (min-width: $min) {
+                width: 48%;
+              };
+              .inviteQ {
+                @media only screen and (min-width: $min) {
+                  font-size: 3rem;
+                };
+              };
+              .inviteA {
+                @media only screen and (min-width: $min) {
+                  font-size: 3rem;
+                };
+              };
+            };
+          };
+          div {
+
+            input {
+
+            };
+            #submitEnter {
+
+            };
+          };
+        };
+        #delGrpButton {
+
+        };
+        #delGrpBox {
+
+          #warningGrp {
+
+          };
+          p {
+
+          };
+          #warningRow {
+
+            input {
+
+            };
+            span {
+
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_INVITE.PHP FILE BEGINS -----------
+    #invitePage {
+
+      #contentBody {
+
+        .inviteTitle {
+
+        };
+        #inviteSubTitle {
+
+          a {
+
+          };
+        };
+        #inviteMainTitle {
+
+        };
+        b {
+
+        };
+        #inviteBox {
+
+          ul {
+
+            li:first-child {
+
+            };
+            li:last-child {
+
+            };
+          };
+          p {
+
+          };
+          #bothInviteBttns {
+
+            span {
+
+            };
+            #inviteLogin {
+
+            };
+            #inviteCreate {
+
+            };
+          };
+          .inviteFormBox {
+
+            form {
+              .formTitle {
+
+              };
+              input {
+
+              };
+              .submitInvite {
+
+              };
+            };
+          };
+          #inviteLoginBox {
+
+          };
+          #inviteCreateBox {
+
+          };
+        };
+      };
+    };
+
+    // ----------- BRACKET_MAKE.PHP FILE BEGINS -----------
+    #makePage {
+      #makeTitleBkgd {
+
+        #makeTitle {
+
+        };
+      };
+      b {
+
+      };
+      .gameList {
+
+        .roundTitle {
+
+        };
+        .allRoundLists {
+
+          div {
+
+            .allTeams {
+
+            };
+            .allTeams:last-child {
+
+            };
+            .vs {
+
+            };
+          };
+          div:last-child {
+
+          };
+        };
+      };
+      form {
+        #makeSubmitBox {
+
+          #submitBracket{
+
+          };
+          input {
+
+          }
+        };
+      };
+    };
+
+    // ----------- BRACKET_VIEW.PHP FILE BEGINS -----------
+    #viewPage {
+      form {
+        #returnBttn {
+
+        };
+      };
+      #titleBkgd {
+
+        #viewTitle {
+
+        };
+      };
+      #statsBox {
+
+        #plyrName {
+
+        };
+        #scoreRow {
+
+        }
+      };
+      .oneScoreList {
+
+        .oneTitle {
+
+          span {
+
+          };
+        };
+        .oneScoreRow {
+
+        };
+      };
+      #bottomPoints {
+
+      };
+      #showDelBox {
+
+      };
+      #delBox {
+
+        p {
+
+        };
+        form {
+
+          input {
+
+          };
+          span {
+
+          };
+        };
+      };
+    };
+
+  };
+};
