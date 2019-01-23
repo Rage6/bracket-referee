@@ -38,7 +38,17 @@
   };
 
   // Prevent members from putting in more than one bracket
-
+  $bracketListStmt = $pdo->prepare('SELECT COUNT(bracket_id) FROM Brackets WHERE player_id=:plid AND group_id=:grid');
+  $bracketListStmt->execute(array(
+    ':plid'=>$_SESSION['player_id'],
+    ':grid'=>htmlentities($_GET['group_id'])
+  ));
+  $bracketNum = $bracketListStmt->fetch(PDO::FETCH_ASSOC)['COUNT(bracket_id)'];
+  if ((int)$bracketNum > 0) {
+    $_SESSION['message'] = "<b style='color:red'>No more than one bracket per group</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return false;
+  };
 
   // Discontinue this bracket and return to group.php
   if (isset($_POST['cancelBracket'])) {
@@ -86,6 +96,7 @@
   <head>
     <meta charset="utf-8">
     <title>Make A Bracket | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -95,7 +106,11 @@
   </head>
   <body>
     <div id="makePage">
-      <div id="makeTitle">Make Your Bracket</div>
+      <div id="makeTitleBkgd">
+        <div id="makeTitle">
+          Make Your Bracket
+        </div>
+      </div>
       <?php
         if (isset($_SESSION['message'])) {
           echo($_SESSION['message']);
@@ -580,87 +595,9 @@
             });
           };
         // end of button
-
-        // console.log("testing bothTeamIds");
-        // console.log(bothTeamIds);
         };
 
       });
     });
   </script>
 </html>
-
-
-<!-- The below is an example of the URL when the bracket is submitted to the 2017 March Madness:
-
-bracket_confirm.php?
-group_id=1
-&gameTotal=67
-&player_id=12
-&gameId0=1&pickId0=21
-&gameId1=2&pickId1=65
-&gameId2=3&pickId2=65
-&gameId3=19&pickId3=21
-&gameId4=20&pickId4=30
-&gameId5=21&pickId5=65
-&gameId6=22&pickId6=3
-&gameId7=23&pickId7=21
-&gameId8=24&pickId8=28
-&gameId9=25&pickId9=30
-&gameId10=26&pickId10=32
-&gameId11=27&pickId11=65
-&gameId12=28&pickId12=77
-&gameId13=29&pickId13=3
-&gameId14=30&pickId14=59
-&gameId15=31&pickId15=21
-&gameId16=32&pickId16=27
-&gameId17=33&pickId17=28
-&gameId18=34&pickId18=7
-&gameId19=35&pickId19=30
-&gameId20=36&pickId20=31
-&gameId21=37&pickId21=32
-&gameId22=38&pickId22=44
-&gameId23=39&pickId23=65
-&gameId24=40&pickId24=66
-&gameId25=41&pickId25=77
-&gameId26=42&pickId26=2
-&gameId27=43&pickId27=3
-&gameId28=44&pickId28=8
-&gameId29=45&pickId29=59
-&gameId30=46&pickId30=72
-&gameId31=47&pickId31=65
-&gameId32=48&pickId32=61
-&gameId33=49&pickId33=66
-&gameId34=50&pickId34=58
-&gameId35=51&pickId35=77
-&gameId36=52&pickId36=62
-&gameId37=53&pickId37=2
-&gameId38=54&pickId38=68
-&gameId39=55&pickId39=3
-&gameId40=56&pickId40=69
-&gameId41=57&pickId41=8
-&gameId42=58&pickId42=63
-&gameId43=59&pickId43=59
-&gameId44=60&pickId44=71
-&gameId45=61&pickId45=72
-&gameId46=62&pickId46=64
-&gameId47=63&pickId47=21
-&gameId48=64&pickId48=26
-&gameId49=65&pickId49=27
-&gameId50=66&pickId50=23
-&gameId51=67&pickId51=28
-&gameId52=68&pickId52=1
-&gameId53=69&pickId53=7
-&gameId54=70&pickId54=29
-&gameId55=71&pickId55=30
-&gameId56=72&pickId56=4
-&gameId57=73&pickId57=31
-&gameId58=74&pickId58=24
-&gameId59=75&pickId59=32
-&gameId60=76&pickId60=25
-&gameId61=77&pickId61=44
-&gameId62=78&pickId62=22
-&gameId63=80&pickId63=73
-&gameId64=81&pickId64=107
-&gameId65=82&pickId65=103
-&gameId66=83&pickId66=11 -->

@@ -24,7 +24,18 @@
     return false;
   };
 
-  // To find this bracket's player idea
+  // Prevents someone from seeing another player's bracket
+  $brktPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE bracket_id=:brid');
+  $brktPlyStmt->execute(array(
+    ':brid'=>htmlentities($_GET['bracket_id'])
+  ));
+  $bracketId = (int)$brktPlyStmt->fetch(PDO::FETCH_ASSOC)['player_id'];
+  if ($bracketId != $_SESSION['player_id']) {
+    $_SESSION['message'] = "<b style='color:red'>Players may only review their own bracket</b>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+  };
+
+  // To find this bracket's player id
   $brkPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE :bid=bracket_id');
   $brkPlyStmt->execute(array(
     ':bid'=>htmlentities($_GET['bracket_id'])
@@ -94,6 +105,7 @@
   <head>
     <meta charset="utf-8">
     <title>Review | Bracket Referee</title>
+    <link href="https://fonts.googleapis.com/css?family=Bevan|Catamaran|Special+Elite|Staatliches" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/output.css"/>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -106,7 +118,9 @@
       <form method="POST">
         <input id="returnBttn" type="submit" name="returnGroup" value="<< BACK" />
       </form>
-      <div id="viewTitle">Bracket Review</div>
+      <div id="titleBkgd">
+        <div id="viewTitle">Bracket Review</div>
+      </div>
       <div id="statsBox">
         <div id="plyrName">Player: <?php echo($usrNmeArray['userName']) ?></div>
         <div id="scoreRow">Current Score: <span id="currentScore"></span></div>
@@ -128,7 +142,7 @@
             <div class='oneScoreList'>
               <div class='oneTitle'>
                 <span>".$layer['level_name']."</span>
-                <span>Points Earned</span>
+                <span>Points</span>
               </div>");
             foreach ($pickArray as $pick) {
               if ($pick['layer'] == $layer['layer']) {

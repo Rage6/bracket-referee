@@ -2,6 +2,34 @@
   session_start();
   require_once("pdo.php");
 
+  $currentHost = $_SERVER['HTTP_HOST'];
+  if ($currentHost != 'localhost:8888') {
+    require 'vendor/autoload.php';
+  };
+
+  // Redirects someone to their player.php if they are still logged in
+  if (isset($_SESSION['player_id']) && isset($_SESSION['token'])) {
+    $checkTokenStmt = $pdo->prepare('SELECT token,userName FROM Players WHERE player_id=:ply');
+    $checkTokenStmt->execute(array(
+      'ply'=>htmlentities($_SESSION['player_id'])
+    ));
+    $checkPlayer = $checkTokenStmt->fetch(PDO::FETCH_ASSOC);
+    if ($_SESSION['token'] == $checkPlayer['token']) {
+      $_SESSION['message'] = "<b style='color:green'>Welcome back, ".$checkPlayer['userName']."!</b> ";
+      header('Location: player.php');
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Your account's token does not equal your current token. Log back in to refresh your token.</b>";
+      unset($_SESSION['player_id']);
+      unset($_SESSION['token']);
+      header('Location: index.php');
+      return false;
+    };
+    $_SESSION['message'] = "<b style='color:green'>Welcome back, ".$checkPlayer['userName']."!</b> ";
+    header('Location: player.php');
+    return true;
+  };
+
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
@@ -108,6 +136,88 @@
     }
   };
 
+  // So users can reset a forgotten password
+  if (isset($_POST['reset'])) {
+    if (strlen($_POST['resetEmail']) > 0) {
+      if (filter_var($_POST['resetEmail'],FILTER_VALIDATE_EMAIL)) {
+        $countEmailStmt = $pdo->prepare('SELECT COUNT(email) FROM Players WHERE email=:rem');
+        $countEmailStmt->execute(array(
+          ':rem'=>htmlentities($_POST['resetEmail'])
+        ));
+        $countEmail = (int)$countEmailStmt->fetch(PDO::FETCH_ASSOC)['COUNT(email)'];
+        if ($countEmail == 1) {
+          // if ($currentHost != 'localhost:8888') {
+            // A new password and hash are made...
+            $newPassword = bin2hex(random_bytes(5));
+            $newHash = password_hash($newPassword,PASSWORD_DEFAULT);
+            // ... but keeps the old password's hash (in case the email doesn't go through)...
+            $oldDataStmt = $pdo->prepare('SELECT email,firstName,lastName,pswd FROM Players WHERE email=:gem');
+            $oldDataStmt->execute(array(
+              ':gem'=>htmlentities($_POST['resetEmail'])
+            ));
+            $oldData = $oldDataStmt->fetch(PDO::FETCH_ASSOC);
+            $oldHash = $oldData['pswd'];
+            $firstName = $oldData['firstName'];
+            $lastName = $oldData['lastName'];
+            // .. so that the old hash can be changed to the new hash...
+            $changePasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:npw WHERE email=:fem');
+            $changePasswordStmt->execute(array(
+              ':npw'=>$newHash,
+              ':fem'=>htmlentities($_POST['resetEmail'])
+            ));
+            // .. and an email with the new password is written.
+            // If the host is NOT a local host, it will email the new password.
+            if ($currentHost != 'localhost:8888') {
+              putenv("SENDGRID_API_KEY=*api_key*");
+              $email = new \SendGrid\Mail\Mail();
+              $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
+              $email->setSubject("Password Reset | Bracket Referee");
+              $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
+              $email->addContent(
+                  "text/html", "<strong>".$firstName." ".$lastName.", your new password is: ".$newPassword."</strong>"
+              );
+              $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+              // If the email is successful...
+              try {
+                  $response = $sendgrid->send($email);
+                  $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
+                  return true;
+              // ... and this happens if the email fails (and the old hash is returned to the account)...
+              } catch (Exception $e) {
+                  $returnPasswordStmt = $pdo->prepare('UPDATE Players SET pswd=:opw WHERE email=:oem');
+                  $changePasswordStmt->execute(array(
+                    ':opw'=>$oldHash,
+                    ':fem'=>htmlentities($_POST['resetEmail'])
+                  ));
+                  echo 'Caught exception: '. $e->getMessage() ."\n";
+                  $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
+                  return false;
+              };
+            // If the host is a local host, then it shows the new password on index.php
+            } else {
+              $_SESSION['message'] = "<b style='color:blue'>New Password: ".$newPassword."</b>";
+              header('Location: index.php');
+              return false;
+            };
+          header('Location: index.php');
+          return true;
+        } else {
+          $_SESSION['message'] = "<b style='color:red'>No email account could be found with that email address</b>";
+          header('Location: index.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<b style='color:red'>Only a valid email syntax is accepted (ex. myName@email.com)</b>";
+        header('Location: index.php');
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>An email must be entered</b>";
+      header('Location: index.php');
+      return false;
+    };
+  };
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -134,7 +244,6 @@
     <script src="main.js"></script>
   </head>
   <body>
-    <div id="indexTitle"></div>
     <div id="indexWords">
       <p>
         Bracket
@@ -151,12 +260,6 @@
         <span>CREATE</span>
       </div>
     </div>
-    <?php
-      if (isset($_SESSION['message'])) {
-        echo("<div id='message'>".$_SESSION['message']."</div>");
-        unset($_SESSION['message']);
-      };
-    ?>
     <div class="acctForms" id="logForm">
       <form method="POST">
         <table>
@@ -169,8 +272,18 @@
             <td><input type="password" name="password"></td>
           </tr>
         </table>
-        <input type="submit" name="confirmOld" value="ENTER">
+        <input class="enterBttn" type="submit" name="confirmOld" value="ENTER">
       </form>
+      <div id="forgotBttn">Forgot you password?</div>
+      <div id="forgotBox">
+        <div>
+          Get a new password by entering your current email address below and clicking 'RESET'. You should recieve an email from Bracket Referee shortly after.
+        </div>
+        <form method="POST">
+          <input type="text" name="resetEmail"/></br>
+          <input type="submit" name="reset" />
+        </form>
+      </div>
     </div>
     <div class="acctForms" id="signForm">
       <form method='POST'>
@@ -200,9 +313,15 @@
             <td><input type='password' name='newConf' placeholder='8 - 25 characters'/></td>
           </tr>
         </table>
-        <input type='submit' name='makeNew' value='ENTER'/>
+        <input class="enterBttn" type='submit' name='makeNew' value='ENTER'/>
       </form>
     </div>
+    <?php
+      if (isset($_SESSION['message'])) {
+        echo("<div id='message'>".$_SESSION['message']."</div>");
+        unset($_SESSION['message']);
+      };
+    ?>
     <div id="indexMain">
       <div id="motto">
         <p>Public Tournaments.</p>
@@ -211,7 +330,7 @@
       </div>
       <div id="indexIntro">
         <div class="introParagraph">
-          <b>Welcom to Bracket Referee!</b>
+          <b>Welcome to Bracket Referee!</b>
           <p>
             Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
           </p>

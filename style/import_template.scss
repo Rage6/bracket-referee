@@ -1,0 +1,774 @@
+$min: 1366px;
+$max: none;
+
+html {
+
+  body {
+
+    // ----------- INDEX.PHP FILE BEGINS -----------
+    #indexWords {
+
+      p {
+
+      };
+    };
+    #bothAcctButtons {
+
+      #logButton {
+
+      };
+      #signButton {
+
+      };
+    };
+    .acctForms {
+
+      table {
+
+        tbody {
+
+          tr {
+
+            td {
+
+              input {
+
+              };
+            };
+          };
+        };
+      };
+      input {
+
+      };
+      .enterBttn {
+
+      };
+    };
+    #logForm {
+
+      input {
+
+      }
+      #forgotBttn {
+
+      };
+      #forgotBox {
+
+      };
+    };
+    #signForm {
+
+    };
+    #message {
+
+    };
+    #indexMain {
+
+      #motto {
+
+        p {
+
+        }
+      };
+      #indexIntro {
+
+        .introParagraph {
+
+          b {;
+
+          };
+          p {
+
+          };
+          div {
+
+            ul {
+              li {
+
+              };
+            };
+          };
+        };
+        .imageBorder {
+
+        };
+      };
+    };
+    footer {
+
+      a {
+
+        .footerLogo {
+
+        };
+      };
+    };
+
+    // ----------- PLAYER.PHP FILE BEGINS -----------
+    #playerPage {
+      #hqTitle {
+
+      };
+      .allBox {
+
+        .allInnerBox {
+
+          .allBoxTitle {
+
+          };
+          #grpBoxTitle {
+
+          };
+        };
+        #optionInnerBox {
+
+        };
+      };
+      #topRow {
+
+        #profIdBox {
+
+          #profIdTable {
+
+            tr {
+
+              td {
+
+              };
+              .profTitle {
+
+              };
+            };
+          };
+          #profIdBtns {
+
+            input {
+
+            };
+            #plrEdit {
+
+            };
+            #plrLogOut {
+
+            };
+          };
+        };
+        #grpListBox {
+
+          #completeList {
+
+            a {
+
+              .listContent {
+
+                .rightArrow {
+
+                };
+              };
+            };
+            #emptyCurrentList {
+              ul {
+                li {
+
+                };
+              };
+            };
+          };
+        };
+      };
+      #groupBox {
+        #allNewOpts {
+          .newGrpOption {
+
+            .allOptTitle {
+
+            };
+            #findGroup {
+
+              #findGrpV {
+
+                #findGrpVimg {
+
+                };
+              };
+            };
+            #showAddBox {
+
+              #showAddV {
+
+                #showAddVimg {
+
+                };
+              };
+            };
+            #findGroupBox {
+
+              form {
+
+                #searchBtn {
+
+                };
+                input {
+
+                };
+              };
+            };
+            #searchResults {
+
+              #resultList {
+
+                p {
+
+                  };
+                };
+              };
+              p {
+
+              };
+            };
+            #showAddBox {
+
+            };
+            #addGroupBox {
+
+              form {
+                table {
+                  tr {
+                    td {
+                      input {
+
+                      };
+                      select {
+
+                        option {
+
+                        };
+                      };
+                    };
+                  };
+                };
+                div {
+
+                  #submitNewGrp {
+
+                  };
+                  span {
+                    u {
+
+                    };
+                  };
+                };
+              };
+            };
+            #resultBox {
+
+              p {
+
+                a {
+
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- PLAYER_EDIT.PHP FILE BEGINS -----------
+    #plyrEditPage {
+
+      #editTitle {
+
+      };
+      b {
+
+      };
+      form {
+        table {
+
+          th {
+
+          };
+          td {
+
+            input {
+
+            };
+          };
+        };
+        #plyrEditBttns {
+
+          .onePlyrEditBttn {
+
+          };
+        };
+      };
+      #delAndPsBox {
+
+        .pwAndDeleteBttns {
+
+        };
+        #change-Pw-Btn {
+
+        };
+        #showDeleteBox {
+
+        };
+      };
+      #changePs {
+
+        form {
+          table {
+
+          };
+          div {
+
+            input {
+
+            };
+            span {
+
+            };
+          };
+        };
+      };
+      #deleteBox {
+
+        #warning {
+
+        };
+        div {
+
+          form {
+            input {
+
+            };
+          };
+          #cancelDelete {
+
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP.PHP FILE BEGINS -----------
+    #groupPage {
+      form {
+
+        input {
+
+        };
+        #joinBttn {
+
+        };
+      };
+      #titleBox {
+        #titleTab {
+          
+        };
+        #groupTitle {
+
+        };
+        #message {
+
+        };
+      };
+      .allTitles {
+
+      };
+      .allSubtitles {
+
+      };
+      #tournBox {
+        #tournTableTitle {
+
+        };
+        #tournTable {
+          .rowTitle {
+
+          };
+          th {
+
+          };
+        };
+      };
+      table {
+
+        th {
+
+        };
+        td {
+
+        }
+      };
+      .allRounds {
+
+        .rowTitle {
+
+        };
+        .allRows {
+
+          div {
+
+          };
+        }
+      };
+      .allTables {
+
+        th {
+
+        };
+        td {
+
+        };
+      };
+      #inviteBox {
+
+        #inviteTitle {
+
+        };
+        .inviteIntro {
+
+        };
+        .inviteCopyLine {
+
+          .inviteBttn {
+
+          };
+          .inviteScroll {
+
+          };
+        };
+      };
+      #currentTitle {
+
+      };
+      #scrollPlayers {
+        #playerTable {
+          th {
+
+          };
+          tr {
+            td {
+
+              a {
+
+              };
+              a:hover {
+                cursor: pointer;
+              }
+            };
+          };
+          #hideMemberList {
+
+            td {
+
+              ul {
+
+              };
+            };
+          };
+        };
+      };
+      #bracketButton {
+        form {
+          input {
+
+          };
+        };
+      };
+      #resultListTitle {
+
+      };
+      #groupScrollBox {
+
+        div {
+
+        };
+        #scrollLeft {
+
+        };
+        #scrollRight {
+
+        };
+      };
+      #leaveGrpButton {
+
+      };
+      #leaveGrpBox {
+
+        div {
+
+          input {
+
+          };
+          span {
+
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_EDIT.PHP FILE BEGINS -----------
+    #groupEditPage {
+      #mainEditTitle {
+
+      };
+      b {
+
+      };
+      p {
+
+      };
+      form {
+        #changeBox {
+
+          table {
+
+            tr {
+              th {
+
+              };
+              td {
+
+                input {
+
+                };
+                select {
+
+                  option {
+
+                  };
+                };
+              };
+              #inviteLinkBox {
+
+              };
+            };
+          };
+          #inviteTitle {
+
+          };
+          #inviteBox {
+
+            .oneQA {
+              .inviteQ {
+
+              };
+              .inviteA {
+
+              };
+            };
+          };
+          div {
+
+            input {
+
+            };
+            #submitEnter {
+
+            };
+          };
+        };
+        #delGrpButton {
+
+        };
+        #delGrpBox {
+
+          #warningGrp {
+
+          };
+          p {
+
+          };
+          #warningRow {
+
+            input {
+
+            };
+            span {
+
+            };
+          };
+        };
+      };
+    };
+
+    // ----------- GROUP_INVITE.PHP FILE BEGINS -----------
+    #invitePage {
+
+      #contentBody {
+
+        .inviteTitle {
+
+        };
+        #inviteSubTitle {
+
+          a {
+
+          };
+        };
+        #inviteMainTitle {
+
+        };
+        b {
+
+        };
+        #inviteBox {
+
+          ul {
+
+            li:first-child {
+
+            };
+            li:last-child {
+
+            };
+          };
+          p {
+
+          };
+          #bothInviteBttns {
+
+            span {
+
+            };
+            #inviteLogin {
+
+            };
+            #inviteCreate {
+
+            };
+          };
+          .inviteFormBox {
+
+            form {
+              .formTitle {
+
+              };
+              input {
+
+              };
+              .submitInvite {
+
+              };
+            };
+          };
+          #inviteLoginBox {
+
+          };
+          #inviteCreateBox {
+
+          };
+        };
+      };
+    };
+
+    // ----------- BRACKET_MAKE.PHP FILE BEGINS -----------
+    #makePage {
+      #makeTitleBkgd {
+
+        #makeTitle {
+
+        };
+      };
+      b {
+
+      };
+      .gameList {
+
+        .roundTitle {
+
+        };
+        .allRoundLists {
+
+          div {
+
+            .allTeams {
+
+            };
+            .allTeams:last-child {
+
+            };
+            .vs {
+
+            };
+          };
+          div:last-child {
+
+          };
+        };
+      };
+      form {
+        #makeSubmitBox {
+
+          #submitBracket{
+
+          };
+          input {
+
+          }
+        };
+      };
+    };
+
+    // ----------- BRACKET_VIEW.PHP FILE BEGINS -----------
+    #viewPage {
+      form {
+        #returnBttn {
+
+        };
+      };
+      #titleBkgd {
+
+        #viewTitle {
+
+        };
+      };
+      #statsBox {
+
+        #plyrName {
+
+        };
+        #scoreRow {
+
+        }
+      };
+      .oneScoreList {
+
+        .oneTitle {
+
+          span {
+
+          };
+        };
+        .oneScoreRow {
+
+        };
+      };
+      #bottomPoints {
+
+      };
+      #showDelBox {
+
+      };
+      #delBox {
+
+        p {
+
+        };
+        form {
+
+          input {
+
+          };
+          span {
+
+          };
+        };
+      };
+    };
+
+  };
+};
