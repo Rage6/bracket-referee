@@ -174,7 +174,12 @@
               $email->setSubject("Password Reset | Bracket Referee");
               $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
               $email->addContent(
-                  "text/html", "<strong>".$firstName." ".$lastName.", your new password is: ".$newPassword."</strong>"
+                  "text/html", "
+                    <h1 style='text-align:center'><u>BRACKET REFEREE</u></h1>
+                    <b>Your password has been reset</b>
+                    <p>".$firstName." ".$lastName.",</br>
+                    Your password for <a href='https://bracket-referee.herokuapp.com/index.php'>'Bracket Referee'</a> was recently reset. Your new password is: </p></br>
+                    <b style='color:blue;text-align:center'>".$newPassword."</b>"
               );
               $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
               // If the email is successful...
