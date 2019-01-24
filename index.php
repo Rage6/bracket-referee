@@ -170,7 +170,7 @@
             if ($currentHost != 'localhost:8888') {
               putenv("SENDGRID_API_KEY=*api_key*");
               $email = new \SendGrid\Mail\Mail();
-              // $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
+              $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
               $email->setSubject("Password Reset | Bracket Referee");
               $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
               $email->addContent(
