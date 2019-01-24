@@ -170,22 +170,23 @@
             if ($currentHost != 'localhost:8888') {
               putenv("SENDGRID_API_KEY=*api_key*");
               $email = new \SendGrid\Mail\Mail();
-              $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
+              // $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
               $email->setSubject("Password Reset | Bracket Referee");
               $email->addTo(htmlentities($_POST['resetEmail']), $firstName." ".$lastName);
               $email->addContent(
                   "text/html", "
                     <h1 style='text-align:center'><u>BRACKET REFEREE</u></h1>
                     <h2 style='text-align:center'>Your password has been reset</h2>
-                    <p>".$firstName." ".$lastName.",</br>
-                    Your password for <a href='https://bracket-referee.herokuapp.com/index.php'>'Bracket Referee'</a> was recently reset. Your new password is: </p></br>
-                    <b style='color:blue;text-align:center'>".$newPassword."</b>"
+                    <p>".$firstName." ".$lastName.",</p>
+                    <p>Your password for <a href='https://bracket-referee.herokuapp.com/index.php'>'Bracket Referee'</a> was recently reset. Your new password is:</p>
+                    <b style='color:green;text-align:center'>".$newPassword."</b>"
               );
               $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
               // If the email is successful...
               try {
                   $response = $sendgrid->send($email);
                   $_SESSION['message'] = "<b style='color:green'>RESET SUCCESSFUL</br>Your new password was sent to your email account.</b>";
+                  header('Location: index.php');
                   return true;
               // ... and this happens if the email fails (and the old hash is returned to the account)...
               } catch (Exception $e) {
@@ -194,8 +195,9 @@
                     ':opw'=>$oldHash,
                     ':fem'=>htmlentities($_POST['resetEmail'])
                   ));
-                  echo 'Caught exception: '. $e->getMessage() ."\n";
+                  // echo 'Caught exception: '. $e->getMessage() ."\n";
                   $_SESSION['message'] = "<b style='color:red'>Sorry, there has been an error that prevented us from sending you a new password. Email me at nicholas.vogt2017@gmail.com with a description of your issue.</b>";
+                  header('Location: index.php');
                   return false;
               };
             // If the host is a local host, then it shows the new password on index.php
