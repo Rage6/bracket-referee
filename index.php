@@ -176,7 +176,7 @@
               $email->addContent(
                   "text/html", "
                     <h1 style='text-align:center'><u>BRACKET REFEREE</u></h1>
-                    <b>Your password has been reset</b>
+                    <h2 style='text-align:center'>Your password has been reset</h2>
                     <p>".$firstName." ".$lastName.",</br>
                     Your password for <a href='https://bracket-referee.herokuapp.com/index.php'>'Bracket Referee'</a> was recently reset. Your new password is: </p></br>
                     <b style='color:blue;text-align:center'>".$newPassword."</b>"
