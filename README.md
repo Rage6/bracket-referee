@@ -42,4 +42,24 @@
       </li>
      </ul>
   </li>
+  <li>
+    <b>Simple Mail Transfer Protocol (SMTP)</b>: Users can get access to their accounts in spite of forgetting their password by having a reset passwords emailed directly to their recored email account. I did this by using a free, third-party email service (SendGrid) and a PHP package manager (Composer).
+  </li>
+  <li>
+    <b>Private vs. Public</b>: Some users would undoubtedly want to draw in as many other users as possible, while others would want to limit their groups to only friends and family. The "Private/Public" setting that I added makes a group more or less selective. It does this by:
+    <ol>
+      <li>
+        Shows or hides the group on the public list of "Available Groups"
+      </li>
+      <li>
+        Includes or excludes the group on when using the group search tool on player.php
+      </li>
+      <li>
+        Adds a unique "key" to the "invite links", making it difficult for non-members to enter without an invite.
+      </li>
+    </ol>
+  </li>
+  <li>
+    <b>Invitation Link</b>: An "invitation link" is included in all groups (but only shown to the group's creator if the group is "private") and makes it easy for emailing/texting a direct route to a certain group. It is set up so that someone can easily login or create an account before entering the group.
+  </li>
 </ol>
