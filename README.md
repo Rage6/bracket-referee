@@ -42,4 +42,13 @@
       </li>
      </ul>
   </li>
+  <li>
+    <b>Simple Mail Transfer Protocol (SMTP)</b>: Users can get access to their accounts in spite of forgetting their password by having a reset passwords emailed directly to their recored email account. I did this by using a free, third-party email service (SendGrid) and a PHP package manager (Composer).
+  </li>
+  <li>
+    <b>Private vs. Public</b>: Some users would undoubtedly want to draw in as many other users as possible when they start a group, while others would want to limit their groups to only friends and family. The "Private/Public" setting that I added lets the user decide how selective a group is.
+  </li>
+  <li>
+    <b>Invitation Link</b>: An "invitation link" is included in all groups (but only shown to the maker of the group if the group is "private") and makes it easy for emailing/texting a direct route to a certain group. It is set up to easily help someone login or create an account before entering the group.
+  </li>
 </ol>
