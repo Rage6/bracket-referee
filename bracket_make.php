@@ -112,6 +112,7 @@
           Make Your Bracket
         </div>
       </div>
+      <div id="allGameLists">
       <?php
         if (isset($_SESSION['message'])) {
           echo($_SESSION['message']);
@@ -152,12 +153,13 @@
           };
         };
       ?>
+      </div>
       <form method="POST">
         <div id="makeSubmitBox">
           <div id="submitBracket">
             SUBMIT
           </div>
-          <input type='submit' name='cancelBracket' value='CANCEL'/>
+          <input id='cancelBracket' type='submit' name='cancelBracket' value='CANCEL'/>
         </div>
       </form>
     </div>

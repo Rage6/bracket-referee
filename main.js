@@ -275,7 +275,7 @@ $(()=>{
   });
 
   // Slides to "Delete Your Account form" on player_edit.php
-  $("#showDelBox").click(()=>{
+  $("#showDeleteBox").click(()=>{
     toNewForm("#showDeleteBox");
   });
 
