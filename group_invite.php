@@ -26,12 +26,10 @@
       $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token FROM Players WHERE (userName=:ue) OR (email=:ue)");
       $stmt->execute(array(
         ':ue'=>htmlentities($_POST['userEmail'])
-        // ':em'=>htmlentities($_POST['email'])
       ));
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
         $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
-        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
         if (isset($_GET['invite']) && isset($_GET['link_key'])) {
           header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
         } else {
@@ -40,7 +38,6 @@
         return false;
       } elseif (count($list['player_id']) > 1) {
         $_SESSION['message'] = "<b style='color:red'>An error has occured. Notify the administrator at nicholas.vogt2017@gmail.com with any details</b>";
-        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
         if (isset($_GET['invite']) && isset($_GET['link_key'])) {
           header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
         } else {
@@ -66,7 +63,6 @@
           return true;
         } else {
           $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
-          // header('Location: group_invite.php?group_id='.$_GET['group_id']);
           if (isset($_GET['invite']) && isset($_GET['link_key'])) {
             header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
           } else {
@@ -77,7 +73,6 @@
       };
     } else {
       $_SESSION['message'] = "<b style='color:red;'>All values must be entered</b>";
-      // header('Location: group_invite.php?group_id='.$_GET['group_id']);
       if (isset($_GET['invite']) && isset($_GET['link_key'])) {
         header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
       } else {
@@ -129,7 +124,6 @@
               return true;
             } else {
               $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
-              // header('Location: group_invite.php?group_id='.$_GET['group_id']);
               if (isset($_GET['invite']) && isset($_GET['link_key'])) {
                 header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
               } else {
@@ -139,7 +133,6 @@
             };
           } else {
             $_SESSION['message'] = "<b style='color:red'>Password must be greater than 7 and less than 26 characters</b>";
-            // header('Location: group_invite.php?group_id='.$_GET['group_id']);
             if (isset($_GET['invite']) && isset($_GET['link_key'])) {
               header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
             } else {
@@ -149,7 +142,6 @@
           };
         } else {
           $_SESSION['message'] = "<b style='color:red'>The password and confirming password must be identical</b>";
-          // header('Location: group_invite.php?group_id='.$_GET['group_id']);
           if (isset($_GET['invite']) && isset($_GET['link_key'])) {
             header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
           } else {
@@ -159,7 +151,6 @@
         };
       } else {
         $_SESSION['message'] = "<b style='color:red'>Invalid email address</b>";
-        // header('Location: group_invite.php?group_id='.$_GET['group_id']);
         if (isset($_GET['invite']) && isset($_GET['link_key'])) {
           header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
         } else {
@@ -169,7 +160,6 @@
       };
     } else {
       $_SESSION['message'] = "<b style='color:red'>All values must be entered</b>";
-      // header('Location: group_invite.php?group_id='.$_GET['group_id']);
       if (isset($_GET['invite']) && isset($_GET['link_key'])) {
         header('Location: group_invite.php?group_id='.$_GET['group_id']."&invite=".$_GET['invite']."&link_key=".$_GET['link_key']);
       } else {

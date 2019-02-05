@@ -1,7 +1,6 @@
 <?php
   session_start();
   require_once("pdo.php");
-  // require_once("json_tournament.php?group_id=1");
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {

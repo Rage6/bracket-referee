@@ -237,13 +237,9 @@ $(()=>{
   		return true;
   	});
 
-  // Generic function that makes the screen go down when a form appears after clicking
+  // Generic function that makes the screen slide down when a form appears after clicking
   const toNewForm = (targetElmt) => {
-    // console.log(targetElmt);
     var offSetValue = $(targetElmt).offset().top;
-    // console.log("offSet: " + offSetValue);
-    // var positionValue = $(targetElmt).position().top;
-    // console.log("position: " + positionValue);
     $('html,body').animate({
       scrollTop:offSetValue
     },500);

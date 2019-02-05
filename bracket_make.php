@@ -1,7 +1,6 @@
 <?php
   session_start();
   require_once("pdo.php");
-  // require_once("json_tournament.php?group_id=1");
 
   // Prevents entering this page w/o logging in
   if (!isset($_SESSION['player_id'])) {
@@ -171,7 +170,6 @@
       var gameUrl = 'json_games.php?group_id=' + groupId;
       var gameIdList = [];
       var wildcardList = [];
-      // var thirdGameList = [];
       $.getJSON(gameUrl,(gameData)=>{
         // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
@@ -196,7 +194,6 @@
           var pickList = [];
           for (var k = 0; k < gameIdList.length; k++) {
             var oneGameId = gameIdList[k][0];
-            // console.log(oneGameId);
             var onePick = $('[data-game_id='+oneGameId+'][data-winner="true"]').attr('data-team_id');
             var oneObject = {
               gameId: parseInt(oneGameId),
@@ -209,12 +206,9 @@
             var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
             urlHead += "&" + urlTag;
           };
-          // console.log(urlHead);
           window.location = urlHead;
         });
       });
-      // console.log(gameIdList);
-      // console.log(wildcardList);
 
       var url = 'json_tournament.php?group_id=' + groupId;
       $.getJSON(url,(data)=>{
@@ -247,7 +241,6 @@
 
         // If there are wildcards, this installs them before the first regular round
         if (wildcardList.length > 0) {
-          // $("#layer_wild").append("<table border='1px solid black' id='table_wild'></table>");
           $("#layer_wild").append("<div id='table_wild' class='allRoundLists'></div>");
           for (var d = 0; d < wildcardList.length; d++) {
             var wild_team_a = wildcardList[d][2];
@@ -309,19 +302,19 @@
               for (var b = a + 1; b < data.length; b++) {
                 var teamB = data[b];
                 if (teamA['game_id'] == teamB['game_id'] || (teamA['get_wildcard']=="1" && b + 1 == data.length)) {
-                  // This prevent wildcard games from appearing in the first round
+                  //-- This prevent wildcard games from appearing in the first round
                   var isWildcard = false;
                   for (var g = 0; g < wildcardList.length; g++) {
                     if (wildcardList[g][0] == teamA['game_id']) {
                       isWildcard = true;
                     };
                   };
-                  //
+                  //--
                   if (isWildcard == false) {
                     var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
                     var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                     bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
-                    // This fills in the blank spots that happen when a wildcard team hasn't been selected yet for certain Round 1 games
+                    //-- This fills in the blank spots that happen when a wildcard team hasn't been selected yet for certain Round 1 games
                     if (teamA['get_wildcard'] == "1") {
                       var bTeamData = {
                         id: "null",
@@ -337,7 +330,7 @@
                         nextGame: teamB['next_game']
                       };
                     };
-                    //
+                    //--
                     alternateColors(currentColor);
                     $("#table_" + tableId).append(
                       "<div style='background-color:"+currentColor+"'>\
@@ -437,7 +430,6 @@
               totalGames = 1;
             };
             for (var gameNum = 0; gameNum < totalGames; gameNum++) {
-              // var check = $('*[data-game_id="9"]').data('team_name');
               // NOTICE: the next_game_id is found on the past game element with the smallest gameNum. The other element could be used instead, though, since both of them would produce the same next_game_id.
               var pastGameA = null;
               if (gameNum == 0) {
@@ -514,11 +506,9 @@
               </div>");
               $("#pickId_"+tableId+"_"+gameNum+"_top")
                 .text($("#pickId_"+tableId+"_"+gameNum+"_top")
-                // .data('team_name'));
                 .attr('data-team_name'));
               $("#pickId_"+tableId+"_"+gameNum+"_bottom")
                 .text($("#pickId_"+tableId+"_"+gameNum+"_bottom")
-                // .data('team_name'));
                 .attr('data-team_name'));
               var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
               var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
@@ -587,10 +577,6 @@
                   };
                   var newId = $("#"+pickIdB.target.id).attr('data-team_id');
                   var newName = $("#"+pickIdB.target.id).attr('data-team_name');
-                  // $(nextElement)
-                  //   .attr('data-team_id',newId)
-                  //   .attr('data-team_name',newName)
-                  //   .text($("#"+pickIdB.target.id).attr('data-team_name'));
                   if (<?php echo($tournThird) ?> == "1" && nextLayer == lastTable) {
                     console.log("blocks changing the 'third place' game");
                   } else {
@@ -637,8 +623,6 @@
           for (var e = 0; e < wildcardList.length; e++) {
             var pickWildA = "#pickId_wild_"+e+"_top";
             var pickWildB = "#pickId_wild_"+e+"_bottom";
-            // var afterWild = $("[data-game_id="+wildcardList[e][1]+"][data-layer=1][data-team_id='null']");
-            // var idAfterWild = "#" + $(afterWild).attr('id');
             $(pickWildA).click((event)=>{
               console.log("This is A...");
               pickWildA = "#" + event.target.id;

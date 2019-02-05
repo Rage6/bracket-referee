@@ -36,7 +36,6 @@
       $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token FROM Players WHERE (userName=:ue) OR (email=:ue)");
       $stmt->execute(array(
         ':ue'=>htmlentities($_POST['userEmail'])
-        // ':em'=>htmlentities($_POST['email'])
       ));
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
@@ -146,7 +145,6 @@
         ));
         $countEmail = (int)$countEmailStmt->fetch(PDO::FETCH_ASSOC)['COUNT(email)'];
         if ($countEmail == 1) {
-          // if ($currentHost != 'localhost:8888') {
             // A new password and hash are made...
             $newPassword = bin2hex(random_bytes(5));
             $newHash = password_hash($newPassword,PASSWORD_DEFAULT);
@@ -348,7 +346,7 @@
             <i>What is Bracket Referee used for?</i>
           </b>
           <p>
-            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just spectator! <u>Bracket Referee</u> allows groups or individuals to fill out their picks, record their bracket, and watch how their scores compare to others. <u>Bracket Referee</u> can be used for any <span style="color:green">single-elimination</span> tournament, with or without <span style="color:green">wildcards</span>.
+            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just spectator! <u>Bracket Referee</u> allows groups or individuals to fill out their picks, record their bracket, and watch how their scores compare to others. <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
           </p>
         </div>
         <div class="imageBorder" style="background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800')"></div>
