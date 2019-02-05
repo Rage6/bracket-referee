@@ -365,7 +365,7 @@ html {
       };
       #titleBox {
         #titleTab {
-          
+
         };
         #groupTitle {
 
@@ -547,6 +547,12 @@ html {
               };
             };
           };
+          #changeBttnRow {
+
+            input {
+
+            };
+          };
           #inviteTitle {
 
           };
@@ -676,27 +682,29 @@ html {
       b {
 
       };
-      .gameList {
+      #allGameLists {
+        .gameList {
 
-        .roundTitle {
+          .roundTitle {
 
-        };
-        .allRoundLists {
-
-          div {
-
-            .allTeams {
-
-            };
-            .allTeams:last-child {
-
-            };
-            .vs {
-
-            };
           };
-          div:last-child {
+          .allRoundLists {
 
+            div {
+
+              .allTeams {
+
+              };
+              .allTeams:last-child {
+
+              };
+              .vs {
+
+              };
+            };
+            div:last-child {
+
+            };
           };
         };
       };
@@ -704,6 +712,9 @@ html {
         #makeSubmitBox {
 
           #submitBracket{
+
+          };
+          #cancelBracket {
 
           };
           input {

@@ -277,7 +277,7 @@
                   echo("<div id='searchResults'><div id='resultList'>");
                   $resultColor = "white";
                   for ($i = 0; $i < count($nameList); $i++) {
-                    echo("<p style='background-color:".$resultColor."'>".$startList[$i].$nameList[$i].$stopList[$i]."</p>");
+                    echo($startList[$i]."<p style='background-color:".$resultColor."'>".$nameList[$i]."</p>".$stopList[$i]);
                     if ($resultColor == "white") {
                       $resultColor = "lightgrey";
                     } else {
@@ -355,7 +355,7 @@
                   } else {
                     $rowColor = "white";
                   };
-                  echo("<p style='background-color:".$rowColor."'><a href=".$randomURL.$randomGrpId.">".$randomGrpName."</a></p>");
+                  echo("<a href=".$randomURL.$randomGrpId."><p style='background-color:".$rowColor."'>".$randomGrpName."</p></a>");
                 };
                 ?>
               </div>

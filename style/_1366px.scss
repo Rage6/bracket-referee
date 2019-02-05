@@ -650,6 +650,12 @@ html {
               };
             };
           };
+          #changeBttnRow {
+
+            input {
+
+            };
+          };
           #inviteTitle {
 
           };
@@ -789,27 +795,50 @@ html {
       b {
 
       };
-      .gameList {
-
-        .roundTitle {
-
+      #allGameLists {
+        @media only screen and (min-width: $min) {
+          margin-left: 5%;
+          border: 1px solid black;
+          padding-top: 50px;
+          display: flex;
+          align-items: flex-start;
+          overflow-x: auto;
+          width: 90%;
         };
-        .allRoundLists {
-
-          div {
-
-            .allTeams {
-
+        .gameList {
+          @media only screen and (min-width: $min) {
+            // margin-left: 0px;
+          };
+          .roundTitle {
+            @media only screen and (min-width: $min) {
+              font-size: 4rem;
+              width: 700px;
             };
-            .allTeams:last-child {
-
+          };
+          .allRoundLists {
+            @media only screen and (min-width: $min) {
+              font-size: 2rem;
             };
-            .vs {
+            div {
+
+              .allTeams {
+
+              };
+              .allTeams:last-child {
+
+              };
+              .vs {
+
+              };
+            };
+            div:last-child {
 
             };
           };
-          div:last-child {
-
+        };
+        .gameList:first-child {
+          @media only screen and (min-width: $min) {
+            margin-left: 50px;
           };
         };
       };
@@ -819,9 +848,9 @@ html {
           #submitBracket{
 
           };
-          input {
+          #cancelBracket {
 
-          }
+          };
         };
       };
     };
