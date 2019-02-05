@@ -62,4 +62,7 @@
   <li>
     <b>Invitation Link</b>: An "invitation link" is included in all groups (but only shown to the group's creator if the group is "private") and makes it easy for emailing/texting a direct route to a certain group. It is set up so that someone can easily login or create an account before entering the group.
   </li>
+  <li>
+    <b>Varying Tournament Structure</b>: Many single-elimination tournaments slightly differ from their traditional structure. In particular "wildcard" (a.k.a "games that fill out the first full round") and "third-place" (a.k.a "semi-finals that compete for third place") games often occur. This app is designed to adjust for those during team selection and scoring.
+  </li>
 </ol>
