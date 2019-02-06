@@ -280,4 +280,14 @@ $(()=>{
     toNewForm("#leaveGrpBox");
   });
 
+  // Slide to 'login' form on group_invite.php
+  $("#inviteLogin").click(()=>{
+    toNewForm("#inviteLogin");
+  });
+
+  // Slide to 'create' form on group_invite.php
+  $("#inviteCreate").click(()=>{
+    toNewForm("#inviteCreate");
+  });
+
 });
