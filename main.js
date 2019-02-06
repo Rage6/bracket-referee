@@ -285,7 +285,7 @@ $(()=>{
     toNewForm("#inviteLogin");
   });
 
-  // Slide to 'login' form on group_invite.php
+  // Slide to 'create' form on group_invite.php
   $("#inviteCreate").click(()=>{
     toNewForm("#inviteCreate");
   });
