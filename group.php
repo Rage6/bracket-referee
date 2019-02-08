@@ -149,9 +149,24 @@
     return true;
   };
 
-  // Remove current player from this group
-  // [UPDATE] Here, also add in code that deletes the player's bracket and picks (if any)
+  // Remove current player from this group and delete their bracket
   if (isset($_POST['leaveGroup'])) {
+    $ifBrckIdStmt = $pdo->prepare('SELECT bracket_id FROM Brackets WHERE player_id=:bp AND group_id=:bg');
+    $ifBrckIdStmt->execute(array(
+      ':bp'=>$_SESSION['player_id'],
+      ':bg'=>htmlentities($_GET['group_id'])
+    ));
+    $oneBrkId = $ifBrckIdStmt->fetch(PDO::FETCH_ASSOC);
+    if ($oneBrkId != false) {
+      $delPickStmt = $pdo->prepare('DELETE FROM Picks WHERE bracket_id=:pk');
+      $delPickStmt->execute(array(
+        ':pk'=>$oneBrkId['bracket_id']
+      ));
+      $delBrkStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bkid');
+      $delBrkStmt->execute(array(
+        ':bkid'=>$oneBrkId['bracket_id']
+      ));
+    };
     $leaveGrpStmt = $pdo->prepare('DELETE FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
     $leaveGrpStmt->execute(array(
       ':gid'=>htmlentities($_GET['group_id']),
@@ -160,6 +175,12 @@
     header('Location: group.php?group_id='.$_GET['group_id']);
     return true;
   };
+
+  // echo(date('Y-m-d')."</br>");
+  // echo($tournArray['start_date']."</br>");
+  // $tournDate = new DateTime($tournArray['start_date']);
+  // $currentDate = new DateTime(date('Y-m-d'));
+  // var_dump((int)(date_diff($currentDate,$tournDate)->format('%R%a')));
 
   // echo("Session:</br>");
   // print_r($_SESSION);
@@ -333,14 +354,19 @@
           };
         ?>
       <?php
-        if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
-          if ($hasBracket == false) {
-            echo("
-            <div id='bracketButton'>
-              <form method='POST'>
-                <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-              </form>
-            </div>");
+        $tournDate = new DateTime($tournArray['start_date']);
+        $currentDate = new DateTime(date('Y-m-d'));
+        $timeUntil = (int)(date_diff($currentDate,$tournDate)->format('%R%a'));
+        if ($timeUntil > 0 || $tournArray['tourn_id'] == 1) {
+          if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+            if ($hasBracket == false) {
+              echo("
+              <div id='bracketButton'>
+                <form method='POST'>
+                  <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+                </form>
+              </div>");
+            };
           };
         };
       ?>

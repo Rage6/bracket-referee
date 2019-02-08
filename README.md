@@ -2,11 +2,13 @@
 
 ## https://bracket-referee.herokuapp.com
 
-<b>Languages</b>: PHP, Javscript (jQuery, JSON), CSS (SASS), HTML
+<b>Client-side Languages</b>: Javscript, jQuery (3.3.1.min), JSON, CSS, SASS (3.5.5), HTML
+
+<b>Server-side Languages</b>: PHP (7.1.19)
 
 <b>DB Managment System</b>: MySQL
 
-<b>Status</b>: <i>Functional, not completed</i>
+<b>Status</b>: <i>Complete</i>
 
 <u><i>PURPOSE:</i></u>
 <p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It is my first, independent venture into "server-side" coding from scratch... and I'm LOVING it! Once completed, this app will allow the user to:</p>
@@ -38,31 +40,31 @@
         <i>htmlentities()</i> is used to block SQL injection. If not, SQL could be maliciously used to see or modify the database.
       </li>
       <li>
-        By using the <i>token-based authentication</i> method, tokens are created each session in order to confirm that they are who they say they are, each and every request. Each token is randomly generated using PHP's <i>random_bytes()</i>
+        By using the <i>token-based authentication</i> method, tokens are created each a player logs in. It is then used to confirm that they are who they say they are, each and every request. Each token is randomly generated.
       </li>
      </ul>
   </li>
   <li>
-    <b>Simple Mail Transfer Protocol (SMTP)</b>: Users can get access to their accounts in spite of forgetting their password by having a reset passwords emailed directly to their recored email account. I did this by using a free, third-party email service (SendGrid) and a PHP package manager (Composer).
+    <b>Simple Mail Transfer Protocol (SMTP)</b>: Users can get access to their accounts in spite of forgetting their password by having a reset passwords emailed directly to their recorded email address. This is carried out by using a free, third-party email service (SendGrid) and a PHP package manager (Composer).
   </li>
   <li>
-    <b>Private vs. Public</b>: Some users would undoubtedly want to draw in as many other users as possible, while others would want to limit their groups to only friends and family. The "Private/Public" setting that I added makes a group more or less selective. It does this by:
+    <b>Private vs. Public</b>: Some users would undoubtedly want to draw in as many other users as possible, while others would want to limit their groups to only friends and family. The "Private/Public" setting that I added makes a group more or less selective of its members. It does this by:
     <ol>
       <li>
-        Shows or hides the group on the public list of "Available Groups"
+        Showing or hiding the group on the public list of "Available Groups"
       </li>
       <li>
-        Includes or excludes the group on when using the group search tool on player.php
+        Including or excluding the group on whether the group can appear on the 'search tool' on player.php
       </li>
       <li>
-        Adds a unique "key" to the "invite links", making it difficult for non-members to enter without an invite.
+        Adding a unique "key" to the "invite links", making it very difficult for non-members to enter without an invite.
       </li>
     </ol>
   </li>
   <li>
-    <b>Invitation Link</b>: An "invitation link" is included in all groups (but only shown to the group's creator if the group is "private") and makes it easy for emailing/texting a direct route to a certain group. It is set up so that someone can easily login or create an account before entering the group.
+    <b>Invitation Link</b>: An "invitation link" is included in all groups and makes it easy for emailing/texting someone a URL that will take them directly to the desired group. Upon entering that URL, the user easily logs in or create an account (if they aren't logged in already), then they are sent to the desired group. If that group is in the 'PRIVATE setting, its link is only shown to the group's director, but the 'PUBLIC' setting show will show the link to all of its members.
   </li>
   <li>
-    <b>Varying Tournament Structure</b>: Many single-elimination tournaments slightly differ from their traditional structure. In particular "wildcard" (a.k.a "games that fill out the first full round") and "third-place" (a.k.a "semi-finals that compete for third place") games often occur. This app is designed to adjust for those during team selection and scoring.
+    <b>Varying Tournament Structure</b>: Many single-elimination tournaments differ from the traditional structure. In particular <a href='https://en.wikipedia.org/wiki/Wild_card_(sports)'>"wildcard"</a> and <a href='https://en.wikipedia.org/wiki/Third_place_playoff'>"third-place playoffs"</a> games often occur. <u>Bracket Referee</u> is designed to accommodate for those.
   </li>
 </ol>

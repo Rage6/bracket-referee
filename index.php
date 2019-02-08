@@ -290,7 +290,7 @@
         </div>
         <form method="POST">
           <input type="text" name="resetEmail"/></br>
-          <input type="submit" name="reset" />
+          <input type="submit" name="reset" value="RESET"/>
         </form>
       </div>
     </div>
