@@ -2,7 +2,7 @@
 
 ## https://bracket-referee.herokuapp.com
 
-<b>Client-side Languages</b>: Javscript (jQuery 3.3.1, JSON), CSS (SASS 3.5.5), HTML
+<b>Client-side Languages</b>: Javscript, jQuery (3.3.1.min), JSON, CSS, SASS (3.5.5), HTML
 
 <b>Server-side Languages</b>: PHP (7.1.19)
 
