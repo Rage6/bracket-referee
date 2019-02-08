@@ -149,9 +149,24 @@
     return true;
   };
 
-  // Remove current player from this group
-  // [UPDATE] Here, also add in code that deletes the player's bracket and picks (if any)
+  // Remove current player from this group and delete their bracket
   if (isset($_POST['leaveGroup'])) {
+    $ifBrckIdStmt = $pdo->prepare('SELECT bracket_id FROM Brackets WHERE player_id=:bp AND group_id=:bg');
+    $ifBrckIdStmt->execute(array(
+      ':bp'=>$_SESSION['player_id'],
+      ':bg'=>htmlentities($_GET['group_id'])
+    ));
+    $oneBrkId = $ifBrckIdStmt->fetch(PDO::FETCH_ASSOC);
+    if ($oneBrkId != false) {
+      $delPickStmt = $pdo->prepare('DELETE FROM Picks WHERE bracket_id=:pk');
+      $delPickStmt->execute(array(
+        ':pk'=>$oneBrkId['bracket_id']
+      ));
+      $delBrkStmt = $pdo->prepare('DELETE FROM Brackets WHERE bracket_id=:bkid');
+      $delBrkStmt->execute(array(
+        ':bkid'=>$oneBrkId['bracket_id']
+      ));
+    };
     $leaveGrpStmt = $pdo->prepare('DELETE FROM Groups_Players WHERE group_id=:gid AND player_id=:pid');
     $leaveGrpStmt->execute(array(
       ':gid'=>htmlentities($_GET['group_id']),
