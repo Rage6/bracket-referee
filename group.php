@@ -176,6 +176,12 @@
     return true;
   };
 
+  // echo(date('Y-m-d')."</br>");
+  // echo($tournArray['start_date']."</br>");
+  // $tournDate = new DateTime($tournArray['start_date']);
+  // $currentDate = new DateTime(date('Y-m-d'));
+  // var_dump((int)(date_diff($currentDate,$tournDate)->format('%R%a')));
+
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -348,14 +354,19 @@
           };
         ?>
       <?php
-        if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
-          if ($hasBracket == false) {
-            echo("
-            <div id='bracketButton'>
-              <form method='POST'>
-                <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
-              </form>
-            </div>");
+        $tournDate = new DateTime($tournArray['start_date']);
+        $currentDate = new DateTime(date('Y-m-d'));
+        $timeUntil = (int)(date_diff($currentDate,$tournDate)->format('%R%a'));
+        if ($timeUntil > 0 || $tournArray['tourn_id'] == 1) {
+          if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+            if ($hasBracket == false) {
+              echo("
+              <div id='bracketButton'>
+                <form method='POST'>
+                  <input type='submit' name='make_bracket' value='CREATE YOUR BRACKET'/>
+                </form>
+              </div>");
+            };
           };
         };
       ?>
