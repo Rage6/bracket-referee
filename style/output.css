@@ -886,6 +886,11 @@ html {
         font-size: 5rem;
         text-align: center;
         background-color: green; }
+      html body #makePage #allGameLists .gameList .noTeams {
+        padding: 100px 0;
+        font-size: 4rem;
+        font-family: "Courier New", Courier, monospace;
+        text-align: center; }
       html body #makePage #allGameLists .gameList .allRoundLists {
         border-radius: 0 0 20px 20px;
         font-size: 2.7rem; }
