@@ -458,10 +458,10 @@
           } else {
             $rowColor = "lightgrey";
           };
-          if ($team_a == $winnerTeam) {
+          if ($team_a == $winnerTeam && $winnerTeam != null) {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
-          } elseif ($team_b == $winnerTeam) {
+          } elseif ($team_b == $winnerTeam && $winnerTeam != null) {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
             $b_name = "<div style='color:white;background-color:green'>".$b_name['team_name']."</div></div>";
           } else {
