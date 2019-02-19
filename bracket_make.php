@@ -208,6 +208,7 @@
             var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
             urlHead += "&" + urlTag;
           };
+          // console.log(urlHead);
           window.location = urlHead;
         });
       });
@@ -307,6 +308,7 @@
                 var teamA = data[a];
                 for (var b = a + 1; b < data.length; b++) {
                   var teamB = data[b];
+                  // --
                   if (teamA['game_id'] == teamB['game_id'] || (teamA['get_wildcard']=="1" && b + 1 == data.length)) {
                     //-- This prevent wildcard games from appearing in the first round
                     var isWildcard = false;
@@ -338,6 +340,7 @@
                       };
                       //--
                       alternateColors(currentColor);
+                      console.log("add a row...")
                       $("#table_" + tableId).append(
                         "<div style='background-color:"+currentColor+"'>\
                           <div \
@@ -424,8 +427,101 @@
                       gameNum++;
                     };
                   };
-                  if (b + 1 == data.length) {
-                    // console.log(data[a]['team_name']);
+                  // In case the final game is also needs to get a wildcard, this is necessary...
+                  if (a + 2 == data.length && b + 1 == data.length && teamB['get_wildcard'] == "1") {
+                    console.log("the last game needs a wildcard");
+                    var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
+                    var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
+                    bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
+                    var bTeamData = {
+                      id: "null",
+                      name: "---",
+                      gameId: teamA['game_id'],
+                      nextGame: teamA['next_game']
+                    };
+                    alternateColors(currentColor);
+                    $("#table_" + tableId).append(
+                      "<div style='background-color:"+currentColor+"'>\
+                        <div \
+                          id='" + pickIdA + "'\
+                          class='allTeams'\
+                          data-team_id="+teamB['team_id']+"\
+                          data-team_name='"+teamB['team_name']+"'\
+                          data-layer='"+tableId+"'\
+                          data-game='" + gameNum + "'\
+                          data-game_id='" + teamB['game_id'] + "'\
+                          data-next_game_id='" + teamB['next_game'] + "'\
+                          data-pick='"+pickNum+"'\
+                          data-winner='null'>"+teamB['team_name']+"</div>\
+                        <div> VS </div>\
+                        <div\
+                          id='" + pickIdB + "'\
+                          class='allTeams'\
+                          data-team_id="+bTeamData.id+"\
+                          data-team_name='"+bTeamData.name+"'\
+                          data-layer='"+tableId+"'\
+                          data-game='" + gameNum + "'\
+                          data-game_id='" + teamB['game_id'] + "'\
+                          data-next_game_id='" + bTeamData.nextGame + "'\
+                          data-pick='"+pickNum+"'\
+                          data-winner='null'>"+bTeamData.name+"</div>\
+                      </div>");
+                    // When clicking on the A team in the first round...
+                    $("#"+pickIdA).click((pickIdA)=>{
+                      var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
+                      var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
+                      var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                      console.log(nextElement);
+                      var pickIdB = null;
+                      for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
+                        if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {
+                          pickIdB = bothTeamIds[bothNum][1][0];
+                        };
+                      };
+                      var newId = $("#"+pickIdA.target.id).attr('data-team_id');
+                      console.log("newId: "+newId);
+                      var newName = $("#"+pickIdA.target.id).attr('data-team_name');
+                      console.log("newName: "+newName);
+                      $(nextElement)
+                        .attr('data-team_id',newId)
+                        .attr('data-team_name',newName)
+                        .text($(nextElement).attr('data-team_name'));
+                      $("#"+pickIdA.target.id)
+                        .attr('data-winner','true')
+                        .css('background-color','green')
+                        .css('color','white');
+                      $(pickIdB)
+                        .attr('data-winner','false')
+                        .css('background-color','white')
+                        .css('color','black');
+                    });
+                    // ... and when clicking on the B team in the first round.
+                    $("#"+pickIdB).click((pickIdB)=>{
+                      var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
+                      var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
+                      var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
+                      console.log(nextElement);
+                      var pickIdA = null;
+                      for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
+                        if (bothTeamIds[bothNum][1][0] == "#"+pickIdB.target.id) {
+                          pickIdA = bothTeamIds[bothNum][0][0];
+                        };
+                      };
+                      var newId = $("#"+pickIdB.target.id).attr('data-team_id');
+                      var newName = $("#"+pickIdB.target.id).attr('data-team_name');
+                      $(nextElement)
+                        .attr('data-team_id',newId)
+                        .attr('data-team_name',newName)
+                        .text($(nextElement).attr('data-team_name'));
+                      $("#"+pickIdB.target.id)
+                        .attr('data-winner','true')
+                        .css('background-color','green')
+                        .css('color','white');
+                      $(pickIdA)
+                        .attr('data-winner','false')
+                        .css('background-color','white')
+                        .css('color','black');
+                    });
                   };
                 };
               };
@@ -454,7 +550,8 @@
                 // Fills the game's id IF it is the 'third place' game
                 var thirdGameId = null;
                 for (var p = 0; p < gameIdList.length; p++) {
-                  if (gameIdList[p][6] != "0") {
+                  // if (gameIdList[p][6] != "0") {
+                  if (gameIdList[p][6] != null) {
                     thirdGameId = gameIdList[p][6];
                   };
                 };
