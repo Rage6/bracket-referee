@@ -162,11 +162,14 @@ html {
       color: #b50707;
       background-image: url("img/player/soccer_bkgd.jpg"); }
       html body #playerPage #topRow #profIdBox #profIdTable {
+        table-layout: fixed;
         background-color: white;
         width: 100%; }
         html body #playerPage #topRow #profIdBox #profIdTable tr {
           font-size: 3rem; }
           html body #playerPage #topRow #profIdBox #profIdTable tr td {
+            padding-top: 10px;
+            padding-bottom: 10px;
             border: 2px solid grey;
             color: black;
             text-align: center; }
@@ -174,6 +177,10 @@ html {
             border: none;
             color: white;
             background-color: grey; }
+          html body #playerPage #topRow #profIdBox #profIdTable tr .profInput {
+            padding: 0 30px;
+            text-align: left;
+            overflow-x: scroll; }
       html body #playerPage #topRow #profIdBox #profIdBtns {
         margin: 80px 0 20px 0;
         display: flex;
