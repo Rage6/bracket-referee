@@ -118,7 +118,7 @@
         ':pl'=>$_SESSION['player_id']
       ));
       $_SESSION['message'] = "<b style='color:green'>New group created!</b>";
-      header('Location: player.php');
+      header('Location: group.php?group_id='.$groupId);
       return true;
     } else {
       $_SESSION['message'] = "<b style='color:red'>Group names and tournaments are required</b>";
