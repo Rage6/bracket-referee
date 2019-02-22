@@ -176,7 +176,7 @@
             <table id="profIdTable">
               <tr>
                 <td class="profTitle">Name</th>
-                <td class="profInput"><?php echo($playerData['firstName']) ?> <?php echo($playerData['lastName']) ?></td>
+                <td class="profInput"><?php echo($playerData['firstName']." ".$playerData['lastName']) ?></td>
               </tr>
               <tr>
                 <td class="profTitle">Username</th>
