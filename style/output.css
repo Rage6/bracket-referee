@@ -893,6 +893,13 @@ html {
         font-size: 5rem;
         text-align: center;
         background-color: green; }
+      html body #makePage #allGameLists .gameList .waiting {
+        margin-left: 50%;
+        width: 300px; }
+        html body #makePage #allGameLists .gameList .waiting img {
+          margin-left: -150px;
+          height: 300px;
+          width: 300px; }
       html body #makePage #allGameLists .gameList .noTeams {
         padding: 100px 0;
         font-size: 4rem;

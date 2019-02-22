@@ -129,6 +129,9 @@
                     <div class='roundTitle'>
                       <u>".$oneWild['level_name']."</u>
                     </div>
+                    <div class='waiting'>
+                      <img src='style/img/loading.gif'/>
+                    </div>
                   </div>");
           };
         };
@@ -143,11 +146,17 @@
                     <div id='layerTitle_".$oneLevel['layer']."' class='roundTitle'>
                       <u>".$oneLevel['level_name']."</u>
                     </div>
+                    <div class='waiting'>
+                      <img src='style/img/loading.gif'/>
+                    </div>
                   </div>");
             } else {
               echo("<div id='layer_".$oneLevel['layer']."' class='gameList thirdPlace'>
                       <div id='layerTitle_".$oneLevel['layer']."' class='roundTitle'>
                         <u>".$oneLevel['level_name']."</u>
+                      </div>
+                      <div class='waiting'>
+                        <img src='style/img/loading.gif'/>
                       </div>
                     </div>");
             };
@@ -168,7 +177,7 @@
   <script>
     var groupId = <?php echo($_GET['group_id']) ?>;
     $(document).ready(()=>{
-
+      $(".waiting").hide();
       var gameUrl = 'json_games.php?group_id=' + groupId;
       var gameIdList = [];
       var wildcardList = [];

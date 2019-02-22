@@ -1197,6 +1197,15 @@ html {
             text-align: center;
             background-color: green;
           };
+          .waiting {
+            margin-left: 50%;
+            width: 300px;
+            img {
+              margin-left: -150px;
+              height: 300px;
+              width: 300px;
+            };
+          };
           .noTeams {
             padding: 100px 0;
             font-size: 4rem;
