@@ -172,6 +172,8 @@
     ));
 
     // After deletion, the user is sent back to the index page
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
     $_SESSION['message'] = "<b style='color:green'>Account deleted</b>";
     header('Location: index.php');
     return true;

@@ -2,6 +2,7 @@
   session_start();
   require_once("pdo.php");
 
+  // Activates SendGrid stuff when NOT on the local host
   $currentHost = $_SERVER['HTTP_HOST'];
   if ($currentHost != 'localhost:8888') {
     require 'vendor/autoload.php';
