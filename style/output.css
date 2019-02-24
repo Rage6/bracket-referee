@@ -1026,6 +1026,48 @@ html {
           background-color: red; }
         html body #viewPage #delBox form span {
           font-size: 3.5rem; }
+    html body #adminPage #adminTitle {
+      margin-top: 50px;
+      margin-bottom: 110px;
+      border: none;
+      font-size: 4rem;
+      text-align: center;
+      text-decoration: underline; }
+    html body #adminPage div {
+      border: 5px solid black; }
+      html body #adminPage div .adminSubtitle {
+        margin-bottom: 30px;
+        border: none;
+        font-size: 3rem;
+        text-align: center; }
+      html body #adminPage div div {
+        border: none; }
+      html body #adminPage div #searchBox {
+        padding: 0 0 40px 10%;
+        font-size: 2.5rem; }
+        html body #adminPage div #searchBox form {
+          width: 80%; }
+          html body #adminPage div #searchBox form input {
+            display: block;
+            font-size: 2.5rem;
+            width: 100%; }
+          html body #adminPage div #searchBox form #text {
+            margin-bottom: 10px;
+            border: 1px solid black; }
+          html body #adminPage div #searchBox form #submit {
+            border: 1px solid blue;
+            color: white;
+            background-color: blue;
+            cursor: pointer; }
+        html body #adminPage div #searchBox #tournResults {
+          margin-top: 50px;
+          border: 1px solid black;
+          font-size: 2.5rem;
+          text-align: center;
+          padding: 5px 0;
+          width: 80%; }
+      html body #adminPage div .adminGameBox {
+        text-align: center; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {
