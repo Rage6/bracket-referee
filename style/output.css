@@ -1034,7 +1034,8 @@ html {
       text-align: center;
       text-decoration: underline; }
     html body #adminPage div {
-      border: 5px solid black; }
+      border: 5px solid black;
+      margin-bottom: 30px; }
       html body #adminPage div .adminSubtitle {
         margin-bottom: 30px;
         border: none;
@@ -1059,15 +1060,35 @@ html {
             color: white;
             background-color: blue;
             cursor: pointer; }
-        html body #adminPage div #searchBox #tournResults {
-          margin-top: 50px;
+          html body #adminPage div #searchBox form #tournResults {
+            margin-top: 50px;
+            border: 1px solid black;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 5px 0;
+            width: 100%; }
+            html body #adminPage div #searchBox form #tournResults tr td input {
+              color: white;
+              background-color: green; }
+            html body #adminPage div #searchBox form #tournResults tr:hover {
+              background-color: lightgrey; }
+      html body #adminPage div #selectBox {
+        display: flex;
+        justify-content: space-around;
+        font-size: 2.5rem; }
+        html body #adminPage div #selectBox form input {
           border: 1px solid black;
-          font-size: 2.5rem;
-          text-align: center;
-          padding: 5px 0;
-          width: 80%; }
+          font-size: 2.5rem; }
+      html body #adminPage div #unselectBox form input {
+        margin-left: 25%;
+        color: white;
+        font-size: 2.5rem;
+        background-color: red;
+        width: 50%; }
       html body #adminPage div .adminGameBox {
         text-align: center; }
+      html body #adminPage div #wildcardBox div div {
+        font-size: 2.5rem; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {

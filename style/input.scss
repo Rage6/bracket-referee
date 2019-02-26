@@ -1382,6 +1382,7 @@ html {
       };
       div {
         border: 5px solid black;
+        margin-bottom: 30px;
         .adminSubtitle {
           margin-bottom: 30px;
           border: none;
@@ -1411,21 +1412,60 @@ html {
               background-color: blue;
               cursor: pointer;
             };
+            #tournResults {
+              margin-top: 50px;
+              border: 1px solid black;
+              font-size: 2.5rem;
+              text-align: center;
+              padding: 5px 0;
+              width: 100%;
+              tr {
+
+                td {
+
+                  input {
+                    color: white;
+                    background-color: green;
+                  };
+                };
+              };
+              tr:hover {
+                background-color: lightgrey;
+              };
+            };
           };
-          #tournResults {
-            margin-top: 50px;
-            border: 1px solid black;
-            font-size: 2.5rem;
-            text-align: center;
-            padding: 5px 0;
-            width: 80%;
+        };
+        #selectBox {
+          display: flex;
+          justify-content: space-around;
+          font-size: 2.5rem;
+          form {
+            input {
+              border: 1px solid black;
+              font-size: 2.5rem;
+            };
+          };
+        };
+        #unselectBox {
+          form {
+            input {
+              margin-left: 25%;
+              color: white;
+              font-size: 2.5rem;
+              background-color: red;
+              width: 50%;
+            };
           };
         };
         .adminGameBox {
           text-align: center;
         };
         #wildcardBox {
-
+          div {
+            div {
+              font-size: 2.5rem;
+            };
+          };
         };
         #regularBox {
 
