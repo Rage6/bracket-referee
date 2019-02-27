@@ -1506,11 +1506,37 @@ html {
           };
         };
         #submitUpdate {
-          margin-left: 25%;
+          margin: 0 0 300px 25%;
           color: white;
           font-size: 4rem;
-          background-color: blue;
+          background-color: green;
           width: 50%;
+        };
+      };
+      #findTeam {
+        margin-bottom: 0;
+        border: none;
+        border-top: 5px solid black;
+        background-color: white;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        #findTeamBttn {
+          margin-bottom: 0px;
+          padding: 10px 0;
+          color: white;
+          font-size: 3.5rem;
+          background-color: darkgrey;
+        };
+        #findTeamBox {
+          form {
+            input {
+              margin: 20px 0 0 10%;
+              border: 1px solid black;
+              font-size: 3rem;
+              width: 80%;
+            };
+          };
         };
       };
     };

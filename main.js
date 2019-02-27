@@ -290,4 +290,9 @@ $(()=>{
     toNewForm("#inviteCreate");
   });
 
+  // Toggle the box to deleting an existing bracket in bracket_view page
+  $("#findTeamBttn").click(()=>{
+    $("#findTeamBox").toggle();
+  });
+
 });

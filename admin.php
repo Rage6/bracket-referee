@@ -434,6 +434,17 @@
         };
         ?>
       </form>
+
+      <div id="findTeam">
+        <div class="adminSubtitle" id="findTeamBttn">Find Team ID</div>
+        <div id="findTeamBox">
+          <form method="POST">
+            <input type="text" name="teamSearch" placeholder="Enter name here" /></br>
+            <input type="submit" values="ENTER" />
+          </form>
+        </div>
+      </div>
+
     </div>
   </body>
   <script>
