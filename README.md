@@ -67,4 +67,7 @@
   <li>
     <b>Varying Tournament Structure</b>: Many single-elimination tournaments differ from the traditional structure. In particular <a href='https://en.wikipedia.org/wiki/Wild_card_(sports)'>"wildcard"</a> and <a href='https://en.wikipedia.org/wiki/Third_place_playoff'>"third-place playoffs"</a> games often occur. <u>Bracket Referee</u> is designed to accommodate for those.
   </li>
+  <li>
+    <b>Administrative Center</b>: Manually adding new teams or updating each game's results is very inefficient and increases the chances that a mistake is made. To prevent this, the Administrative Center page (which is only accessible by the developer) can be used to easily add a new team, insert the correct teams on each game, and update each game's winner.
+  </li>
 </ol>
