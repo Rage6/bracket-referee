@@ -118,7 +118,7 @@
         ':pl'=>$_SESSION['player_id']
       ));
       $_SESSION['message'] = "<b style='color:green'>New group created!</b>";
-      header('Location: player.php');
+      header('Location: group.php?group_id='.$groupId);
       return true;
     } else {
       $_SESSION['message'] = "<b style='color:red'>Group names and tournaments are required</b>";
@@ -176,15 +176,15 @@
             <table id="profIdTable">
               <tr>
                 <td class="profTitle">Name</th>
-                <td><?php echo($playerData['firstName']) ?> <?php echo($playerData['lastName']) ?></td>
+                <td class="profInput"><?php echo($playerData['firstName']." ".$playerData['lastName']) ?></td>
               </tr>
               <tr>
                 <td class="profTitle">Username</th>
-                <td><?php echo($playerData['userName']) ?></td>
+                <td class="profInput"><?php echo($playerData['userName']) ?></td>
               </tr>
               <tr>
                 <td class="profTitle">Email</th>
-                <td><?php echo($playerData['email']) ?></td>
+                <td class="profInput"><?php echo($playerData['email']) ?></td>
               </tr>
             </table>
             <form id="profIdBtns" method='POST'>
@@ -305,7 +305,7 @@
                       <td><input type='text' name='group_name'></td>
                     </tr>
                     <tr>
-                      <td>Tournament:</td>
+                      <td>Sport Type:</td>
                       <td>
                         <select name="tourn_id">
                           <option value='null'>Choose from...</option>

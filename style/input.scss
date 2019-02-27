@@ -211,16 +211,18 @@ html {
       #topRow {
 
         #profIdBox {
-          // border-color: grey;
           border-radius: 30px;
           color: rgb(181,7,7);
           background-image: url('img/player/soccer_bkgd.jpg');
           #profIdTable {
+            table-layout: fixed;
             background-color: white;
             width: 100%;
             tr {
               font-size: 3rem;
               td {
+                padding-top: 10px;
+                padding-bottom: 10px;
                 border: 2px solid grey;
                 color: black;
                 text-align: center;
@@ -229,6 +231,11 @@ html {
                 border: none;
                 color: white;
                 background-color: grey;
+              };
+              .profInput {
+                padding: 0 30px;
+                text-align: left;
+                overflow-x: scroll;
               };
             };
           };
@@ -1190,6 +1197,21 @@ html {
             text-align: center;
             background-color: green;
           };
+          .waiting {
+            margin-left: 50%;
+            width: 300px;
+            img {
+              margin-left: -150px;
+              height: 300px;
+              width: 300px;
+            };
+          };
+          .noTeams {
+            padding: 100px 0;
+            font-size: 4rem;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+          };
           .allRoundLists {
             border-radius: 0 0 20px 20px;
             font-size: 2.7rem;
@@ -1348,7 +1370,233 @@ html {
         };
       };
     };
+    // ----------- ADMIN.PHP FILE BEGINS -----------
+    #adminPage {
+      #adminTitle {
+        margin-top: 50px;
+        margin-bottom: 110px;
+        border: none;
+        font-size: 4rem;
+        text-align: center;
+        text-decoration: underline;
+      };
+      div {
+        border: 5px solid black;
+        margin-bottom: 30px;
+        .adminSubtitle {
+          margin-bottom: 30px;
+          border: none;
+          font-size: 3rem;
+          text-align: center;
+        };
+        div {
+          border: none;
+        };
+        #searchBox {
+          padding: 0 0 40px 10%;
+          font-size: 2.5rem;
+          form {
+            width: 80%;
+            input {
+              display: block;
+              font-size: 2.5rem;
+              width: 100%;
+            };
+            #text {
+              margin-bottom: 10px;
+              border: 1px solid black;
+            };
+            #submit {
+              border: 1px solid blue;
+              color: white;
+              background-color: blue;
+              cursor: pointer;
+            };
+            #tournResults {
+              margin-top: 50px;
+              border: 1px solid black;
+              font-size: 2.5rem;
+              text-align: center;
+              padding: 5px 0;
+              width: 100%;
+              tr {
 
+                td {
+
+                  input {
+                    color: white;
+                    background-color: green;
+                  };
+                };
+              };
+              tr:hover {
+                background-color: lightgrey;
+              };
+            };
+          };
+        };
+        #selectBox {
+          display: flex;
+          justify-content: space-around;
+          font-size: 2.5rem;
+          form {
+            input {
+              border: 1px solid black;
+              font-size: 2.5rem;
+            };
+          };
+        };
+        #unselectBox {
+          form {
+            input {
+              margin-left: 25%;
+              color: white;
+              font-size: 2.5rem;
+              background-color: red;
+              width: 50%;
+            };
+          };
+        };
+      };
+      #teamListTable {
+        margin: 0 0 50px 5%;
+        border: 1px solid black;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 3rem;
+        background-color: lightgrey;
+        width: 90%;
+        th {
+
+        };
+        tr {
+          td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px 20px;
+            white-space: nowrap;
+            overflow-x: scroll;
+          };
+          td:first-child {
+            width: 75%;
+          };
+          td:last-child {
+            text-align: center;
+          };
+        };
+      };
+      form {
+        div {
+          border: 5px solid black;
+          margin-bottom: 30px;
+          .adminSubtitle {
+            margin-bottom: 30px;
+            border: none;
+            font-size: 3rem;
+            text-align: center;
+          };
+          div {
+            border: none;
+          };
+          table {
+            margin-left: 5%;
+            width: 90%;
+            tr {
+              td {
+                font-size: 2rem;
+                text-align: center;
+                input {
+                  border: 1px solid black;
+                  font-size: 3rem;
+                  text-align: center;
+                  color: black;
+                  width: 100%;
+                };
+              };
+            };
+          };
+          .adminGameBox {
+            text-align: center;
+          };
+          #wildcardBox {
+            div {
+              div {
+                font-size: 2.5rem;
+              };
+            };
+          };
+          #regularBox {
+
+          };
+          #thirdPlaceBox {
+
+          };
+        };
+        #submitUpdate {
+          margin: 0 0 150px 25%;
+          color: white;
+          font-size: 4rem;
+          background-color: green;
+          width: 50%;
+        };
+      };
+      #aboutTeam {
+        margin-bottom: 0;
+        border: none;
+        // border-top: 5px solid black;
+        background-color: white;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        div {
+          margin-bottom: 0px;
+          display: flex;
+          justify-content: space-around;
+          .teamBttn {
+            padding: 10px 0;
+            color: white;
+            font-size: 3.5rem;
+            width: 49%;
+          };
+          #findTeamBttn {
+            background-color: green;
+          };
+          #makeTeamBttn {
+            color: black;
+            background-color: orange;
+          };
+        };
+        .teamBox {
+          padding-bottom: 20px;
+          display: none;
+          form {
+            width: 100%;
+            input {
+              margin: 20px 0 0 10%;
+              border: 1px solid black;
+              font-size: 3rem;
+              width: 80%;
+            };
+          };
+        };
+        #findTeamBox {
+          padding-bottom: 20px;
+          form {
+            input {
+
+            };
+          };
+        };
+        #makeTeamBox {
+          padding-bottom: 20px;
+          form {
+            input {
+
+            };
+          };
+        };
+      };
+    };
   };
 };
 

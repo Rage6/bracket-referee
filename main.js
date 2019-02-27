@@ -290,4 +290,18 @@ $(()=>{
     toNewForm("#inviteCreate");
   });
 
+  // Opens and closes the box where you can find team names and ids in admin.php
+  $("#findTeamBox").hide();
+  $("#makeTeamBox").hide();
+  $("#findTeamBttn").click(()=>{
+    $("#findTeamBox").toggle();
+    $("#makeTeamBox").hide();
+  });
+
+
+  $("#makeTeamBttn").click(()=>{
+    $("#makeTeamBox").toggle();
+    $("#findTeamBox").hide();
+  });
+
 });

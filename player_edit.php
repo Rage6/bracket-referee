@@ -127,15 +127,40 @@
     };
 
     // TABLES: GROUPS_PLAYERS
-    // This deletes all of the rows that link the player to his/her current groups
-    $findGrpPly = $pdo->prepare('SELECT main_id FROM Groups_Players WHERE player_id=:gpid');
+    // This deletes each row that link the player to his/her current groups...
+    // ...but sets a row as the default player_id (0) if this player was the administrator
+    $findGrpPly = $pdo->prepare('SELECT main_id,group_id FROM Groups_Players WHERE player_id=:gpid');
     $findGrpPly->execute(array(
       'gpid'=>$_SESSION['player_id']
     ));
     while ($oneLink = $findGrpPly->fetch(PDO::FETCH_ASSOC)) {
-      $delLink = $pdo->prepare('DELETE FROM Groups_Players WHERE main_id=:lkid');
-      $delLink->execute(array(
-        'lkid'=>$oneLink['main_id']
+      $ifAdmin = $pdo->prepare('SELECT admin_id FROM Groups WHERE group_id=:gradm');
+      $ifAdmin->execute(array(
+        ':gradm'=>$oneLink['group_id']
+      ));
+      if ($ifAdmin->fetch(PDO::FETCH_ASSOC)['admin_id'] == $_SESSION['player_id']) {
+        $makeDefault = $pdo->prepare('UPDATE Groups_Players SET player_id=0 WHERE main_id=:mid');
+        $makeDefault->execute(array(
+          ':mid'=> $oneLink['main_id']
+        ));
+      } else {
+        $delLink = $pdo->prepare('DELETE FROM Groups_Players WHERE main_id=:mid');
+        $delLink->execute(array(
+          ':mid'=>$oneLink['main_id']
+        ));
+      };
+    };
+
+    // TABLE: GROUPS
+    // This changes the admin_id's of this player's groups to the master admin
+    $findGrpAdmin = $pdo->prepare('SELECT group_id,admin_id,group_name FROM Groups WHERE admin_id=:admid');
+    $findGrpAdmin->execute(array(
+      ':admid'=>$_SESSION['player_id']
+    ));
+    while ($oneAdmin = $findGrpAdmin->fetch(PDO::FETCH_ASSOC)) {
+      $adminDefault = $pdo->prepare('UPDATE Groups SET admin_id=0 WHERE admin_id=:plyid');
+      $adminDefault->execute(array(
+        ':plyid'=> $_SESSION['player_id']
       ));
     };
 
@@ -147,6 +172,8 @@
     ));
 
     // After deletion, the user is sent back to the index page
+    unset($_SESSION['player_id']);
+    unset($_SESSION['token']);
     $_SESSION['message'] = "<b style='color:green'>Account deleted</b>";
     header('Location: index.php');
     return true;

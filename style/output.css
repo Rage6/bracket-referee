@@ -162,11 +162,14 @@ html {
       color: #b50707;
       background-image: url("img/player/soccer_bkgd.jpg"); }
       html body #playerPage #topRow #profIdBox #profIdTable {
+        table-layout: fixed;
         background-color: white;
         width: 100%; }
         html body #playerPage #topRow #profIdBox #profIdTable tr {
           font-size: 3rem; }
           html body #playerPage #topRow #profIdBox #profIdTable tr td {
+            padding-top: 10px;
+            padding-bottom: 10px;
             border: 2px solid grey;
             color: black;
             text-align: center; }
@@ -174,6 +177,10 @@ html {
             border: none;
             color: white;
             background-color: grey; }
+          html body #playerPage #topRow #profIdBox #profIdTable tr .profInput {
+            padding: 0 30px;
+            text-align: left;
+            overflow-x: scroll; }
       html body #playerPage #topRow #profIdBox #profIdBtns {
         margin: 80px 0 20px 0;
         display: flex;
@@ -886,6 +893,18 @@ html {
         font-size: 5rem;
         text-align: center;
         background-color: green; }
+      html body #makePage #allGameLists .gameList .waiting {
+        margin-left: 50%;
+        width: 300px; }
+        html body #makePage #allGameLists .gameList .waiting img {
+          margin-left: -150px;
+          height: 300px;
+          width: 300px; }
+      html body #makePage #allGameLists .gameList .noTeams {
+        padding: 100px 0;
+        font-size: 4rem;
+        font-family: "Courier New", Courier, monospace;
+        text-align: center; }
       html body #makePage #allGameLists .gameList .allRoundLists {
         border-radius: 0 0 20px 20px;
         font-size: 2.7rem; }
@@ -1007,6 +1026,150 @@ html {
           background-color: red; }
         html body #viewPage #delBox form span {
           font-size: 3.5rem; }
+    html body #adminPage #adminTitle {
+      margin-top: 50px;
+      margin-bottom: 110px;
+      border: none;
+      font-size: 4rem;
+      text-align: center;
+      text-decoration: underline; }
+    html body #adminPage div {
+      border: 5px solid black;
+      margin-bottom: 30px; }
+      html body #adminPage div .adminSubtitle {
+        margin-bottom: 30px;
+        border: none;
+        font-size: 3rem;
+        text-align: center; }
+      html body #adminPage div div {
+        border: none; }
+      html body #adminPage div #searchBox {
+        padding: 0 0 40px 10%;
+        font-size: 2.5rem; }
+        html body #adminPage div #searchBox form {
+          width: 80%; }
+          html body #adminPage div #searchBox form input {
+            display: block;
+            font-size: 2.5rem;
+            width: 100%; }
+          html body #adminPage div #searchBox form #text {
+            margin-bottom: 10px;
+            border: 1px solid black; }
+          html body #adminPage div #searchBox form #submit {
+            border: 1px solid blue;
+            color: white;
+            background-color: blue;
+            cursor: pointer; }
+          html body #adminPage div #searchBox form #tournResults {
+            margin-top: 50px;
+            border: 1px solid black;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 5px 0;
+            width: 100%; }
+            html body #adminPage div #searchBox form #tournResults tr td input {
+              color: white;
+              background-color: green; }
+            html body #adminPage div #searchBox form #tournResults tr:hover {
+              background-color: lightgrey; }
+      html body #adminPage div #selectBox {
+        display: flex;
+        justify-content: space-around;
+        font-size: 2.5rem; }
+        html body #adminPage div #selectBox form input {
+          border: 1px solid black;
+          font-size: 2.5rem; }
+      html body #adminPage div #unselectBox form input {
+        margin-left: 25%;
+        color: white;
+        font-size: 2.5rem;
+        background-color: red;
+        width: 50%; }
+    html body #adminPage #teamListTable {
+      margin: 0 0 50px 5%;
+      border: 1px solid black;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 3rem;
+      background-color: lightgrey;
+      width: 90%; }
+      html body #adminPage #teamListTable tr td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px 20px;
+        white-space: nowrap;
+        overflow-x: scroll; }
+      html body #adminPage #teamListTable tr td:first-child {
+        width: 75%; }
+      html body #adminPage #teamListTable tr td:last-child {
+        text-align: center; }
+    html body #adminPage form div {
+      border: 5px solid black;
+      margin-bottom: 30px; }
+      html body #adminPage form div .adminSubtitle {
+        margin-bottom: 30px;
+        border: none;
+        font-size: 3rem;
+        text-align: center; }
+      html body #adminPage form div div {
+        border: none; }
+      html body #adminPage form div table {
+        margin-left: 5%;
+        width: 90%; }
+        html body #adminPage form div table tr td {
+          font-size: 2rem;
+          text-align: center; }
+          html body #adminPage form div table tr td input {
+            border: 1px solid black;
+            font-size: 3rem;
+            text-align: center;
+            color: black;
+            width: 100%; }
+      html body #adminPage form div .adminGameBox {
+        text-align: center; }
+      html body #adminPage form div #wildcardBox div div {
+        font-size: 2.5rem; }
+    html body #adminPage form #submitUpdate {
+      margin: 0 0 150px 25%;
+      color: white;
+      font-size: 4rem;
+      background-color: green;
+      width: 50%; }
+    html body #adminPage #aboutTeam {
+      margin-bottom: 0;
+      border: none;
+      background-color: white;
+      position: fixed;
+      bottom: 0;
+      width: 100%; }
+      html body #adminPage #aboutTeam div {
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: space-around; }
+        html body #adminPage #aboutTeam div .teamBttn {
+          padding: 10px 0;
+          color: white;
+          font-size: 3.5rem;
+          width: 49%; }
+        html body #adminPage #aboutTeam div #findTeamBttn {
+          background-color: green; }
+        html body #adminPage #aboutTeam div #makeTeamBttn {
+          color: black;
+          background-color: orange; }
+      html body #adminPage #aboutTeam .teamBox {
+        padding-bottom: 20px;
+        display: none; }
+        html body #adminPage #aboutTeam .teamBox form {
+          width: 100%; }
+          html body #adminPage #aboutTeam .teamBox form input {
+            margin: 20px 0 0 10%;
+            border: 1px solid black;
+            font-size: 3rem;
+            width: 80%; }
+      html body #adminPage #aboutTeam #findTeamBox {
+        padding-bottom: 20px; }
+      html body #adminPage #aboutTeam #makeTeamBox {
+        padding-bottom: 20px; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {

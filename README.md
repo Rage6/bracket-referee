@@ -25,10 +25,10 @@
 <p>Several portions of this app's code are worth mentioning:</p>
 <ol>
   <li>
-    <b>Many-To-Many Relationships</b>: This app collects a large amount of tables within the overall database, so it's predictable that at least one many-to-many became involved. For example, a single "Group" can include many "Players", and vice versa. This demonstrates that I can write
+    <b>Many-To-Many Relationships</b>: This app collects a large amount of tables within the overall database, so it's predictable that at least one many-to-many became involved. For example, a single "Group" can include many "Players", and vice versa.
   </li>
   <li>
-    <b>JavaScript Object Notation (JSON)</b>: In order to easily identify and share the correct data) with the user (w/o making unnecessary requests), JSON is used extensively as the user chooses their teams when filling out their bracket(s).
+    <b>JavaScript Object Notation (JSON)</b>: In order to easily identify and share the correct data with the user (w/o making unnecessary requests), JSON is used extensively as the user chooses their teams when filling out their bracket(s).
   </li>
   <li>
     <b>Password Encryption</b>: Upon doing research, I used PHP's more recent tool for encrypting the user's password: <i>password_hash()</i>. My previous training had only explained how to manually insert a "salt" before using the more basic <i>hash()</i> and a chosen algorithm, like MD5. The <i>password_hash()</i> seems to do it easier and more affectively.
@@ -66,5 +66,8 @@
   </li>
   <li>
     <b>Varying Tournament Structure</b>: Many single-elimination tournaments differ from the traditional structure. In particular <a href='https://en.wikipedia.org/wiki/Wild_card_(sports)'>"wildcard"</a> and <a href='https://en.wikipedia.org/wiki/Third_place_playoff'>"third-place playoffs"</a> games often occur. <u>Bracket Referee</u> is designed to accommodate for those.
+  </li>
+  <li>
+    <b>Administrative Center</b>: Manually adding new teams or updating each game's results is very inefficient and increases the chances that a mistake is made. To prevent this, the Administrative Center page (which is only accessible by the developer) can be used to easily add a new team, insert the correct teams on each game, and update each game's winner.
   </li>
 </ol>
