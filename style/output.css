@@ -1085,10 +1085,38 @@ html {
         font-size: 2.5rem;
         background-color: red;
         width: 50%; }
-      html body #adminPage div .adminGameBox {
+    html body #adminPage form div {
+      border: 5px solid black;
+      margin-bottom: 30px; }
+      html body #adminPage form div .adminSubtitle {
+        margin-bottom: 30px;
+        border: none;
+        font-size: 3rem;
         text-align: center; }
-      html body #adminPage div #wildcardBox div div {
+      html body #adminPage form div div {
+        border: none; }
+      html body #adminPage form div table {
+        margin-left: 5%;
+        width: 90%; }
+        html body #adminPage form div table tr td {
+          font-size: 2rem;
+          text-align: center; }
+          html body #adminPage form div table tr td input {
+            border: 1px solid black;
+            font-size: 3rem;
+            text-align: center;
+            color: black;
+            width: 100%; }
+      html body #adminPage form div .adminGameBox {
+        text-align: center; }
+      html body #adminPage form div #wildcardBox div div {
         font-size: 2.5rem; }
+    html body #adminPage form #submitUpdate {
+      margin-left: 25%;
+      color: white;
+      font-size: 4rem;
+      background-color: blue;
+      width: 50%; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {

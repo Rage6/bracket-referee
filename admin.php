@@ -101,15 +101,83 @@
     return true;
   };
 
-  echo("Session:</br>");
-  print_r($_SESSION);
-  echo("</br>");
-  echo("Post:</br>");
-  print_r($_POST);
-  echo("</br>");
-  echo("Get:</br>");
-  print_r($_GET);
-  echo("</br>");
+  // To change the teams and/or winners of a tournament's games
+  if (isset($_POST['changeGames'])) {
+    $_SESSION['changeInput'] = $_POST;
+    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6) - 1;
+    $gameNum = 0;
+    // Wildcard games
+    if ($_SESSION['tournData']['wildcard'] == "1") {
+      for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
+        if ($_SESSION['changeInput']['isWild_'.$oneWild]) {
+          $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
+          $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
+          $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
+          $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
+          $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
+          $upGameData->execute(array(
+            ':ta'=>(int)$teamA,
+            ':tb'=>(int)$teamB,
+            ':wn'=>(int)$winner,
+            ':gid'=>(int)$gameId
+          ));
+        };
+      };
+    };
+    // Regular games
+    for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
+      if ($_SESSION['changeInput']['isWild_'.$oneRegular] != "1" && $_SESSION['changeInput']['isThird_'.$oneRegular] != "1") {
+        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
+        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
+        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
+        $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
+        $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
+        $upGameData->execute(array(
+          ':ta'=>(int)$teamA,
+          ':tb'=>(int)$teamB,
+          ':wn'=>(int)$winner,
+          ':gid'=>(int)$gameId
+        ));
+      };
+    };
+    // Third-place game
+    if ($_SESSION['tournData']['third_place'] == "1") {
+      for ($oneThird = $gameNum; $oneThird < $countChanges; $oneThird++) {
+        if ($_SESSION['changeInput']['isThird_'.$oneThird]) {
+          $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneThird]);
+          $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneThird]);
+          $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneThird]);
+          $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneThird]);
+          $upGameDataStmt = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
+          $upGameDataStmt->execute(array(
+            ':ta'=>(int)$teamA,
+            ':tb'=>(int)$teamB,
+            ':wn'=>(int)$winner,
+            ':gid'=>(int)$gameId
+          ));
+        };
+      };
+    };
+    // This resets any teams,winners with the ID 0 as NULL
+    $clearZero = $pdo->prepare('UPDATE Games SET team_a=NULL,team_b=NULL,winner_id=NULL WHERE team_a=0 AND team_b=0');
+    $clearZero->execute(array());
+    unset($_SESSION['changeInput']);
+    $_SESSION['message'] = "<b style='color:green'>Update successful</b>";
+    header('Location: admin.php');
+    return true;
+  };
+
+  // unset($_SESSION['changeInput']);
+
+  // echo("<pre>");
+  // echo("SESSION:");
+  // print_r($_SESSION);
+  // echo("POST:");
+  // print_r($_POST);
+  // echo("GET:");
+  // print_r($_GET);
+  // echo("</pre>");
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -161,7 +229,7 @@
       </div>
       <div>
         <div class="adminSubtitle">
-          Enter An ID Number
+          Enter Tournament ID
         </div>
         <div id="selectBox">
           <form method="POST">
@@ -198,55 +266,174 @@
           </div>");
         };
       ?>
-      <div>
-        <div class="adminSubtitle">
-          Wildcard Round
+      <form method='POST'>
+        <?php
+          $gameNum = 0;
+        ?>
+        <div>
+          <div class="adminSubtitle">
+            Wildcard Round
+          </div>
+          <div id="wildcardBox" class="adminGameBox">
+            <?php
+              if (isset($_SESSION['tournData']) && $_SESSION['tournData']['wildcard'] == "1") {
+                $findWildStmt = $pdo->prepare('SELECT * FROM Games WHERE tourn_id=:trn AND is_wildcard=1');
+                $findWildStmt->execute(array(
+                  ':trn'=>htmlentities((int)$_SESSION['tournId'])
+                ));
+                while ($oneID = $findWildStmt->fetch(PDO::FETCH_ASSOC)) {
+                  echo(
+                    "<div>Game #".$oneID['game_id']."</div>
+                    <table>
+                      <tr style='border:none'>
+                        <td>
+                          TEAM A
+                        </td>
+                        <td>
+                          TEAM B
+                        </td>
+                        <td>
+                          WINNER
+                        </td>
+                      </tr>
+                      <tr>
+                        <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                        <input type='hidden' name='isWild_".$gameNum."' value='1' />
+                        <input type='hidden' name='isThird_".$gameNum."' value='0' />
+                        <td>
+                          <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+                        </td>
+                        <td>
+                          <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
+                        </td>
+                        <td>
+                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                        </td>
+                      </tr>
+                    </table>"
+                  );
+                  echo("</br>");
+                  $gameNum++;
+                };
+              } else {
+                echo("N/A");
+              };
+            ?>
+          </div>
         </div>
-        <div id="wildcardBox" class="adminGameBox">
-          <?php
-            if (isset($_SESSION['tournData']) && $_SESSION['tournData']['wildcard'] == "1") {
-              $findWildStmt = $pdo->prepare('SELECT * FROM Games WHERE tourn_id=:trn AND is_wildcard=1');
-              $findWildStmt->execute(array(
+        <div>
+          <div class="adminSubtitle">
+            Regular Rounds
+          </div>
+          <div id="regularBox" class="adminGameBox">
+            <?php
+            if (isset($_SESSION['tournId'])) {
+              $findRegStmt = $pdo->prepare('SELECT * FROM Games JOIN Levels WHERE Games.level_id=Levels.level_id AND Games.tourn_id=:trn AND Games.is_third<>1 AND Games.is_wildcard<>1 ORDER BY Levels.layer ASC');
+              $findRegStmt->execute(array(
                 ':trn'=>htmlentities((int)$_SESSION['tournId'])
               ));
-              while ($oneID = $findWildStmt->fetch(PDO::FETCH_ASSOC)) {
+              $levelName = null;
+              while ($oneID = $findRegStmt->fetch(PDO::FETCH_ASSOC)) {
+                if ($levelName == null || $levelName != $oneID['level_name']) {
+                  echo("<div style='background-color:blue;color:white'>".$oneID['level_name']."</div>");
+                };
                 echo(
-                  "<div>".$oneID['game_id']."</div>
-                  <div style='display:flex;justify-content:space-around'>
-                    <div>".(int)$oneID['team_a']."</div>
-                    <div>".(int)$oneID['team_b']."</div>
-                  </div>"
+                  "<div>Game #".$oneID['game_id']."</div>
+                  <table>
+                    <tr style='border:none'>
+                      <td>
+                        TEAM A
+                      </td>
+                      <td>
+                        TEAM B
+                      </td>
+                      <td>
+                        WINNER
+                      </td>
+                    </tr>
+                    <tr>
+                      <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                      <input type='hidden' name='isWild_".$gameNum."' value='0' />
+                      <input type='hidden' name='isThird_".$gameNum."' value='0' />
+                      <td>
+                        <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+                      </td>
+                      <td>
+                        <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
+                      </td>
+                      <td>
+                        <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                      </td>
+                    </tr>
+                  </table>"
                 );
                 echo("</br>");
+                $gameNum++;
+                $levelName = $oneID['level_name'];
               };
             } else {
               echo("N/A");
             };
-          ?>
+            ?>
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="adminSubtitle">
-          Regular Rounds
+        <div>
+          <div class="adminSubtitle">
+            Third-Place Round
+          </div>
+          <div id="thirdPlaceBox" class="adminGameBox">
+            <?php
+              if (isset($_SESSION['tournData']) && $_SESSION['tournData']['third_place'] == "1") {
+                $findThirdStmt = $pdo->prepare('SELECT * FROM Games WHERE tourn_id=:trn AND is_third=1');
+                $findThirdStmt->execute(array(
+                  ':trn'=>htmlentities((int)$_SESSION['tournId'])
+                ));
+                while ($oneID = $findThirdStmt->fetch(PDO::FETCH_ASSOC)) {
+                  echo(
+                    "<div>Game #".$oneID['game_id']."</div>
+                    <table>
+                      <tr style='border:none'>
+                        <td>
+                          TEAM A
+                        </td>
+                        <td>
+                          TEAM B
+                        </td>
+                        <td>
+                          WINNER
+                        </td>
+                      </tr>
+                      <tr>
+                        <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                        <input type='hidden' name='isWild_".$gameNum."' value='0' />
+                        <input type='hidden' name='isThird_".$gameNum."' value='1' />
+                        <td>
+                          <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+                        </td>
+                        <td>
+                          <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
+                        </td>
+                        <td>
+                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                        </td>
+                      </tr>
+                    </table>"
+                  );
+                  echo("</br>");
+                  $gameNum++;
+                };
+              } else {
+                echo("N/A");
+              };
+            ?>
+          </div>
         </div>
-        <div id="regularBox" class="adminGameBox">
-
-        </div>
-      </div>
-      <div>
-        <div class="adminSubtitle">
-          Third-Place Round
-        </div>
-        <div id="thirdPlaceBox" class="adminGameBox">
-          <?php
-            if (isset($_SESSION['tournData']) && $_SESSION['tournData']['third_place'] == "1") {
-              echo("Third Place game goes here");
-            } else {
-              echo("N/A");
-            };
-          ?>
-        </div>
-      </div>
+        <?php
+        if (isset($_SESSION['tournId'])) {
+          echo("<input id='submitUpdate' type='submit' name='changeGames' value='SUBMIT' />");
+        };
+        ?>
+      </form>
     </div>
   </body>
   <script>

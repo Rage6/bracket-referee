@@ -1391,7 +1391,7 @@ html {
         };
         div {
           border: none;
-        }
+        };
         #searchBox {
           padding: 0 0 40px 10%;
           font-size: 2.5rem;
@@ -1457,21 +1457,60 @@ html {
             };
           };
         };
-        .adminGameBox {
-          text-align: center;
-        };
-        #wildcardBox {
+      };
+      form {
+        div {
+          border: 5px solid black;
+          margin-bottom: 30px;
+          .adminSubtitle {
+            margin-bottom: 30px;
+            border: none;
+            font-size: 3rem;
+            text-align: center;
+          };
           div {
-            div {
-              font-size: 2.5rem;
+            border: none;
+          };
+          table {
+            margin-left: 5%;
+            width: 90%;
+            tr {
+              td {
+                font-size: 2rem;
+                text-align: center;
+                input {
+                  border: 1px solid black;
+                  font-size: 3rem;
+                  text-align: center;
+                  color: black;
+                  width: 100%;
+                };
+              };
             };
           };
-        };
-        #regularBox {
+          .adminGameBox {
+            text-align: center;
+          };
+          #wildcardBox {
+            div {
+              div {
+                font-size: 2.5rem;
+              };
+            };
+          };
+          #regularBox {
 
-        };
-        #thirdPlaceBox {
+          };
+          #thirdPlaceBox {
 
+          };
+        };
+        #submitUpdate {
+          margin-left: 25%;
+          color: white;
+          font-size: 4rem;
+          background-color: blue;
+          width: 50%;
         };
       };
     };
