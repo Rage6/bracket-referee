@@ -1135,25 +1135,41 @@ html {
       font-size: 4rem;
       background-color: green;
       width: 50%; }
-    html body #adminPage #findTeam {
+    html body #adminPage #aboutTeam {
       margin-bottom: 0;
       border: none;
-      border-top: 5px solid black;
       background-color: white;
       position: fixed;
       bottom: 0;
       width: 100%; }
-      html body #adminPage #findTeam #findTeamBttn {
+      html body #adminPage #aboutTeam div {
         margin-bottom: 0px;
-        padding: 10px 0;
-        color: white;
-        font-size: 3.5rem;
-        background-color: darkgrey; }
-      html body #adminPage #findTeam #findTeamBox form input {
-        margin: 20px 0 0 10%;
-        border: 1px solid black;
-        font-size: 3rem;
-        width: 80%; }
+        display: flex;
+        justify-content: space-around; }
+        html body #adminPage #aboutTeam div .teamBttn {
+          padding: 10px 0;
+          color: white;
+          font-size: 3.5rem;
+          width: 49%; }
+        html body #adminPage #aboutTeam div #findTeamBttn {
+          background-color: green; }
+        html body #adminPage #aboutTeam div #makeTeamBttn {
+          color: black;
+          background-color: orange; }
+      html body #adminPage #aboutTeam .teamBox {
+        padding-bottom: 20px;
+        display: none; }
+        html body #adminPage #aboutTeam .teamBox form {
+          width: 100%; }
+          html body #adminPage #aboutTeam .teamBox form input {
+            margin: 20px 0 0 10%;
+            border: 1px solid black;
+            font-size: 3rem;
+            width: 80%; }
+      html body #adminPage #aboutTeam #findTeamBox {
+        padding-bottom: 20px; }
+      html body #adminPage #aboutTeam #makeTeamBox {
+        padding-bottom: 20px; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {
