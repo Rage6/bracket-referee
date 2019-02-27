@@ -101,6 +101,28 @@
     return true;
   };
 
+  // To search for a team_id by team_name
+  if (isset($_POST['teamSearch'])) {
+    $teamList = [];
+    if (strlen($_POST['teamInput']) > 0) {
+      $findTeamStmt = $pdo->prepare('SELECT * FROM Teams WHERE team_name LIKE "%":tn"%"');
+      $findTeamStmt->execute(array(
+        ':tn'=>htmlentities($_POST['teamInput'])
+      ));
+      while ($oneTeam = $findTeamStmt->fetch(PDO::FETCH_ASSOC)) {
+        $teamList[] = $oneTeam;
+      };
+      $_SESSION['teamList'] = $teamList;
+      $_SESSION['message'] = "<b style='color:green'>Team search successful</b>";
+      header('Location: admin.php');
+      return true;
+    } else {
+      $_SESSION['message'] = "<b style='color:red'>Text must be entered</b>";
+      header('Location: admin.php');
+      return false;
+    };
+  };
+
   // To change the teams and/or winners of a tournament's games
   if (isset($_POST['changeGames'])) {
     $_SESSION['changeInput'] = $_POST;
@@ -264,6 +286,19 @@
             <div>You are working on:</div>
             <div><b>".$_SESSION['tournData']['tourn_name']."</b></div>
           </div>");
+        };
+      ?>
+      <?php
+        if (isset($_SESSION['teamList']) && count($_SESSION['teamList']) > 0) {
+          echo("<table id='teamListTable'>");
+          for ($teamNum = 0; $teamNum < count($_SESSION['teamList']); $teamNum++) {
+            echo("<tr>
+                    <td>".$_SESSION['teamList'][$teamNum]['team_name']."</td>
+                    <td>".$_SESSION['teamList'][$teamNum]['team_id']."</td>
+                  </tr>");
+          };
+          echo("</table>");
+          unset($_SESSION['teamList']);
         };
       ?>
       <form method='POST'>
@@ -434,17 +469,18 @@
         };
         ?>
       </form>
-
-      <div id="findTeam">
-        <div class="adminSubtitle" id="findTeamBttn">Find Team ID</div>
-        <div id="findTeamBox">
-          <form method="POST">
-            <input type="text" name="teamSearch" placeholder="Enter name here" /></br>
-            <input type="submit" values="ENTER" />
-          </form>
-        </div>
-      </div>
-
+      <?php
+      if (isset($_SESSION['tournId']))
+        echo("<div id='findTeam'>
+          <div class='adminSubtitle' id='findTeamBttn'>Find Team ID</div>
+          <div id='findTeamBox'>
+            <form method='POST'>
+              <input type='text' name='teamInput' placeholder='Enter name here' /></br>
+              <input type='submit' name='teamSearch' values='ENTER' />
+            </form>
+          </div>
+        </div>");
+      ?>
     </div>
   </body>
   <script>

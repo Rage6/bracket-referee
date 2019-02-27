@@ -1085,6 +1085,24 @@ html {
         font-size: 2.5rem;
         background-color: red;
         width: 50%; }
+    html body #adminPage #teamListTable {
+      margin: 0 0 50px 5%;
+      border: 1px solid black;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 3rem;
+      background-color: lightgrey;
+      width: 90%; }
+      html body #adminPage #teamListTable tr td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px 20px;
+        white-space: nowrap;
+        overflow-x: scroll; }
+      html body #adminPage #teamListTable tr td:first-child {
+        width: 75%; }
+      html body #adminPage #teamListTable tr td:last-child {
+        text-align: center; }
     html body #adminPage form div {
       border: 5px solid black;
       margin-bottom: 30px; }
@@ -1112,7 +1130,7 @@ html {
       html body #adminPage form div #wildcardBox div div {
         font-size: 2.5rem; }
     html body #adminPage form #submitUpdate {
-      margin: 0 0 300px 25%;
+      margin: 0 0 150px 25%;
       color: white;
       font-size: 4rem;
       background-color: green;

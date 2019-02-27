@@ -291,6 +291,7 @@ $(()=>{
   });
 
   // Toggle the box to deleting an existing bracket in bracket_view page
+  $("#findTeamBox").hide();
   $("#findTeamBttn").click(()=>{
     $("#findTeamBox").toggle();
   });

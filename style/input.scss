@@ -1458,6 +1458,33 @@ html {
           };
         };
       };
+      #teamListTable {
+        margin: 0 0 50px 5%;
+        border: 1px solid black;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 3rem;
+        background-color: lightgrey;
+        width: 90%;
+        th {
+
+        };
+        tr {
+          td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px 20px;
+            white-space: nowrap;
+            overflow-x: scroll;
+          };
+          td:first-child {
+            width: 75%;
+          };
+          td:last-child {
+            text-align: center;
+          };
+        };
+      };
       form {
         div {
           border: 5px solid black;
@@ -1506,7 +1533,7 @@ html {
           };
         };
         #submitUpdate {
-          margin: 0 0 300px 25%;
+          margin: 0 0 150px 25%;
           color: white;
           font-size: 4rem;
           background-color: green;
