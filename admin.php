@@ -165,11 +165,11 @@
     };
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
-      if ($_SESSION['changeInput']['isWild_'.$oneRegular] != "1" && $_SESSION['changeInput']['isThird_'.$oneRegular] != "1") {
-        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
-        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
-        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
-        $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
+      if ($_SESSION['changeInput']['isWild_'.$oneRegular] == "0" && $_SESSION['changeInput']['isThird_'.$oneRegular] == "0") {
+        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
+        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneRegular]);
+        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneRegular]);
+        $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneRegular]);
         $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
         $upGameData->execute(array(
           ':ta'=>(int)$teamA,
@@ -200,7 +200,7 @@
     // This resets any teams,winners with the ID 0 as NULL
     $clearZero = $pdo->prepare('UPDATE Games SET team_a=NULL,team_b=NULL,winner_id=NULL WHERE team_a=0 AND team_b=0');
     $clearZero->execute(array());
-    unset($_SESSION['changeInput']);
+    // unset($_SESSION['changeInput']);
     $_SESSION['message'] = "<b style='color:green'>Update successful</b>";
     header('Location: admin.php');
     return true;
@@ -209,8 +209,9 @@
   // unset($_SESSION['changeInput']);
 
   // echo("<pre>");
-  // echo("SESSION:");
-  // print_r($_SESSION);
+  echo("SESSION:</br><pre>");
+  print_r($_SESSION);
+  echo("</pre>");
   // echo("POST:");
   // print_r($_POST);
   // echo("GET:");
