@@ -143,12 +143,12 @@
   // To change the teams and/or winners of a tournament's games
   if (isset($_POST['changeGames'])) {
     $_SESSION['changeInput'] = $_POST;
-    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6) - 1;
+    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6);
     $gameNum = 0;
     // Wildcard games
     if ($_SESSION['tournData']['wildcard'] == "1") {
       for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
-        if ($_SESSION['changeInput']['isWild_'.$oneWild]) {
+        if ($_SESSION['changeInput']['isWild_'.$oneWild] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
@@ -162,6 +162,7 @@
           ));
         };
       };
+      $gameNum = 0;
     };
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
@@ -179,10 +180,11 @@
         ));
       };
     };
+    $gameNum = 0;
     // Third-place game
     if ($_SESSION['tournData']['third_place'] == "1") {
       for ($oneThird = $gameNum; $oneThird < $countChanges; $oneThird++) {
-        if ($_SESSION['changeInput']['isThird_'.$oneThird]) {
+        if ($_SESSION['changeInput']['isThird_'.$oneThird] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneThird]);
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneThird]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneThird]);
@@ -196,11 +198,12 @@
           ));
         };
       };
+      $gameNum = 0;
     };
     // This resets any teams,winners with the ID 0 as NULL
     $clearZero = $pdo->prepare('UPDATE Games SET team_a=NULL,team_b=NULL,winner_id=NULL WHERE team_a=0 AND team_b=0');
     $clearZero->execute(array());
-    // unset($_SESSION['changeInput']);
+    unset($_SESSION['changeInput']);
     $_SESSION['message'] = "<b style='color:green'>Update successful</b>";
     header('Location: admin.php');
     return true;
@@ -209,9 +212,8 @@
   // unset($_SESSION['changeInput']);
 
   // echo("<pre>");
-  echo("SESSION:</br><pre>");
-  print_r($_SESSION);
-  echo("</pre>");
+  // echo("SESSION:");
+  // print_r($_SESSION);
   // echo("POST:");
   // print_r($_POST);
   // echo("GET:");
