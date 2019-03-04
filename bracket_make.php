@@ -64,7 +64,7 @@
   $tournId = $grpArray['fk_tourn_id'];
 
   // Gets the number of levels for this tournament
-  $tournStmt = $pdo->prepare('SELECT level_total,wildcard,third_place FROM Tournaments WHERE tourn_id=:tid');
+  $tournStmt = $pdo->prepare('SELECT level_total,wildcard,third_place,start_date,selection_date FROM Tournaments WHERE tourn_id=:tid');
   $tournStmt->execute(array(
     ':tid'=>$tournId
   ));
@@ -72,6 +72,8 @@
   $tournLevel = $tournArray['level_total'];
   $tournWildcard = $tournArray['wildcard'];
   $tournThird = $tournArray['third_place'];
+  $tournStart = $tournArray['start_date'];
+  $tournSelect = $tournArray['selection_date'];
 
   // Checks and submits the new bracket
   if (isset($_POST['enterBracket'])) {
@@ -119,6 +121,11 @@
           echo($_SESSION['message']);
           unset($_SESSION['message']);
         };
+      ?>
+      <div id="bracketRange">
+        Brackets can be filled out between selections (<?php echo($tournSelect)?>) and the first game (<?php echo(substr($tournStart,0,10)) ?>).
+      </div>
+      <?php
         $wildStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
         $wildStmt->execute(array(
           ':tid'=>$tournId
@@ -227,7 +234,6 @@
 
         // This 'if' only lets it dispaly the buttons if teams have been selected
         if (data.length > 0) {
-
           var firstTable = 1;
           var lastTable = <?php echo($tournLevel) ?> ;
           var pickNum = 0;
@@ -798,6 +804,7 @@
           };
 
         } else {
+          $("#bracketRange").css('display','block');
           $('.roundTitle').after(
             '<div class="noTeams">\
               TBA\
