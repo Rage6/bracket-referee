@@ -176,11 +176,16 @@
     return true;
   };
 
-  // echo(date('Y-m-d')."</br>");
+  // Figuring out how to set a more specific deadline
+  // date_default_timezone_set('America/New_York');
+  // echo(date('Y-m-d g:i A')." EST</br>");
   // echo($tournArray['start_date']."</br>");
   // $tournDate = new DateTime($tournArray['start_date']);
-  // $currentDate = new DateTime(date('Y-m-d'));
-  // var_dump((int)(date_diff($currentDate,$tournDate)->format('%R%a')));
+  // print_r($tournDate);
+  // echo("</br>");
+  // $currentDate = new DateTime(date('Y-m-d h:i:s'));
+  // echo("</br>");
+  // var_dump((int)date_diff($currentDate,$tournDate)->format('%r%a'));
 
   // echo("Session:</br>");
   // print_r($_SESSION);
@@ -285,6 +290,7 @@
                 <th>Score</th>
               </tr>");
             $hasBracket = false;
+            $rowArray = [];
             for ($rowNum = 0; $rowNum < sizeof($grpAllArray); $rowNum++) {
               $playerRow = $grpAllArray[$rowNum];
               // Detects if the user has a bracket
@@ -321,11 +327,25 @@
                   };
                 };
               };
+              $rowArray[] = [
+                "playerName" => $playerRow[0],
+                "bracketStatus" => $bracketStatus,
+                "bracketTotal" => $bracketTotal
+              ];
+            };
+            // Now the players are ordered based on their scores...
+            $sortedArray = [];
+            foreach($rowArray as $key => $keyRow) {
+              $sortedArray[$key] = $keyRow['bracketTotal'];
+            };
+            array_multisort($sortedArray,SORT_DESC,$rowArray);
+            // ...and the final results are displayed
+            for ($listNum = 0; $listNum < sizeof($rowArray); $listNum++) {
               echo("
               <tr>
-                <td>".$playerRow[0]."</td>
-                <td>".$bracketStatus."</td>
-                <td>".$bracketTotal."</td>
+                <td>".$rowArray[$listNum]['playerName']."</td>
+                <td>".$rowArray[$listNum]['bracketStatus']."</td>
+                <td>".$rowArray[$listNum]['bracketTotal']."</td>
               </tr>");
             };
             echo("</table></div>");
@@ -458,12 +478,12 @@
           } else {
             $rowColor = "lightgrey";
           };
-          if ($team_a == $winnerTeam && $winnerTeam != null) {
+          if ($team_a == $winnerTeam && $winnerTeam != 0) {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
-          } elseif ($team_b == $winnerTeam && $winnerTeam != null) {
+          } elseif ($team_b == $winnerTeam && $winnerTeam != 0) {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
-            $b_name = "<div style='color:white;background-color:green'>".$b_name['team_name']."</div></div>";
+            $b_name = "<div style='color:white;background-color:green'>Winner: ".$b_name['team_name']."</div></div>";
           } else {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
