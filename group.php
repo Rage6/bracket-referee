@@ -104,7 +104,7 @@
   };
 
   // Recalls the tournament's info for this group
-  $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date FROM Groups JOIN Tournaments WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
+  $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name,level_total,start_date,selection_date,active FROM Groups JOIN Tournaments WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Tournaments.tourn_id');
   $tournStmt->execute(array(
     ':gid'=>htmlentities($_GET['group_id'])
   ));
@@ -245,7 +245,11 @@
             <td><?php echo($tournArray['level_total']) ?></td>
           </tr>
           <tr>
-            <td class="rowTitle">Start Date</td>
+            <td class="rowTitle">Brackets Open</td>
+            <td><?php echo($tournArray['selection_date']) ?></td>
+          </tr>
+          <tr>
+            <td class="rowTitle">First Game</td>
             <td><?php echo(substr($tournArray['start_date'],0,10)) ?></td>
           </tr>
           <tr>
@@ -374,10 +378,73 @@
           };
         ?>
       <?php
-        $tournDate = new DateTime($tournArray['start_date']);
-        $currentDate = new DateTime(date('Y-m-d'));
-        $timeUntil = (int)(date_diff($currentDate,$tournDate)->format('%R%a'));
-        if ($timeUntil > 0 || $tournArray['tourn_id'] == 1) {
+        // Gets the current time in Eastern Standard Time
+        date_default_timezone_set('America/New_York');
+
+        // Chops the tournament's deadline into integers
+        $tournDate = $tournArray['start_date'];
+        $tournYear = (int)substr($tournDate,0,4);
+        $tournMonth = (int)substr($tournDate,5,2);
+        $tournDay = (int)substr($tournDate,8,2);
+        $tournHour = (int)substr($tournDate,11,2);
+        $tournMin = (int)substr($tournDate,14,2);
+
+        // Gets the current datetime and turns it into a string
+        // Note: For some reason, you can't pull 'date' from the DateTime object the normal way, so I had to use one of the methods in https://stackoverflow.com/questions/14084222/why-cant-i-access-datetime-date-in-phps-datetime-class-is-it-a-bug
+        $startDate = new DateTime(date('Y-m-d H:i'));
+        $reflectDate = new ReflectionObject($startDate);
+        $getDate = $reflectDate->getProperty('date');
+        $currentDate = $getDate->getValue($startDate);
+
+        // Chops the current datetime into individual integers
+        $currentYear = (int)substr($currentDate,0,4);
+        $currentMonth = (int)substr($currentDate,5,2);
+        $currentDay = (int)substr($currentDate,8,2);
+        $currentHour = (int)substr($currentDate,11,2);
+        $currentMin = (int)substr($currentDate,14,2);
+
+        // Calculates if the first game has started or not
+        $pastDeadline = true;
+        if ($tournYear - $currentYear == 0) {
+          // echo("during this year</br>");
+          if ($tournMonth - $currentMonth == 0) {
+            // echo("during this month</br>");
+            if ($tournDay - $currentDay == 0) {
+              // echo("during this day</br>");
+              if ($tournHour - $currentHour == 0) {
+                // echo("during this hour</br>");
+                if ($tournMin - $currentMin >= 0) {
+                  // echo("will happen in less than the next 60 minutes</br>");
+                  $pastDeadline = false;
+                } else {
+                  // echo("happened during the past 60 minutes</br>");
+                };
+              } else if ($tournHour - $currentDay > 0) {
+                $pastDeadline = false;
+                // echo("will happen in less than 24 hours</br>");
+              } else {
+                // echo("already happened in a past hour</br>");
+              };
+            } else if ($tournDay - $currentDay > 0) {
+              $pastDeadline = false;
+              // echo("will happen less than a month</br>");
+            } else {
+              // echo("already happend in a past day</br>");
+            };
+          } else if ($tournMonth - $currentMonth > 0) {
+            // echo("will happen in less than a year</br>");
+            $pastDeadline = false;
+          } else {
+            // echo("already happened in a past month</br>");
+          };
+        } else if ($tournYear - $currentYear > 0) {
+          // echo("this will happen on a future year</br>");
+          $pastDeadline = false;
+        } else {
+          // echo("it happened a year ago!</br>");
+        };
+
+        if ($pastDeadline == false) {
           if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
             if ($hasBracket == false) {
               echo("
