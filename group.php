@@ -176,17 +176,6 @@
     return true;
   };
 
-  // Figuring out how to set a more specific deadline
-  // date_default_timezone_set('America/New_York');
-  // echo(date('Y-m-d g:i A')." EST</br>");
-  // echo($tournArray['start_date']."</br>");
-  // $tournDate = new DateTime($tournArray['start_date']);
-  // print_r($tournDate);
-  // echo("</br>");
-  // $currentDate = new DateTime(date('Y-m-d h:i:s'));
-  // echo("</br>");
-  // var_dump((int)date_diff($currentDate,$tournDate)->format('%r%a'));
-
   // echo("Session:</br>");
   // print_r($_SESSION);
   // echo("</br>");
@@ -245,7 +234,7 @@
             <td><?php echo($tournArray['level_total']) ?></td>
           </tr>
           <tr>
-            <td class="rowTitle">Brackets Open</td>
+            <td class="rowTitle">Teams Chosen</td>
             <td><?php echo($tournArray['selection_date']) ?></td>
           </tr>
           <tr>
