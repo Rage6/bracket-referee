@@ -246,7 +246,7 @@
           </tr>
           <tr>
             <td class="rowTitle">Start Date</td>
-            <td><?php echo($tournArray['start_date']) ?></td>
+            <td><?php echo(substr($tournArray['start_date'],0,10)) ?></td>
           </tr>
           <tr>
             <td class="rowTitle">Director</td>
@@ -483,7 +483,7 @@
             $b_name = "<div>".$b_name['team_name']."</div></div>";
           } elseif ($team_b == $winnerTeam && $winnerTeam != 0) {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
-            $b_name = "<div style='color:white;background-color:green'>Winner: ".$b_name['team_name']."</div></div>";
+            $b_name = "<div style='color:white;background-color:green'> ".$b_name['team_name']."</div></div>";
           } else {
             $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
             $b_name = "<div>".$b_name['team_name']."</div></div>";
