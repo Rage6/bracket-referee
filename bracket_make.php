@@ -251,12 +251,12 @@
         // Now the json_tournament.php gets each team in each data comes into play
         var url = 'json_tournament.php?group_id=' + groupId;
         $.getJSON(url,(data)=>{
-          for (var ifEmpty = 0; ifEmpty < emptyGameList.length; ifEmpty++) {
-            data.push(emptyGameList[ifEmpty]);
-          };
-          console.log(data);
-          // This 'if' only lets it dispaly the buttons if teams have been selected
           if (data.length > 0) {
+            // This adds "empty" objects if there are any games in the first round that are receiving two wildcard winners
+            for (var ifEmpty = 0; ifEmpty < emptyGameList.length; ifEmpty++) {
+              data.push(emptyGameList[ifEmpty]);
+            };
+            // --
             var firstTable = 1;
             var lastTable = <?php echo($tournLevel) ?> ;
             var pickNum = 0;
@@ -292,8 +292,8 @@
                 var wild_team_b = wildcardList[d][3];
                 var wild_game_id = wildcardList[d][0];
                 var wild_next_game = wildcardList[d][1];
-                var wild_name_a = "none A";
-                var wild_name_b = "none B";
+                var wild_name_a = "---";
+                var wild_name_b = "---";
                 for (var getName = 0; getName < data.length; getName++) {
                   if (data[getName]['game_id'] == wild_game_id && data[getName]['team_a'] == data[getName]['team_id']) {
                     wild_name_a = data[getName]['team_name'];
