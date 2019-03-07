@@ -60,6 +60,25 @@
     $tournResults[] = "<tr><td><i>Waiting for search...</i></td></tr>";
   };
 
+  // Switches a tournament active or inactive
+  if (isset($_POST['makeActive']) || isset($_POST['makeInactive'])) {
+    if (isset($_POST['makeActive'])) {
+      $makeActiveStmt = $pdo->prepare('UPDATE Tournaments SET active=1 WHERE tourn_id=:to');
+      $makeActiveStmt->execute(array(
+        ':to'=>htmlentities($_SESSION['tournId'])
+      ));
+      $_POST['pickTourn'] = "SUBMIT";
+      $_POST['enterID'] = $_SESSION['tournId'];
+    } else {
+      $makeInactiveStmt = $pdo->prepare('UPDATE Tournaments SET active=0 WHERE tourn_id=:to');
+      $makeInactiveStmt->execute(array(
+        ':to'=>htmlentities($_SESSION['tournId'])
+      ));
+      $_POST['pickTourn'] = "SUBMIT";
+      $_POST['enterID'] = $_SESSION['tournId'];
+    };
+  };
+
   // To select the tournament, submit its ID number here
   if (isset($_POST['pickTourn'])) {
     if (strlen($_POST['enterID']) > 0) {
@@ -71,13 +90,13 @@
       $idCount = $compareID->fetch(PDO::FETCH_ASSOC);
       if ($idCount['COUNT(tourn_id)'] == "1") {
         $_SESSION['tournId'] = htmlentities((int)$_POST['enterID']);
-        $tournDataStmt = $pdo->prepare('SELECT tourn_name,level_total,wildcard,third_place FROM Tournaments WHERE tourn_id=:td');
+        $tournDataStmt = $pdo->prepare('SELECT tourn_name,level_total,wildcard,third_place, active FROM Tournaments WHERE tourn_id=:td');
         $tournDataStmt->execute(array(
           ':td'=>htmlentities($_SESSION['tournId'])
         ));
         $tournData = $tournDataStmt->fetch(PDO::FETCH_ASSOC);
         $_SESSION['tournData'] = $tournData;
-        $_SESSION['message'] = "<b style='color:green'>Tournament selected</b>";
+        $_SESSION['message'] = "<b style='color:green'>Tournament Setup Complete</b>";
         header('Location: admin.php');
         return true;
       } else {
@@ -209,16 +228,14 @@
     return true;
   };
 
-  // unset($_SESSION['changeInput']);
-
-  // echo("<pre>");
-  // echo("SESSION:");
-  // print_r($_SESSION);
-  // echo("POST:");
-  // print_r($_POST);
-  // echo("GET:");
-  // print_r($_GET);
-  // echo("</pre>");
+  echo("<pre>");
+  echo("SESSION:");
+  print_r($_SESSION);
+  echo("POST:");
+  print_r($_POST);
+  echo("GET:");
+  print_r($_GET);
+  echo("</pre>");
 
 ?>
 <!DOCTYPE html>
@@ -300,11 +317,24 @@
         };
       ?>
       <?php
+        if ($_SESSION['tournData']['active'] == 1) {
+          $firstInput = "style='background-color:red;color:white'";
+          $secondInput = "style='background-color:green;color:white'";
+        } else {
+          $firstInput = "style='background-color:green;color:white'";
+          $secondInput = "style='background-color:red;color:white'";
+        };
         if (isset($_SESSION['tournData'])) {
           echo("
-          <div style='text-align:center;background-color:green;color:white'>
+          <div id='tournTitleBox'>
             <div>You are working on:</div>
-            <div><b>".$_SESSION['tournData']['tourn_name']."</b></div>
+            <div style='margin-bottom:80px'><b>".$_SESSION['tournData']['tourn_name']."</b></div>
+            <div>
+              <form method='POST'>
+                <input id='activeBttn' ".$firstInput." type='submit' name='makeActive' value='ACTIVE' />
+                <input id='inactiveBttn' ".$secondInput." type='submit' name='makeInactive' value='INACTIVE' />
+              </form>
+            </div>
           </div>");
         };
       ?>
