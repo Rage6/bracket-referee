@@ -318,7 +318,7 @@
         };
       ?>
       <?php
-        if ($_SESSION['tournData']['active'] == 1) {
+        if (isset($_SESSION['tournData']) && $_SESSION['tournData']['active'] == 1) {
           $firstInput = "style='background-color:red;color:white'";
           $secondInput = "style='background-color:green;color:white'";
         } else {
