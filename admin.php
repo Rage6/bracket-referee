@@ -61,6 +61,7 @@
   };
 
   // Switches a tournament active or inactive
+  // Note: This POST doesn't end on its own. Instead, it has to run into the 'pickTourn' POST below it in order to update the $_SESSION['tournData'] array
   if (isset($_POST['makeActive']) || isset($_POST['makeInactive'])) {
     if (isset($_POST['makeActive'])) {
       $makeActiveStmt = $pdo->prepare('UPDATE Tournaments SET active=1 WHERE tourn_id=:to');
@@ -228,14 +229,14 @@
     return true;
   };
 
-  echo("<pre>");
-  echo("SESSION:");
-  print_r($_SESSION);
-  echo("POST:");
-  print_r($_POST);
-  echo("GET:");
-  print_r($_GET);
-  echo("</pre>");
+  // echo("<pre>");
+  // echo("SESSION:");
+  // print_r($_SESSION);
+  // echo("POST:");
+  // print_r($_POST);
+  // echo("GET:");
+  // print_r($_GET);
+  // echo("</pre>");
 
 ?>
 <!DOCTYPE html>
