@@ -229,7 +229,7 @@
         });
       });
 
-      // The json_games.php data has to be included in this ONLY because, if a game is waiting on TWO games from the wildcard round, its lack of team_a and team_b will make json_tournament.php ignore it. The code before json_tournament FORCES it to accept any empty games too.
+      // The json_games.php data has to be included in this ONLY because, if a first-round game is waiting on TWO games from the wildcard round, its lack of team_a and team_b will make json_tournament.php ignore it. The code before json_tournament FORCES it to accept any empty games too.
       $.getJSON(gameUrl,(getEmptyGame)=>{
         var emptyGameList = [];
         for (var emptyNum = 0; emptyNum < getEmptyGame.length; emptyNum++) {
@@ -252,11 +252,6 @@
         var url = 'json_tournament.php?group_id=' + groupId;
         $.getJSON(url,(data)=>{
           if (data.length > 0) {
-            // This adds "empty" objects if there are any games in the first round that are receiving two wildcard winners
-            for (var ifEmpty = 0; ifEmpty < emptyGameList.length; ifEmpty++) {
-              data.push(emptyGameList[ifEmpty]);
-            };
-            // --
             var firstTable = 1;
             var lastTable = <?php echo($tournLevel) ?> ;
             var pickNum = 0;
@@ -349,7 +344,6 @@
                     var teamB = data[b];
                     // --
                     if (teamA['game_id'] == teamB['game_id'] || (teamA['get_wildcard']=="1" && b + 1 == data.length)) {
-                      console.log(teamA['game_id']);
                       //-- This prevent wildcard games from appearing in the first round
                       var isWildcard = false;
                       for (var g = 0; g < wildcardList.length; g++) {
@@ -358,9 +352,7 @@
                         };
                       };
                       //--
-                      console.log("ran it");
                       if (isWildcard == false) {
-                        console.log("is NOT a wildcard");
                         var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
                         var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                         bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
@@ -372,6 +364,7 @@
                             gameId: teamA['game_id'],
                             nextGame: teamA['next_game']
                           };
+
                         } else {
                           var bTeamData = {
                             id: teamB['team_id'],
@@ -563,9 +556,51 @@
                           .css('background-color','white')
                           .css('color','black');
                       });
+                      pickNum++;
+                      gameNum++;
                     };
                   };
                 };
+                // To add on an empty row if TWO wildcards are going to enter it
+                // var startEmpty = data.length;
+                // objectNum = 0;
+                // for (var n = startEmpty; n < startEmpty + emptyGameList.length; n++) {
+                //   alternateColors(currentColor);
+                //   var thisObject = emptyGameList[objectNum];
+                //   $("#table_" + tableId).append(
+                //     "<div style='background-color:"+currentColor+"'>\
+                //       <div \
+                //         id='pickId_1_"+gameNum+"_top'\
+                //         class='allTeams'\
+                //         data-team_id='null'\
+                //         data-team_name='---'\
+                //         data-layer='1'\
+                //         data-game='" + gameNum + "'\
+                //         data-game_id='" + thisObject['game_id'] + "'\
+                //         data-next_game_id='" + thisObject['next_game'] + "'\
+                //         data-pick='"+pickNum+"'\
+                //         data-winner='null'>\
+                //           ---\
+                //       </div>\
+                //       <div> VS </div>\
+                //       <div\
+                //         id='pickId_1_"+gameNum+"_bottom'\
+                //         class='allTeams'\
+                //         data-team_id='null'\
+                //         data-team_name='---'\
+                //         data-layer='1'\
+                //         data-game='" + gameNum + "'\
+                //         data-game_id='" + thisObject['game_id'] + "'\
+                //         data-next_game_id='" + thisObject['next_game'] + "'\
+                //         data-pick='"+pickNum+"'\
+                //         data-winner='null'>\
+                //           ---\
+                //       </div>\
+                //     </div>");
+                //   objectNum++;
+                //   pickNum++;
+                //   gameNum++;
+                // };
               // ... and this is where it all happens in the following rounds.
               } else {
                 var totalGames = totalGames / 2;
