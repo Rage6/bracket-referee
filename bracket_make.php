@@ -189,7 +189,7 @@
       var gameIdList = [];
       var wildcardList = [];
       $.getJSON(gameUrl,(gameData)=>{
-        // this makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
+        // This makes an array of pairs with [game_id, next_game_id] so that the next_game_id values can be assigned to an element right after it recieves its new game_id
         for (var i = 0; i < gameData.length; i++) {
           var oneList =
           [
@@ -224,7 +224,6 @@
             var urlTag = "gameId"+m+"="+pickList[m]['gameId']+"&pickId"+m+"="+pickList[m]['pickId'];
             urlHead += "&" + urlTag;
           };
-          // console.log(urlHead);
           window.location = urlHead;
         });
       });
@@ -251,6 +250,11 @@
         // Now the json_tournament.php gets each team in each data comes into play
         var url = 'json_tournament.php?group_id=' + groupId;
         $.getJSON(url,(data)=>{
+          // adds any empty games
+          for (var q = 0; q < emptyGameList.length; q++) {
+            data.push(emptyGameList[q],emptyGameList[q]);
+          };
+          //
           if (data.length > 0) {
             var firstTable = 1;
             var lastTable = <?php echo($tournLevel) ?> ;
@@ -267,6 +271,11 @@
               totalGames = (data.length - wildcardList.length) / 2;
             } else {
               totalGames = ((data.length - wildcardList.length) / 2) + 1;
+            };
+
+            // This subtracts one for every game in the emptyGameList (aka "games where it's waiting for TWO wildcards")
+            if (emptyGameList.length > 0) {
+              totalGames = totalGames - (2 * emptyGameList.length);
             };
 
             // This will alternate the background colors for each game to help users read it easier
@@ -364,7 +373,11 @@
                             gameId: teamA['game_id'],
                             nextGame: teamA['next_game']
                           };
-
+                          // If teamA's wildcard is empty too, then this 'if statement' happens
+                          if (teamA['team_id'] == "null") {
+                            teamA['team_id'] = "null";
+                            teamA['team_name'] = "---";
+                          };
                         } else {
                           var bTeamData = {
                             id: teamB['team_id'],
@@ -406,7 +419,6 @@
                           var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
                           var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
                           var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                          console.log(nextElement);
                           var pickIdB = null;
                           for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                             if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {
@@ -414,9 +426,7 @@
                             };
                           };
                           var newId = $("#"+pickIdA.target.id).attr('data-team_id');
-                          console.log("newId: "+newId);
                           var newName = $("#"+pickIdA.target.id).attr('data-team_name');
-                          console.log("newName: "+newName);
                           $(nextElement)
                             .attr('data-team_id',newId)
                             .attr('data-team_name',newName)
@@ -435,7 +445,6 @@
                           var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
                           var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
                           var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                          console.log(nextElement);
                           var pickIdA = null;
                           for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                             if (bothTeamIds[bothNum][1][0] == "#"+pickIdB.target.id) {
@@ -461,9 +470,8 @@
                         gameNum++;
                       };
                     };
-                    // In case the final game also needs to get a wildcard, this is necessary...
-                    if (a + 2 == data.length && b + 1 == data.length && teamB['get_wildcard'] == "1") {
-                      console.log("the last game needs a wildcard");
+                    // In case the final game also needs to get a wildcard (but is NOT expecting TWO wildcards), this is necessary...
+                    if (a + 2 == data.length && b + 1 == data.length && teamB['get_wildcard'] == "1" && data[a]['team_a'] != null) {
                       var pickIdA = "pickId_"+tableId+"_"+gameNum+"_top";
                       var pickIdB = "pickId_"+tableId+"_"+gameNum+"_bottom";
                       bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
@@ -505,7 +513,6 @@
                         var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
                         var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
                         var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                        console.log(nextElement);
                         var pickIdB = null;
                         for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                           if (bothTeamIds[bothNum][0][0] == "#"+pickIdA.target.id) {
@@ -513,9 +520,7 @@
                           };
                         };
                         var newId = $("#"+pickIdA.target.id).attr('data-team_id');
-                        console.log("newId: "+newId);
                         var newName = $("#"+pickIdA.target.id).attr('data-team_name');
-                        console.log("newName: "+newName);
                         $(nextElement)
                           .attr('data-team_id',newId)
                           .attr('data-team_name',newName)
@@ -534,7 +539,6 @@
                         var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
                         var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
                         var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                        console.log(nextElement);
                         var pickIdA = null;
                         for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                           if (bothTeamIds[bothNum][1][0] == "#"+pickIdB.target.id) {
@@ -561,46 +565,6 @@
                     };
                   };
                 };
-                // To add on an empty row if TWO wildcards are going to enter it
-                // var startEmpty = data.length;
-                // objectNum = 0;
-                // for (var n = startEmpty; n < startEmpty + emptyGameList.length; n++) {
-                //   alternateColors(currentColor);
-                //   var thisObject = emptyGameList[objectNum];
-                //   $("#table_" + tableId).append(
-                //     "<div style='background-color:"+currentColor+"'>\
-                //       <div \
-                //         id='pickId_1_"+gameNum+"_top'\
-                //         class='allTeams'\
-                //         data-team_id='null'\
-                //         data-team_name='---'\
-                //         data-layer='1'\
-                //         data-game='" + gameNum + "'\
-                //         data-game_id='" + thisObject['game_id'] + "'\
-                //         data-next_game_id='" + thisObject['next_game'] + "'\
-                //         data-pick='"+pickNum+"'\
-                //         data-winner='null'>\
-                //           ---\
-                //       </div>\
-                //       <div> VS </div>\
-                //       <div\
-                //         id='pickId_1_"+gameNum+"_bottom'\
-                //         class='allTeams'\
-                //         data-team_id='null'\
-                //         data-team_name='---'\
-                //         data-layer='1'\
-                //         data-game='" + gameNum + "'\
-                //         data-game_id='" + thisObject['game_id'] + "'\
-                //         data-next_game_id='" + thisObject['next_game'] + "'\
-                //         data-pick='"+pickNum+"'\
-                //         data-winner='null'>\
-                //           ---\
-                //       </div>\
-                //     </div>");
-                //   objectNum++;
-                //   pickNum++;
-                //   gameNum++;
-                // };
               // ... and this is where it all happens in the following rounds.
               } else {
                 var totalGames = totalGames / 2;
@@ -626,13 +590,12 @@
                   // Fills the game's id IF it is the 'third place' game
                   var thirdGameId = null;
                   for (var p = 0; p < gameIdList.length; p++) {
-                    // if (gameIdList[p][6] != "0") {
                     if (gameIdList[p][6] != null) {
                       thirdGameId = gameIdList[p][6];
                     };
                   };
 
-                  // finds the upcoming, new game's id number (based on the previous element's next_game_id) and tags it at a 'third game' or not
+                  // Finds the upcoming, new game's id number (based on the previous element's next_game_id) and tags it at a 'third game' or not
                   if (<?php echo($tournThird) ?> == "1" && tableId == lastTable) {
                     var currentGameId = thirdGameId;
                     var confirmThird = "1";
@@ -640,7 +603,6 @@
                     var currentGameId = $(pastElement).attr('data-next_game_id');
                     var confirmThird = "0";
                   };
-                  console.log(currentGameId);
 
                   var nextGameId = null;
                   for (var j = 0; j < gameIdList.length; j++) {
@@ -697,7 +659,6 @@
                       var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
                       var nextGame = findNextGame($("#"+pickIdA.target.id).attr('data-game'));
                       var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                      console.log("nextElement: "+nextElement);
                       var pickIdB = null;
                       for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                         if ("#"+pickIdA.target.id == bothTeamIds[bothNum][0][0]) {
@@ -707,7 +668,6 @@
                       var newId = $("#"+pickIdA.target.id).attr('data-team_id');
                       var newName = $("#"+pickIdA.target.id).attr('data-team_name');
                       if (<?php echo($tournThird) ?> == "1" && nextLayer == lastTable) {
-                        console.log("blocks changing the 'third place' game");
                       } else {
                         $(nextElement)
                           .attr('data-team_id',newId)
@@ -747,7 +707,6 @@
                       var nextLayer = parseInt($("#"+pickIdB.target.id).attr('data-layer')) + 1;
                       var nextGame = findNextGame($("#"+pickIdB.target.id).attr('data-game'));
                       var nextElement = "#pickId_"+nextLayer+"_"+nextGame[0]+"_"+nextGame[1];
-                      console.log(nextElement);
                       var pickIdA = null;
                       for (var bothNum = 0; bothNum < bothTeamIds.length; bothNum++) {
                         if ("#"+pickIdB.target.id == bothTeamIds[bothNum][1][0]) {
@@ -757,7 +716,6 @@
                       var newId = $("#"+pickIdB.target.id).attr('data-team_id');
                       var newName = $("#"+pickIdB.target.id).attr('data-team_name');
                       if (<?php echo($tournThird) ?> == "1" && nextLayer == lastTable) {
-                        console.log("blocks changing the 'third place' game");
                       } else {
                         $(nextElement)
                           .attr('data-team_id',newId)
@@ -800,68 +758,125 @@
             // This is where the wildcard buttons starts...");
             if (wildcardList.length > 0) {
               for (var e = 0; e < wildcardList.length; e++) {
-                var pickWildA = "#pickId_wild_"+e+"_top";
-                var pickWildB = "#pickId_wild_"+e+"_bottom";
-                $(pickWildA).click((event)=>{
-                  console.log("This is A...");
-                  pickWildA = "#" + event.target.id;
-                  var thisGame = $(pickWildA).attr('data-game');
-                  pickWildB = "#pickId_wild_"+thisGame+"_bottom";
-                  if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
-                    console.log("if");
-                    var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
-                  } else {
-                    console.log("else");
-                    var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
-                    var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                // This identifies any wildcard winners are going to 'empty' games
+                var isEmptyGame = false;
+                for (var r = 0; r < emptyGameList.length; r++) {
+                  if (wildcardList[e][1] == emptyGameList[r]['game_id']) {
+                    isEmptyGame = true;
+                    break;
                   };
-                  var idAfterWild = "#" + $(afterWild).attr('id');
-                  console.log(idAfterWild);
-                  $(idAfterWild)
-                    .attr('data-team_id',$(pickWildA).attr('data-team_id'))
-                    .attr('data-team_name',$(pickWildA).attr('data-team_name'))
-                    .text($(pickWildA).text());
-                  $(pickWildA)
-                    .attr('data-winner','true')
-                    .css('background-color','green')
-                    .css('color','white');
-                  $(pickWildB)
-                    .attr('data-winner','false')
-                    .css('background-color','white')
-                    .css('color','black');
-                });
-                $(pickWildB).click((event)=>{
-                  console.log("This is B...");
-                  pickWildB = "#" + event.target.id;
-                  var thisGame = $(pickWildB).attr('data-game');
-                  pickWildA = "#pickId_wild_"+thisGame+"_top";
+                };
+                //
+                if (isEmptyGame == false) {
+                  var pickWildA = "#pickId_wild_"+e+"_top";
+                  var pickWildB = "#pickId_wild_"+e+"_bottom";
+                  $(pickWildA).click((event)=>{
+                    console.log("This is wildA...");
+                    pickWildA = "#" + event.target.id;
+                    var thisGame = $(pickWildA).attr('data-game');
+                    pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                    } else {
+                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                    };
+                    var idAfterWild = "#" + $(afterWild).attr('id');
+                    $(idAfterWild)
+                      .attr('data-team_id',$(pickWildA).attr('data-team_id'))
+                      .attr('data-team_name',$(pickWildA).attr('data-team_name'))
+                      .text($(pickWildA).text());
+                    $(pickWildA)
+                      .attr('data-winner','true')
+                      .css('background-color','green')
+                      .css('color','white');
+                    $(pickWildB)
+                      .attr('data-winner','false')
+                      .css('background-color','white')
+                      .css('color','black');
+                  });
+                  $(pickWildB).click((event)=>{
+                    console.log("This is wildB...");
+                    pickWildB = "#" + event.target.id;
+                    var thisGame = $(pickWildB).attr('data-game');
+                    pickWildA = "#pickId_wild_"+thisGame+"_top";
 
-                  if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
-                    console.log("if");
-                    var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
-                  } else {
-                    console.log("else");
-                    var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
-                    var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
-                  };
+                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                    } else {
+                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                    };
 
-                  var idAfterWild = "#" + $(afterWild).attr('id');
-                  console.log(idAfterWild);
-                  $(idAfterWild)
-                    .attr('data-team_id',$(pickWildB).attr('data-team_id'))
-                    .attr('data-team_name',$(pickWildB).attr('data-team_name'))
-                    .text($(pickWildB).text());
-                  $(pickWildB)
-                    .attr('data-winner','true')
-                    .css('background-color','green')
-                    .css('color','white');
-                  $(pickWildA)
-                    .attr('data-winner','false')
-                    .css('background-color','white')
-                    .css('color','black');
-                });
+                    var idAfterWild = "#" + $(afterWild).attr('id');
+                    $(idAfterWild)
+                      .attr('data-team_id',$(pickWildB).attr('data-team_id'))
+                      .attr('data-team_name',$(pickWildB).attr('data-team_name'))
+                      .text($(pickWildB).text());
+                    $(pickWildB)
+                      .attr('data-winner','true')
+                      .css('background-color','green')
+                      .css('color','white');
+                    $(pickWildA)
+                      .attr('data-winner','false')
+                      .css('background-color','white')
+                      .css('color','black');
+                  });
+                } else {
+                  var pickWildA = "#pickId_wild_"+e+"_top";
+                  var pickWildB = "#pickId_wild_"+e+"_bottom";
+                  $(pickWildA).click((event)=>{
+                    console.log("This is emptyWildA...");
+                    pickWildA = "#" + event.target.id;
+                    var thisGame = $(pickWildA).attr('data-game');
+                    pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                    } else {
+                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                    };
+                    var idAfterWild = "#" + $(afterWild).attr('id');
+                    $(idAfterWild)
+                      .attr('data-team_id',$(pickWildA).attr('data-team_id'))
+                      .attr('data-team_name',$(pickWildA).attr('data-team_name'))
+                      .text($(pickWildA).text());
+                    $(pickWildA)
+                      .attr('data-winner','true')
+                      .css('background-color','green')
+                      .css('color','white');
+                    $(pickWildB)
+                      .attr('data-winner','false')
+                      .css('background-color','white')
+                      .css('color','black');
+                  });
+                  $(pickWildB).click((event)=>{
+                    console.log("This is emptyWildB...");
+                    pickWildB = "#" + event.target.id;
+                    var thisGame = $(pickWildB).attr('data-game');
+                    pickWildA = "#pickId_wild_"+thisGame+"_top";
+                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                    } else {
+                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                    };
+                    var idAfterWild = "#" + $(afterWild).attr('id');
+                    $(idAfterWild)
+                      .attr('data-team_id',$(pickWildB).attr('data-team_id'))
+                      .attr('data-team_name',$(pickWildB).attr('data-team_name'))
+                      .text($(pickWildB).text());
+                    $(pickWildB)
+                      .attr('data-winner','true')
+                      .css('background-color','green')
+                      .css('color','white');
+                    $(pickWildA)
+                      .attr('data-winner','false')
+                      .css('background-color','white')
+                      .css('color','black');
+                  });
+                };
               };
-            // end of button
             };
 
           } else {
