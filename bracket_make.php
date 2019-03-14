@@ -414,6 +414,11 @@
                               data-pick='"+pickNum+"'\
                               data-winner='null'>"+bTeamData.name+"</div>\
                           </div>");
+                        // This inserts the 'data-paired' value so that they can wildcards can fill both of the slots
+                        // NOTICE: It selects based on teamA's team_id because single-wildcard games only leave teamB's team_id blank
+                        if (teamA['team_id'] == "null") {
+                          $("#"+pickIdA).attr('data-paired','false');
+                        };
                         // When clicking on the A team in the first round...
                         $("#"+pickIdA).click((pickIdA)=>{
                           var nextLayer = parseInt($("#"+pickIdA.target.id).attr('data-layer')) + 1;
@@ -758,7 +763,7 @@
             // This is where the wildcard buttons starts...");
             if (wildcardList.length > 0) {
               for (var e = 0; e < wildcardList.length; e++) {
-                // This identifies any wildcard winners are going to 'empty' games
+                // This identifies if the current wildcard's winner will go to an 'empty' game
                 var isEmptyGame = false;
                 for (var r = 0; r < emptyGameList.length; r++) {
                   if (wildcardList[e][1] == emptyGameList[r]['game_id']) {
@@ -766,7 +771,7 @@
                     break;
                   };
                 };
-                //
+                // --
                 if (isEmptyGame == false) {
                   var pickWildA = "#pickId_wild_"+e+"_top";
                   var pickWildB = "#pickId_wild_"+e+"_bottom";
@@ -823,58 +828,78 @@
                       .css('color','black');
                   });
                 } else {
-                  var pickWildA = "#pickId_wild_"+e+"_top";
-                  var pickWildB = "#pickId_wild_"+e+"_bottom";
-                  $(pickWildA).click((event)=>{
-                    console.log("This is emptyWildA...");
-                    pickWildA = "#" + event.target.id;
-                    var thisGame = $(pickWildA).attr('data-game');
-                    pickWildB = "#pickId_wild_"+thisGame+"_bottom";
-                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
-                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
-                    } else {
-                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
-                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
-                    };
-                    var idAfterWild = "#" + $(afterWild).attr('id');
-                    $(idAfterWild)
-                      .attr('data-team_id',$(pickWildA).attr('data-team_id'))
-                      .attr('data-team_name',$(pickWildA).attr('data-team_name'))
-                      .text($(pickWildA).text());
-                    $(pickWildA)
-                      .attr('data-winner','true')
-                      .css('background-color','green')
-                      .css('color','white');
-                    $(pickWildB)
-                      .attr('data-winner','false')
-                      .css('background-color','white')
-                      .css('color','black');
-                  });
-                  $(pickWildB).click((event)=>{
-                    console.log("This is emptyWildB...");
-                    pickWildB = "#" + event.target.id;
-                    var thisGame = $(pickWildB).attr('data-game');
-                    pickWildA = "#pickId_wild_"+thisGame+"_top";
-                    if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
-                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
-                    } else {
-                      var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
-                      var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
-                    };
-                    var idAfterWild = "#" + $(afterWild).attr('id');
-                    $(idAfterWild)
-                      .attr('data-team_id',$(pickWildB).attr('data-team_id'))
-                      .attr('data-team_name',$(pickWildB).attr('data-team_name'))
-                      .text($(pickWildB).text());
-                    $(pickWildB)
-                      .attr('data-winner','true')
-                      .css('background-color','green')
-                      .css('color','white');
-                    $(pickWildA)
-                      .attr('data-winner','false')
-                      .css('background-color','white')
-                      .css('color','black');
-                  });
+                //   var pickWildA = "#pickId_wild_"+e+"_top";
+                //   var pickWildB = "#pickId_wild_"+e+"_bottom";
+                //   // var thisGame = $(pickWildA).attr('data-game');
+                //   var thisGame = e;
+                //   if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 'false') {
+                //     var pairNum = 0;
+                //   } else {
+                //     var pairNum = 1;
+                //   };
+                //   console.log(pairNum);
+                //   $(pickWildA).click((event)=>{
+                //     console.log("This is emptyWildA...");
+                //     pickWildA = "#" + event.target.id;
+                //     pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+                //     if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-team_id") == "null") {
+                //       // if ($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0].attr('data-paired') == 'false') {
+                //       //   console.log("check if");
+                //       //   var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0];
+                //       // } else {
+                //       //   console.log("check else");
+                //       //   var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                //       // };
+                //       var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairNum];
+                //     } else {
+                //       var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairNum]).attr("data-team_id");
+                //       var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                //     };
+                //     var idAfterWild = "#" + $(afterWild).attr('id');
+                //     $(idAfterWild)
+                //       .attr('data-team_id',$(pickWildA).attr('data-team_id'))
+                //       .attr('data-team_name',$(pickWildA).attr('data-team_name'))
+                //       .text($(pickWildA).text());
+                //     $(pickWildA)
+                //       .attr('data-winner','true')
+                //       .css('background-color','green')
+                //       .css('color','white');
+                //     $(pickWildB)
+                //       .attr('data-winner','false')
+                //       .css('background-color','white')
+                //       .css('color','black');
+                //   });
+                //   $(pickWildB).click((event)=>{
+                //     console.log("This is emptyWildB...");
+                //     pickWildB = "#" + event.target.id;
+                //     // var thisGame = $(pickWildB).attr('data-game');
+                //     pickWildA = "#pickId_wild_"+thisGame+"_top";
+                //     if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id") == "null") {
+                //       var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1];
+                //     } else {
+                //       var currentId = $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[1]).attr("data-team_id");
+                //       var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1][data-team_id='"+currentId+"']");
+                //     };
+                //     var idAfterWild = "#" + $(afterWild).attr('id');
+                //     $(idAfterWild)
+                //       .attr('data-team_id',$(pickWildB).attr('data-team_id'))
+                //       .attr('data-team_name',$(pickWildB).attr('data-team_name'))
+                //       .text($(pickWildB).text());
+                //     $(pickWildB)
+                //       .attr('data-winner','true')
+                //       .css('background-color','green')
+                //       .css('color','white');
+                //     $(pickWildA)
+                //       .attr('data-winner','false')
+                //       .css('background-color','white')
+                //       .css('color','black');
+                //   });
+                //   // console.log($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired"));
+                //   if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 'false') {
+                //     $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired","true");
+                //   } else {
+                //     $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired","false");
+                //   };
                 };
               };
             };
