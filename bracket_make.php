@@ -287,10 +287,10 @@
                 currentColor = "white";
               };
             };
-
             // If there are wildcards, this installs them before the first regular round
             if (wildcardList.length > 0) {
               $("#layer_wild").append("<div id='table_wild' class='allRoundLists'></div>");
+
               for (var d = 0; d < wildcardList.length; d++) {
                 var wild_team_a = wildcardList[d][2];
                 var wild_team_b = wildcardList[d][3];
@@ -298,6 +298,23 @@
                 var wild_next_game = wildcardList[d][1];
                 var wild_name_a = "---";
                 var wild_name_b = "---";
+                // This checks the emptyGames to know if this wildcard is going into it and, if so, wheter it goes into the left for right button
+                var wild_pairing = null;
+                for (var s = 0; s < emptyGameList.length; s++) {
+                  if (wild_next_game == emptyGameList[s]['game_id']) {
+                    // console.log("first wild_game_id: " + wild_game_id);
+                    wild_pairing = 1;
+                    for (var t = d + 1; t < wildcardList.length; t++) {
+                      // console.log("second wild_game_id: " + wildcardList[t][0]);
+                      if (wild_next_game == wildcardList[t][1]) {
+                        // console.log("pair matched");
+                        wild_pairing = 0;
+                      };
+                    };
+                  };
+                };
+                // console.log("wild_pairing: "+wild_pairing);
+                // --
                 for (var getName = 0; getName < data.length; getName++) {
                   if (data[getName]['game_id'] == wild_game_id && data[getName]['team_a'] == data[getName]['team_id']) {
                     wild_name_a = data[getName]['team_name'];
@@ -315,7 +332,8 @@
                       data-team_name='"+wild_name_a+"'\
                       data-game="+d+"\
                       data-game_id="+wild_game_id+"\
-                      data-next_game="+wild_next_game+">"+wild_name_a+"</div>\
+                      data-next_game="+wild_next_game+"\
+                      data-paring="+wild_pairing+">"+wild_name_a+"</div>\
                     <div class='vs'>VS</div>\
                     <div\
                       id='pickId_wild_"+d+"_bottom'\
@@ -324,7 +342,8 @@
                       data-team_name='"+wild_name_b+"'\
                       data-game="+d+"\
                       data-game_id="+wild_game_id+"\
-                      data-next_game="+wild_next_game+">"+wild_name_b+"</div>\
+                      data-next_game="+wild_next_game+"\
+                      data-pairing="+wild_pairing+">"+wild_name_b+"</div>\
                   </div>");
               };
             };
@@ -347,6 +366,7 @@
               // This is how the first round is set up and clicked on...
               if (c == firstTable) {
                 var gameNum = 0;
+                var ifPaired = 0;
                 for (var a = 0; a < data.length; a++) {
                   var teamA = data[a];
                   for (var b = a + 1; b < data.length; b++) {
@@ -417,7 +437,8 @@
                         // This inserts the 'data-paired' value so that they can wildcards can fill both of the slots
                         // NOTICE: It selects based on teamA's team_id because single-wildcard games only leave teamB's team_id blank
                         if (teamA['team_id'] == "null") {
-                          $("#"+pickIdA).attr('data-paired','false');
+                        //   $("#"+pickIdA).attr('data-paired',ifPaired);
+                        //   $("#"+pickIdB).attr('data-paired',ifPaired);
                         };
                         // When clicking on the A team in the first round...
                         $("#"+pickIdA).click((pickIdA)=>{
@@ -828,17 +849,19 @@
                       .css('color','black');
                   });
                 } else {
-                //   var pickWildA = "#pickId_wild_"+e+"_top";
-                //   var pickWildB = "#pickId_wild_"+e+"_bottom";
-                //   // var thisGame = $(pickWildA).attr('data-game');
-                //   var thisGame = e;
-                //   if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 'false') {
-                //     var pairNum = 0;
-                //   } else {
-                //     var pairNum = 1;
-                //   };
-                //   console.log(pairNum);
-                //   $(pickWildA).click((event)=>{
+                  var pickWildA = "#pickId_wild_"+e+"_top";
+                  var pickWildB = "#pickId_wild_"+e+"_bottom";
+                  // var thisGame = $(pickWildA).attr('data-game');
+                  var thisGame = e;
+                  // console.log($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]);
+                  if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 0) {
+                    var ifPaired = 1;
+                  } else {
+                    var ifPaired = 0;
+                  };
+                  console.log(ifPaired);
+                  $(pickWildA).click((event)=>{
+                    console.log("pickWildA: "+ifPaired);
                 //     console.log("This is emptyWildA...");
                 //     pickWildA = "#" + event.target.id;
                 //     pickWildB = "#pickId_wild_"+thisGame+"_bottom";
@@ -868,8 +891,9 @@
                 //       .attr('data-winner','false')
                 //       .css('background-color','white')
                 //       .css('color','black');
-                //   });
-                //   $(pickWildB).click((event)=>{
+                  });
+                  $(pickWildB).click((event)=>{
+                    console.log("pickWildB: "+ifPaired);
                 //     console.log("This is emptyWildB...");
                 //     pickWildB = "#" + event.target.id;
                 //     // var thisGame = $(pickWildB).attr('data-game');
@@ -893,13 +917,12 @@
                 //       .attr('data-winner','false')
                 //       .css('background-color','white')
                 //       .css('color','black');
-                //   });
-                //   // console.log($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired"));
-                //   if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 'false') {
-                //     $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired","true");
-                //   } else {
-                //     $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired","false");
-                //   };
+                  });
+                  if ($($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired") == 0) {
+                    $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired",1);
+                  } else {
+                    $($("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[0]).attr("data-paired",0);
+                  };
                 };
               };
             };
