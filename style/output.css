@@ -1194,9 +1194,11 @@ html {
             font-size: 3rem;
             width: 80%; }
       html body #adminPage #aboutTeam #findTeamBox {
-        padding-bottom: 20px; }
+        padding-bottom: 20px;
+        background-color: green; }
       html body #adminPage #aboutTeam #makeTeamBox {
-        padding-bottom: 20px; }
+        padding-bottom: 20px;
+        background-color: orange; }
 
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {

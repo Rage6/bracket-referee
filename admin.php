@@ -33,7 +33,7 @@
   // Searches for the desired tournament
   if (isset($_POST['findTourn'])) {
     if (strlen($_POST['nameString']) > 0) {
-      $findTourn = $pdo->prepare('SELECT * FROM Tournaments WHERE tourn_name LIKE "%":nm"%" ORDER BY tourn_name ASC');
+      $findTourn = $pdo->prepare('SELECT * FROM Tournaments WHERE tourn_name LIKE "%":nm"%" OR tourn_id=:nm ORDER BY tourn_name ASC');
       $findTourn->execute(array(
         ':nm'=>htmlentities($_POST['nameString'])
       ));
@@ -121,11 +121,11 @@
     return true;
   };
 
-  // To search for a team_id by team_name
+  // To search for a team_id by team_name (or vice versa)
   if (isset($_POST['teamSearch'])) {
     $teamList = [];
     if (strlen($_POST['teamInput']) > 0) {
-      $findTeamStmt = $pdo->prepare('SELECT * FROM Teams WHERE team_name LIKE "%":tn"%"');
+      $findTeamStmt = $pdo->prepare('SELECT * FROM Teams WHERE team_name LIKE "%":tn"%" OR team_id=:tn');
       $findTeamStmt->execute(array(
         ':tn'=>htmlentities($_POST['teamInput'])
       ));
@@ -133,7 +133,11 @@
         $teamList[] = $oneTeam;
       };
       $_SESSION['teamList'] = $teamList;
-      $_SESSION['message'] = "<b style='color:green'>Team search successful</b>";
+      if (count($teamList) > 0) {
+        $_SESSION['message'] = "<b style='color:green'>".count($teamList)." team(s) found</b>";
+      } else {
+        $_SESSION['message'] = "<b style='color:green'>No teams with that name or ID</b>";
+      };
       header('Location: admin.php');
       return true;
     } else {
@@ -150,7 +154,7 @@
       $makeNewTeam->execute(array(
         ':nw'=>htmlentities($_POST['teamName'])
       ));
-      $_SESSION['message'] = "<b style='color:green'>New team added to the database</b>";
+      $_SESSION['message'] = "<b style='color:green'>'".htmlentities($_POST['teamName'])."' was added to the database</b>";
       header('Location: admin.php');
       return true;
     } else {
@@ -528,13 +532,13 @@
         </div>
         <div id='findTeamBox' class='teamBox'>
           <form method='POST'>
-            <input type='text' name='teamInput' placeholder='Enter name here' /></br>
+            <input type='text' name='teamInput' placeholder='Enter existing name or ID' /></br>
             <input type='submit' name='teamSearch' values='ENTER' />
           </form>
         </div>
         <div id='makeTeamBox' class='teamBox'>
           <form method='POST'>
-            <input type='text' name='teamName' placeholder='Enter new team here' /></br>
+            <input type='text' name='teamName' placeholder='Submit new team name' /></br>
             <input type='submit' name='teamMake' values='ENTER' />
           </form>
         </div>
