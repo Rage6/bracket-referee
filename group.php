@@ -408,7 +408,7 @@
                 } else {
                   // echo("happened during the past 60 minutes</br>");
                 };
-              } else if ($tournHour - $currentDay > 0) {
+              } else if ($tournHour - $currentHour > 0) {
                 $pastDeadline = false;
                 // echo("will happen in less than 24 hours</br>");
               } else {
