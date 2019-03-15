@@ -33,7 +33,7 @@
   // Searches for the desired tournament
   if (isset($_POST['findTourn'])) {
     if (strlen($_POST['nameString']) > 0) {
-      $findTourn = $pdo->prepare('SELECT * FROM Tournaments WHERE tourn_name LIKE "%":nm"%" ORDER BY tourn_name ASC');
+      $findTourn = $pdo->prepare('SELECT * FROM Tournaments WHERE tourn_name LIKE "%":nm"%" OR tourn_id=:nm ORDER BY tourn_name ASC');
       $findTourn->execute(array(
         ':nm'=>htmlentities($_POST['nameString'])
       ));
@@ -60,6 +60,26 @@
     $tournResults[] = "<tr><td><i>Waiting for search...</i></td></tr>";
   };
 
+  // Switches a tournament active or inactive
+  // Note: This POST doesn't end on its own. Instead, it has to run into the 'pickTourn' POST below it in order to update the $_SESSION['tournData'] array
+  if (isset($_POST['makeActive']) || isset($_POST['makeInactive'])) {
+    if (isset($_POST['makeActive'])) {
+      $makeActiveStmt = $pdo->prepare('UPDATE Tournaments SET active=1 WHERE tourn_id=:to');
+      $makeActiveStmt->execute(array(
+        ':to'=>htmlentities($_SESSION['tournId'])
+      ));
+      $_POST['pickTourn'] = "SUBMIT";
+      $_POST['enterID'] = $_SESSION['tournId'];
+    } else {
+      $makeInactiveStmt = $pdo->prepare('UPDATE Tournaments SET active=0 WHERE tourn_id=:to');
+      $makeInactiveStmt->execute(array(
+        ':to'=>htmlentities($_SESSION['tournId'])
+      ));
+      $_POST['pickTourn'] = "SUBMIT";
+      $_POST['enterID'] = $_SESSION['tournId'];
+    };
+  };
+
   // To select the tournament, submit its ID number here
   if (isset($_POST['pickTourn'])) {
     if (strlen($_POST['enterID']) > 0) {
@@ -71,13 +91,13 @@
       $idCount = $compareID->fetch(PDO::FETCH_ASSOC);
       if ($idCount['COUNT(tourn_id)'] == "1") {
         $_SESSION['tournId'] = htmlentities((int)$_POST['enterID']);
-        $tournDataStmt = $pdo->prepare('SELECT tourn_name,level_total,wildcard,third_place FROM Tournaments WHERE tourn_id=:td');
+        $tournDataStmt = $pdo->prepare('SELECT tourn_name,level_total,wildcard,third_place, active FROM Tournaments WHERE tourn_id=:td');
         $tournDataStmt->execute(array(
           ':td'=>htmlentities($_SESSION['tournId'])
         ));
         $tournData = $tournDataStmt->fetch(PDO::FETCH_ASSOC);
         $_SESSION['tournData'] = $tournData;
-        $_SESSION['message'] = "<b style='color:green'>Tournament selected</b>";
+        $_SESSION['message'] = "<b style='color:green'>Tournament Setup Complete</b>";
         header('Location: admin.php');
         return true;
       } else {
@@ -101,11 +121,11 @@
     return true;
   };
 
-  // To search for a team_id by team_name
+  // To search for a team_id by team_name (or vice versa)
   if (isset($_POST['teamSearch'])) {
     $teamList = [];
     if (strlen($_POST['teamInput']) > 0) {
-      $findTeamStmt = $pdo->prepare('SELECT * FROM Teams WHERE team_name LIKE "%":tn"%"');
+      $findTeamStmt = $pdo->prepare('SELECT * FROM Teams WHERE team_name LIKE "%":tn"%" OR team_id=:tn');
       $findTeamStmt->execute(array(
         ':tn'=>htmlentities($_POST['teamInput'])
       ));
@@ -113,7 +133,11 @@
         $teamList[] = $oneTeam;
       };
       $_SESSION['teamList'] = $teamList;
-      $_SESSION['message'] = "<b style='color:green'>Team search successful</b>";
+      if (count($teamList) > 0) {
+        $_SESSION['message'] = "<b style='color:green'>".count($teamList)." team(s) found</b>";
+      } else {
+        $_SESSION['message'] = "<b style='color:green'>No teams with that name or ID</b>";
+      };
       header('Location: admin.php');
       return true;
     } else {
@@ -130,7 +154,7 @@
       $makeNewTeam->execute(array(
         ':nw'=>htmlentities($_POST['teamName'])
       ));
-      $_SESSION['message'] = "<b style='color:green'>New team added to the database</b>";
+      $_SESSION['message'] = "<b style='color:green'>'".htmlentities($_POST['teamName'])."' was added to the database</b>";
       header('Location: admin.php');
       return true;
     } else {
@@ -143,12 +167,12 @@
   // To change the teams and/or winners of a tournament's games
   if (isset($_POST['changeGames'])) {
     $_SESSION['changeInput'] = $_POST;
-    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6) - 1;
+    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6);
     $gameNum = 0;
     // Wildcard games
     if ($_SESSION['tournData']['wildcard'] == "1") {
       for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
-        if ($_SESSION['changeInput']['isWild_'.$oneWild]) {
+        if ($_SESSION['changeInput']['isWild_'.$oneWild] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
@@ -162,14 +186,15 @@
           ));
         };
       };
+      $gameNum = 0;
     };
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
-      if ($_SESSION['changeInput']['isWild_'.$oneRegular] != "1" && $_SESSION['changeInput']['isThird_'.$oneRegular] != "1") {
-        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
-        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
-        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
-        $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
+      if ($_SESSION['changeInput']['isWild_'.$oneRegular] == "0" && $_SESSION['changeInput']['isThird_'.$oneRegular] == "0") {
+        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
+        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneRegular]);
+        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneRegular]);
+        $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneRegular]);
         $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
         $upGameData->execute(array(
           ':ta'=>(int)$teamA,
@@ -179,10 +204,11 @@
         ));
       };
     };
+    $gameNum = 0;
     // Third-place game
     if ($_SESSION['tournData']['third_place'] == "1") {
       for ($oneThird = $gameNum; $oneThird < $countChanges; $oneThird++) {
-        if ($_SESSION['changeInput']['isThird_'.$oneThird]) {
+        if ($_SESSION['changeInput']['isThird_'.$oneThird] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneThird]);
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneThird]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneThird]);
@@ -196,6 +222,7 @@
           ));
         };
       };
+      $gameNum = 0;
     };
     // This resets any teams,winners with the ID 0 as NULL
     $clearZero = $pdo->prepare('UPDATE Games SET team_a=NULL,team_b=NULL,winner_id=NULL WHERE team_a=0 AND team_b=0');
@@ -205,8 +232,6 @@
     header('Location: admin.php');
     return true;
   };
-
-  // unset($_SESSION['changeInput']);
 
   // echo("<pre>");
   // echo("SESSION:");
@@ -297,11 +322,24 @@
         };
       ?>
       <?php
+        if (isset($_SESSION['tournData']) && $_SESSION['tournData']['active'] == 1) {
+          $firstInput = "style='background-color:red;color:white'";
+          $secondInput = "style='background-color:green;color:white'";
+        } else {
+          $firstInput = "style='background-color:green;color:white'";
+          $secondInput = "style='background-color:red;color:white'";
+        };
         if (isset($_SESSION['tournData'])) {
           echo("
-          <div style='text-align:center;background-color:green;color:white'>
+          <div id='tournTitleBox'>
             <div>You are working on:</div>
-            <div><b>".$_SESSION['tournData']['tourn_name']."</b></div>
+            <div style='margin-bottom:80px'><b>".$_SESSION['tournData']['tourn_name']."</b></div>
+            <div>
+              <form method='POST'>
+                <input id='activeBttn' ".$firstInput." type='submit' name='makeActive' value='ACTIVE' />
+                <input id='inactiveBttn' ".$secondInput." type='submit' name='makeInactive' value='INACTIVE' />
+              </form>
+            </div>
           </div>");
         };
       ?>
@@ -494,13 +532,13 @@
         </div>
         <div id='findTeamBox' class='teamBox'>
           <form method='POST'>
-            <input type='text' name='teamInput' placeholder='Enter name here' /></br>
+            <input type='text' name='teamInput' placeholder='Enter existing name or ID' /></br>
             <input type='submit' name='teamSearch' values='ENTER' />
           </form>
         </div>
         <div id='makeTeamBox' class='teamBox'>
           <form method='POST'>
-            <input type='text' name='teamName' placeholder='Enter new team here' /></br>
+            <input type='text' name='teamName' placeholder='Submit new team name' /></br>
             <input type='submit' name='teamMake' values='ENTER' />
           </form>
         </div>

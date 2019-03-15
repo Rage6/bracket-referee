@@ -310,7 +310,7 @@
                         <select name="tourn_id">
                           <option value='null'>Choose from...</option>
                           <?php
-                            $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name FROM Tournaments');
+                            $tournStmt = $pdo->prepare('SELECT tourn_id,tourn_name FROM Tournaments WHERE active=1');
                             $tournStmt->execute();
                             while ($tournRow = $tournStmt->fetch(PDO::FETCH_ASSOC)) {
                               echo("<option value='".$tournRow['tourn_id']."'>".$tournRow['tourn_name']."</option>");
