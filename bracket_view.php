@@ -164,7 +164,11 @@
                   $pointsEarned = $layer['points'];
                   $totalScore += $layer['points'];
                 };
-                if ($pointsEarned == 0) {
+                $emptyWinner = false;
+                if ($winnerId == 0 || $winnerId == NULL) {
+                  $emptyWinner = true;
+                };
+                if ($pointsEarned == 0 && $emptyWinner == false) {
                   echo("
                     <div class='oneScoreRow' style='background-color:red;color:white'>
                       <span>".$pickName['team_name']."</span>
@@ -178,7 +182,7 @@
                     </div>");
                 } else {
                   echo("
-                    <div class='oneScoreRow' style='background-color:none;color:black'>
+                    <div class='oneScoreRow' style='background-color:grey;color:white'>
                       <span>".$pickName['team_name']."</span>
                       <span>".$pointsEarned."</span>
                     </div>");
