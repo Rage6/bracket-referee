@@ -359,6 +359,7 @@
       <form method='POST'>
         <?php
           $gameNum = 0;
+          $currentColor = "lightgrey";
         ?>
         <div>
           <div class="adminSubtitle">
@@ -373,36 +374,45 @@
                 ));
                 while ($oneID = $findWildStmt->fetch(PDO::FETCH_ASSOC)) {
                   echo(
-                    "<div>Game #".$oneID['game_id']."</div>
-                    <table>
-                      <tr style='border:none'>
-                        <td>
-                          TEAM A
-                        </td>
-                        <td>
-                          TEAM B
-                        </td>
-                        <td>
-                          WINNER
-                        </td>
-                      </tr>
-                      <tr>
-                        <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
-                        <input type='hidden' name='isWild_".$gameNum."' value='1' />
-                        <input type='hidden' name='isThird_".$gameNum."' value='0' />
-                        <td>
-                          <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
-                        </td>
-                        <td>
-                          <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
-                        </td>
-                        <td>
-                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
-                        </td>
-                      </tr>
-                    </table>"
+                    "<div style='margin-bottom:0;padding:40px 0;background-color:".$currentColor."'>
+                      <div style='display:flex;justify-content:space-around'>
+                        <div>Game #".$oneID['game_id']."</div>
+                        <div style='background-color:orange'>Next Game: ".$oneID['next_game']."</div>
+                      </div>
+                      <table>
+                        <tr style='border:none'>
+                          <td>
+                            TEAM A
+                          </td>
+                          <td>
+                            TEAM B
+                          </td>
+                          <td>
+                            WINNER
+                          </td>
+                        </tr>
+                        <tr>
+                          <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                          <input type='hidden' name='isWild_".$gameNum."' value='1' />
+                          <input type='hidden' name='isThird_".$gameNum."' value='0' />
+                          <td>
+                            <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+                          </td>
+                          <td>
+                            <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
+                          </td>
+                          <td>
+                            <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                          </td>
+                        </tr>
+                      </table>
+                    </div>"
                   );
-                  echo("</br>");
+                  if ($currentColor == "white") {
+                    $currentColor = "lightgrey";
+                  } else {
+                    $currentColor = "white";
+                  };
                   $gameNum++;
                 };
               } else {
@@ -428,36 +438,45 @@
                   echo("<div style='background-color:blue;color:white'>".$oneID['level_name']."</div>");
                 };
                 echo(
-                  "<div>Game #".$oneID['game_id']."</div>
-                  <table>
-                    <tr style='border:none'>
-                      <td>
-                        TEAM A
-                      </td>
-                      <td>
-                        TEAM B
-                      </td>
-                      <td>
-                        WINNER
-                      </td>
-                    </tr>
-                    <tr>
-                      <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
-                      <input type='hidden' name='isWild_".$gameNum."' value='0' />
-                      <input type='hidden' name='isThird_".$gameNum."' value='0' />
-                      <td>
-                        <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
-                      </td>
-                      <td>
-                        <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
-                      </td>
-                      <td>
-                        <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
-                      </td>
-                    </tr>
-                  </table>"
+                  "<div style='margin-bottom:0;padding:40px 0;background-color:".$currentColor.";font-size:3rem'>
+                    <div style='display:flex;justify-content:space-around'>
+                      <div>Game #".$oneID['game_id']."</div>
+                      <div style='background-color:orange'>Next Game: ".$oneID['next_game']."</div>
+                    </div>
+                    <table>
+                      <tr style='border:none'>
+                        <td>
+                          TEAM A
+                        </td>
+                        <td>
+                          TEAM B
+                        </td>
+                        <td>
+                          WINNER
+                        </td>
+                      </tr>
+                      <tr>
+                        <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                        <input type='hidden' name='isWild_".$gameNum."' value='0' />
+                        <input type='hidden' name='isThird_".$gameNum."' value='0' />
+                        <td>
+                          <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+                        </td>
+                        <td>
+                          <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
+                        </td>
+                        <td>
+                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                        </td>
+                      </tr>
+                    </table>
+                  </div>"
                 );
-                echo("</br>");
+                if ($currentColor == "white") {
+                  $currentColor = "lightgrey";
+                } else {
+                  $currentColor = "white";
+                };
                 $gameNum++;
                 $levelName = $oneID['level_name'];
               };
