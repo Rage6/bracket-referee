@@ -23,13 +23,80 @@
     return false;
   };
 
+  // The entire below section determins if the tournament's start_date has been passed. It is necessary for letting view one another's brackets after the deadline
+  // First, gets the current time in Eastern Standard Time
+  date_default_timezone_set('America/New_York');
+  // Find the tournament's start_date
+  $findStartDate = $pdo->prepare('SELECT * FROM Groups JOIN Tournaments WHERE group_id=:gp AND tourn_id=fk_tourn_id');
+  $findStartDate->execute(array(
+    ':gp'=>htmlentities($_GET['group_id'])
+  ));
+  $tournDate = $findStartDate->fetch(PDO::FETCH_ASSOC)['start_date'];
+  // Chops the tournament's deadline into integers
+  $tournYear = (int)substr($tournDate,0,4);
+  $tournMonth = (int)substr($tournDate,5,2);
+  $tournDay = (int)substr($tournDate,8,2);
+  $tournHour = (int)substr($tournDate,11,2);
+  $tournMin = (int)substr($tournDate,14,2);
+  // Gets the current datetime and turns it into a string
+  $startDate = new DateTime(date('Y-m-d H:i'));
+  $reflectDate = new ReflectionObject($startDate);
+  $getDate = $reflectDate->getProperty('date');
+  $currentDate = $getDate->getValue($startDate);
+  // Chops the current datetime into individual integers
+  $currentYear = (int)substr($currentDate,0,4);
+  $currentMonth = (int)substr($currentDate,5,2);
+  $currentDay = (int)substr($currentDate,8,2);
+  $currentHour = (int)substr($currentDate,11,2);
+  $currentMin = (int)substr($currentDate,14,2);
+  // Calculates if the first game has started or not
+  $pastDeadline = true;
+  if ($tournYear - $currentYear == 0) {
+    // echo("during this year</br>");
+    if ($tournMonth - $currentMonth == 0) {
+      // echo("during this month</br>");
+      if ($tournDay - $currentDay == 0) {
+        // echo("during this day</br>");
+        if ($tournHour - $currentHour == 0) {
+          // echo("during this hour</br>");
+          if ($tournMin - $currentMin >= 0) {
+            // echo("will happen in less than the next 60 minutes</br>");
+            $pastDeadline = false;
+          } else {
+            // echo("happened during the past 60 minutes</br>");
+          };
+        } else if ($tournHour - $currentHour > 0) {
+          $pastDeadline = false;
+          // echo("will happen in less than 24 hours</br>");
+        } else {
+          // echo("already happened in a past hour</br>");
+        };
+      } else if ($tournDay - $currentDay > 0) {
+        $pastDeadline = false;
+        // echo("will happen less than a month</br>");
+      } else {
+        // echo("already happend in a past day</br>");
+      };
+    } else if ($tournMonth - $currentMonth > 0) {
+      // echo("will happen in less than a year</br>");
+      $pastDeadline = false;
+    } else {
+      // echo("already happened in a past month</br>");
+    };
+  } else if ($tournYear - $currentYear > 0) {
+    // echo("this will happen on a future year</br>");
+    $pastDeadline = false;
+  } else {
+    // echo("it happened a year ago!</br>");
+  };
+
   // Prevents someone from seeing another player's bracket
   $brktPlyStmt = $pdo->prepare('SELECT player_id FROM Brackets WHERE bracket_id=:brid');
   $brktPlyStmt->execute(array(
     ':brid'=>htmlentities($_GET['bracket_id'])
   ));
   $bracketId = (int)$brktPlyStmt->fetch(PDO::FETCH_ASSOC)['player_id'];
-  if ($bracketId != $_SESSION['player_id']) {
+  if ($bracketId != $_SESSION['player_id'] && $pastDeadline == false) {
     $_SESSION['message'] = "<b style='color:red'>Players may only review their own bracket</b>";
     header('Location: group.php?group_id='.$_GET['group_id']);
   };
