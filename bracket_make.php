@@ -849,9 +849,11 @@
                   var pickWildB = "#pickId_wild_"+e+"_bottom";
                   var thisGame = e;
                   $(pickWildA).click((event)=>{
+                    var clickGame = event.target.attributes['data-game'].value;
                     // console.log("This is emptyWildA...");
                     pickWildA = "#" + event.target.id;
-                    pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+                    console.log(pickWildA);
+                    pickWildB = "#pickId_wild_"+clickGame+"_bottom";
                     var pairIndex = parseInt($(pickWildA).attr('data-pairing'),10);
                     var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairIndex]['id'];
                     var idAfterWild = "#" + $("#" + afterWild).attr('id');
@@ -869,9 +871,11 @@
                       .css('color','black');
                   });
                   $(pickWildB).click((event)=>{
+                    var clickGame = event.target.attributes['data-game'].value;
                     // console.log("This is emptyWildB...");
                     pickWildB = "#" + event.target.id;
-                    pickWildA = "#pickId_wild_"+thisGame+"_top";
+                    console.log(pickWildB);
+                    pickWildA = "#pickId_wild_"+clickGame+"_top";
                     var pairIndex = parseInt($(pickWildB).attr('data-pairing'),10);
                     var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairIndex]['id'];
                     var idAfterWild = "#" + $("#" + afterWild).attr('id');
