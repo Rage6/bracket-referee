@@ -87,30 +87,38 @@
               ':un'=>htmlentities($_POST['newUser']),
               ':pw'=>htmlentities($hash)
             ));
-            $exstList = $compareExst->fetch(PDO::FETCH_ASSOC);
-            if (count($exstList['player_id']) == 0) {
-              $token = bin2hex(random_bytes(21));
-              $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
-              $addStmt->execute(array(
-                ':em'=>htmlentities($_POST['newEmail']),
-                ':un'=>htmlentities($_POST['newUser']),
-                ':ft'=>htmlentities($_POST['newFirst']),
-                ':lt'=>htmlentities($_POST['newLast']),
-                ':ps'=>htmlentities($hash),
-                ':tk'=>$token
-              ));
-              $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
-              $findID->execute(array(
-                ':ps'=>htmlentities($hash)
-              ));
-              $newID = $findID->fetch(PDO::FETCH_ASSOC);
-              $_SESSION['player_id'] = $newID['player_id'];
-              $_SESSION['token'] = $token;
-              $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-              header('Location: player.php');
-              return true;
+            $countSpace = substr_count($_POST['newUser']," ") + substr_count($_POST['newPass']," ");
+            if ($countSpace == 0) {
+              $exstList = $compareExst->fetch(PDO::FETCH_ASSOC);
+              if (count($exstList['player_id']) == 0) {
+                $token = bin2hex(random_bytes(21));
+                $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
+                $addStmt->execute(array(
+                  ':em'=>htmlentities($_POST['newEmail']),
+                  ':un'=>htmlentities($_POST['newUser']),
+                  ':ft'=>htmlentities($_POST['newFirst']),
+                  ':lt'=>htmlentities($_POST['newLast']),
+                  ':ps'=>htmlentities($hash),
+                  ':tk'=>$token
+                ));
+                $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
+                $findID->execute(array(
+                  ':ps'=>htmlentities($hash)
+                ));
+                $newID = $findID->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['player_id'] = $newID['player_id'];
+                $_SESSION['token'] = $token;
+                // $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
+                $_SESSION['message'] = "<b style='color:green'>countSpace: ".$countSpace."</b>";
+                header('Location: player.php');
+                return true;
+              } else {
+                $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
+                header('Location: index.php');
+                return false;
+              };
             } else {
-              $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
+              $_SESSION['message'] = "<b style='color:red'>Usernames and passwords cannot contain 'spaces' [".$countSpace."]</b>";
               header('Location: index.php');
               return false;
             };
