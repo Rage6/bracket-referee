@@ -108,8 +108,7 @@
                 $newID = $findID->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['player_id'] = $newID['player_id'];
                 $_SESSION['token'] = $token;
-                // $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-                $_SESSION['message'] = "<b style='color:green'>countSpace: ".$countSpace."</b>";
+                $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
                 header('Location: player.php');
                 return true;
               } else {
@@ -118,7 +117,7 @@
                 return false;
               };
             } else {
-              $_SESSION['message'] = "<b style='color:red'>Usernames and passwords cannot contain 'spaces' [".$countSpace."]</b>";
+              $_SESSION['message'] = "<b style='color:red'>Usernames and passwords cannot contain 'spaces'</b>";
               header('Location: index.php');
               return false;
             };
