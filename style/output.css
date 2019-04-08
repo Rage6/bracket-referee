@@ -466,11 +466,14 @@ html {
       background-color: grey; }
     html body #groupPage #groupTopRow #tournBox #tournTable {
       margin-left: 10%;
+      table-layout: fixed;
       width: 80%; }
       html body #groupPage #groupTopRow #tournBox #tournTable .rowTitle {
         border: 1px solid white;
         color: white;
         background-color: grey; }
+      html body #groupPage #groupTopRow #tournBox #tournTable .rowValue {
+        padding: 0 15px; }
       html body #groupPage #groupTopRow #tournBox #tournTable #grpEditBttn {
         border: none;
         background-color: lightgrey; }
@@ -566,13 +569,17 @@ html {
       html body #groupPage #scrollPlayers #playerTable {
         margin-left: 0;
         margin-bottom: 0;
+        table-layout: fixed;
         width: 100%; }
         html body #groupPage #scrollPlayers #playerTable th {
           background-color: blue;
           overflow-y: hidden; }
         html body #groupPage #scrollPlayers #playerTable #playersTopRow {
           border-top: 1px solid blue; }
+          html body #groupPage #scrollPlayers #playerTable #playersTopRow .userHead {
+            width: 45%; }
         html body #groupPage #scrollPlayers #playerTable tr td {
+          border: 1px solid black;
           padding: 15px; }
           html body #groupPage #scrollPlayers #playerTable tr td a {
             margin: 5px 0;
@@ -583,6 +590,8 @@ html {
             text-decoration: none; }
           html body #groupPage #scrollPlayers #playerTable tr td a:hover {
             cursor: pointer; }
+        html body #groupPage #scrollPlayers #playerTable tr .userCol {
+          overflow-x: scroll; }
         html body #groupPage #scrollPlayers #playerTable #hideMemberList {
           color: grey;
           text-align: left; }

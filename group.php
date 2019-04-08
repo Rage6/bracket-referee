@@ -293,23 +293,23 @@
         <table id="tournTable" class="allTables" cellpadding="10">
           <tr>
             <td class="rowTitle">Name</td>
-            <td><?php echo($tournArray['tourn_name']) ?></td>
+            <td class="rowValue"><?php echo($tournArray['tourn_name']) ?></td>
           </tr>
           <tr>
             <td class="rowTitle">Rounds</td>
-            <td><?php echo($tournArray['level_total']) ?></td>
+            <td class="rowValue"><?php echo($tournArray['level_total']) ?></td>
           </tr>
           <tr>
             <td class="rowTitle">Teams Chosen</td>
-            <td><?php echo($tournArray['selection_date']) ?></td>
+            <td class="rowValue"><?php echo($tournArray['selection_date']) ?></td>
           </tr>
           <tr>
             <td class="rowTitle">First Game</td>
-            <td><?php echo(substr($tournArray['start_date'],0,10)) ?></td>
+            <td class="rowValue"><?php echo(substr($tournArray['start_date'],0,10)) ?></td>
           </tr>
           <tr>
             <td class="rowTitle">Director</td>
-            <td>
+            <td class="rowValue" style="overflow-x:scroll">
               <?php echo($adminResult['userName']) ?>
             </td>
           </tr>
@@ -344,7 +344,7 @@
           <div id='scrollPlayers'>
             <table id='playerTable' class='allTables'>
               <tr id='playersTopRow'>
-                <th>Username</th>
+                <th class='userHead'>Username</th>
                 <th>Bracket?</th>
                 <th>Score</th>
               </tr>");
@@ -402,7 +402,7 @@
             for ($listNum = 0; $listNum < sizeof($rowArray); $listNum++) {
               echo("
               <tr>
-                <td>".$rowArray[$listNum]['playerName']."</td>
+                <td class='userCol'>".$rowArray[$listNum]['playerName']."</td>
                 <td>".$rowArray[$listNum]['bracketStatus']."</td>
                 <td>".$rowArray[$listNum]['bracketTotal']."</td>
               </tr>");
