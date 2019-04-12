@@ -42,6 +42,9 @@
       <li>
         By using the <i>token-based authentication</i> method, tokens are created each a player logs in. It is then used to confirm that they are who they say they are, each and every request. Each token is randomly generated.
       </li>
+      <li>
+        To defend against <a href="https://en.wikipedia.org/wiki/Brute-force_attack#Countermeasures">"brute force attacks"</a>, users can make no more than 5 attempts at logging in, after which the attacked account is locked. To unlock it, the real user must reset their password using the <i>Forgot Your Password?</i> option on the index page. Their new, random password will be sent to their email address.
+      </li>
      </ul>
   </li>
   <li>
@@ -68,7 +71,7 @@
     <b>Varying Tournament Structure</b>: Many single-elimination tournaments differ from the traditional structure. In particular <a href='https://en.wikipedia.org/wiki/Wild_card_(sports)'>"wildcard"</a> and <a href='https://en.wikipedia.org/wiki/Third_place_playoff'>"third-place playoffs"</a> games often occur. <u>Bracket Referee</u> is designed to accommodate for those.
   </li>
   <li>
-    <b>Time-Sensitive Bracket Submission</b>: There is often a narrow time (between the announcement of the tournament's teams and the first game that takes place) in which a player can pick their predictions. Using things like PHP's <i>date()</i> and <i>date_default_timezone_set()</i>, this website will allow a player to submit their bracket at the last possible moment. 
+    <b>Time-Sensitive Bracket Submission</b>: There is often a narrow time (between the announcement of the tournament's teams and the first game that takes place) in which a player can pick their predictions. Using things like PHP's <i>date()</i> and <i>date_default_timezone_set()</i>, this website will allow a player to submit their bracket at the last possible moment.
   </li>
   <li>
     <b>Administrative Center</b>: Manually adding new teams or updating each game's results is very inefficient and increases the chances that a mistake is made. To prevent this, the Administrative Center page (which is only accessible by the developer) can be used to easily add a new team, insert the correct teams on each game, and update each game's winner.
