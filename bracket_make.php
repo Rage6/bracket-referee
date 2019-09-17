@@ -383,16 +383,16 @@
                         bothTeamIds.push([["#"+pickIdA],["#"+pickIdB]]);
                         //-- This fills in the blank spots that happen when a wildcard team hasn't been selected yet for certain Round 1 games
                         if (teamA['get_wildcard'] == "1") {
+                        // If teamA's wildcard is empty too, then this 'if statement' happens
+                          if (teamA['team_id'] == "null") {
+                            teamA['team_id'] = "null";
+                            teamA['team_name'] = "---";
+                          };
                           var bTeamData = {
                             id: "null",
                             name: "---",
                             gameId: teamA['game_id'],
                             nextGame: teamA['next_game']
-                          };
-                          // If teamA's wildcard is empty too, then this 'if statement' happens
-                          if (teamA['team_id'] == "null") {
-                            teamA['team_id'] = "null";
-                            teamA['team_name'] = "---";
                           };
                         } else {
                           var bTeamData = {
@@ -849,9 +849,9 @@
                   var pickWildB = "#pickId_wild_"+e+"_bottom";
                   var thisGame = e;
                   $(pickWildA).click((event)=>{
-                    // console.log("This is emptyWildA...");
                     pickWildA = "#" + event.target.id;
-                    pickWildB = "#pickId_wild_"+thisGame+"_bottom";
+                    var clickGame = event.target.attributes['data-game'].value;
+                    pickWildB = "#pickId_wild_"+clickGame+"_bottom";
                     var pairIndex = parseInt($(pickWildA).attr('data-pairing'),10);
                     var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairIndex]['id'];
                     var idAfterWild = "#" + $("#" + afterWild).attr('id');
@@ -869,9 +869,9 @@
                       .css('color','black');
                   });
                   $(pickWildB).click((event)=>{
-                    // console.log("This is emptyWildB...");
                     pickWildB = "#" + event.target.id;
-                    pickWildA = "#pickId_wild_"+thisGame+"_top";
+                    var clickGame = event.target.attributes['data-game'].value;
+                    pickWildA = "#pickId_wild_"+clickGame+"_top";
                     var pairIndex = parseInt($(pickWildB).attr('data-pairing'),10);
                     var afterWild = $("[data-game_id="+wildcardList[thisGame][1]+"][data-layer=1]")[pairIndex]['id'];
                     var idAfterWild = "#" + $("#" + afterWild).attr('id');

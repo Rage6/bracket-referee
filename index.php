@@ -34,13 +34,13 @@
   // For logging into an existing account
   if (isset($_POST['confirmOld'])) {
     if (strlen($_POST['userEmail']) > 0 && strlen($_POST['password']) > 0) {
-      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token FROM Players WHERE (userName=:ue) OR (email=:ue)");
+      $stmt = $pdo->prepare("SELECT player_id,userName,firstName,lastName,email,pswd,token,tries FROM Players WHERE (userName=:ue) OR (email=:ue)");
       $stmt->execute(array(
         ':ue'=>htmlentities($_POST['userEmail'])
       ));
       $list = $stmt->fetch(PDO::FETCH_ASSOC);
       if (count($list['player_id']) < 1) {
-        $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
+        $_SESSION['message'] = "<b style='color:red'>Your email or username was invalid</b>";
         header('Location: index.php');
         return false;
       } elseif (count($list['player_id']) > 1) {
@@ -49,21 +49,38 @@
         return false;
       } else {
         if (password_verify($_POST['password'],$list['pswd'])) {
-          $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b> ";
-          $token = bin2hex(random_bytes(21));
-          $new_token = $pdo->prepare('UPDATE Players SET token=:tk WHERE player_id=:pid');
-          $new_token->execute(array(
-            ':tk'=>$token,
-            ':pid'=>$list['player_id']
-          ));
-          $_SESSION['token'] = $token;
-          $_SESSION['player_id'] = $list['player_id'];
-          header('Location: player.php');
-          return true;
+          if ($list['tries'] > 0) {
+            $_SESSION['message'] = "<b style='color:green'>Welcome, ".$list['userName']."!</b> ";
+            $token = bin2hex(random_bytes(21));
+            $new_token = $pdo->prepare('UPDATE Players SET token=:tk, tries=5 WHERE player_id=:pid');
+            $new_token->execute(array(
+              ':tk'=>$token,
+              ':pid'=>$list['player_id']
+            ));
+            $_SESSION['token'] = $token;
+            $_SESSION['player_id'] = $list['player_id'];
+            header('Location: player.php');
+            return true;
+          } else {
+            $_SESSION['message'] = "<b style='color:red'>Your account was locked due to 5 failed login attempts. Click on the 'LOGIN' button and the 'Forgot Your Password?' option in order to make a new password and unlock your account</b> ";
+            header('Location: index.php');
+            return false;
+          };
         } else {
-          $_SESSION['message'] = "<b style='color:red'>Your email or password was invalid</b>";
-          header('Location: index.php');
-          return false;
+          if ($list['tries'] > 0) {
+            $oneLess = $list['tries'] - 1;
+            $triesStmt = $pdo->prepare("UPDATE Players SET tries=tries-1 WHERE player_id=:lp");
+            $triesStmt->execute(array(
+              ':lp'=> $list['player_id']
+            ));
+            $_SESSION['message'] = "<b style='color:red'>Your password was invalid. You have ".$oneLess." attempt(s) left.</b>";
+            header('Location: index.php');
+            return false;
+          } else {
+            $_SESSION['message'] = "<b style='color:red'>Your account was locked due to 5 failed login attempts. Click on the 'LOGIN' button and the 'Forgot Your Password?' option in order to make a new password and unlock your account</b> ";
+            header('Location: index.php');
+            return false;
+          };
         };
       };
     } else {
@@ -87,30 +104,37 @@
               ':un'=>htmlentities($_POST['newUser']),
               ':pw'=>htmlentities($hash)
             ));
-            $exstList = $compareExst->fetch(PDO::FETCH_ASSOC);
-            if (count($exstList['player_id']) == 0) {
-              $token = bin2hex(random_bytes(21));
-              $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
-              $addStmt->execute(array(
-                ':em'=>htmlentities($_POST['newEmail']),
-                ':un'=>htmlentities($_POST['newUser']),
-                ':ft'=>htmlentities($_POST['newFirst']),
-                ':lt'=>htmlentities($_POST['newLast']),
-                ':ps'=>htmlentities($hash),
-                ':tk'=>$token
-              ));
-              $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
-              $findID->execute(array(
-                ':ps'=>htmlentities($hash)
-              ));
-              $newID = $findID->fetch(PDO::FETCH_ASSOC);
-              $_SESSION['player_id'] = $newID['player_id'];
-              $_SESSION['token'] = $token;
-              $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
-              header('Location: player.php');
-              return true;
+            $countSpace = substr_count($_POST['newUser']," ") + substr_count($_POST['newPass']," ");
+            if ($countSpace == 0) {
+              $exstList = $compareExst->fetch(PDO::FETCH_ASSOC);
+              if (count($exstList['player_id']) == 0) {
+                $token = bin2hex(random_bytes(21));
+                $addStmt = $pdo->prepare('INSERT INTO Players(email,userName,firstName,lastName,pswd,token) VALUES (:em,:un,:ft,:lt,:ps,:tk)');
+                $addStmt->execute(array(
+                  ':em'=>htmlentities($_POST['newEmail']),
+                  ':un'=>htmlentities($_POST['newUser']),
+                  ':ft'=>htmlentities($_POST['newFirst']),
+                  ':lt'=>htmlentities($_POST['newLast']),
+                  ':ps'=>htmlentities($hash),
+                  ':tk'=>$token
+                ));
+                $findID = $pdo->prepare('SELECT player_id FROM Players WHERE pswd=:ps');
+                $findID->execute(array(
+                  ':ps'=>htmlentities($hash)
+                ));
+                $newID = $findID->fetch(PDO::FETCH_ASSOC);
+                $_SESSION['player_id'] = $newID['player_id'];
+                $_SESSION['token'] = $token;
+                $_SESSION['message'] = "<b style='color:green'>Welcome, ".$_POST['newUser']."!</b>";
+                header('Location: player.php');
+                return true;
+              } else {
+                $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
+                header('Location: index.php');
+                return false;
+              };
             } else {
-              $_SESSION['message'] = "<b style='color:red'>Email address, username, and/or password already in use. Please try a different value</b>";
+              $_SESSION['message'] = "<b style='color:red'>Usernames and passwords cannot contain 'spaces'</b>";
               header('Location: index.php');
               return false;
             };
@@ -165,6 +189,11 @@
               ':fem'=>htmlentities($_POST['resetEmail'])
             ));
             // .. and an email with the new password is written.
+            // If the account was locked due to 5 login failures, this will unlock it.
+            $unlockAcct = $pdo->prepare("UPDATE Players SET tries=5 WHERE email=:pe");
+            $unlockAcct->execute(array(
+              ':pe'=>htmlentities($_POST['resetEmail'])
+            ));
             // If the host is NOT a local host, it will email the new password.
             if ($currentHost != 'localhost:8888') {
               putenv("SENDGRID_API_KEY=*api_key*");

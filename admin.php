@@ -30,6 +30,14 @@
     return false;
   };
 
+  // Collects all of the team names (along with their team id's) for making it easier to update the winners and next games
+  $nameListStmt = $pdo->prepare('SELECT team_id,team_name FROM Teams');
+  $nameListStmt->execute(array());
+  $nameList = [];
+  while ($singleName = $nameListStmt->fetch(PDO::FETCH_ASSOC)) {
+    $nameList[] = [(int)$singleName['team_id'],$singleName['team_name']];
+  };
+
   // Searches for the desired tournament
   if (isset($_POST['findTourn'])) {
     if (strlen($_POST['nameString']) > 0) {
@@ -241,6 +249,9 @@
   // echo("GET:");
   // print_r($_GET);
   // echo("</pre>");
+  // echo("<pre>");
+  // var_dump($nameList);
+  // echo("</pre>");
 
 ?>
 <!DOCTYPE html>
@@ -373,6 +384,15 @@
                   ':trn'=>htmlentities((int)$_SESSION['tournId'])
                 ));
                 while ($oneID = $findWildStmt->fetch(PDO::FETCH_ASSOC)) {
+                  $teamAnameWild = "N/A";
+                  $teamBnameWild = "N/A";
+                  for ($nameListNum = 0; $nameListNum < count($nameList); $nameListNum++) {
+                    if ($oneID['team_a'] == $nameList[$nameListNum][0]) {
+                      $teamAnameWild = $nameList[$nameListNum][1];
+                    } else if ($oneID['team_b'] == $nameList[$nameListNum][0]) {
+                      $teamBnameWild = $nameList[$nameListNum][1];
+                    };
+                  };
                   echo(
                     "<div style='margin-bottom:0;padding:40px 0;background-color:".$currentColor."'>
                       <div style='display:flex;justify-content:space-around'>
@@ -397,12 +417,21 @@
                           <input type='hidden' name='isThird_".$gameNum."' value='0' />
                           <td>
                             <input type='text' name='teamA_".$gameNum."' value=".(int)$oneID['team_a']." />
+
                           </td>
                           <td>
                             <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
                           </td>
                           <td>
                             <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            ".$teamAnameWild."
+                          </td>
+                          <td>
+                            ".$teamBnameWild."
                           </td>
                         </tr>
                       </table>
@@ -428,7 +457,7 @@
           <div id="regularBox" class="adminGameBox">
             <?php
             if (isset($_SESSION['tournId'])) {
-              $findRegStmt = $pdo->prepare('SELECT * FROM Games JOIN Levels WHERE Games.level_id=Levels.level_id AND Games.tourn_id=:trn AND Games.is_third<>1 AND Games.is_wildcard<>1 ORDER BY Levels.layer ASC');
+              $findRegStmt = $pdo->prepare('SELECT * FROM Games JOIN Levels WHERE Games.level_id=Levels.level_id AND Games.tourn_id=:trn AND Games.is_third<>1 AND Games.is_wildcard<>1 ORDER BY Levels.layer, Games.game_id ASC');
               $findRegStmt->execute(array(
                 ':trn'=>htmlentities((int)$_SESSION['tournId'])
               ));
@@ -436,6 +465,15 @@
               while ($oneID = $findRegStmt->fetch(PDO::FETCH_ASSOC)) {
                 if ($levelName == null || $levelName != $oneID['level_name']) {
                   echo("<div style='background-color:blue;color:white'>".$oneID['level_name']."</div>");
+                };
+                $teamAnameReg = "N/A";
+                $teamBnameReg = "N/A";
+                for ($nameListNum = 0; $nameListNum < count($nameList); $nameListNum++) {
+                  if ($oneID['team_a'] == $nameList[$nameListNum][0]) {
+                    $teamAnameReg = $nameList[$nameListNum][1];
+                  } else if ($oneID['team_b'] == $nameList[$nameListNum][0]) {
+                    $teamBnameReg = $nameList[$nameListNum][1];
+                  };
                 };
                 echo(
                   "<div style='margin-bottom:0;padding:40px 0;background-color:".$currentColor.";font-size:3rem'>
@@ -469,6 +507,14 @@
                           <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
                         </td>
                       </tr>
+                      <tr>
+                        <td>
+                          ".$teamAnameReg."
+                        </td>
+                        <td>
+                          ".$teamBnameReg."
+                        </td>
+                      </tr>
                     </table>
                   </div>"
                 );
@@ -498,6 +544,15 @@
                   ':trn'=>htmlentities((int)$_SESSION['tournId'])
                 ));
                 while ($oneID = $findThirdStmt->fetch(PDO::FETCH_ASSOC)) {
+                  $teamAnameThird = "N/A";
+                  $teamBnameThird = "N/A";
+                  for ($nameListNum = 0; $nameListNum < count($nameList); $nameListNum++) {
+                    if ($oneID['team_a'] == $nameList[$nameListNum][0]) {
+                      $teamAnameThird = $nameList[$nameListNum][1];
+                    } else if ($oneID['team_b'] == $nameList[$nameListNum][0]) {
+                      $teamBnameThird = $nameList[$nameListNum][1];
+                    };
+                  };
                   echo(
                     "<div>Game #".$oneID['game_id']."</div>
                     <table>
@@ -524,6 +579,14 @@
                         </td>
                         <td>
                           <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          ".$teamAnameThird."
+                        </td>
+                        <td>
+                          ".$teamBnameThird."
                         </td>
                       </tr>
                     </table>"

@@ -636,11 +636,15 @@ html {
           };
           #tournTable {
             margin-left: 10%;
+            table-layout: fixed;
             width: 80%;
             .rowTitle {
               border: 1px solid white;
               color: white;
               background-color: grey;
+            };
+            .rowValue {
+              padding: 0 15px;
             };
             #grpEditBttn {
               border: none;
@@ -760,6 +764,7 @@ html {
         #playerTable {
           margin-left: 0;
           margin-bottom: 0;
+          table-layout: fixed;
           width: 100%;
           th {
             background-color: blue;
@@ -767,9 +772,13 @@ html {
           };
           #playersTopRow {
             border-top: 1px solid blue;
+            .userHead {
+              width: 45%;
+            };
           };
           tr {
             td {
+              border: 1px solid black;
               padding: 15px;
               a {
                 margin: 5px 0;
@@ -782,6 +791,9 @@ html {
               a:hover {
                 cursor: pointer;
               }
+            };
+            .userCol {
+              overflow-x: scroll;
             };
           };
           #hideMemberList {
