@@ -123,7 +123,7 @@
         };
       ?>
       <div id="bracketRange">
-        Brackets can be filled out between selections (<?php echo($tournSelect)?>) and the first game (<?php echo(substr($tournStart,0,10)) ?>).
+        Brackets can be filled out between selections (<?php echo(date('m/d/Y',$tournSelect))?>) and the first game (<?php echo(date('m/d/Y H:i',$tournStart))?>).
       </div>
       <?php
         $wildStmt = $pdo->prepare('SELECT level_id,layer,level_name,is_wildcard FROM Levels WHERE tourn_id=:tid');
