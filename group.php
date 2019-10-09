@@ -176,6 +176,38 @@
     return true;
   };
 
+  // Posts a message on the message board
+  if (isset($_POST['parentMessage'])) {
+    if (strlen($_POST['message']) > 0) {
+      if (strlen($_POST['message']) < 301) {
+        if ($_GET['group_id'] == $_POST['groupId']) {
+          $parentPostStmt = $pdo->prepare("INSERT INTO Messages(message,post_time,player_id,group_id) VALUES(:msg,:pt,:pli,:gri)");
+          $parentPostStmt->execute(array(
+            ':msg'=>htmlentities($_POST['message']),
+            ':pt'=>time(),
+            ':pli'=>$_SESSION['player_id'],
+            ':gri'=>htmlentities($_POST['groupId'])
+          ));
+          $_SESSION['message'] = "<div style='color:green'>Message Successful</div>";
+          header('Location: group.php?group_id='.$_GET['group_id']);
+          return true;
+        } else {
+          $_SESSION['message'] = "<div style='color:red'>Invalid GET request</div>";
+          header('Location: player.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<div style='color:red'>Exceeded maximum 300 characters</div>";
+        header('Location: group.php?group_id='.$_GET['group_id']);
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<div style='color:red'>No information was included in this message</div>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+      return false;
+    };
+  };
+
   // Checks to see if it past the deadline
   $currentTimestamp = time();
   $pastDeadline = false;
@@ -183,6 +215,12 @@
     $pastDeadline = true;
   };
 
+  // Any message older than 30 days is automatically deleted
+  $expirationDate = time() - 2592000;
+  $checkDatesStmt = $pdo->prepare("DELETE FROM Messages WHERE :ex > post_time");
+  $checkDatesStmt->execute(array(
+    ':ex'=>$expirationDate
+  ));
 
   // echo("Session:</br>");
   // print_r($_SESSION);
@@ -503,7 +541,56 @@
         <div id="scrollLeft"> << PREV</div>
         <div id="scrollRight"> NEXT >> </div>
       </div>
-      <?php
+      <div>
+        <div>
+          Messages
+        </div>
+        <div>
+          <?php
+            if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+              $initGetReq = $_GET['group_id'];
+              $msgListStmt = $pdo->prepare("SELECT message,post_time,userName FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi ORDER BY post_time DESC");
+              $msgListStmt->execute(array(
+                ':gi'=>htmlentities($_GET['group_id'])
+              ));
+              echo("
+                <div>
+                  <form style='display:block' method='POST'>
+                    <div>
+                      <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                    </div>
+                    <div>
+                      <input type='hidden' value=".$initGetReq." name='groupId' />
+                    </div>
+                    <textarea style='font-size:3rem' placeholder='Enter post here' name='message'></textarea>
+                    <div>
+                      <input type='submit' value='ENTER' name='parentMessage' />
+                    </div>
+                  </form>
+                </div>
+              ");
+              $postColor = "white";
+              while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
+                $postDate = new DateTime();
+                $postDate->setTimestamp($oneMsg['post_time']);
+                echo("
+                  <div style='background-color:".$postColor."'>
+                    <div><i>".$oneMsg['userName']."</i></div>
+                    <div>".$oneMsg['message']."</div>
+                    <div>".$postDate->format('Y-m-d')."</div>
+                  </div>");
+                if ($postColor == "white") {
+                  $postColor = "lightgrey";
+                } else {
+                  $postColor = "white";
+                };
+              };
+            } else {
+              echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
+            };
+          ?>
+        </div>
+        <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
           echo("<div id='leaveGrpButton'>Leave this group?</div>");
           echo("
