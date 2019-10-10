@@ -634,6 +634,60 @@ html {
         border-radius: 70px 0 0 70px; }
       html body #groupPage #groupScrollBox #scrollRight {
         border-radius: 0 70px 70px 0; }
+    html body #groupPage #messageBoxTitle {
+      background-color: brown; }
+    html body #groupPage #messageBoxContent {
+      margin-bottom: 20px;
+      border-color: brown;
+      border-radius: 0 20px 20px 20px;
+      background-color: brown; }
+      html body #groupPage #messageBoxContent form {
+        margin-top: 20px;
+        margin-bottom: 100px;
+        display: block; }
+        html body #groupPage #messageBoxContent form #inputMsgText {
+          border-radius: 20px;
+          padding: 20px 10px;
+          font-size: 2rem;
+          width: 90%;
+          height: 200px; }
+      html body #groupPage #messageBoxContent .oneMsgBox {
+        margin: 70px 0 20px 2%; }
+        html body #groupPage #messageBoxContent .oneMsgBox .oneMsgContent {
+          border-radius: 20px;
+          padding: 20px 3%;
+          background-color: white;
+          font-size: 2rem;
+          text-align: left;
+          width: 80%; }
+          html body #groupPage #messageBoxContent .oneMsgBox .oneMsgContent .oneMsgName {
+            display: flex;
+            font-size: 2.7rem;
+            justify-content: space-between;
+            padding-bottom: 20px; }
+            html body #groupPage #messageBoxContent .oneMsgBox .oneMsgContent .oneMsgName .msgEditBttn {
+              border: 2px solid blue;
+              border-radius: 15px;
+              padding: 5px 2%;
+              color: blue;
+              cursor: pointer; }
+          html body #groupPage #messageBoxContent .oneMsgBox .oneMsgContent .oneMsgTime {
+            padding-top: 20px;
+            font-size: 0.8rem;
+            text-align: right; }
+      html body #groupPage #messageBoxContent .oneMsgEditBox {
+        display: none; }
+        html body #groupPage #messageBoxContent .oneMsgEditBox form {
+          margin-bottom: 10px; }
+          html body #groupPage #messageBoxContent .oneMsgEditBox form textarea {
+            border: 1px solid black;
+            font-size: 2.7rem;
+            width: 97%;
+            height: 200px; }
+          html body #groupPage #messageBoxContent .oneMsgEditBox form .centerBttns {
+            margin-left: 15%;
+            text-align: center;
+            width: 70%; }
     html body #groupPage #leaveGrpButton {
       margin-top: 100px;
       padding: 40px 0;

@@ -176,7 +176,7 @@
     return true;
   };
 
-  // Posts a message on the message board
+  // Posts a parent message on the message board
   if (isset($_POST['parentMessage'])) {
     if (strlen($_POST['message']) > 0) {
       if (strlen($_POST['message']) < 301) {
@@ -206,6 +206,20 @@
       header('Location: group.php?group_id='.$_GET['group_id']);
       return false;
     };
+  };
+
+  // Edit a parent message
+
+
+  // Delete a parent message and all child messages
+  if (isset($_POST['deleteMsg'])) {
+    $deleteMsgStmt = $pdo->prepare("DELETE FROM Messages WHERE message_id=:mid OR parent_id=:mid");
+    $deleteMsgStmt->execute(array(
+      ':mid'=>htmlentities($_POST['msgId'])
+    ));
+    $_SESSION['message'] = "<div style='color:green'>Message Deleted</div>";
+    header('Location: group.php?group_id='.$_GET['group_id']);
+    return true;
   };
 
   // Checks to see if it past the deadline
@@ -541,54 +555,82 @@
         <div id="scrollLeft"> << PREV</div>
         <div id="scrollRight"> NEXT >> </div>
       </div>
-      <div>
-        <div>
-          Messages
-        </div>
-        <div>
-          <?php
-            if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
-              $initGetReq = $_GET['group_id'];
-              $msgListStmt = $pdo->prepare("SELECT message,post_time,userName FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi ORDER BY post_time DESC");
-              $msgListStmt->execute(array(
-                ':gi'=>htmlentities($_GET['group_id'])
-              ));
-              echo("
-                <div>
-                  <form style='display:block' method='POST'>
-                    <div>
-                      <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
-                    </div>
-                    <div>
-                      <input type='hidden' value=".$initGetReq." name='groupId' />
-                    </div>
-                    <textarea style='font-size:3rem' placeholder='Enter post here' name='message'></textarea>
-                    <div>
-                      <input type='submit' value='ENTER' name='parentMessage' />
-                    </div>
-                  </form>
-                </div>
-              ");
-              $postColor = "white";
-              while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
-                $postDate = new DateTime();
-                $postDate->setTimestamp($oneMsg['post_time']);
+      <div id="messageBoxTitle" class="allSubtitles allTitles">
+        Messages
+      </div>
+      <div id="messageBoxContent" class="allRounds">
+        <?php
+          if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+            $initGetReq = $_GET['group_id'];
+            $msgListStmt = $pdo->prepare("SELECT message_id,message,post_time,userName,Players.player_id FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi AND parent_id IS NULL ORDER BY post_time DESC");
+            $msgListStmt->execute(array(
+              ':gi'=>htmlentities($_GET['group_id'])
+            ));
+            echo("
+              <div>
+                <form method='POST'>
+                  <div>
+                    <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                  </div>
+                  <div>
+                    <input type='hidden' value=".$initGetReq." name='groupId' />
+                  </div>
+                  <textarea id='inputMsgText' placeholder='Enter post here' name='message'></textarea>
+                  <div>
+                    <input type='submit' value='ENTER' name='parentMessage' />
+                  </div>
+                </form>
+              </div>
+            ");
+            while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
+              $defaultTimezone = 'EST';
+              $postDate = new DateTime("now", new DateTimeZone($defaultTimezone));
+              $postDate->setTimestamp($oneMsg['post_time']);
+              if ($_SESSION['player_id'] == $oneMsg['player_id']) {
                 echo("
-                  <div style='background-color:".$postColor."'>
-                    <div><i>".$oneMsg['userName']."</i></div>
-                    <div>".$oneMsg['message']."</div>
-                    <div>".$postDate->format('Y-m-d')."</div>
+                  <div class='oneMsgBox' id='oneMsgBox_".$oneMsg['message_id']."'>
+                    <div class='oneMsgContent'>
+                      <div class='oneMsgName'>
+                        <div><i>".$oneMsg['userName']."</i></div>
+                        <div class='msgEditBttn' data-edit='false' data-num=".$oneMsg['message_id'].">EDIT</div>
+                      </div>
+                      <div class='oneMsgText'>".$oneMsg['message']."</div>
+                      <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                    </div>
+                  </div>
+                  <div class='oneMsgBox oneMsgEditBox' id='oneMsgEditBox_".$oneMsg['message_id']."'>
+                    <div class='oneMsgContent'>
+                      <div class='oneMsgName'>
+                        <div><i>".$oneMsg['userName']."</i></div>
+                        <div class='msgEditBttn' data-edit='true' data-num=".$oneMsg['message_id'].">X</div>
+                      </div>
+                      <form method='POST'>
+                        <input type='hidden' name='msgId' value='".$oneMsg['message_id']."' />
+                        <textarea class='oneMsgText' name='editText'>".$oneMsg['message']."</textarea>
+                        <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
+                        <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
+                        <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                      </form>
+                    </div>
                   </div>");
-                if ($postColor == "white") {
-                  $postColor = "lightgrey";
-                } else {
-                  $postColor = "white";
-                };
+              } else {
+                echo("
+                  <div class='oneMsgBox'>
+                    <div class='oneMsgContent'>
+                      <div class='oneMsgName'>
+                        <div><i>".$oneMsg['userName']."</i></div>
+                        <div></div>
+                      </div>
+                      <div class='oneMsgText'>".$oneMsg['message']."</div>
+                      <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                    </div>
+                  </div>");
               };
-            } else {
-              echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
             };
-          ?>
+          } else {
+            echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
+          };
+        ?>
         </div>
         <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
@@ -605,6 +647,5 @@
             </div>");
         };
       ?>
-    </div>
   </body>
 </html>
