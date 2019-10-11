@@ -577,7 +577,7 @@
         <?php
           if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
             $initGetReq = $_GET['group_id'];
-            $msgListStmt = $pdo->prepare("SELECT message_id,message,post_time,userName,Players.player_id FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi AND parent_id IS NULL ORDER BY post_time DESC");
+            $msgListStmt = $pdo->prepare("SELECT message_id,message,parent_id,post_time,userName,Players.player_id FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi AND parent_id IS NULL ORDER BY post_time DESC");
             $msgListStmt->execute(array(
               ':gi'=>htmlentities($_GET['group_id'])
             ));
@@ -601,6 +601,11 @@
               $defaultTimezone = 'EST';
               $postDate = new DateTime("now", new DateTimeZone($defaultTimezone));
               $postDate->setTimestamp($oneMsg['post_time']);
+              $countingStmt = $pdo->prepare("SELECT COUNT(message_id) FROM Messages WHERE parent_id=:mei");
+              $countingStmt->execute(array(
+                ':mei'=>htmlentities($oneMsg['message_id'])
+              ));
+              $commentNum = $countingStmt->fetch(PDO::FETCH_ASSOC)['COUNT(message_id)'];
               if ($_SESSION['player_id'] == $oneMsg['player_id']) {
                 echo("
                   <div class='oneMsgBox' id='oneMsgBox_".$oneMsg['message_id']."'>
@@ -611,6 +616,7 @@
                       </div>
                       <div class='oneMsgText'>".$oneMsg['message']."</div>
                       <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                      <div><i>Comments</i> (".$commentNum.")</div>
                     </div>
                   </div>
                   <div class='oneMsgBox oneMsgEditBox' id='oneMsgEditBox_".$oneMsg['message_id']."'>
@@ -638,9 +644,11 @@
                       </div>
                       <div class='oneMsgText'>".$oneMsg['message']."</div>
                       <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                      <div><i>Comments</i> (".$commentNum.")</div>
                     </div>
                   </div>");
               };
+              // This is where to put the comments 
             };
           } else {
             echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
