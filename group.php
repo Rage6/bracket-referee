@@ -209,7 +209,22 @@
   };
 
   // Edit a parent message
-
+  if (isset($_POST['changeMsg'])) {
+    if (strlen($_POST['editText']) > 0) {
+      $changeMsgStmt = $pdo->prepare("UPDATE Messages SET message=:mes WHERE message_id=:mgi");
+      $changeMsgStmt->execute(array(
+        ':mes'=>htmlentities($_POST['editText']),
+        ':mgi'=>htmlentities($_POST['msgId'])
+      ));
+      $_SESSION['message'] = "<div style='color:green'>Message Updated</div>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+      return true;
+    } else {
+      $_SESSION['message'] = "<div style='color:red'>Messages cannot be empty</div>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+      return false;
+    };
+  };
 
   // Delete a parent message and all child messages
   if (isset($_POST['deleteMsg'])) {
