@@ -644,11 +644,46 @@
                       </div>
                       <div class='oneMsgText'>".$oneMsg['message']."</div>
                       <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
-                      <div><i>Comments</i> (".$commentNum.")</div>
+                      <div data-message='".$oneMsg['message_id']."'><i>Comments</i> (".$commentNum.")</div>
                     </div>
                   </div>");
               };
-              // This is where to put the comments 
+              // This is where to put the comments
+              if ($commentNum > 0) {
+                echo("<div class='commentGroup' id='comment_".$oneMsg['message_id']."'>");
+                  $getCommentsStmt = $pdo->prepare("SELECT * FROM Messages JOIN Players WHERE Messages.player_id=Players.player_id AND parent_id=:pri ORDER BY post_time ASC");
+                  $getCommentsStmt->execute(array(
+                    ':pri'=>$oneMsg['message_id']
+                  ));
+                  while ($oneComment = $getCommentsStmt->fetch(PDO::FETCH_ASSOC)) {
+                    $commentDate = new DateTime("now", new DateTimeZone($defaultTimezone));
+                    $commentDate->setTimestamp($oneComment['post_time']);
+                    if ($_SESSION['player_id'] == $oneComment['player_id']) {
+                      echo("
+                        <div class='oneCommentBox' style='width:80%;margin:0 0 10px 15%;background-color:white'>
+                          <div class='oneCommentName'>
+                            <div><i>".$oneComment['userName']."</i></div>
+                            <div>EDIT</div>
+                          </div>
+                          <div class='oneCommentText'>".$oneComment['message']."</div>
+                          <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
+                        </div>
+                      ");
+                    } else {
+                      echo("
+                        <div class='oneCommentBox' style='width:80%;margin:0 0 10px 15%;background-color:white'>
+                          <div class='oneCommentName'>
+                            <div><i>".$oneComment['userName']."</i></div>
+                            <div></div>
+                          </div>
+                          <div class='oneCommentText'>".$oneComment['message']."</div>
+                          <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
+                        </div>
+                      ");
+                    };
+                  };
+                echo("</div>");
+              };
             };
           } else {
             echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
