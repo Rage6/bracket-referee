@@ -176,7 +176,7 @@
     return true;
   };
 
-  // Posts a parent message on the message board
+  // Posts a 'parent' message on the message board
   if (isset($_POST['parentMessage'])) {
     if (strlen($_POST['message']) > 0) {
       if (strlen($_POST['message']) < 301) {
@@ -189,6 +189,39 @@
             ':gri'=>htmlentities($_POST['groupId'])
           ));
           $_SESSION['message'] = "<div style='color:green'>Message Successful</div>";
+          header('Location: group.php?group_id='.$_GET['group_id']);
+          return true;
+        } else {
+          $_SESSION['message'] = "<div style='color:red'>Invalid GET request</div>";
+          header('Location: player.php');
+          return false;
+        };
+      } else {
+        $_SESSION['message'] = "<div style='color:red'>Exceeded maximum 300 characters</div>";
+        header('Location: group.php?group_id='.$_GET['group_id']);
+        return false;
+      };
+    } else {
+      $_SESSION['message'] = "<div style='color:red'>No information was included in this message</div>";
+      header('Location: group.php?group_id='.$_GET['group_id']);
+      return false;
+    };
+  };
+
+  // Posts a 'child' comment on its 'parent' message
+  if (isset($_POST['childMessage'])) {
+    if (strlen($_POST['message']) > 0) {
+      if (strlen($_POST['message']) < 301) {
+        if ($_GET['group_id'] == $_POST['groupId']) {
+          $childPostStmt = $pdo->prepare("INSERT INTO Messages(message,post_time,parent_id,player_id,group_id) VALUES(:msg,:pt,:prt,:pli,:gri)");
+          $childPostStmt->execute(array(
+            ':msg'=>htmlentities($_POST['message']),
+            ':pt'=>time(),
+            ':prt'=>htmlentities($_POST['parentId']),
+            ':pli'=>$_SESSION['player_id'],
+            ':gri'=>htmlentities($_POST['groupId'])
+          ));
+          $_SESSION['message'] = "<div style='color:green'>Comment Successful</div>";
           header('Location: group.php?group_id='.$_GET['group_id']);
           return true;
         } else {
@@ -660,30 +693,70 @@
                     $commentDate->setTimestamp($oneComment['post_time']);
                     if ($_SESSION['player_id'] == $oneComment['player_id']) {
                       echo("
-                        <div class='oneCommentBox' style='width:80%;margin:0 0 10px 15%;background-color:white'>
-                          <div class='oneCommentName'>
-                            <div><i>".$oneComment['userName']."</i></div>
-                            <div>EDIT</div>
+                        <div class='oneCommentBox' id='oneMsgBox_".$oneComment['message_id']."'>
+                          <div class='oneCommentContent'>
+                            <div class='oneCommentName'>
+                              <div><i>".$oneComment['userName']."</i></div>
+                              <div class='commentEditBttn' data-edit='false' data-num=".$oneComment['message_id'].">EDIT</div>
+                            </div>
+                            <div class='oneCommentText'>".$oneComment['message']."</div>
+                            <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
                           </div>
-                          <div class='oneCommentText'>".$oneComment['message']."</div>
-                          <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
+                        </div>
+                        <div class='oneCommentBox oneCommentEditBox' id='oneMsgEditBox_".$oneComment['message_id']."'>
+                          <div class='oneCommentContent'>
+                            <div class='oneCommentName'>
+                              <div><i>".$oneComment['userName']."</i></div>
+                              <div class='commentEditBttn' data-edit='true' data-num=".$oneComment['message_id'].">X</div>
+                            </div>
+                            <form method='POST'>
+                              <input type='hidden' name='msgId' value='".$oneComment['message_id']."' />
+                              <textarea class='oneMsgText' name='editText'>".$oneComment['message']."</textarea>
+                              <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
+                              <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
+                              <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                            </form>
+                          </div>
                         </div>
                       ");
                     } else {
                       echo("
-                        <div class='oneCommentBox' style='width:80%;margin:0 0 10px 15%;background-color:white'>
-                          <div class='oneCommentName'>
-                            <div><i>".$oneComment['userName']."</i></div>
-                            <div></div>
+                        <div class='oneCommentBox'>
+                          <div class='oneCommentContent'>
+                            <div class='oneCommentName'>
+                              <div><i>".$oneComment['userName']."</i></div>
+                              <div></div>
+                            </div>
+                            <div class='oneCommentText'>".$oneComment['message']."</div>
+                            <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
                           </div>
-                          <div class='oneCommentText'>".$oneComment['message']."</div>
-                          <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
                         </div>
                       ");
                     };
                   };
                 echo("</div>");
               };
+              // This is where the new comments will be entered
+              echo("
+                <div class='insertCommentBox'>
+                  <form method='POST'>
+                    <div>
+                      <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                    </div>
+                    <div>
+                      <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
+                    </div>
+                    <div>
+                      <input type='hidden' value=".$initGetReq." name='groupId' />
+                    </div>
+                    <textarea id='inputMsgText' placeholder='Enter comment here' name='message'></textarea>
+                    <div>
+                      <input type='submit' value='ENTER' name='childMessage' />
+                    </div>
+                  </form>
+                </div>
+              ");
+              //
             };
           } else {
             echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
