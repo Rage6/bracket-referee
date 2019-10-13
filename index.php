@@ -380,7 +380,20 @@
             <i>What is Bracket Referee used for?</i>
           </b>
           <p>
-            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just spectator! <u>Bracket Referee</u> allows groups or individuals to fill out their picks, record their bracket, and watch how their scores compare to others. <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
+            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just another spectator! <u>Bracket Referee</u> allows a member to:
+          </p>
+          <div>
+            <ul>
+              <li>Get excited about any of the upcoming tournaments!</li>
+              <li>Compete within as many groups as you want</li>
+              <li>Make a group of your own! They can be made either open to public or by private invitation only</li>
+              <li>Easily fill out your picks and submit your brackets with a few simple clicks</li>
+              <li>Watch how your scores measure up within your group</li>
+              <li><b style="color:red">NEW!</b> Leave messages and comments within your groups' pages!</li>
+            </ul>
+          </div>
+          <p>
+            <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
           </p>
         </div>
         <div class="imageBorder" style="background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800')"></div>
@@ -401,7 +414,7 @@
             </ul>
           </div>
           <p>
-            Upon joining a group, a member can enter a bracket and see their fellow members' usernames, scores, and brackets.
+            Upon joining a group, a member can enter a bracket and (after the tournament begins) see their fellow members' usernames, scores, and brackets. They can also post messages or comments at the bottom of the group's page.
           </p>
         </div>
         <div class="imageBorder" style="background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg')"></div>
@@ -410,7 +423,7 @@
             <i>Who Made This?</i>
           </b>
           <p style="margin-bottom:0px;padding-bottom:100px">
-            The creator and director of <u>Bracket Referee</u> is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio, my professional history, or the actual code for this website, please click below.
+            The creator and director of <u>Bracket Referee</u> is Nicholas Vogt. This was a project to exercise and expand his skills as a website developer. To see his porfolio, his professional history, or the actual code for this website, click one of the buttons below.
           </p>
         </div>
       </div>
