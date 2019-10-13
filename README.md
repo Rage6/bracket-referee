@@ -11,7 +11,7 @@
 <b>Status</b>: <i>Complete</i>
 
 <u><i>PURPOSE:</i></u>
-<p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It is my first, independent venture into "server-side" coding from scratch... and I'm LOVING it! Once completed, this app will allow the user to:</p>
+<p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It was my first, independent venture into "server-side" coding from scratch... and I LOVED it! This app now allows the user to:</p>
 <ul>
   <li>Create, read, update, or delete their own account</li>
   <li>Create, read, update, or delete their own group(s)</li>
@@ -19,6 +19,8 @@
   <li>Join an existing group</li>
   <li>Submit one bracket of teams within each group</li>
   <li>View their score and the top 25 scores within each group</li>
+  <li>Create, read, update, or delete their messages within a group(s) message board</li>
+  <li>Create, read, update, or delete comments related to other messages within their group(s)</li>
 </ul>
 
 <u><i>CODE:</i></u>
@@ -32,6 +34,9 @@
   </li>
   <li>
     <b>Password Encryption</b>: Upon doing research, I used PHP's more recent tool for encrypting the user's password: <i>password_hash()</i>. My previous training had only explained how to manually insert a "salt" before using the more basic <i>hash()</i> and a chosen algorithm, like MD5. The <i>password_hash()</i> seems to do it easier and more affectively.
+  </li>
+  <li>
+    <b>Message Expiration After 30 Days</b>: To prevent the accumulation of old, unnecessary message posts, group messages older than 30 days are automatically delete every time a user enters that group's page. The expired messages are determined by comparing the current timestamp to the message's original timestamp. 
   </li>
   <li>
     <b>Hacker Prevention</b>: Several measures have been taken in order to prevent hacking attacks. They include:
