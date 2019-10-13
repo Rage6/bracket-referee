@@ -649,7 +649,9 @@
                       </div>
                       <div class='oneMsgText'>".$oneMsg['message']."</div>
                       <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
-                      <div><i>Comments</i> (".$commentNum.")</div>
+                    </div>
+                    <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>
+                      Comments (".$commentNum.")
                     </div>
                   </div>
                   <div class='oneMsgBox oneMsgEditBox' id='oneMsgEditBox_".$oneMsg['message_id']."'>
@@ -677,8 +679,8 @@
                       </div>
                       <div class='oneMsgText'>".$oneMsg['message']."</div>
                       <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
-                      <div data-message='".$oneMsg['message_id']."'><i>Comments</i> (".$commentNum.")</div>
                     </div>
+                    <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>Comments (".$commentNum.")</div>
                   </div>");
               };
               // This is where to put the comments

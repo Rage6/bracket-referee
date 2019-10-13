@@ -904,6 +904,14 @@ html {
               text-align: right;
             };
           };
+          .commentBttn {
+            margin-left: 16%;
+            margin-top: 12px;
+            border: 3px solid white;
+            border-radius: 20px;
+            color: white;
+            width: 80%;
+          };
         };
         .oneMsgEditBox {
           display: none;
@@ -923,6 +931,7 @@ html {
           };
         };
         .commentGroup {
+          display: none;
           .oneCommentBox {
             margin: 0 3% 20px 18%;
             .oneCommentContent {

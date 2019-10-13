@@ -318,4 +318,14 @@ $(()=>{
     };
   });
 
+  // Opens/hides comments
+  $('[data-comments]').click(()=>{
+    var targetGroup = "#comment_" + event.target.dataset.comments;
+    if ($(targetGroup).css('display') == 'block') {
+      $(targetGroup).css('display','none');
+    } else {
+      $(targetGroup).css('display','block');
+    };
+  });
+
 });
