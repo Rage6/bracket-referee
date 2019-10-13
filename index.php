@@ -423,7 +423,7 @@
             <i>Who Made This?</i>
           </b>
           <p style="margin-bottom:0px;padding-bottom:100px">
-            The creator and director of <u>Bracket Referee</u> is Nicholas Vogt. This was a project to exercise and expand his skills as a website developer. To see his porfolio, his professional history, or the actual code for this website, click one of the buttons below.
+            The creator and director of <u>Bracket Referee</u> is Nicholas Vogt, a web developer in Ohio. This was a project meant for exercising and expanding upon his skills within two coding languages: PHP and Javascript. To see his porfolio, his professional history, or the actual code for this website, click one of the buttons below.
           </p>
         </div>
       </div>
