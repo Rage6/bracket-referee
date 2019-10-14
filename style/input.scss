@@ -755,6 +755,15 @@ html {
           };
         };
       };
+      .resultsAndMsg {
+
+        .resultsOnly {
+
+        };
+        .messagesOnly {
+
+        };
+      };
       #currentTitle {
         color: white;
         background-color: blue;
@@ -868,12 +877,19 @@ html {
           margin-top: 20px;
           margin-bottom: 100px;
           display: block;
-          #inputMsgText {
+          .inputMsgText {
             border-radius: 20px;
             padding: 20px 10px;
             font-size: 2rem;
             width: 90%;
             height: 200px;
+          };
+          .inputCommentText {
+            border-radius: 20px;
+            padding: 20px 10px;
+            font-size: 2rem;
+            width: 90%;
+            height: 100px;
           };
         };
         .oneMsgBox {

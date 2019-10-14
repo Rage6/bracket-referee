@@ -515,7 +515,11 @@ html {
 
         };
         .allRows {
-
+          @media only screen and (min-width: $min) {
+            @media only screen and (min-width: $min) {
+              font-size: 1.8rem;
+            };
+          };
           div {
 
           };
@@ -547,6 +551,28 @@ html {
           };
           .inviteScroll {
 
+          };
+        };
+      };
+      .resultsAndMsg {
+        @media only screen and (min-width: $min) {
+          display: flex;
+        };
+        .allSubtitles {
+          @media only screen and (min-width: $min) {
+            font-size: 2rem;
+          };
+        };
+        .resultsOnly {
+          @media only screen and (min-width: $min) {
+            display: block;
+            width: 60%;
+          };
+        };
+        .messagesOnly {
+          @media only screen and (min-width: $min) {
+            display: block;
+            width: 40%;
           };
         };
       };
@@ -599,6 +625,94 @@ html {
 
         };
         #scrollRight {
+
+        };
+      };
+      #messageBoxTitle {
+        @media only screen and (min-width: $min) {
+
+        };
+      };
+      #messageBoxContent {
+        @media only screen and (min-width: $min) {
+
+        };
+        form {
+
+          .inputMsgText {
+
+          };
+          .inputCommentText {
+
+          };
+        };
+        .oneMsgBox {
+
+          .oneMsgContent {
+
+            .oneMsgName {
+
+              .msgEditBttn {
+
+              };
+            };
+            .oneMsgText {
+
+            };
+            .oneMsgTime {
+
+            };
+          };
+          .commentBttn {
+
+          };
+        };
+        .oneMsgEditBox {
+
+          form {
+
+            textarea {
+
+            };
+            .centerBttns {
+
+            }
+          };
+        };
+        .commentGroup {
+
+          .oneCommentBox {
+
+            .oneCommentContent {
+
+              .oneCommentName {
+
+                .commentEditBttn {
+
+                };
+              };
+              .oneCommentText {
+
+              };
+              .oneCommentTime {
+
+              };
+            };
+          };
+          .oneCommentEditBox {
+
+            form {
+
+              textarea {
+
+              };
+              .centerCommentBttns {
+
+              }
+            };
+          };
+        };
+        .insertCommentBox {
 
         };
       };

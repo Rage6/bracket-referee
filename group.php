@@ -628,7 +628,7 @@
                       <div>
                         <input type='hidden' value=".$initGetReq." name='groupId' />
                       </div>
-                      <textarea id='inputMsgText' placeholder='Enter post here' name='message'></textarea>
+                      <textarea class='inputMsgText' placeholder='Enter post here' name='message'></textarea>
                       <div>
                         <input type='submit' value='ENTER' name='parentMessage' />
                       </div>
@@ -741,28 +741,70 @@
                           ");
                         };
                       };
+
+                      echo("
+                        <div class='insertCommentBox'>
+                          <form method='POST'>
+                            <div>
+                              <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                            </div>
+                            <div>
+                              <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
+                            </div>
+                            <div>
+                              <input type='hidden' value=".$initGetReq." name='groupId' />
+                            </div>
+                            <textarea class='inputCommentText' placeholder='Enter comment here' name='message'></textarea>
+                            <div>
+                              <input type='submit' value='ENTER' name='childMessage' />
+                            </div>
+                          </form>
+                        </div>
+                      ");
                     echo("</div>");
+                  } else {
+                    echo("
+                      <div class='commentGroup' id='comment_".$oneMsg['message_id']."'>
+                      <div class='insertCommentBox'>
+                        <form method='POST'>
+                          <div>
+                            <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                          </div>
+                          <div>
+                            <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
+                          </div>
+                          <div>
+                            <input type='hidden' value=".$initGetReq." name='groupId' />
+                          </div>
+                          <textarea class='inputCommentText' placeholder='Enter comment here' name='message'></textarea>
+                          <div>
+                            <input type='submit' value='ENTER' name='childMessage' />
+                          </div>
+                        </form>
+                      </div>
+                      </div>
+                    ");
                   };
                   // This is where the new comments will be entered
-                  echo("
-                    <div class='insertCommentBox'>
-                      <form method='POST'>
-                        <div>
-                          <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
-                        </div>
-                        <div>
-                          <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
-                        </div>
-                        <div>
-                          <input type='hidden' value=".$initGetReq." name='groupId' />
-                        </div>
-                        <textarea id='inputMsgText' placeholder='Enter comment here' name='message'></textarea>
-                        <div>
-                          <input type='submit' value='ENTER' name='childMessage' />
-                        </div>
-                      </form>
-                    </div>
-                  ");
+                  // echo("
+                  //   <div class='insertCommentBox'>
+                  //     <form method='POST'>
+                  //       <div>
+                  //         <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                  //       </div>
+                  //       <div>
+                  //         <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
+                  //       </div>
+                  //       <div>
+                  //         <input type='hidden' value=".$initGetReq." name='groupId' />
+                  //       </div>
+                  //       <textarea class='inputCommentText' placeholder='Enter comment here' name='message'></textarea>
+                  //       <div>
+                  //         <input type='submit' value='ENTER' name='childMessage' />
+                  //       </div>
+                  //     </form>
+                  //   </div>
+                  // ");
                   //
                 };
               } else {

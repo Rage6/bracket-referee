@@ -645,12 +645,18 @@ html {
         margin-top: 20px;
         margin-bottom: 100px;
         display: block; }
-        html body #groupPage #messageBoxContent form #inputMsgText {
+        html body #groupPage #messageBoxContent form .inputMsgText {
           border-radius: 20px;
           padding: 20px 10px;
           font-size: 2rem;
           width: 90%;
           height: 200px; }
+        html body #groupPage #messageBoxContent form .inputCommentText {
+          border-radius: 20px;
+          padding: 20px 10px;
+          font-size: 2rem;
+          width: 90%;
+          height: 100px; }
       html body #groupPage #messageBoxContent .oneMsgBox {
         margin: 70px 0 20px 2%; }
         html body #groupPage #messageBoxContent .oneMsgBox .oneMsgContent {
@@ -1443,9 +1449,27 @@ html body #bothAcctButtons {
 @media only screen and (min-width: 1366px) {
   html body #groupPage table {
     margin-bottom: 0; } }
+@media only screen and (min-width: 1366px) and (min-width: 1366px) {
+  html body #groupPage .allRounds .allRows {
+    font-size: 1.8rem; } }
+
 @media only screen and (min-width: 1366px) {
   html body #groupPage .allTables {
     margin-bottom: 0; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage .resultsAndMsg {
+    display: flex; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage .resultsAndMsg .allSubtitles {
+    font-size: 2rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage .resultsAndMsg .resultsOnly {
+    display: block;
+    width: 60%; } }
+@media only screen and (min-width: 1366px) {
+  html body #groupPage .resultsAndMsg .messagesOnly {
+    display: block;
+    width: 40%; } }
 html body #groupPage #scrollPlayers #playerTable tr td a:hover {
   cursor: pointer; }
 @media only screen and (min-width: 1366px) {
