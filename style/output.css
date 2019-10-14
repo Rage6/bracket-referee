@@ -1312,6 +1312,17 @@ html {
         background-color: orange; }
 
 @media only screen and (min-width: 1366px) {
+  html body #indexWords p {
+    font-size: 8rem;
+    text-align: right;
+    margin-right: 15%; } }
+@media only screen and (min-width: 1366px) {
+  html body #indexWords p:first-child {
+    text-align: left;
+    margin-left: 15%; } }
+html body #bothAcctButtons {
+  font-size: 4rem; }
+@media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {
     font-size: 2.5rem; } }
 @media only screen and (min-width: 1366px) {

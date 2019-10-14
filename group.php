@@ -533,239 +533,247 @@
         };
       };
       ?>
-      <div id="resultListTitle" class="allSubtitles allTitles">Game Results</div>
-      <?php
-        $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
-        $gameListStmt->execute(array(
-          ':gid'=>htmlentities($_GET['group_id'])
-        ));
-        $currentLayer = null;
-        $rowColor = "lightgrey";
-        while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
-          $newLayer = $oneGame['layer'];
-          if ($currentLayer != $newLayer) {
-            $roundTitle = $oneGame['level_name'];
-            $roundNum = 0;
-            if ($currentLayer == null) {
-              echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'><u>".$roundTitle."</u></div>");
-            } else {
-              echo("</div><div id='layer_".$newLayer."' class='allRounds' data-round='".$newLayer."'><div class='rowTitle'>".$roundTitle."</div>");
-            };
-            $currentLayer = $newLayer;
-          };
-          $team_a = $oneGame['team_a'];
-          $getTeamA = $pdo->prepare('SELECT team_name FROM Teams WHERE :aid=team_id');
-          $getTeamA->execute(array(
-            ':aid'=>$team_a
-          ));
-          if ($oneGame['get_wildcard'] == 0) {
-            $team_b = $oneGame['team_b'];
-            $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
-            $getTeamB->execute(array(
-              ':bid'=>$team_b
+
+      <div class="resultsAndMsg">
+        <div class="resultsOnly">
+          <div id="resultListTitle" class="allSubtitles allTitles">Game Results</div>
+          <?php
+            $gameListStmt = $pdo->prepare('SELECT game_id,team_a,team_b,winner_id,layer,level_name,get_wildcard FROM Groups JOIN Games JOIN Levels WHERE Groups.group_id=:gid AND Groups.fk_tourn_id=Games.tourn_id AND Games.level_id=Levels.level_id ORDER BY layer ASC');
+            $gameListStmt->execute(array(
+              ':gid'=>htmlentities($_GET['group_id'])
             ));
-          } else {
-            $nextGameId = $oneGame['game_id'];
-            $getWildWinId = $pdo->prepare('SELECT winner_id FROM Games WHERE is_wildcard=1 AND next_game=:ngid');
-            $getWildWinId->execute(array(
-              ':ngid'=>$nextGameId
-            ));
-            $team_b = $getWildWinId->fetch(PDO::FETCH_ASSOC)['winner_id'];
-            $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
-            $getTeamB->execute(array(
-              ':bid'=>$team_b
-            ));
-          };
-          $winnerTeam = $oneGame['winner_id'];
-          $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
-          $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
-          if ($rowColor == 'lightgrey') {
-            $rowColor = "white";
-          } else {
+            $currentLayer = null;
             $rowColor = "lightgrey";
-          };
-          if ($team_a == $winnerTeam && $winnerTeam != 0) {
-            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
-            $b_name = "<div>".$b_name['team_name']."</div></div>";
-          } elseif ($team_b == $winnerTeam && $winnerTeam != 0) {
-            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
-            $b_name = "<div style='color:white;background-color:green'> ".$b_name['team_name']."</div></div>";
-          } else {
-            $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
-            $b_name = "<div>".$b_name['team_name']."</div></div>";
-          };
-          echo($a_name);
-          echo($b_name);
-        };
-        echo("</div>")
-      ?>
-      <div id="groupScrollBox">
-        <div id="scrollLeft"> << PREV</div>
-        <div id="scrollRight"> NEXT >> </div>
-      </div>
-      <div id="messageBoxTitle" class="allSubtitles allTitles">
-        Messages
-      </div>
-      <div id="messageBoxContent" class="allRounds">
-        <?php
-          if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
-            $initGetReq = $_GET['group_id'];
-            $msgListStmt = $pdo->prepare("SELECT message_id,message,parent_id,post_time,userName,Players.player_id FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi AND parent_id IS NULL ORDER BY post_time DESC");
-            $msgListStmt->execute(array(
-              ':gi'=>htmlentities($_GET['group_id'])
-            ));
-            echo("
-              <div>
-                <form method='POST'>
-                  <div>
-                    <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
-                  </div>
-                  <div>
-                    <input type='hidden' value=".$initGetReq." name='groupId' />
-                  </div>
-                  <textarea id='inputMsgText' placeholder='Enter post here' name='message'></textarea>
-                  <div>
-                    <input type='submit' value='ENTER' name='parentMessage' />
-                  </div>
-                </form>
-              </div>
-            ");
-            while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
-              $defaultTimezone = 'EST';
-              $postDate = new DateTime("now", new DateTimeZone($defaultTimezone));
-              $postDate->setTimestamp($oneMsg['post_time']);
-              $countingStmt = $pdo->prepare("SELECT COUNT(message_id) FROM Messages WHERE parent_id=:mei");
-              $countingStmt->execute(array(
-                ':mei'=>htmlentities($oneMsg['message_id'])
+            while ($oneGame = $gameListStmt->fetch(PDO::FETCH_ASSOC)) {
+              $newLayer = $oneGame['layer'];
+              if ($currentLayer != $newLayer) {
+                $roundTitle = $oneGame['level_name'];
+                $roundNum = 0;
+                if ($currentLayer == null) {
+                  echo("<div id='layer_".$newLayer."' class='allRounds' data-check='true'><div class='rowTitle'><u>".$roundTitle."</u></div>");
+                } else {
+                  echo("</div><div id='layer_".$newLayer."' class='allRounds' data-round='".$newLayer."'><div class='rowTitle'>".$roundTitle."</div>");
+                };
+                $currentLayer = $newLayer;
+              };
+              $team_a = $oneGame['team_a'];
+              $getTeamA = $pdo->prepare('SELECT team_name FROM Teams WHERE :aid=team_id');
+              $getTeamA->execute(array(
+                ':aid'=>$team_a
               ));
-              $commentNum = $countingStmt->fetch(PDO::FETCH_ASSOC)['COUNT(message_id)'];
-              if ($_SESSION['player_id'] == $oneMsg['player_id']) {
+              if ($oneGame['get_wildcard'] == 0) {
+                $team_b = $oneGame['team_b'];
+                $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+                $getTeamB->execute(array(
+                  ':bid'=>$team_b
+                ));
+              } else {
+                $nextGameId = $oneGame['game_id'];
+                $getWildWinId = $pdo->prepare('SELECT winner_id FROM Games WHERE is_wildcard=1 AND next_game=:ngid');
+                $getWildWinId->execute(array(
+                  ':ngid'=>$nextGameId
+                ));
+                $team_b = $getWildWinId->fetch(PDO::FETCH_ASSOC)['winner_id'];
+                $getTeamB = $pdo->prepare('SELECT team_name FROM Teams WHERE :bid=team_id');
+                $getTeamB->execute(array(
+                  ':bid'=>$team_b
+                ));
+              };
+              $winnerTeam = $oneGame['winner_id'];
+              $a_name = $getTeamA->fetch(PDO::FETCH_ASSOC);
+              $b_name = $getTeamB->fetch(PDO::FETCH_ASSOC);
+              if ($rowColor == 'lightgrey') {
+                $rowColor = "white";
+              } else {
+                $rowColor = "lightgrey";
+              };
+              if ($team_a == $winnerTeam && $winnerTeam != 0) {
+                $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div style='color:white;background-color:green'>".$a_name['team_name']."</div>";
+                $b_name = "<div>".$b_name['team_name']."</div></div>";
+              } elseif ($team_b == $winnerTeam && $winnerTeam != 0) {
+                $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
+                $b_name = "<div style='color:white;background-color:green'> ".$b_name['team_name']."</div></div>";
+              } else {
+                $a_name = "<div style='background-color:".$rowColor."' class='allRows'><div>".$a_name['team_name']."</div>";
+                $b_name = "<div>".$b_name['team_name']."</div></div>";
+              };
+              echo($a_name);
+              echo($b_name);
+            };
+            echo("</div>")
+          ?>
+          <div id="groupScrollBox">
+            <div id="scrollLeft"> << PREV</div>
+            <div id="scrollRight"> NEXT >> </div>
+          </div>
+        </div>
+        <div class="messagesOnly">
+          <div id="messageBoxTitle" class="allSubtitles allTitles">
+            Messages
+          </div>
+          <div id="messageBoxContent" class="allRounds">
+            <?php
+              if ((int)$canJoinResult['COUNT(main_id)'] > 0) {
+                $initGetReq = $_GET['group_id'];
+                $msgListStmt = $pdo->prepare("SELECT message_id,message,parent_id,post_time,userName,Players.player_id FROM Messages JOIN Players WHERE Players.player_id=Messages.player_id AND group_id=:gi AND parent_id IS NULL ORDER BY post_time DESC");
+                $msgListStmt->execute(array(
+                  ':gi'=>htmlentities($_GET['group_id'])
+                ));
                 echo("
-                  <div class='oneMsgBox' id='oneMsgBox_".$oneMsg['message_id']."'>
-                    <div class='oneMsgContent'>
-                      <div class='oneMsgName'>
-                        <div><i>".$oneMsg['userName']."</i></div>
-                        <div class='msgEditBttn' data-edit='false' data-num=".$oneMsg['message_id'].">EDIT</div>
+                  <div>
+                    <form method='POST'>
+                      <div>
+                        <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
                       </div>
-                      <div class='oneMsgText'>".$oneMsg['message']."</div>
-                      <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
-                    </div>
-                    <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>
-                      Comments (".$commentNum.")
-                    </div>
+                      <div>
+                        <input type='hidden' value=".$initGetReq." name='groupId' />
+                      </div>
+                      <textarea id='inputMsgText' placeholder='Enter post here' name='message'></textarea>
+                      <div>
+                        <input type='submit' value='ENTER' name='parentMessage' />
+                      </div>
+                    </form>
                   </div>
-                  <div class='oneMsgBox oneMsgEditBox' id='oneMsgEditBox_".$oneMsg['message_id']."'>
-                    <div class='oneMsgContent'>
-                      <div class='oneMsgName'>
-                        <div><i>".$oneMsg['userName']."</i></div>
-                        <div class='msgEditBttn' data-edit='true' data-num=".$oneMsg['message_id'].">X</div>
+                ");
+                while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
+                  $defaultTimezone = 'EST';
+                  $postDate = new DateTime("now", new DateTimeZone($defaultTimezone));
+                  $postDate->setTimestamp($oneMsg['post_time']);
+                  $countingStmt = $pdo->prepare("SELECT COUNT(message_id) FROM Messages WHERE parent_id=:mei");
+                  $countingStmt->execute(array(
+                    ':mei'=>htmlentities($oneMsg['message_id'])
+                  ));
+                  $commentNum = $countingStmt->fetch(PDO::FETCH_ASSOC)['COUNT(message_id)'];
+                  if ($_SESSION['player_id'] == $oneMsg['player_id']) {
+                    echo("
+                      <div class='oneMsgBox' id='oneMsgBox_".$oneMsg['message_id']."'>
+                        <div class='oneMsgContent'>
+                          <div class='oneMsgName'>
+                            <div><i>".$oneMsg['userName']."</i></div>
+                            <div class='msgEditBttn' data-edit='false' data-num=".$oneMsg['message_id'].">EDIT</div>
+                          </div>
+                          <div class='oneMsgText'>".$oneMsg['message']."</div>
+                          <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                        </div>
+                        <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>
+                          Comments (".$commentNum.")
+                        </div>
                       </div>
+                      <div class='oneMsgBox oneMsgEditBox' id='oneMsgEditBox_".$oneMsg['message_id']."'>
+                        <div class='oneMsgContent'>
+                          <div class='oneMsgName'>
+                            <div><i>".$oneMsg['userName']."</i></div>
+                            <div class='msgEditBttn' data-edit='true' data-num=".$oneMsg['message_id'].">X</div>
+                          </div>
+                          <form method='POST'>
+                            <input type='hidden' name='msgId' value='".$oneMsg['message_id']."' />
+                            <textarea class='oneMsgText' name='editText'>".$oneMsg['message']."</textarea>
+                            <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
+                            <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
+                            <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                          </form>
+                        </div>
+                      </div>");
+                  } else {
+                    echo("
+                      <div class='oneMsgBox'>
+                        <div class='oneMsgContent'>
+                          <div class='oneMsgName'>
+                            <div><i>".$oneMsg['userName']."</i></div>
+                            <div></div>
+                          </div>
+                          <div class='oneMsgText'>".$oneMsg['message']."</div>
+                          <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
+                        </div>
+                        <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>Comments (".$commentNum.")</div>
+                      </div>");
+                  };
+                  // This is where to put the comments
+                  if ($commentNum > 0) {
+                    echo("<div class='commentGroup' id='comment_".$oneMsg['message_id']."'>");
+                      $getCommentsStmt = $pdo->prepare("SELECT * FROM Messages JOIN Players WHERE Messages.player_id=Players.player_id AND parent_id=:pri ORDER BY post_time ASC");
+                      $getCommentsStmt->execute(array(
+                        ':pri'=>$oneMsg['message_id']
+                      ));
+                      while ($oneComment = $getCommentsStmt->fetch(PDO::FETCH_ASSOC)) {
+                        $commentDate = new DateTime("now", new DateTimeZone($defaultTimezone));
+                        $commentDate->setTimestamp($oneComment['post_time']);
+                        if ($_SESSION['player_id'] == $oneComment['player_id']) {
+                          echo("
+                            <div class='oneCommentBox' id='oneMsgBox_".$oneComment['message_id']."'>
+                              <div class='oneCommentContent'>
+                                <div class='oneCommentName'>
+                                  <div><i>".$oneComment['userName']."</i></div>
+                                  <div class='commentEditBttn' data-edit='false' data-num=".$oneComment['message_id'].">EDIT</div>
+                                </div>
+                                <div class='oneCommentText'>".$oneComment['message']."</div>
+                                <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
+                              </div>
+                            </div>
+                            <div class='oneCommentBox oneCommentEditBox' id='oneMsgEditBox_".$oneComment['message_id']."'>
+                              <div class='oneCommentContent'>
+                                <div class='oneCommentName'>
+                                  <div><i>".$oneComment['userName']."</i></div>
+                                  <div class='commentEditBttn' data-edit='true' data-num=".$oneComment['message_id'].">X</div>
+                                </div>
+                                <form method='POST'>
+                                  <input type='hidden' name='msgId' value='".$oneComment['message_id']."' />
+                                  <textarea class='oneMsgText' name='editText'>".$oneComment['message']."</textarea>
+                                  <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
+                                  <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
+                                  <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                                </form>
+                              </div>
+                            </div>
+                          ");
+                        } else {
+                          echo("
+                            <div class='oneCommentBox'>
+                              <div class='oneCommentContent'>
+                                <div class='oneCommentName'>
+                                  <div><i>".$oneComment['userName']."</i></div>
+                                  <div></div>
+                                </div>
+                                <div class='oneCommentText'>".$oneComment['message']."</div>
+                                <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
+                              </div>
+                            </div>
+                          ");
+                        };
+                      };
+                    echo("</div>");
+                  };
+                  // This is where the new comments will be entered
+                  echo("
+                    <div class='insertCommentBox'>
                       <form method='POST'>
-                        <input type='hidden' name='msgId' value='".$oneMsg['message_id']."' />
-                        <textarea class='oneMsgText' name='editText'>".$oneMsg['message']."</textarea>
-                        <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
-                        <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
-                        <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                        <div>
+                          <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
+                        </div>
+                        <div>
+                          <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
+                        </div>
+                        <div>
+                          <input type='hidden' value=".$initGetReq." name='groupId' />
+                        </div>
+                        <textarea id='inputMsgText' placeholder='Enter comment here' name='message'></textarea>
+                        <div>
+                          <input type='submit' value='ENTER' name='childMessage' />
+                        </div>
                       </form>
                     </div>
-                  </div>");
+                  ");
+                  //
+                };
               } else {
-                echo("
-                  <div class='oneMsgBox'>
-                    <div class='oneMsgContent'>
-                      <div class='oneMsgName'>
-                        <div><i>".$oneMsg['userName']."</i></div>
-                        <div></div>
-                      </div>
-                      <div class='oneMsgText'>".$oneMsg['message']."</div>
-                      <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
-                    </div>
-                    <div class='commentBttn' data-comments='".$oneMsg['message_id']."'>Comments (".$commentNum.")</div>
-                  </div>");
+                echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
               };
-              // This is where to put the comments
-              if ($commentNum > 0) {
-                echo("<div class='commentGroup' id='comment_".$oneMsg['message_id']."'>");
-                  $getCommentsStmt = $pdo->prepare("SELECT * FROM Messages JOIN Players WHERE Messages.player_id=Players.player_id AND parent_id=:pri ORDER BY post_time ASC");
-                  $getCommentsStmt->execute(array(
-                    ':pri'=>$oneMsg['message_id']
-                  ));
-                  while ($oneComment = $getCommentsStmt->fetch(PDO::FETCH_ASSOC)) {
-                    $commentDate = new DateTime("now", new DateTimeZone($defaultTimezone));
-                    $commentDate->setTimestamp($oneComment['post_time']);
-                    if ($_SESSION['player_id'] == $oneComment['player_id']) {
-                      echo("
-                        <div class='oneCommentBox' id='oneMsgBox_".$oneComment['message_id']."'>
-                          <div class='oneCommentContent'>
-                            <div class='oneCommentName'>
-                              <div><i>".$oneComment['userName']."</i></div>
-                              <div class='commentEditBttn' data-edit='false' data-num=".$oneComment['message_id'].">EDIT</div>
-                            </div>
-                            <div class='oneCommentText'>".$oneComment['message']."</div>
-                            <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
-                          </div>
-                        </div>
-                        <div class='oneCommentBox oneCommentEditBox' id='oneMsgEditBox_".$oneComment['message_id']."'>
-                          <div class='oneCommentContent'>
-                            <div class='oneCommentName'>
-                              <div><i>".$oneComment['userName']."</i></div>
-                              <div class='commentEditBttn' data-edit='true' data-num=".$oneComment['message_id'].">X</div>
-                            </div>
-                            <form method='POST'>
-                              <input type='hidden' name='msgId' value='".$oneComment['message_id']."' />
-                              <textarea class='oneMsgText' name='editText'>".$oneComment['message']."</textarea>
-                              <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
-                              <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
-                              <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
-                            </form>
-                          </div>
-                        </div>
-                      ");
-                    } else {
-                      echo("
-                        <div class='oneCommentBox'>
-                          <div class='oneCommentContent'>
-                            <div class='oneCommentName'>
-                              <div><i>".$oneComment['userName']."</i></div>
-                              <div></div>
-                            </div>
-                            <div class='oneCommentText'>".$oneComment['message']."</div>
-                            <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
-                          </div>
-                        </div>
-                      ");
-                    };
-                  };
-                echo("</div>");
-              };
-              // This is where the new comments will be entered
-              echo("
-                <div class='insertCommentBox'>
-                  <form method='POST'>
-                    <div>
-                      <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
-                    </div>
-                    <div>
-                      <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
-                    </div>
-                    <div>
-                      <input type='hidden' value=".$initGetReq." name='groupId' />
-                    </div>
-                    <textarea id='inputMsgText' placeholder='Enter comment here' name='message'></textarea>
-                    <div>
-                      <input type='submit' value='ENTER' name='childMessage' />
-                    </div>
-                  </form>
-                </div>
-              ");
-              //
-            };
-          } else {
-            echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
-          };
-        ?>
+            ?>
+          </div>
         </div>
-        <?php
+      </div>
+
+      <?php
         if ((int)$canJoinResult['COUNT(main_id)'] > 0 && $grpNameResult['admin_id'] != $_SESSION['player_id']) {
           echo("<div id='leaveGrpButton'>Leave this group?</div>");
           echo("
