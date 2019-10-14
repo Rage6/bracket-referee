@@ -428,7 +428,9 @@ html {
       form {
 
         input {
-
+          @media only screen and (min-width: $min) {
+            font-size: 1.2rem;
+          };
         };
         #joinBttn {
 
@@ -635,85 +637,136 @@ html {
       };
       #messageBoxContent {
         @media only screen and (min-width: $min) {
-
+          max-height: 3000px;
         };
-        form {
-
-          .inputMsgText {
-
-          };
-          .inputCommentText {
-
-          };
-        };
-        .oneMsgBox {
-
-          .oneMsgContent {
-
-            .oneMsgName {
-
-              .msgEditBttn {
-
-              };
-            };
-            .oneMsgText {
-
-            };
-            .oneMsgTime {
-
-            };
-          };
-          .commentBttn {
-
-          };
-        };
-        .oneMsgEditBox {
+        div {
 
           form {
-
-            textarea {
+            @media only screen and (min-width: $min) {
 
             };
-            .centerBttns {
+            .inputMsgText {
+              @media only screen and (min-width: $min) {
+                font-size: 1.5rem;
+                height: 100px;
+              };
+            };
+            .inputCommentText {
 
-            }
+            };
+          };
+          .emptyMsgBrd {
+            @media only screen and (min-width: $min) {
+              font-size: 2rem;
+            };
           };
         };
-        .commentGroup {
+        .scrollMsg {
+          @media only screen and (min-width: $min) {
+            max-height: 3000px;
+            overflow-y: scroll;
+          };
+          .oneMsgBox {
 
-          .oneCommentBox {
+            .oneMsgContent {
 
-            .oneCommentContent {
-
-              .oneCommentName {
-
-                .commentEditBttn {
-
+              .oneMsgName {
+                @media only screen and (min-width: $min) {
+                  font-size: 1.4rem;
+                };
+                .msgEditBttn {
+                  @media only screen and (min-width: $min) {
+                    padding: 5px;
+                    font-size: 1rem;
+                  };
                 };
               };
-              .oneCommentText {
-
+              .oneMsgText {
+                @media only screen and (min-width: $min) {
+                  font-size: 1.7rem;
+                };
               };
-              .oneCommentTime {
-
+              .oneMsgTime {
+                @media only screen and (min-width: $min) {
+                  font-size: 1.2rem;
+                };
+              };
+            };
+            .commentBttn {
+              @media only screen and (min-width: $min) {
+                font-size: 1.7rem;
               };
             };
           };
-          .oneCommentEditBox {
+          .oneMsgEditBox {
 
             form {
 
               textarea {
 
               };
-              .centerCommentBttns {
-
+              .centerBttns {
+                @media only screen and (min-width: $min) {
+                  font-size: 1rem;
+                };
               }
             };
           };
-        };
-        .insertCommentBox {
+          .commentGroup {
 
+            .oneCommentBox {
+
+              .oneCommentContent {
+                @media only screen and (min-width: $min) {
+                  font-size: 1.4rem;
+                  text-align: center;
+                };
+                .oneCommentName {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.4rem;
+                  };
+                  .commentEditBttn {
+                    @media only screen and (min-width: $min) {
+                      padding: 5px;
+                      font-size: 1rem;
+                    };
+                  };
+                };
+                .oneCommentText {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.7rem;
+                  };
+                };
+                .oneCommentTime {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.2rem;
+                  };
+                };
+              };
+            };
+            .oneCommentEditBox {
+              @media only screen and (min-width: $min) {
+                font-size: 1.2rem;
+              };
+              form {
+
+                textarea {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1.5rem;
+                    height: 100px;
+                  };
+                };
+                .centerCommentBttns {
+                  @media only screen and (min-width: $min) {
+                    font-size: 1rem;
+                  };
+                }
+              };
+            };
+          };
+          .insertCommentBox {
+
+          };
         };
       };
       #leaveGrpButton {

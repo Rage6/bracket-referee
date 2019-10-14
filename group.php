@@ -312,7 +312,7 @@
   <body>
     <div id="groupPage">
       <form method="POST">
-        <input type="submit" name="returnPlayer" value="<<  BACK " />
+        <input type="submit" name="returnPlayer" value="<<  BACK " class="backBttn" />
         <?php
           if ((int)$canJoinResult['COUNT(main_id)'] == 0) {
             echo("<input id='joinBttn' type='submit' name='joinGroup' value='JOIN  >>'>");
@@ -635,6 +635,7 @@
                     </form>
                   </div>
                 ");
+                echo("<div class='scrollMsg'>");
                 while ($oneMsg = $msgListStmt->fetch(PDO::FETCH_ASSOC)) {
                   $defaultTimezone = 'EST';
                   $postDate = new DateTime("now", new DateTimeZone($defaultTimezone));
@@ -650,7 +651,7 @@
                         <div class='oneMsgContent'>
                           <div class='oneMsgName'>
                             <div><i>".$oneMsg['userName']."</i></div>
-                            <div class='msgEditBttn' data-edit='false' data-num=".$oneMsg['message_id'].">EDIT</div>
+                            <button class='msgEditBttn' data-edit='false' data-num=".$oneMsg['message_id'].">EDIT</button>
                           </div>
                           <div class='oneMsgText'>".$oneMsg['message']."</div>
                           <div class='oneMsgTime'>".$postDate->format('Y-m-d g:ia e')."</div>
@@ -704,7 +705,7 @@
                               <div class='oneCommentContent'>
                                 <div class='oneCommentName'>
                                   <div><i>".$oneComment['userName']."</i></div>
-                                  <div class='commentEditBttn' data-edit='false' data-num=".$oneComment['message_id'].">EDIT</div>
+                                  <button class='commentEditBttn' data-edit='false' data-num=".$oneComment['message_id'].">EDIT</button>
                                 </div>
                                 <div class='oneCommentText'>".$oneComment['message']."</div>
                                 <div class='oneCommentTime'>".$commentDate->format('Y-m-d g:ia e')."</div>
@@ -714,14 +715,14 @@
                               <div class='oneCommentContent'>
                                 <div class='oneCommentName'>
                                   <div><i>".$oneComment['userName']."</i></div>
-                                  <div class='commentEditBttn' data-edit='true' data-num=".$oneComment['message_id'].">X</div>
+                                  <button class='commentEditBttn' data-edit='true' data-num=".$oneComment['message_id'].">X</button>
                                 </div>
                                 <form method='POST'>
                                   <input type='hidden' name='msgId' value='".$oneComment['message_id']."' />
                                   <textarea class='oneMsgText' name='editText'>".$oneComment['message']."</textarea>
-                                  <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns' style='background-color:blue;color:white' />
+                                  <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns centerCommentBttns' style='background-color:blue;color:white' />
                                   <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
-                                  <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns' style='background-color:red;color:white' />
+                                  <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns centerCommentBttns' style='background-color:red;color:white' />
                                 </form>
                               </div>
                             </div>
@@ -785,30 +786,16 @@
                       </div>
                     ");
                   };
-                  // This is where the new comments will be entered
-                  // echo("
-                  //   <div class='insertCommentBox'>
-                  //     <form method='POST'>
-                  //       <div>
-                  //         <input type='hidden' value='".$_SESSION['player_id']."' name='playerId' />
-                  //       </div>
-                  //       <div>
-                  //         <input type='hidden' value='".$oneMsg['message_id']."' name='parentId' />
-                  //       </div>
-                  //       <div>
-                  //         <input type='hidden' value=".$initGetReq." name='groupId' />
-                  //       </div>
-                  //       <textarea class='inputCommentText' placeholder='Enter comment here' name='message'></textarea>
-                  //       <div>
-                  //         <input type='submit' value='ENTER' name='childMessage' />
-                  //       </div>
-                  //     </form>
-                  //   </div>
-                  // ");
-                  //
                 };
+                echo("</div>");
               } else {
-                echo("<div>This group's message board is limited to group members. Click 'JOIN' at the top of the page to become part of '".$tournArray['tourn_name']."'!</div>");
+                echo("
+                  <div>
+                    <div class='emptyMsgBrd'>
+                      Join our group to read or comment our message board! Click 'JOIN' at the top of the page to become a member.
+                    </div>
+                  </div>
+                ");
               };
             ?>
           </div>
