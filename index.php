@@ -284,12 +284,12 @@
   </head>
   <body>
     <div id="indexWords">
-      <p>
+      <div>
         Bracket
-      </p>
-      <p>
+      </div>
+      <div>
         Referee
-      </p>
+      </div>
     </div>
     <div id="bothAcctButtons">
       <div id="logButton">

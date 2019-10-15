@@ -6,8 +6,10 @@ html {
 
     // ----------- INDEX.PHP FILE BEGINS -----------
     #indexWords {
-
-      p {
+      @media only screen and (min-width: $min) {
+        padding: 0px;
+      };
+      div {
         @media only screen and (min-width: $min) {
           font-size: 8rem;
           text-align: right;
@@ -15,7 +17,7 @@ html {
         };
       };
 
-      p:first-child {
+      div:first-child {
         @media only screen and (min-width: $min) {
           text-align: left;
           margin-left: 15%;
@@ -23,7 +25,9 @@ html {
       };
     };
     #bothAcctButtons {
-      font-size: 4rem;
+      @media only screen and (min-width: $min) {
+        font-size: 3.5rem;
+      };
       #logButton {
 
       };
