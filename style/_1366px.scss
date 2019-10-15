@@ -680,8 +680,7 @@ html {
         };
         .scrollMsg {
           @media only screen and (min-width: $min) {
-            max-height: 3000px;
-            overflow-y: scroll;
+            
           };
           .oneMsgBox {
 

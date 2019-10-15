@@ -675,95 +675,100 @@ html {
         color: white;
         font-size: 4rem;
         font-family: 'Special Elite',cursive; }
-      html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox {
-        margin: 70px 0 20px 2%; }
-        html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent {
-          border-radius: 20px;
-          padding: 20px 3%;
-          background-color: white;
-          font-size: 2rem;
-          text-align: left;
-          width: 80%; }
-          html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgName {
-            display: flex;
-            font-size: 2.7rem;
-            justify-content: space-between;
-            padding-bottom: 20px; }
-            html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgName .msgEditBttn {
-              border-radius: 10px;
-              padding: 3px 3%;
-              color: white;
-              font-size: 2.4rem;
-              background-color: blue;
-              cursor: pointer; }
-          html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgTime {
-            padding-top: 20px;
-            font-size: 0.8rem;
-            text-align: right; }
-        html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .commentBttn {
-          margin-left: 16%;
-          margin-top: 12px;
-          border: 3px solid white;
-          border-radius: 20px;
-          color: white;
-          width: 80%; }
-      html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox {
-        display: none; }
-        html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form {
-          margin-bottom: 10px; }
-          html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form textarea {
-            border: 1px solid black;
-            font-size: 2.7rem;
-            width: 97%;
-            height: 200px; }
-          html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form .centerBttns {
-            margin-left: 15%;
-            text-align: center;
-            width: 70%; }
-      html body #groupPage #messageBoxContent .scrollMsg .commentGroup {
-        display: none; }
-        html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox {
-          margin: 0 3% 20px 18%; }
-          html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent {
+      html body #groupPage #messageBoxContent .scrollMsg {
+        border-radius: 20px;
+        max-height: 3000px;
+        overflow-y: scroll;
+        background-color: #ba4545; }
+        html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox {
+          margin: 70px 0 20px 2%; }
+          html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent {
             border-radius: 20px;
             padding: 20px 3%;
             background-color: white;
             font-size: 2rem;
-            text-align: left; }
-            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentName {
-              margin-right: 0;
+            text-align: left;
+            width: 80%; }
+            html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgName {
               display: flex;
               font-size: 2.7rem;
               justify-content: space-between;
               padding-bottom: 20px; }
-              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentName .commentEditBttn {
-                border: 2px solid blue;
-                border-radius: 15px;
-                padding: 5px 2%;
+              html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgName .msgEditBttn {
+                border-radius: 10px;
+                padding: 3px 3%;
                 color: white;
+                font-size: 2.4rem;
                 background-color: blue;
                 cursor: pointer; }
-            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent button {
-              font-size: 2rem; }
-            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentTime {
+            html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgTime {
               padding-top: 20px;
               font-size: 0.8rem;
               text-align: right; }
-        html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox {
+          html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .commentBttn {
+            margin-left: 16%;
+            margin-top: 12px;
+            border: 3px solid white;
+            border-radius: 20px;
+            color: white;
+            width: 80%; }
+        html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox {
           display: none; }
-          html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form {
+          html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form {
             margin-bottom: 10px; }
-            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form textarea {
+            html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form textarea {
               border: 1px solid black;
               font-size: 2.7rem;
               width: 97%;
               height: 200px; }
-            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form .centerCommentBttns {
+            html body #groupPage #messageBoxContent .scrollMsg .oneMsgEditBox form .centerBttns {
               margin-left: 15%;
               text-align: center;
               width: 70%; }
-      html body #groupPage #messageBoxContent .scrollMsg .insertCommentBox {
-        margin: 0 3% 20px 18%; }
+        html body #groupPage #messageBoxContent .scrollMsg .commentGroup {
+          display: none; }
+          html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox {
+            margin: 0 3% 20px 18%; }
+            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent {
+              border-radius: 20px;
+              padding: 20px 3%;
+              background-color: white;
+              font-size: 2rem;
+              text-align: left; }
+              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentName {
+                margin-right: 0;
+                display: flex;
+                font-size: 2.7rem;
+                justify-content: space-between;
+                padding-bottom: 20px; }
+                html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentName .commentEditBttn {
+                  border: 2px solid blue;
+                  border-radius: 15px;
+                  padding: 5px 2%;
+                  color: white;
+                  background-color: blue;
+                  cursor: pointer; }
+              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent button {
+                font-size: 2rem; }
+              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentTime {
+                padding-top: 20px;
+                font-size: 0.8rem;
+                text-align: right; }
+          html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox {
+            display: none; }
+            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form {
+              margin-bottom: 10px; }
+              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form textarea {
+                border: 1px solid black;
+                font-size: 2.7rem;
+                width: 97%;
+                height: 200px; }
+              html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentEditBox form .centerCommentBttns {
+                margin-left: 15%;
+                text-align: center;
+                width: 70%; }
+        html body #groupPage #messageBoxContent .scrollMsg .insertCommentBox {
+          margin: 0 3% 20px 18%; }
     html body #groupPage #leaveGrpButton {
       margin-top: 100px;
       padding: 40px 0;
@@ -1517,10 +1522,6 @@ html body #groupPage #scrollPlayers #playerTable tr td a:hover {
 @media only screen and (min-width: 1366px) {
   html body #groupPage #messageBoxContent div .emptyMsgBrd {
     font-size: 2rem; } }
-@media only screen and (min-width: 1366px) {
-  html body #groupPage #messageBoxContent .scrollMsg {
-    max-height: 3000px;
-    overflow-y: scroll; } }
 @media only screen and (min-width: 1366px) {
   html body #groupPage #messageBoxContent .scrollMsg .oneMsgBox .oneMsgContent .oneMsgName {
     font-size: 1.4rem; } }

@@ -921,6 +921,10 @@ html {
           };
         };
         .scrollMsg {
+          border-radius: 20px;
+          max-height: 3000px;
+          overflow-y: scroll;
+          background-color: rgb(186,69,69);
           .oneMsgBox {
             margin: 70px 0 20px 2%;
             .oneMsgContent {
