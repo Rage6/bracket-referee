@@ -2,6 +2,9 @@
   session_start();
   require_once("pdo.php");
 
+  // Sets shows selection, first game, message, and comment dates in US/Eastern automatically
+  date_default_timezone_set('US/Eastern');
+
   $ifInviteStmt = $pdo->prepare('SELECT group_name,link_key,private,admin_id FROM Groups WHERE group_id=:gp');
   $ifInviteStmt->execute(array(
     ':gp'=>htmlentities($_GET['group_id'])
@@ -353,7 +356,7 @@
             <td class="rowTitle">First Game</td>
             <td class="rowValue">
               <?php
-                echo(date('m/d/Y H:i', $tournArray['start_date']))
+                echo(date('m/d/Y g:ia', $tournArray['start_date']))
               ?>
             </td>
           </tr>
