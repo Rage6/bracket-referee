@@ -743,6 +743,8 @@ html {
                 color: white;
                 background-color: blue;
                 cursor: pointer; }
+            html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent button {
+              font-size: 2rem; }
             html body #groupPage #messageBoxContent .scrollMsg .commentGroup .oneCommentBox .oneCommentContent .oneCommentTime {
               padding-top: 20px;
               font-size: 0.8rem;

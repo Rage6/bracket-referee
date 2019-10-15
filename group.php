@@ -721,7 +721,7 @@
                                   <input type='hidden' name='msgId' value='".$oneComment['message_id']."' />
                                   <textarea class='oneMsgText' name='editText'>".$oneComment['message']."</textarea>
                                   <input type='submit' name='changeMsg' value='CHANGE' class='centerBttns centerCommentBttns' style='background-color:blue;color:white' />
-                                  <div class='centerBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
+                                  <div class='centerBttns centerCommentBttns' style='margin-top:30px;margin-bottom:30px'> -- OR -- </div>
                                   <input type='submit' name='deleteMsg' value='DELETE' class='centerBttns centerCommentBttns' style='background-color:red;color:white' />
                                 </form>
                               </div>
