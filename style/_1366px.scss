@@ -105,12 +105,25 @@ html {
         .imageBorder {
 
         };
+        #imgBorderOne {
+
+        };
+        #imgBorderTwo {
+          @media only screen and (min-width: $min) {
+            background-image: url('http://www.missionfencing.com/ressources/images/d03c655ddddc.jpg');
+          };
+        };
+        #imgBorderThree {
+
+        };
       };
     };
     footer {
 
       a {
-
+        @media only screen and (min-width: $min) {
+          width: 7%;
+        };
         .footerLogo {
 
         };

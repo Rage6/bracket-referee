@@ -374,7 +374,7 @@
             Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg')"></div>
+        <div class="imageBorder" id="imgBorderOne"></div>
         <div class="introParagraph">
           <b>
             <i>What is Bracket Referee used for?</i>
@@ -396,7 +396,7 @@
             <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800')"></div>
+        <div class="imageBorder" id="imgBorderTwo"></div>
         <div class="introParagraph">
           <b>
             <i>How do I start?</i>
@@ -417,7 +417,7 @@
             Upon joining a group, a member can enter a bracket and (after the tournament begins) see their fellow members' usernames, scores, and brackets. They can also post messages or comments at the bottom of the group's page.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg')"></div>
+        <div class="imageBorder" id="imgBorderThree"></div>
         <div class="introParagraph">
           <b>
             <i>Who Made This?</i>

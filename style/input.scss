@@ -154,6 +154,15 @@ html {
           height: 225px;
           width: 100%;
         };
+        #imgBorderOne {
+          background-image: url('https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg');
+        };
+        #imgBorderTwo {
+          background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800');
+        };
+        #imgBorderThree {
+          background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg');
+        };
       };
     };
     footer {
@@ -444,6 +453,7 @@ html {
               background-color: white;
               max-height: 230px;
               p {
+                background-color: red;
                 margin: 0;
                 padding: 20px 3%;
                 text-align: center;
@@ -452,6 +462,11 @@ html {
                   font-size: inherit;
                 };
               };
+              a {
+                p {
+                  font-size: 2rem;
+                };
+              }
             };
           };
         };

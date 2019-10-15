@@ -119,6 +119,12 @@ html {
           background-size: cover;
           height: 225px;
           width: 100%; }
+        html body #indexMain #indexIntro #imgBorderOne {
+          background-image: url("https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg"); }
+        html body #indexMain #indexIntro #imgBorderTwo {
+          background-image: url("http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800"); }
+        html body #indexMain #indexIntro #imgBorderThree {
+          background-image: url("https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg"); }
     html body footer {
       display: flex;
       justify-content: space-around;
@@ -328,12 +334,15 @@ html {
           background-color: white;
           max-height: 230px; }
           html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p {
+            background-color: red;
             margin: 0;
             padding: 20px 3%;
             text-align: center;
             font-size: 1.2rem; }
             html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox p a {
               font-size: inherit; }
+          html body #playerPage #groupBox #allNewOpts .newGrpOption #resultBox a p {
+            font-size: 2rem; }
     html body #plyrEditPage #editTitle {
       margin: 50px 0;
       font-size: 7rem;
@@ -1342,6 +1351,12 @@ html body #bothAcctButtons {
 @media only screen and (min-width: 1366px) {
   html body #logForm #forgotBttn {
     font-size: 2.5rem; } }
+@media only screen and (min-width: 1366px) {
+  html body #indexMain #indexIntro #imgBorderTwo {
+    background-image: url("http://www.missionfencing.com/ressources/images/d03c655ddddc.jpg"); } }
+@media only screen and (min-width: 1366px) {
+  html body footer a {
+    width: 7%; } }
 @media only screen and (min-width: 1366px) {
   html body #playerPage .allBox {
     margin-bottom: 70px;
