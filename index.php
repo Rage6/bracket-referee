@@ -284,12 +284,12 @@
   </head>
   <body>
     <div id="indexWords">
-      <p>
+      <div>
         Bracket
-      </p>
-      <p>
+      </div>
+      <div>
         Referee
-      </p>
+      </div>
     </div>
     <div id="bothAcctButtons">
       <div id="logButton">
@@ -374,22 +374,35 @@
             Here is where friends, family, and fellow competitors can put their brackets to the test. The process is simple, completely free, and open to anyone.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg')"></div>
+        <div class="imageBorder" id="imgBorderOne"></div>
         <div class="introParagraph">
           <b>
             <i>What is Bracket Referee used for?</i>
           </b>
           <p>
-            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just spectator! <u>Bracket Referee</u> allows groups or individuals to fill out their picks, record their bracket, and watch how their scores compare to others. <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
+            The high-stakes tournaments that happen throughout the year can get anyone excited, especially if they feel like a competetitor instead of just another spectator! <u>Bracket Referee</u> allows you to:
+          </p>
+          <div>
+            <ul>
+              <li>Get excited about any of the upcoming tournaments!</li>
+              <li>Compete within as many groups as you want</li>
+              <li>Make a group of your own! Groups can be made open to the public, or can enter by private invitation only</li>
+              <li>Easily fill out your picks and submit a bracket with a few simple clicks</li>
+              <li>Watch how your scores measure up within your group</li>
+              <li><b style="color:red;font-size:2rem">NEW!</b> Leave messages and comments within your group pages!</li>
+            </ul>
+          </div>
+          <p>
+            <u>Bracket Referee</u> can be used for any <span style="color:green"><u>single-elimination</u></span> tournament, with or without <span style="color:green"><u>wildcard</u></span> and <span style="color:green"><u>third-place</u></span> games.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800')"></div>
+        <div class="imageBorder" id="imgBorderTwo"></div>
         <div class="introParagraph">
           <b>
             <i>How do I start?</i>
           </b>
           <p>
-            First, click on the <span style="border-radius:15px;padding:0 10px;background-color:green;color:white">CREATE</span> button above and fill out the basic information. If you have already created an account, press the <span style="border-radius:15px;padding:0 10px;background-color:blue;color:white">LOGIN</span> button and enter your email address (or username) and password. Doing either will then send you to your profile, <u>Bracket HQ</u>. From here, you can:
+            First, click on the <span style="border-radius:15px;padding:0 10px;background-color:green;color:white">CREATE</span> button above and fill out the basic information. If you have already created an account, press the <span style="border-radius:15px;padding:0 10px;background-color:blue;color:white">LOGIN</span> button and enter your username (or email address) and password. This will then send you to your profile, <u>Bracket HQ</u>. From here, you can:
           </p>
           <div>
             <ul>
@@ -401,16 +414,16 @@
             </ul>
           </div>
           <p>
-            Upon joining a group, a member can enter a bracket and see their fellow members' usernames, scores, and brackets.
+            Upon joining a group, you can submit a bracket and (after the tournament begins) see your fellow members' usernames, scores, and brackets. You can also post messages or comments on your group's 'Message' board.
           </p>
         </div>
-        <div class="imageBorder" style="background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg')"></div>
+        <div class="imageBorder" id="imgBorderThree"></div>
         <div class="introParagraph">
           <b>
             <i>Who Made This?</i>
           </b>
           <p style="margin-bottom:0px;padding-bottom:100px">
-            The creator and director of <u>Bracket Referee</u> is myself, Nicholas Vogt, as a project to exercise and expand my skills as a website developer. To see my porfolio, my professional history, or the actual code for this website, please click below.
+            The creator and director of <u>Bracket Referee</u> is Nicholas Vogt, a web developer in Ohio. This was a project meant for exercising and expanding upon his skills within two coding languages: PHP and Javascript. To see his porfolio, his professional history, or the actual code for this website, click one of the buttons below.
           </p>
         </div>
       </div>

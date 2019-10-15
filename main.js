@@ -1,5 +1,5 @@
 $(()=>{
-  console.log("main.js is active...");
+  console.log("main.js check...");
 
   // Measures the background box and adjusts the word lines accordingly
   var titleHeight = $('#indexWords').height();
@@ -302,6 +302,30 @@ $(()=>{
   $("#makeTeamBttn").click(()=>{
     $("#makeTeamBox").toggle();
     $("#findTeamBox").hide();
+  });
+
+  // Opens the 'EDIT' for a message
+  $('[data-edit][data-num]').click(()=>{
+    var isEditBttn = event.target.dataset.edit;
+    var msgBoxId = "#oneMsgBox_" + event.target.dataset.num;
+    var editBoxId = "#oneMsgEditBox_" + event.target.dataset.num;
+    if (isEditBttn == "false") {
+      $(msgBoxId).css('display','none');
+      $(editBoxId).css('display','block');
+    } else {
+      $(msgBoxId).css('display','block');
+      $(editBoxId).css('display','none');
+    };
+  });
+
+  // Opens/hides comments
+  $('[data-comments]').click(()=>{
+    var targetGroup = "#comment_" + event.target.dataset.comments;
+    if ($(targetGroup).css('display') == 'block') {
+      $(targetGroup).css('display','none');
+    } else {
+      $(targetGroup).css('display','block');
+    };
   });
 
 });

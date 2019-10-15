@@ -11,7 +11,7 @@
 <b>Status</b>: <i>Complete</i>
 
 <u><i>PURPOSE:</i></u>
-<p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It is my first, independent venture into "server-side" coding from scratch... and I'm LOVING it! Once completed, this app will allow the user to:</p>
+<p>This is an exercise of my PHP skills and database design, and it's purpose is for any user to compete against friends and family during any common tournaments ("March Madness", FIFA World Cup, etc.). It was my first, independent venture into "server-side" coding from scratch... and I LOVED it! This app now allows the user to:</p>
 <ul>
   <li>Create, read, update, or delete their own account</li>
   <li>Create, read, update, or delete their own group(s)</li>
@@ -19,6 +19,8 @@
   <li>Join an existing group</li>
   <li>Submit one bracket of teams within each group</li>
   <li>View their score and the top 25 scores within each group</li>
+  <li>Create, read, update, or delete their messages within a group(s) message board</li>
+  <li>Create, read, update, or delete comments related to other messages within their group(s)</li>
 </ul>
 
 <u><i>CODE:</i></u>
@@ -72,6 +74,9 @@
   </li>
   <li>
     <b>Time-Sensitive Bracket Submission</b>: There is often a narrow time (between the announcement of the tournament's teams and the first game that takes place) in which a player can pick their predictions. Using things like PHP's <i>date()</i> and <i>date_default_timezone_set()</i>, this website will allow a player to submit their bracket at the last possible moment.
+  </li>
+  <li>
+    <b>30-Day Message Expiration</b>: To prevent the accumulation of old, unnecessary message in the database, group messages older than 30 days are automatically delete every time a user enters that group's page. The expired messages are determined by comparing the current timestamps to their messages' original timestamps.
   </li>
   <li>
     <b>Administrative Center</b>: Manually adding new teams or updating each game's results is very inefficient and increases the chances that a mistake is made. To prevent this, the Administrative Center page (which is only accessible by the developer) can be used to easily add a new team, insert the correct teams on each game, and update each game's winner.

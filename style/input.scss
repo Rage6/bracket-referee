@@ -14,10 +14,13 @@ html {
       background-image: url("img/index/ball_ref_edit.jpg");
       background-size: cover;
       width: 100%;
-      p {
+      div {
         margin: 0px;
         font-size: 12rem;
         font-family: 'Bevan', cursive;
+      };
+      div:first-child {
+
       };
     };
     #bothAcctButtons {
@@ -150,6 +153,15 @@ html {
           background-size: cover;
           height: 225px;
           width: 100%;
+        };
+        #imgBorderOne {
+          background-image: url('https://www.reviewjournal.com/wp-content/uploads/2018/03/10236002_web1_bkc-pacfeature_mar09-18-bt06.jpg');
+        };
+        #imgBorderTwo {
+          background-image: url('http://a.espncdn.com/combiner/i?img=/photo/2018/1206/r473868_800x450_16-9.jpg&w=800');
+        };
+        #imgBorderThree {
+          background-image: url('https://cdn1.sportngin.com/attachments/photo/4437/1957/hockey22_medium.jpg');
         };
       };
     };
@@ -441,6 +453,7 @@ html {
               background-color: white;
               max-height: 230px;
               p {
+                background-color: red;
                 margin: 0;
                 padding: 20px 3%;
                 text-align: center;
@@ -449,6 +462,11 @@ html {
                   font-size: inherit;
                 };
               };
+              a {
+                p {
+                  font-size: 2rem;
+                };
+              }
             };
           };
         };
@@ -586,9 +604,11 @@ html {
         input {
           margin: 15px 15px 0 15px;
           padding: 10px 15px;
-          border: 1px solid green;
+          border: 1px solid white;
           border-radius: 15px;
+          color: white;
           font-size: 2.5rem;
+          background-color: orange;
           cursor: pointer;
         };
         #joinBttn {
@@ -596,6 +616,9 @@ html {
           color: white;
           background-color: blue;
         };
+      };
+      .backBttn {
+        background-color: black;
       };
       .allTitles {
         margin: 0 0 20px 10%;
@@ -752,6 +775,15 @@ html {
           };
         };
       };
+      .resultsAndMsg {
+
+        .resultsOnly {
+
+        };
+        .messagesOnly {
+
+        };
+      };
       #currentTitle {
         color: white;
         background-color: blue;
@@ -851,6 +883,165 @@ html {
         };
         #scrollRight {
           border-radius: 0 70px 70px 0;
+        };
+      };
+      #messageBoxTitle {
+        background-color: brown;
+      };
+      #messageBoxContent {
+        margin-bottom: 20px;
+        border-color: brown;
+        border-radius: 0 20px 20px 20px;
+        background-color: brown;
+        div {
+          form {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: block;
+            .inputMsgText {
+              border-radius: 20px;
+              padding: 20px 10px;
+              font-size: 2rem;
+              width: 90%;
+              height: 200px;
+            };
+            .inputCommentText {
+              border-radius: 20px;
+              padding: 20px 10px;
+              font-size: 2rem;
+              width: 90%;
+              height: 100px;
+            };
+          };
+          .emptyMsgBrd {
+            padding: 20px 5%;
+            color: white;
+            font-size: 4rem;
+            font-family: 'Special Elite',cursive;
+          };
+        };
+        .scrollMsg {
+          border-radius: 20px;
+          max-height: 3000px;
+          overflow-y: scroll;
+          background-color: rgb(186,69,69);
+          .oneMsgBox {
+            margin: 70px 0 20px 2%;
+            .oneMsgContent {
+              border-radius: 20px;
+              padding: 20px 3%;
+              background-color: white;
+              font-size: 2rem;
+              text-align: left;
+              width: 80%;
+              .oneMsgName {
+                display: flex;
+                font-size: 2.7rem;
+                justify-content: space-between;
+                padding-bottom: 20px;
+                .msgEditBttn {
+                  border-radius: 10px;
+                  padding: 3px 3%;
+                  color: white;
+                  font-size: 2.4rem;
+                  background-color: blue;
+                  cursor: pointer;
+                };
+              };
+              .oneMsgText {
+
+              };
+              .oneMsgTime {
+                padding-top: 20px;
+                font-size: 0.8rem;
+                text-align: right;
+              };
+            };
+            .commentBttn {
+              margin-left: 16%;
+              margin-top: 12px;
+              border: 3px solid white;
+              border-radius: 20px;
+              color: white;
+              width: 80%;
+            };
+          };
+          .oneMsgEditBox {
+            display: none;
+            form {
+              margin-bottom: 10px;
+              textarea {
+                border: 1px solid black;
+                font-size: 2.7rem;
+                width: 97%;
+                height: 200px;
+              };
+              .centerBttns {
+                margin-left: 15%;
+                text-align: center;
+                width: 70%;
+              }
+            };
+          };
+          .commentGroup {
+            display: none;
+            .oneCommentBox {
+              margin: 0 3% 20px 18%;
+              .oneCommentContent {
+                border-radius: 20px;
+                padding: 20px 3%;
+                background-color: white;
+                font-size: 2rem;
+                text-align: left;
+                .oneCommentName {
+                  margin-right: 0;
+                  display: flex;
+                  font-size: 2.7rem;
+                  justify-content: space-between;
+                  padding-bottom: 20px;
+                  .commentEditBttn {
+                    border: 2px solid blue;
+                    border-radius: 15px;
+                    padding: 5px 2%;
+                    color: white;
+                    background-color: blue;
+                    cursor: pointer;
+                  };
+                };
+                button {
+                  font-size: 2rem;
+                };
+                .oneCommentText {
+
+                };
+                .oneCommentTime {
+                  padding-top: 20px;
+                  font-size: 0.8rem;
+                  text-align: right;
+                };
+              };
+            };
+            .oneCommentEditBox {
+              display: none;
+              form {
+                margin-bottom: 10px;
+                textarea {
+                  border: 1px solid black;
+                  font-size: 2.7rem;
+                  width: 97%;
+                  height: 200px;
+                };
+                .centerCommentBttns {
+                  margin-left: 15%;
+                  text-align: center;
+                  width: 70%;
+                }
+              };
+            };
+          };
+          .insertCommentBox {
+            margin: 0 3% 20px 18%;
+          };
         };
       };
       #leaveGrpButton {

@@ -356,7 +356,10 @@
                   } else {
                     $rowColor = "white";
                   };
-                  echo("<a href=".$randomURL.$randomGrpId."><p style='background-color:".$rowColor."'>".$randomGrpName."</p></a>");
+                  echo("
+                    <a href=".$randomURL.$randomGrpId.">
+                      <p style='background-color:".$rowColor."'>".$randomGrpName."</p>
+                    </a>");
                 };
                 ?>
               </div>
