@@ -380,16 +380,16 @@
             <i>What is Bracket Referee used for?</i>
           </b>
           <p>
-            The high-stakes tournaments that happen throughout the year can get anyone excited, especially for those that feel like a competetitor instead of just another spectator! <u>Bracket Referee</u> allows a member to:
+            The high-stakes tournaments that happen throughout the year can get anyone excited, especially if they feel like a competetitor instead of just another spectator! <u>Bracket Referee</u> allows you to:
           </p>
           <div>
             <ul>
               <li>Get excited about any of the upcoming tournaments!</li>
               <li>Compete within as many groups as you want</li>
-              <li>Make a group of your own! They can be made either open to public or by private invitation only</li>
-              <li>Easily fill out your picks and submit your brackets with a few simple clicks</li>
+              <li>Make a group of your own! Groups can be made open to the public, or can enter by private invitation only</li>
+              <li>Easily fill out your picks and submit a bracket with a few simple clicks</li>
               <li>Watch how your scores measure up within your group</li>
-              <li><b style="color:red">NEW!</b> Leave messages and comments within your groups' pages!</li>
+              <li><b style="color:red;font-size:2rem">NEW!</b> Leave messages and comments within your group pages!</li>
             </ul>
           </div>
           <p>
@@ -402,7 +402,7 @@
             <i>How do I start?</i>
           </b>
           <p>
-            First, click on the <span style="border-radius:15px;padding:0 10px;background-color:green;color:white">CREATE</span> button above and fill out the basic information. If you have already created an account, press the <span style="border-radius:15px;padding:0 10px;background-color:blue;color:white">LOGIN</span> button and enter your email address (or username) and password. Doing either will then send you to your profile, <u>Bracket HQ</u>. From here, you can:
+            First, click on the <span style="border-radius:15px;padding:0 10px;background-color:green;color:white">CREATE</span> button above and fill out the basic information. If you have already created an account, press the <span style="border-radius:15px;padding:0 10px;background-color:blue;color:white">LOGIN</span> button and enter your username (or email address) and password. This will then send you to your profile, <u>Bracket HQ</u>. From here, you can:
           </p>
           <div>
             <ul>
@@ -414,7 +414,7 @@
             </ul>
           </div>
           <p>
-            Upon joining a group, a member can enter a bracket and (after the tournament begins) see their fellow members' usernames, scores, and brackets. They can also post messages or comments at the bottom of the group's page.
+            Upon joining a group, you can submit a bracket and (after the tournament begins) see your fellow members' usernames, scores, and brackets. You can also post messages or comments on your group's 'Message' board.
           </p>
         </div>
         <div class="imageBorder" id="imgBorderThree"></div>
