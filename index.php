@@ -196,7 +196,7 @@
             ));
             // If the host is NOT a local host, it will email the new password.
             if ($currentHost != 'localhost:8888') {
-              putenv("SENDGRID_API_KEY=*api_key*");
+              putenv("SENDGRID_API_KEY=".$apiKey);
               $email = new \SendGrid\Mail\Mail();
               $email->setFrom("nicholas.vogt2017@gmail.com", "Nicholas Vogt");
               $email->setSubject("Password Reset | Bracket Referee");
