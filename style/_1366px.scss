@@ -472,6 +472,7 @@ html {
             border-radius: 15px;
             padding: 0;
             padding-top: 20px;
+            background-color: white;
             width: 40%;
           };
           #titleTab {
@@ -680,7 +681,7 @@ html {
         };
         .scrollMsg {
           @media only screen and (min-width: $min) {
-            
+
           };
           .oneMsgBox {
 

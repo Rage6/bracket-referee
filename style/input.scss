@@ -5,6 +5,9 @@ html {
   body {
     margin: 0px;
     padding: 0px;
+    background-size: 80px 80px;
+    background-position: 0 0, 0 40px, 40px -40px, -40px 0px;
+    background-image: linear-gradient(45deg, #e3e3e3 25%, transparent 25%), linear-gradient(-45deg, #e3e3e3 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e3e3e3 5%), linear-gradient(-45deg, transparent 75%, #e3e3e3 75%);
     // ----------- INDEX.PHP FILE BEGINS -----------
     #indexWords {
       margin: 0px;
@@ -125,12 +128,16 @@ html {
         margin: 50px 0% 0px 0%;
         text-align: center;
         .introParagraph {
-          margin: 0 10% 0 10%;
-          b {;
+          margin: 0 5% 60px 5%;
+          background-color: white;
+          padding: 20px 5%;
+          b {
             font-size: 5rem;
             font-family: 'Staatliches', cursive;
           };
           p {
+            margin-block-start: 0;
+            margin-block-end: 0;
             padding-bottom: 30px;
             text-align: left;
             font-size: 3rem;
@@ -149,7 +156,7 @@ html {
           };
         };
         .imageBorder {
-          margin-bottom: 100px;
+          margin-bottom: 60px;
           background-size: cover;
           height: 225px;
           width: 100%;
@@ -668,6 +675,7 @@ html {
             };
             .rowValue {
               padding: 0 15px;
+              background-color: white;
             };
             #grpEditBttn {
               border: none;
@@ -738,6 +746,7 @@ html {
         margin: 0px 10% 80px 10%;
         border: 4px dashed black;
         padding: 30px 5%;
+        background-color: white;
         width: 70%;
         #inviteTitle {
           color: rgb(181,7,7);
@@ -809,6 +818,7 @@ html {
             };
           };
           tr {
+            background-color: white;
             td {
               border: 1px solid black;
               padding: 15px;
@@ -1256,7 +1266,6 @@ html {
 
       #contentBody {
         margin: 30px 5%;
-        background-color: white;
         .inviteTitle {
           margin-bottom: 40px;
           border-radius: 20px 20px 0 0;
@@ -1289,6 +1298,7 @@ html {
           padding: 50px 8%;
           line-height: 57px;
           font-family: 'Special Elite',cursive;
+          background-color: white;
           ul {
             margin: 30px 0;
             border: dashed black 2px;
