@@ -178,17 +178,19 @@
           unset($_SESSION['message']);
         };
       ?>
-      <p>
-        As the director, you can change this group by simply inserting a new values in the below boxes. Then scroll to the bottom, where you can...
-      </p>
-      <ul>
-        <li>
-          complete your changes by clicking on 'ENTER'
-        </li>
-        <li>
-          ignore your changes and return to the previous page by clicking 'CANCEL'
-        </li>
-      </ul>
+      <div class="editIntro">
+        <p>
+          As the director, you can change this group by simply inserting a new values in the below boxes. Then scroll to the bottom, where you can...
+        </p>
+        <ul>
+          <li>
+            complete your changes by clicking on 'ENTER'
+          </li>
+          <li>
+            ignore your changes and return to the previous page by clicking 'CANCEL'
+          </li>
+        </ul>
+      </div>
       <form method="POST">
         <div id="changeBox">
           <table>
