@@ -349,7 +349,7 @@
             <td class="rowValue">
               <?php
                 echo(date('m/d/Y', $tournArray['selection_date']))
-              ?> EST
+              ?>
             </td>
           </tr>
           <tr>
@@ -357,7 +357,7 @@
             <td class="rowValue">
               <?php
                 echo(date('m/d/Y g:ia', $tournArray['start_date']))
-              ?>
+              ?> EST
             </td>
           </tr>
           <tr>
