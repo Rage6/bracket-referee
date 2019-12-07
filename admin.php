@@ -180,9 +180,6 @@
     $gameNum = 0;
     // Wildcard games
     if ($_SESSION['tournData']['wildcard'] == "1") {
-      // echo("<pre>");
-      // var_dump($_SESSION['changeInput']);
-      // echo("</pre>");
       for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
         $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
         $currentTeamsStmt->execute(array(
@@ -192,16 +189,13 @@
         $teamA = $bothTeams['team_a'];
         $teamB = $bothTeams['team_b'];
         if ($_SESSION['changeInput']['isWild_'.$oneWild] == "1") {
-
+          // The current game's current winner is necessary later.
           $getOldWinStmt = $pdo->prepare('SELECT winner_id FROM Games WHERE game_id=:gi');
           $getOldWinStmt->execute(array(
             ':gi'=>htmlentities($_SESSION['changeInput']['gameId_'.$oneWild])
           ));
           $oldWinId = $getOldWinStmt->fetch(PDO::FETCH_ASSOC)['winner_id'];
-          // echo("<pre>This is game 47 BEFORE the update: ");
-          // var_dump($testWildStmt->fetch(PDO::FETCH_ASSOC));
-          // echo("</pre>");
-
+          // Now the current game is updated...
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
           $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneWild]);
           $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
@@ -212,12 +206,6 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
-
-          // $testAfterWildStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=47');
-          // $testAfterWildStmt->execute();
-          // echo("<pre>This is game 47 AFTER the update: ");
-          // var_dump($testAfterWildStmt->fetch(PDO::FETCH_ASSOC));
-          // echo("</pre></br>");
 
         };
         $findNextGameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=:ng');
@@ -233,17 +221,6 @@
         if ($nextTeamB == NULL) {
           $nextTeamB = "0";
         };
-
-        // // For sister game info...
-        // $findSisterGameStmt = $pdo->prepare('SELECT winner_id FROM Games WHERE next_game=:ng AND game_id!=:cg');
-        // $findSisterGameStmt->execute(array(
-        //   ':ng'=>(int)$nextGame,
-        //   ':cg'=>(int)$gameId
-        // ));
-        // $sisterWinnerId = $findSisterGameStmt->fetch(PDO::FETCH_ASSOC)['winner_id'];
-        // if ($sisterWinnerId == NULL) {
-        //   $sisterWinnerId = "0";
-        // };
 
         // Changes the team ID that is either a) 0, or b) the old winner_id
         if ($nextTeamA == "0" || $nextTeamA == $oldWinId) {
@@ -353,12 +330,6 @@
     header('Location: admin.php');
     return true;
   };
-
-  // unset($_SESSION['nextTeamA']);
-  // unset($_SESSION['nextTeamB']);
-  // unset($_SESSION['sisterId']);
-  // unset($_SESSION['nextGame']);
-  // unset($_SESSION['changeInput']);
 
   // echo("<pre>");
   // echo("SESSION:");
