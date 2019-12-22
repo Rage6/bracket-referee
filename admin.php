@@ -181,13 +181,6 @@
     // Wildcard games
     if ($_SESSION['tournData']['wildcard'] == "1") {
       for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
-        $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
-        $currentTeamsStmt->execute(array(
-          ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneWild])
-        ));
-        $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
-        $teamA = $bothTeams['team_a'];
-        $teamB = $bothTeams['team_b'];
         if ($_SESSION['changeInput']['isWild_'.$oneWild] == "1") {
           // The current game's current winner is necessary later.
           $getOldWinStmt = $pdo->prepare('SELECT winner_id FROM Games WHERE game_id=:gi');
@@ -196,6 +189,8 @@
           ));
           $oldWinId = $getOldWinStmt->fetch(PDO::FETCH_ASSOC)['winner_id'];
           // Now the current game is updated...
+          $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
+          $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
           $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneWild]);
           $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
@@ -206,40 +201,41 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
-
-        };
-        $findNextGameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=:ng');
-        $findNextGameStmt->execute(array(
-          ':ng'=>(int)$nextGame
-        ));
-        $findNextGame = $findNextGameStmt->fetch(PDO::FETCH_ASSOC);
-        $nextTeamA = $findNextGame['team_a'];
-        if ($nextTeamA == NULL) {
-          $nextTeamA = "0";
-        };
-        $nextTeamB = $findNextGame['team_b'];
-        if ($nextTeamB == NULL) {
-          $nextTeamB = "0";
-        };
-
-        // Changes the team ID that is either a) 0, or b) the old winner_id
-        if ($nextTeamA == "0" || $nextTeamA == $oldWinId) {
-          $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
-        } else {
-          $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
-        };
-        // Update the targeted team column...
-        if ($nextGame != 0) {
-          $updateWinnerStmt->execute(array(
-            ':nwn'=>(int)$winner,
-            ':nx'=>(int)$nextGame
+          $findNextGameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=:ng');
+          $findNextGameStmt->execute(array(
+            ':ng'=>(int)$nextGame
           ));
+          $findNextGame = $findNextGameStmt->fetch(PDO::FETCH_ASSOC);
+          $nextTeamA = $findNextGame['team_a'];
+          if ($nextTeamA == NULL) {
+            $nextTeamA = "0";
+          };
+          $nextTeamB = $findNextGame['team_b'];
+          if ($nextTeamB == NULL) {
+            $nextTeamB = "0";
+          };
+
+          // Changes the team ID that is either a) 0, or b) the old winner_id
+          if ($nextTeamA == "0" || $nextTeamA == $oldWinId) {
+            $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
+          } else {
+            $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
+          };
+          // Update the targeted team column...
+          if ($nextGame != 0) {
+            $updateWinnerStmt->execute(array(
+              ':nwn'=>(int)$winner,
+              ':nx'=>(int)$nextGame
+            ));
+          };
         };
       };
       $gameNum = 0;
     };
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
+      $regWildStatus = "isWild_".$oneRegular;
+      $regThirdStatus = "isThird_".$oneRegular;
       $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
       $currentTeamsStmt->execute(array(
         ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular])
@@ -301,16 +297,11 @@
     // Third-place game
     if ($_SESSION['tournData']['third_place'] == "1") {
       for ($oneThird = $gameNum; $oneThird < $countChanges; $oneThird++) {
-        $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
-        $currentTeamsStmt->execute(array(
-          ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneThird])
-        ));
-        $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
-        $teamA = $bothTeams['team_a'];
-        $teamB = $bothTeams['team_b'];
         if ($_SESSION['changeInput']['isThird_'.$oneThird] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneThird]);
           $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneThird]);
+          $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneThird]);
+          $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneThird]);
           $upGameDataStmt = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
           $upGameDataStmt->execute(array(
             ':ta'=>(int)$teamA,
