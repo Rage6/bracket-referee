@@ -215,11 +215,25 @@
             $nextTeamB = "0";
           };
 
-          // Changes the team ID that is either a) 0, or b) the old winner_id
+          // Changes a team in the next game if either a) 0, or b) the old winner_id
           if ($nextTeamA == "0" || $nextTeamA == $oldWinId) {
+            // This updates the dB...
             $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
+            // ... and this updates the SESSION array.
+            for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+              if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+                $_SESSION['changeInput']['teamA_'.$oneCheck] = $winner;
+              };
+            };
           } else {
+            // This updates the dB...
             $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
+            // ... and this updates the SESSION array.
+            for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+              if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+                $_SESSION['changeInput']['teamB_'.$oneCheck] = $winner;
+              };
+            };
           };
           // Update the targeted team column...
           if ($nextGame != 0) {
@@ -242,8 +256,10 @@
           ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular])
         ));
         $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
-        $teamA = $bothTeams['team_a'];
-        $teamB = $bothTeams['team_b'];
+        // $teamA = $bothTeams['team_a'];
+        // $teamB = $bothTeams['team_b'];
+        $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneRegular]);
+        $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneRegular]);
         $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
         $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneRegular]);
         $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneRegular]);
@@ -281,15 +297,24 @@
         };
         if ($nextTeamA == $sisterWinnerId) {
           $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
+          $teamKey = 'teamB_';
         } else {
           $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
+          $teamKey = 'teamA_';
         };
         // Update the targeted team column...
         if ($nextGame != 0) {
+          // Updates the database...
           $updateWinnerStmt->execute(array(
             ':nwn'=>(int)$winner,
             ':nx'=>(int)$nextGame
           ));
+          // ... and updates the SESSION array.
+          for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+            if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+              $_SESSION['changeInput'][$teamKey.$oneCheck] = $winner;
+            };
+          };
         };
       };
     };
@@ -309,6 +334,7 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
+          // Note: Unlike the interaction between the 'regular' games and 'wildcard' games, the 'third-game' does not automatically recieve its games. This is why it doesn't need to update it on the SESSION array. 
         };
       };
       $gameNum = 0;
