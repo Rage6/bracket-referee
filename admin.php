@@ -234,16 +234,16 @@
     };
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
-      $regWildStatus = "isWild_".$oneRegular;
-      $regThirdStatus = "isThird_".$oneRegular;
-      $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
-      $currentTeamsStmt->execute(array(
-        ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular])
-      ));
-      $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
-      $teamA = $bothTeams['team_a'];
-      $teamB = $bothTeams['team_b'];
       if ($_SESSION['changeInput']['isWild_'.$oneRegular] == "0" && $_SESSION['changeInput']['isThird_'.$oneRegular] == "0") {
+        $regWildStatus = "isWild_".$oneRegular;
+        $regThirdStatus = "isThird_".$oneRegular;
+        $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
+        $currentTeamsStmt->execute(array(
+          ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular])
+        ));
+        $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
+        $teamA = $bothTeams['team_a'];
+        $teamB = $bothTeams['team_b'];
         $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
         $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneRegular]);
         $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneRegular]);
