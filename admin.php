@@ -334,7 +334,7 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
-          // Note: Unlike the interaction between the 'regular' games and 'wildcard' games, the 'third-game' does not automatically recieve its games. This is why it doesn't need to update it on the SESSION array. 
+          // Note: Unlike the interaction between the 'regular' games and 'wildcard' games, the 'third-game' does not automatically recieve its games. This is why it doesn't need to update it on the SESSION array.
         };
       };
       $gameNum = 0;
@@ -623,8 +623,16 @@
                         <td>
                           ".$teamBnameReg."
                         </td>
-                      </tr>
-                    </table>
+                      </tr>");
+                      if ($oneID['get_wildcard'] == 1) {
+                      echo("
+                      <tr>
+                        <td style='background-color:red;color:white'>
+                          WILDCARD WINNER
+                        </td>
+                      </tr>");
+                      };
+                    echo("</table>
                   </div>"
                 );
                 if ($currentColor == "white") {
