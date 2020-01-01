@@ -175,15 +175,24 @@
   // To change the teams and/or winners of a tournament's games
   if (isset($_POST['changeGames'])) {
     $_SESSION['changeInput'] = $_POST;
-    $countChanges = ((count($_SESSION['changeInput']) - 1) / 6);
+    $countChanges = ((count($_SESSION['changeInput']) - 1) / 7);
+    // Note: $countChanges used the number 7 because there are 7 POST values for each game
     $gameNum = 0;
     // Wildcard games
     if ($_SESSION['tournData']['wildcard'] == "1") {
       for ($oneWild = $gameNum; $oneWild < $countChanges; $oneWild++) {
         if ($_SESSION['changeInput']['isWild_'.$oneWild] == "1") {
-          $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
+          // The current game's current winner is necessary later.
+          $getOldWinStmt = $pdo->prepare('SELECT winner_id FROM Games WHERE game_id=:gi');
+          $getOldWinStmt->execute(array(
+            ':gi'=>htmlentities($_SESSION['changeInput']['gameId_'.$oneWild])
+          ));
+          $oldWinId = $getOldWinStmt->fetch(PDO::FETCH_ASSOC)['winner_id'];
+          // Now the current game is updated...
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneWild]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneWild]);
+          $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneWild]);
+          $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneWild]);
           $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneWild]);
           $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
           $upGameData->execute(array(
@@ -192,6 +201,47 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
+          $findNextGameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=:ng');
+          $findNextGameStmt->execute(array(
+            ':ng'=>(int)$nextGame
+          ));
+          $findNextGame = $findNextGameStmt->fetch(PDO::FETCH_ASSOC);
+          $nextTeamA = $findNextGame['team_a'];
+          if ($nextTeamA == NULL) {
+            $nextTeamA = "0";
+          };
+          $nextTeamB = $findNextGame['team_b'];
+          if ($nextTeamB == NULL) {
+            $nextTeamB = "0";
+          };
+
+          // Changes a team in the next game if either a) 0, or b) the old winner_id
+          if ($nextTeamA == "0" || $nextTeamA == $oldWinId) {
+            // This updates the dB...
+            $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
+            // ... and this updates the SESSION array.
+            for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+              if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+                $_SESSION['changeInput']['teamA_'.$oneCheck] = $winner;
+              };
+            };
+          } else {
+            // This updates the dB...
+            $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
+            // ... and this updates the SESSION array.
+            for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+              if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+                $_SESSION['changeInput']['teamB_'.$oneCheck] = $winner;
+              };
+            };
+          };
+          // Update the targeted team column...
+          if ($nextGame != 0) {
+            $updateWinnerStmt->execute(array(
+              ':nwn'=>(int)$winner,
+              ':nx'=>(int)$nextGame
+            ));
+          };
         };
       };
       $gameNum = 0;
@@ -199,9 +249,19 @@
     // Regular games
     for ($oneRegular = $gameNum; $oneRegular < $countChanges; $oneRegular++) {
       if ($_SESSION['changeInput']['isWild_'.$oneRegular] == "0" && $_SESSION['changeInput']['isThird_'.$oneRegular] == "0") {
-        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
+        $regWildStatus = "isWild_".$oneRegular;
+        $regThirdStatus = "isThird_".$oneRegular;
+        $currentTeamsStmt = $pdo->prepare("SELECT team_a,team_b FROM Games WHERE game_id=:gm");
+        $currentTeamsStmt->execute(array(
+          ':gm'=> htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular])
+        ));
+        $bothTeams = $currentTeamsStmt->fetch(PDO::FETCH_ASSOC);
+        // $teamA = $bothTeams['team_a'];
+        // $teamB = $bothTeams['team_b'];
         $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneRegular]);
         $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneRegular]);
+        $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneRegular]);
+        $nextGame = htmlentities($_SESSION['changeInput']['nextGame_'.$oneRegular]);
         $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneRegular]);
         $upGameData = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
         $upGameData->execute(array(
@@ -210,6 +270,52 @@
           ':wn'=>(int)$winner,
           ':gid'=>(int)$gameId
         ));
+        // This is supposed to change update the next games teams after a winner is added to the current game.
+        // For next game info...
+        $findNextGameStmt = $pdo->prepare('SELECT game_id,team_a,team_b FROM Games WHERE game_id=:ng');
+        $findNextGameStmt->execute(array(
+          ':ng'=>(int)$nextGame
+        ));
+        $findNextGame = $findNextGameStmt->fetch(PDO::FETCH_ASSOC);
+        $nextTeamA = $findNextGame['team_a'];
+        if ($nextTeamA == NULL) {
+          $nextTeamA = "0";
+        };
+        $nextTeamB = $findNextGame['team_b'];
+        if ($nextTeamB == NULL) {
+          $nextTeamB = "0";
+        };
+        // For sister game info...
+        $findSisterGameStmt = $pdo->prepare('SELECT winner_id FROM Games WHERE next_game=:ng AND game_id!=:cg');
+        $findSisterGameStmt->execute(array(
+          ':ng'=>(int)$nextGame,
+          ':cg'=>(int)$gameId
+        ));
+        $sisterWinnerId = $findSisterGameStmt->fetch(PDO::FETCH_ASSOC)['winner_id'];
+        if ($sisterWinnerId == NULL) {
+          $sisterWinnerId = "0";
+        };
+        if ($nextTeamA == $sisterWinnerId) {
+          $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_b=:nwn WHERE game_id=:nx');
+          $teamKey = 'teamB_';
+        } else {
+          $updateWinnerStmt = $pdo->prepare('UPDATE Games SET team_a=:nwn WHERE game_id=:nx');
+          $teamKey = 'teamA_';
+        };
+        // Update the targeted team column...
+        if ($nextGame != 0) {
+          // Updates the database...
+          $updateWinnerStmt->execute(array(
+            ':nwn'=>(int)$winner,
+            ':nx'=>(int)$nextGame
+          ));
+          // ... and updates the SESSION array.
+          for ($oneCheck = 0; $oneCheck < $countChanges; $oneCheck++) {
+            if ($_SESSION['changeInput']['gameId_'.$oneCheck] == $nextGame) {
+              $_SESSION['changeInput'][$teamKey.$oneCheck] = $winner;
+            };
+          };
+        };
       };
     };
     $gameNum = 0;
@@ -218,9 +324,9 @@
       for ($oneThird = $gameNum; $oneThird < $countChanges; $oneThird++) {
         if ($_SESSION['changeInput']['isThird_'.$oneThird] == "1") {
           $gameId = htmlentities($_SESSION['changeInput']['gameId_'.$oneThird]);
+          $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneThird]);
           $teamA = htmlentities($_SESSION['changeInput']['teamA_'.$oneThird]);
           $teamB = htmlentities($_SESSION['changeInput']['teamB_'.$oneThird]);
-          $winner = htmlentities($_SESSION['changeInput']['gameWin_'.$oneThird]);
           $upGameDataStmt = $pdo->prepare('UPDATE Games SET team_a=:ta,team_b=:tb,winner_id=:wn WHERE game_id=:gid');
           $upGameDataStmt->execute(array(
             ':ta'=>(int)$teamA,
@@ -228,6 +334,7 @@
             ':wn'=>(int)$winner,
             ':gid'=>(int)$gameId
           ));
+          // Note: Unlike the interaction between the 'regular' games and 'wildcard' games, the 'third-game' does not automatically recieve its games. This is why it doesn't need to update it on the SESSION array.
         };
       };
       $gameNum = 0;
@@ -243,7 +350,7 @@
 
   // echo("<pre>");
   // echo("SESSION:");
-  // print_r($_SESSION);
+  // var_dump($_SESSION);
   // echo("POST:");
   // print_r($_POST);
   // echo("GET:");
@@ -413,6 +520,7 @@
                         </tr>
                         <tr>
                           <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                          <input type='hidden' name='nextGame_".$gameNum."' value=".(int)$oneID['next_game']." />
                           <input type='hidden' name='isWild_".$gameNum."' value='1' />
                           <input type='hidden' name='isThird_".$gameNum."' value='0' />
                           <td>
@@ -495,6 +603,7 @@
                       </tr>
                       <tr>
                         <input type='hidden' name='gameId_".$gameNum."' value=".(int)$oneID['game_id']." />
+                        <input type='hidden' name='nextGame_".$gameNum."' value=".(int)$oneID['next_game']." />
                         <input type='hidden' name='isWild_".$gameNum."' value='0' />
                         <input type='hidden' name='isThird_".$gameNum."' value='0' />
                         <td>
@@ -504,7 +613,7 @@
                           <input type='text' name='teamB_".$gameNum."' value=".(int)$oneID['team_b']." />
                         </td>
                         <td>
-                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']."
+                          <input type='text' name='gameWin_".$gameNum."' value=".(int)$oneID['winner_id']." />
                         </td>
                       </tr>
                       <tr>
@@ -514,8 +623,16 @@
                         <td>
                           ".$teamBnameReg."
                         </td>
-                      </tr>
-                    </table>
+                      </tr>");
+                      if ($oneID['get_wildcard'] == 1) {
+                      echo("
+                      <tr>
+                        <td style='background-color:red;color:white'>
+                          WILDCARD WINNER
+                        </td>
+                      </tr>");
+                      };
+                    echo("</table>
                   </div>"
                 );
                 if ($currentColor == "white") {

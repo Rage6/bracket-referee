@@ -5,6 +5,9 @@ html {
   body {
     margin: 0px;
     padding: 0px;
+    background-size: 80px 80px;
+    background-position: 0 0, 0 40px, 40px -40px, -40px 0px;
+    background-image: linear-gradient(45deg, #e3e3e3 25%, transparent 25%), linear-gradient(-45deg, #e3e3e3 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e3e3e3 5%), linear-gradient(-45deg, transparent 75%, #e3e3e3 75%);
     // ----------- INDEX.PHP FILE BEGINS -----------
     #indexWords {
       margin: 0px;
@@ -125,12 +128,16 @@ html {
         margin: 50px 0% 0px 0%;
         text-align: center;
         .introParagraph {
-          margin: 0 10% 0 10%;
-          b {;
+          margin: 0 5% 60px 5%;
+          background-color: white;
+          padding: 20px 5%;
+          b {
             font-size: 5rem;
             font-family: 'Staatliches', cursive;
           };
           p {
+            margin-block-start: 0;
+            margin-block-end: 0;
             padding-bottom: 30px;
             text-align: left;
             font-size: 3rem;
@@ -149,7 +156,7 @@ html {
           };
         };
         .imageBorder {
-          margin-bottom: 100px;
+          margin-bottom: 60px;
           background-size: cover;
           height: 225px;
           width: 100%;
@@ -493,11 +500,14 @@ html {
           width: 90%;
           th {
             border: 2px solid black;
+            color: white;
+            background-color: black;
           };
           td {
             border: 2px solid black;
             input {
               font-size: 3rem;
+              width: 99%;
             };
           };
         };
@@ -564,11 +574,12 @@ html {
       #deleteBox {
         padding: 30px 0;
         border: 10px solid red;
-        color: red;
+        color: white;
         font-size: 4rem;
         text-align: center;
+        background-color: red;
         #warning {
-          color: red;
+          color: white;
           margin-bottom: 50px;
         };
         div {
@@ -589,6 +600,7 @@ html {
             padding: 10px;
             color: black;
             font-size: 2rem;
+            background-color: lightgrey;
             cursor: pointer;
           };
         };
@@ -668,6 +680,7 @@ html {
             };
             .rowValue {
               padding: 0 15px;
+              background-color: white;
             };
             #grpEditBttn {
               border: none;
@@ -738,6 +751,7 @@ html {
         margin: 0px 10% 80px 10%;
         border: 4px dashed black;
         padding: 30px 5%;
+        background-color: white;
         width: 70%;
         #inviteTitle {
           color: rgb(181,7,7);
@@ -809,6 +823,7 @@ html {
             };
           };
           tr {
+            background-color: white;
             td {
               border: 1px solid black;
               padding: 15px;
@@ -1091,16 +1106,21 @@ html {
         font-size: 3rem;
         text-align: center;
       };
-      p {
-        margin: 0 10% 50px 10%;
-        font-size: 2.5rem;
-      };
-      ul {
-        margin-left:15%;
-        font-size:2.5rem;
-        width:70%;
-        li {
+      .editIntro {
+        // margin-left: 5%;
+        background-color: white;
+        // width: 90%;
+        p {
+          margin: 0 10% 50px 10%;
+          font-size: 2.5rem;
+        };
+        ul {
+          margin-left:15%;
+          font-size:2.5rem;
+          width:70%;
+          li {
 
+          };
         };
       };
       form {
@@ -1123,6 +1143,7 @@ html {
                 padding: 5px;
                 text-align: center;
                 vertical-align: middle;
+                background-color: grey;
               };
               td {
                 border: 4px solid black;
@@ -1221,7 +1242,7 @@ html {
           #warningGrp {
             margin-bottom: 30px;
             font-size: 2.7rem;
-            color: red;
+            color: black;
             text-align: center;
           };
           p {
@@ -1256,7 +1277,6 @@ html {
 
       #contentBody {
         margin: 30px 5%;
-        background-color: white;
         .inviteTitle {
           margin-bottom: 40px;
           border-radius: 20px 20px 0 0;
@@ -1289,6 +1309,7 @@ html {
           padding: 50px 8%;
           line-height: 57px;
           font-family: 'Special Elite',cursive;
+          background-color: white;
           ul {
             margin: 30px 0;
             border: dashed black 2px;
@@ -1372,7 +1393,7 @@ html {
         #makeTitle {
           border-radius: 30px;
           padding: 40px 0;
-          font-size: 8rem;
+          font-size: 6rem;
           font-family: 'Bevan', cursive;
           color: rgb(181,7,7);
           text-align: center;
@@ -1490,7 +1511,9 @@ html {
           padding: 10px 15px;
           border: 1px solid green;
           border-radius: 15px;
+          color: white;
           font-size: 2.5rem;
+          background-color: black;
         };
       };
       #titleBkgd {

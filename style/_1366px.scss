@@ -472,6 +472,7 @@ html {
             border-radius: 15px;
             padding: 0;
             padding-top: 20px;
+            background-color: white;
             width: 40%;
           };
           #titleTab {
@@ -680,7 +681,7 @@ html {
         };
         .scrollMsg {
           @media only screen and (min-width: $min) {
-            
+
           };
           .oneMsgBox {
 
@@ -813,15 +814,17 @@ html {
       b {
 
       };
-      p {
-        @media only screen and (min-width: $min) {
-          margin-left: 15%;
-          width: 70%;
+      .editIntro {
+        p {
+          @media only screen and (min-width: $min) {
+            margin-left: 15%;
+            width: 70%;
+          };
         };
-      };
-      ul {
-        li {
+        ul {
+          li {
 
+          };
         };
       };
       form {
@@ -1004,6 +1007,7 @@ html {
           margin-left: 5%;
           border: 1px solid black;
           padding-top: 50px;
+          background-color: lightgreen;
           display: flex;
           align-items: flex-start;
           overflow-x: auto;
@@ -1075,11 +1079,16 @@ html {
       #titleBkgd {
 
         #viewTitle {
-
+          @media only screen and (min-width: $min) {
+            font-size: 6rem;
+          };
         };
       };
       #statsBox {
-
+        @media only screen and (min-width: $min) {
+          margin: 80px 20% 80px 20%;
+          font-size: 4rem;
+        };
         #plyrName {
 
         };

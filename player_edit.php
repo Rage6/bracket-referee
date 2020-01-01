@@ -239,8 +239,8 @@
           </tr>
         </table>
         <div id="plyrEditBttns">
-          <input class="onePlyrEditBttn" type='submit' name='submit' value='SUBMIT'/>
-          <input class="onePlyrEditBttn" type='submit' name='cancel' value='CANCEL'/>
+          <input class="onePlyrEditBttn" style="background-color:lightblue" type='submit' name='submit' value='SUBMIT'/>
+          <input class="onePlyrEditBttn" style="background-color:lightgrey" type='submit' name='cancel' value='CANCEL'/>
         </div>
       </form>
       <div id="delAndPsBox">
